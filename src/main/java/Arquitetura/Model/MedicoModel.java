@@ -20,7 +20,7 @@ public class MedicoModel extends UsuarioModel{
         this.plantao = plantao;
         this.especialidade = especialidade;
         this.formacao = formacao;
-        this.tipoUsuario = "Médico";
+        setTipoUsuario("Médico");
         this.subEspecialidade = "N/A";
     }
 

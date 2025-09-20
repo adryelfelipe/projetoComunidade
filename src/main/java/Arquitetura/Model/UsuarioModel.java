@@ -3,13 +3,13 @@ package Arquitetura.Model;
 public class UsuarioModel {
 
     // Atributos
-    String nome;
+    private String nome;
 
-    String cpf;
+    private String cpf;
 
-    String senha;
+    private String senha;
 
-    String tipoUsuario;
+    private String tipoUsuario;
 
     int id;
 
@@ -39,6 +39,10 @@ public class UsuarioModel {
 
     public String getTipoUsuario() {
         return tipoUsuario;
+    }
+
+    public void setTipoUsuario(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 
     public String getSenha() {

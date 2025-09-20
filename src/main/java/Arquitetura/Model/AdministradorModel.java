@@ -12,7 +12,7 @@ public class AdministradorModel extends UsuarioModel{
         super(nome, cpf, senha);
         this.salario = salario;
         this.cargaHoraria = cargaHoraria;
-        this.tipoUsuario = "Administrador";
+        setTipoUsuario("Administrador");
     }
 
     // Setters e Getters
