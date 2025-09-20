@@ -7,9 +7,9 @@ public class AdministradorModel extends UsuarioModel{
     private int cargaHoraria;
 
     // Construtor
-    public AdministradorModel(String nome, String cpf, String senha, double salario, int cargaHoraria)
+    public AdministradorModel(String nome, String cpf, String senha, double salario, int cargaHoraria, String sexo, String telefone, String email, String dataNascimento)
     {
-        super(nome, cpf, senha);
+        super(nome, cpf, senha, sexo, telefone, email, dataNascimento);
         this.salario = salario;
         this.cargaHoraria = cargaHoraria;
         setTipoUsuario("Administrador");
