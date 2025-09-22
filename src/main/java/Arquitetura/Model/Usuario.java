@@ -1,6 +1,6 @@
 package Arquitetura.Model;
 
-public class UsuarioModel {
+public class Usuario {
 
     // Atributos
     private String nome;
@@ -14,7 +14,7 @@ public class UsuarioModel {
     int id;
 
     // Construtor
-    public UsuarioModel(String nome, String cpf, String senha, String sexo, String telefone, String email, String dataNascimento) {
+    public Usuario(String nome, String cpf, String senha, String sexo, String telefone, String email, String dataNascimento) {
         this.senha = senha;
         this.nome = nome;
         this.cpf = cpf;

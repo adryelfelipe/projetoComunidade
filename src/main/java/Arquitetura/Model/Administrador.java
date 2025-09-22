@@ -1,13 +1,13 @@
 package Arquitetura.Model;
 
-public class AdministradorModel extends UsuarioModel{
+public class Administrador extends Usuario {
 
     // Atributos
     private double salario;
     private int cargaHoraria;
 
     // Construtor
-    public AdministradorModel(String nome, String cpf, String senha, double salario, int cargaHoraria, String sexo, String telefone, String email, String dataNascimento)
+    public Administrador(String nome, String cpf, String senha, double salario, int cargaHoraria, String sexo, String telefone, String email, String dataNascimento)
     {
         super(nome, cpf, senha, sexo, telefone, email, dataNascimento);
         this.salario = salario;
