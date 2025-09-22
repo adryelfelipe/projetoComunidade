@@ -1,6 +1,8 @@
 package Arquitetura.Model;
 
-public class UsuarioModel {
+import java.sql.Date;
+
+public class Usuario {
 
     // Atributos
     private String nome;
@@ -9,12 +11,12 @@ public class UsuarioModel {
     private String sexo;
     private String telefone;
     private String email;
-    private String dataNascimento;
+    private Date dataNascimento;
     private String tipoUsuario;
-    int id;
+    private int id;
 
     // Construtor
-    public UsuarioModel(String nome, String cpf, String senha, String sexo, String telefone, String email, String dataNascimento) {
+    public Usuario(String nome, String cpf, String senha, String sexo, String telefone, String email, Date dataNascimento) {
         this.senha = senha;
         this.nome = nome;
         this.cpf = cpf;
@@ -57,11 +59,11 @@ public class UsuarioModel {
         this.email = email;
     }
 
-    public String getDataNascimento() {
+    public Date getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(String dataNascimento) {
+    public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

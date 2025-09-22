@@ -1,6 +1,8 @@
 package Arquitetura.Model;
 
-public class MedicoModel extends UsuarioModel{
+import java.sql.Date;
+
+public class Medico extends Usuario {
 
     //Atributos
     private double salario;
@@ -13,7 +15,7 @@ public class MedicoModel extends UsuarioModel{
     //Construtores
 
     // Não possui subEspecialidade
-    public MedicoModel(String nome, String cpf, String senha, double salario, int cargaHorariaSemanal, String plantao, String especialidade, String formacao, String sexo, String telefone, String email, String dataNascimento) {
+    public Medico(String nome, String cpf, String senha, double salario, int cargaHorariaSemanal, String plantao, String especialidade, String formacao, String sexo, String telefone, String email, Date dataNascimento) {
         super(nome,cpf,senha, sexo, telefone, email, dataNascimento);
         this.cargaHorariaSemanal = cargaHorariaSemanal;
         this.salario = salario;
@@ -25,7 +27,7 @@ public class MedicoModel extends UsuarioModel{
     }
 
     // Possui subEspecialidade
-    public MedicoModel(String nome, String cpf, String senha, double salario, int cargaHorariaSemanal, String plantao, String especialidade, String formacao, String subEspecialidade, String sexo, String telefone, String email, String dataNascimento) {
+    public Medico(String nome, String cpf, String senha, double salario, int cargaHorariaSemanal, String plantao, String especialidade, String formacao, String subEspecialidade, String sexo, String telefone, String email, Date dataNascimento) {
         this(nome, cpf, senha, salario, cargaHorariaSemanal, plantao, especialidade, formacao, sexo, telefone, email, dataNascimento);
         this.subEspecialidade = subEspecialidade;
     }
