@@ -1,5 +1,7 @@
 package Arquitetura.Model;
 
+import java.sql.Date;
+
 public class Paciente extends Usuario{
 
     // Atributos
@@ -8,7 +10,7 @@ public class Paciente extends Usuario{
     private String numeroCarterinha;
 
     // Construtor
-    public Paciente(String nome, String cpf, String senha, String sexo, String telefone, String email,String dataNascimento, String contatoEmergencia, String statusPaciente, String numeroCarterinha)
+    public Paciente(String nome, String cpf, String senha, String sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String statusPaciente, String numeroCarterinha)
     {
         super(nome, cpf, senha, sexo, telefone, email,dataNascimento);
         this.contatoEmergencia = contatoEmergencia;
