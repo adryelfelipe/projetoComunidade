@@ -1,4 +1,4 @@
 package Arquitetura.Dao;
 
-public class a {
+public class UsuarioDAO {
 }
