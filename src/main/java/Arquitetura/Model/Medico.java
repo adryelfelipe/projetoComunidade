@@ -14,7 +14,7 @@ public class Medico extends Usuario {
 
     //Construtores
 
-    // Não possui subEspecialidade
+    // Não possui subEspecialidade nem id
     public Medico(String nome, String cpf, String senha, double salario, int cargaHorariaSemanal, String plantao, String especialidade, String formacao, String sexo, String telefone, String email, Date dataNascimento) {
         super(nome,cpf,senha, sexo, telefone, email, dataNascimento);
         this.cargaHorariaSemanal = cargaHorariaSemanal;
@@ -26,7 +26,21 @@ public class Medico extends Usuario {
         this.subEspecialidade = "N/A";
     }
 
-    // Possui subEspecialidade
+    // Não possui subEspecialidade e possui ID
+    public Medico(int id, String nome, String cpf, String senha, double salario, int cargaHorariaSemanal, String plantao, String especialidade, String formacao, String sexo, String telefone, String email, Date dataNascimento) {
+        this(nome, cpf, senha, salario, cargaHorariaSemanal, plantao, especialidade, formacao, sexo, telefone, email, dataNascimento);
+        this.subEspecialidade = "N/A";
+        this.setId(id);
+    }
+
+    // Possui subEspecialidade e possui ID
+    public Medico(int id, String nome, String cpf, String senha, double salario, int cargaHorariaSemanal, String plantao, String especialidade, String formacao, String subEspecialidade, String sexo, String telefone, String email, Date dataNascimento) {
+        this(nome, cpf, senha, salario, cargaHorariaSemanal, plantao, especialidade, formacao, sexo, telefone, email, dataNascimento);
+        this.subEspecialidade = subEspecialidade;
+        this.setId(id);
+    }
+
+    // Possui subEspecialidade e não possui ID
     public Medico(String nome, String cpf, String senha, double salario, int cargaHorariaSemanal, String plantao, String especialidade, String formacao, String subEspecialidade, String sexo, String telefone, String email, Date dataNascimento) {
         this(nome, cpf, senha, salario, cargaHorariaSemanal, plantao, especialidade, formacao, sexo, telefone, email, dataNascimento);
         this.subEspecialidade = subEspecialidade;
