@@ -48,7 +48,9 @@ public class Medico extends Usuario {
 
     //Getters & Setters
     public void setCargaHorariaSemanal(int cargaHorariaSemanal) {
-        this.cargaHorariaSemanal = cargaHorariaSemanal;
+        if(cargaHorariaSemanal > 0) {
+            this.cargaHorariaSemanal = cargaHorariaSemanal;
+        }
     }
 
     public int getCargaHorariaSemanal() {
@@ -56,7 +58,9 @@ public class Medico extends Usuario {
     }
 
     public void setEspecialidade(String especialidade) {
-        this.especialidade = especialidade;
+        if(!especialidade.isEmpty()) {
+            this.especialidade = especialidade;
+        }
     }
 
     public String getEspecialidade() {
@@ -64,7 +68,9 @@ public class Medico extends Usuario {
     }
 
     public void setFormacao(String formacao) {
-        this.formacao = formacao;
+        if(!formacao.isEmpty()) {
+            this.formacao = formacao;
+        }
     }
 
     public String getFormacao() {
@@ -72,7 +78,9 @@ public class Medico extends Usuario {
     }
 
     public void setPlantao(String plantao) {
-        this.plantao = plantao;
+        if(!plantao.isEmpty()) {
+            this.plantao = plantao;
+        }
     }
 
     public String getPlantao() {
@@ -80,7 +88,9 @@ public class Medico extends Usuario {
     }
 
     public void setSalario(double salario) {
-        this.salario = salario;
+        if(salario > 0.0) {
+            this.salario = salario;
+        }
     }
 
     public double getSalario() {
@@ -88,7 +98,9 @@ public class Medico extends Usuario {
     }
 
     public void setSubEspecialidade(String subEspecialidade) {
-        this.subEspecialidade = subEspecialidade;
+        if(!subEspecialidade.isEmpty()) {
+            this.subEspecialidade = subEspecialidade;
+        }
     }
 
     public String getSubEspecialidade() {
