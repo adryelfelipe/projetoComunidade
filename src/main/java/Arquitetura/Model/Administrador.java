@@ -18,7 +18,7 @@ public class Administrador extends Usuario {
     }
 
     // Construtor com id
-    public Administrador(int id, String nome, String cpf, String senha, double salario, int cargaHoraria, String sexo, String telefone, String email, Date dataNascimento) {
+    public Administrador(long id, String nome, String cpf, String senha, double salario, int cargaHoraria, String sexo, String telefone, String email, Date dataNascimento) {
         this(nome, cpf, senha, salario, cargaHoraria, sexo, telefone, email, dataNascimento);
         this.setId(id);
     }

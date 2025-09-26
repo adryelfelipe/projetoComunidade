@@ -13,7 +13,7 @@ public abstract class Usuario {
     private String email;
     private Date dataNascimento;
     private String tipoUsuario;
-    private int id;
+    private long id;
 
     // Construtor
     public Usuario(String nome, String cpf, String senha, String sexo, String telefone, String email, Date dataNascimento) {
@@ -67,11 +67,11 @@ public abstract class Usuario {
         this.dataNascimento = dataNascimento;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

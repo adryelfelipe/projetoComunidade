@@ -18,7 +18,7 @@ public class Paciente extends Usuario{
         this.numeroCarterinha = numeroCarterinha;
     }
 
-    public Paciente(int id, String nome, String cpf, String senha, String sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String statusPaciente, String numeroCarterinha) {
+    public Paciente(long id, String nome, String cpf, String senha, String sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String statusPaciente, String numeroCarterinha) {
         this(nome, cpf, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, statusPaciente, numeroCarterinha);
         this.setId(id);
     }
