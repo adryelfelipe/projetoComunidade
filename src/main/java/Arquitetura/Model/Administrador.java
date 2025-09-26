@@ -25,7 +25,9 @@ public class Administrador extends Usuario {
 
     // Setters e Getters
     public void setSalario(double salario) {
-        this.salario = salario;
+        if(salario > 0.0) {
+            this.salario = salario;
+        }
     }
 
     public double getSalario() {
@@ -33,7 +35,9 @@ public class Administrador extends Usuario {
     }
 
     public void setCargaHoraria(int cargaHoraria) {
-        this.cargaHoraria = cargaHoraria;
+        if(cargaHoraria > 0) {
+            this.cargaHoraria = cargaHoraria;
+        }
     }
 
     public int getCargaHoraria() {

@@ -28,7 +28,9 @@ public class Paciente extends Usuario{
     }
 
     public void setContatoEmergencia(String contatoEmergencia) {
-        this.contatoEmergencia = contatoEmergencia;
+        if(!contatoEmergencia.isEmpty()) {
+            this.contatoEmergencia = contatoEmergencia;
+        }
     }
 
     // Métodos
