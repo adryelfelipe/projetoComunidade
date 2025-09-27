@@ -7,7 +7,7 @@ import java.sql.*;
 
 public class UsuarioDAO {
 
-    public int inserirUsuario(Usuario usuario) throws SQLException{
+    public void inserirUsuario(Usuario usuario){
 
         String sql = "INSERT INTO Usuario (senha, nomeUsuario, sexo, cpf, telefone, tipoUsuario, email, dataNascimento) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         int idGerado = -1;
@@ -40,9 +40,7 @@ public class UsuarioDAO {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Ocorreu um erro a inserir o Usuario: ", e);
+            System.out.println("Erro ao inserir o Usuario: "+e.getMessage());
         }
-
-        return idGerado;
     }
 }
