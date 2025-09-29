@@ -13,7 +13,7 @@ public class Usuario {
     private String email;
     private Date dataNascimento;
     private String tipoUsuario;
-    private int id;
+    private long id;
 
     // Construtor
     public Usuario(String nome, String cpf, String senha, String sexo, String telefone, String email, Date dataNascimento) {
@@ -32,7 +32,9 @@ public class Usuario {
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        if(!nome.isEmpty()) {
+            this.nome = nome;
+        }
     }
 
     public String getSexo() {
@@ -40,7 +42,9 @@ public class Usuario {
     }
 
     public void setSexo(String sexo) {
-        this.sexo = sexo;
+        if(!sexo.isEmpty()) {
+            this.sexo = sexo;
+        }
     }
 
     public String getTelefone() {
@@ -48,7 +52,9 @@ public class Usuario {
     }
 
     public void setTelefone(String telefone) {
-        this.telefone = telefone;
+        if(!telefone.isEmpty()) {
+            this.telefone = telefone;
+        }
     }
 
     public String getEmail() {
@@ -56,7 +62,9 @@ public class Usuario {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        if(!email.isEmpty()) {
+            this.email = email;
+        }
     }
 
     public Date getDataNascimento() {
@@ -67,12 +75,14 @@ public class Usuario {
         this.dataNascimento = dataNascimento;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(long id) {
+        if(id > 0) {
+            this.id = id;
+        }
     }
 
     public String getTipoUsuario() {
@@ -80,7 +90,9 @@ public class Usuario {
     }
 
     public void setTipoUsuario(String tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
+        if(!tipoUsuario.isEmpty()) {
+            this.tipoUsuario = tipoUsuario;
+        }
     }
 
     public String getSenha() {
@@ -88,7 +100,9 @@ public class Usuario {
     }
 
     public void setSenha(String senha) {
+        if(!senha.isEmpty()){
         this.senha = senha;
+        }
     }
 
     public String getCpf() {
@@ -96,7 +110,9 @@ public class Usuario {
     }
 
     public void setCpf(String cpf) {
-        this.cpf = cpf;
+        if(!cpf.isEmpty()) {
+            this.cpf = cpf;
+        }
     }
 
     // Métodos

@@ -10,12 +10,16 @@ public class Paciente extends Usuario{
     private String numeroCarterinha;
 
     // Construtor
-    public Paciente(String nome, String cpf, String senha, String sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String statusPaciente, String numeroCarterinha)
+    public Paciente(String nome, String cpf, String senha, String sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCarterinha)
     {
         super(nome, cpf, senha, sexo, telefone, email,dataNascimento);
         this.contatoEmergencia = contatoEmergencia;
-        this.statusPaciente = statusPaciente;
         this.numeroCarterinha = numeroCarterinha;
+    }
+
+    public Paciente(long id, String nome, String cpf, String senha, String sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCarterinha) {
+        this(nome, cpf, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numeroCarterinha);
+        this.setId(id);
     }
 
     // Setters e Getters
@@ -24,7 +28,9 @@ public class Paciente extends Usuario{
     }
 
     public void setContatoEmergencia(String contatoEmergencia) {
-        this.contatoEmergencia = contatoEmergencia;
+        if(!contatoEmergencia.isEmpty()) {
+            this.contatoEmergencia = contatoEmergencia;
+        }
     }
 
     // Métodos

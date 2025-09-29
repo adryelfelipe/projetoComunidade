@@ -8,7 +8,7 @@ public class Administrador extends Usuario {
     private double salario;
     private int cargaHoraria;
 
-    // Construtor
+    // Construtor sem id
     public Administrador(String nome, String cpf, String senha, double salario, int cargaHoraria, String sexo, String telefone, String email, Date dataNascimento)
     {
         super(nome, cpf, senha, sexo, telefone, email, dataNascimento);
@@ -17,9 +17,17 @@ public class Administrador extends Usuario {
         setTipoUsuario("Administrador");
     }
 
+    // Construtor com id
+    public Administrador(long id, String nome, String cpf, String senha, double salario, int cargaHoraria, String sexo, String telefone, String email, Date dataNascimento) {
+        this(nome, cpf, senha, salario, cargaHoraria, sexo, telefone, email, dataNascimento);
+        this.setId(id);
+    }
+
     // Setters e Getters
     public void setSalario(double salario) {
-        this.salario = salario;
+        if(salario > 0.0) {
+            this.salario = salario;
+        }
     }
 
     public double getSalario() {
@@ -27,7 +35,9 @@ public class Administrador extends Usuario {
     }
 
     public void setCargaHoraria(int cargaHoraria) {
-        this.cargaHoraria = cargaHoraria;
+        if(cargaHoraria > 0) {
+            this.cargaHoraria = cargaHoraria;
+        }
     }
 
     public int getCargaHoraria() {
