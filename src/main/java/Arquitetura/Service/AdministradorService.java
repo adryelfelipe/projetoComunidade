@@ -1,15 +1,14 @@
 package Arquitetura.Service;
 
-import Arquitetura.Dao.AdministradorDao;
-import Arquitetura.Dao.UsuarioDAO;
+import Arquitetura.Dao.AdministradorDAO;
 import Arquitetura.Model.Administrador;
 
 import java.sql.SQLException;
 
 public class AdministradorService {
 
-    // -- Atributos //
-    final AdministradorDao administradorDao = new AdministradorDao();
+    // -- Atributos -- //
+    final AdministradorDAO administradorDao = new AdministradorDAO();
     final UsuarioService usuarioService = new UsuarioService();
 
     // -- Construtor -- //
