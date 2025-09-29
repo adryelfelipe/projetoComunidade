@@ -21,12 +21,13 @@ public class UsuarioService {
     }
 
     // -- Verifica se já existe um email -- //
-    public boolean verificarDuplicidade() {
+    public boolean isEmailExistente() {
         return true; // alterar para retornar a duplicidade
     }
 
+    // Insere os atributos gerais de Usuario na tabela Usuario do banco de dados
     public void inserirUsuario(Usuario usuario) {
-        if(verificarDados(usuario) && verificarDuplicidade()) {
+        if(verificarDados(usuario) && isEmailExistente()) {
             usuarioDao.inserirUsuario(usuario);
         }
     }
