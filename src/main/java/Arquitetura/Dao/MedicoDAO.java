@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class MedicoDAO {
 
-    public void inserirMedico(Medico medico) throws SQLException
+    public void inserirMedico(Medico medico)
     {
         String querySQL = "INSERT INTO Medico (idMedico, salario, cargaHorariaSemanal, plantao, especialidade, subEspecialidade, formacao) values (?, ?, ?, ?, ?, ?, ?)";
 

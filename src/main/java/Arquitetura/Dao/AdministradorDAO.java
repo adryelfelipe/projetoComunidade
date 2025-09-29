@@ -6,9 +6,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class AdministradorDao {
+public class AdministradorDAO {
 
-    public void inserirAdmin(Administrador administrador) throws SQLException
+    public void inserirAdmin(Administrador administrador)
     {
         String querySQL = "insert into Administrador (idAdministrador, salario, cargaHoraria) values (?, ?, ?)";
 
