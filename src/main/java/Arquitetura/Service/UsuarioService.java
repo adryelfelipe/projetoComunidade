@@ -1,6 +1,7 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.UsuarioDAO;
+import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Usuario;
 
 public class UsuarioService {
@@ -26,14 +27,17 @@ public class UsuarioService {
     }
 
     // Insere os atributos gerais de Usuario na tabela Usuario do banco de dados
-    public void inserirUsuario(Usuario usuario) {
-        if(verificarDados(usuario) && isEmailExistente()) {
-            usuarioDao.inserirUsuario(usuario);
+    public void inserirUsuario(Administrador administrador, Usuario usuario) {
+        if(!(administrador == usuario))
+        {
+            if(verificarDados(usuario) && isEmailExistente()) {
+                usuarioDao.inserirUsuario(usuario);
+            }
         }
     }
 
     // Faz procura no banco de dados por Id
-    public Usuario findById(long id) {
+    public Usuario findById(Administrador administrador, long id) {
         return usuarioDao.findById(id);
     }
 }

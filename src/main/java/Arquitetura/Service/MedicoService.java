@@ -1,6 +1,7 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.MedicoDAO;
+import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Medico;
 
 public class MedicoService {
@@ -22,9 +23,10 @@ public class MedicoService {
     }
 
     // Insere o objeto do tipo Medico no banco de dados
-    public void inserirMedico(Medico medico) {
+    public void inserirMedico(Administrador administrador, Medico medico) {
       if(verificarDadosMed(medico)) {
-          usuarioService.verificarDados(medico);
+          usuarioService.inserirUsuario(administrador, medico);
+          medicoDAO.inserirMedico(medico);
       }
     }
 
