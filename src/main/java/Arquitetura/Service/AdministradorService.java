@@ -20,7 +20,7 @@ public class AdministradorService {
 
     // Verifica a veracidade dos atributos específicos de Admin
     public boolean verificarDadosAdm(Administrador administrador) {
-        return (administrador.getCargaHoraria() > 200);
+        return (administrador.getCargaHoraria() >= 40);
     }
 
     // Insere o objeto do tipo Administrador no banco de dados
