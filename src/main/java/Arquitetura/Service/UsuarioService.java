@@ -31,4 +31,9 @@ public class UsuarioService {
             usuarioDao.inserirUsuario(usuario);
         }
     }
+
+    // Faz procura no banco de dados por Id
+    public Usuario findById(long id) {
+        return usuarioDao.findById(id);
+    }
 }
