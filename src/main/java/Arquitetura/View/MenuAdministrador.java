@@ -7,6 +7,7 @@ import Arquitetura.Model.Usuario;
 import Arquitetura.Utilidades.Ferramentas;
 
 import java.sql.Date;
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 
 public class MenuAdministrador
@@ -224,13 +225,26 @@ public class MenuAdministrador
     public static void ListarMedico()
     {
 
+        int cont = 1;
+
         System.out.println("\n\n  -Médicos-\n\n");
 
-        //for ()
-        //{
-        //
-        //}
+        for (Usuario entrada: USUARIOS)
+        {
+            if(entrada instanceof Medico)
+            {
+                System.out.println("\n\n   Medico " + cont);
+                System.out.println(entrada.getNome());
+                System.out.println(entrada.getCpf());
+                System.out.println(entrada.getEmail());
+                System.out.println(entrada.getId());
+                System.out.println(entrada.getDataNascimento());
 
+                cont ++;
+            }
+        }
+
+        Menu();
     }
 
     public static void ListarPaciente()
@@ -238,10 +252,24 @@ public class MenuAdministrador
 
         System.out.println("\n\n  -Pacientes-\n\n");
 
-        //for ()
-        //{
-        //
-        //}
+        int cont = 1;
+
+        System.out.println("\n\n  -Médicos-\n\n");
+
+        for (Usuario entrada: USUARIOS)
+        {
+            if(entrada instanceof Paciente)
+            {
+                System.out.println("\n\n   Paciente " + cont);
+                System.out.println(entrada.getNome());
+                System.out.println(entrada.getCpf());
+                System.out.println(entrada.getEmail());
+                System.out.println(entrada.getId());
+                System.out.println(entrada.getDataNascimento());
+
+                cont ++;
+            }
+        }
 
     }
 
@@ -254,20 +282,33 @@ public class MenuAdministrador
         System.out.println("\n\nDigite o cpf do usuario: ");
         String cpf = Ferramentas.lString();
 
-        //for(Usuario entrada: USUARIOS)
-        //{
-        //    if (entrada.getCpf().equals(cpf))
-        //    {
-        //
-        //
-        //    }
-        //}
+        for(Usuario entrada: USUARIOS)
+        {
+            if (entrada.getCpf().equals(cpf))
+            {
+                if(entrada instanceof Administrador)
+                {
+                    System.out.println("Administradores não podem ser excluidos!");
+                }
+
+                EXCLUIRUSUARO;
+
+                System.out.println("Usuario excluido");
+
+
+                System.out.println("\n\nDigite para continuar");
+                String tempo = Ferramentas.lString();
+
+                Menu();
+            }
+        }
 
         System.out.println("Usuario não encontrado!");
 
         System.out.println("\n\nDigite para continuar");
         String tempo = Ferramentas.lString();
 
+        Menu();
 
     }
 
@@ -275,6 +316,7 @@ public class MenuAdministrador
     {
 
         Ferramentas.limpaTerminal();
+
 
 
     }

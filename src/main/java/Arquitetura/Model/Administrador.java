@@ -9,7 +9,7 @@ public class Administrador extends Usuario {
     private int cargaHoraria;
 
     // Construtor sem id
-    public Administrador(String nome, String cpf, String senha, double salario, int cargaHoraria, String sexo, String telefone, String email, Date dataNascimento)
+    public Administrador(String nome, String cpf, String senha, String sexo, String telefone, String email,Date dataNascimento, double salario, int cargaHoraria )
     {
         super(nome, cpf, senha, sexo, telefone, email, dataNascimento);
         this.salario = salario;
@@ -18,8 +18,8 @@ public class Administrador extends Usuario {
     }
 
     // Construtor com id
-    public Administrador(long id, String nome, String cpf, String senha, double salario, int cargaHoraria, String sexo, String telefone, String email, Date dataNascimento) {
-        this(nome, cpf, senha, salario, cargaHoraria, sexo, telefone, email, dataNascimento);
+    public Administrador( String nome, String cpf, String senha, String sexo, String telefone,String email,Date dataNascimento,double salario, int cargaHoraria,long id) {
+        this(nome, cpf, senha, sexo, telefone,email, dataNascimento, salario, cargaHoraria );
         this.setId(id);
     }
 

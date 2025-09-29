@@ -15,31 +15,38 @@ public class MenuMedico
             Ferramentas.limpaTerminal();
 
             System.out.println("        MENU");
-            System.out.println("\n\n1-Ficha técnica");
-            System.out.println("2-Laudos de exames");
-            System.out.println("3-Editar cadastro");
-            System.out.println("4-Agedar consilta");
-            System.out.println("5-Minha agenda");
+            System.out.println("\n\n1-Minha Agenda");
+            System.out.println("2-Prontuário Clínico");
+            System.out.println("3-Prescrições e Laudos");
+            System.out.println("4-Sair");
             int op = Ferramentas.lInteiro();
 
             switch (op) {
                 case 1: {
 
+                    Ferramentas.limpaTerminal();
+
+                    MinhaAgenda();
+
                     break;
                 }
                 case 2: {
+
+                    Ferramentas.limpaTerminal();
+
+                    Prontuario();
 
                     break;
                 }
                 case 3: {
 
-                    break;
-                }
-                case 4: {
+                    Ferramentas.limpaTerminal();
+
+                    Prescricoes();
 
                     break;
                 }
-                case 5: {
+                case 4: {
                     continuar = false;
                     break;
                 }
@@ -51,6 +58,23 @@ public class MenuMedico
             }
         }
     }
+
+    public static void MinhaAgenda()
+    {
+
+    }
+
+    public static void Prontuario()
+    {
+
+    }
+
+    public static void Prescricoes()
+    {
+
+    }
+
+
 
 
 }

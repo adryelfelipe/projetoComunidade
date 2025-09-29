@@ -20,6 +20,7 @@ public class MenuPaciente
             System.out.println("3-Editar cadastro");
             System.out.println("4-Agedar consilta");
             System.out.println("5-Minha agenda");
+            System.out.println("6-Sair");
             int op = Ferramentas.lInteiro();
 
             switch (op) {
@@ -39,7 +40,11 @@ public class MenuPaciente
 
                     break;
                 }
-                case 5: {
+                case 5:
+                {
+
+                }
+                case 6: {
                     continuar = false;
                     break;
                 }

@@ -33,6 +33,22 @@ public class Paciente extends Usuario{
         }
     }
 
+    public String getStatusPaciente() {
+        return statusPaciente;
+    }
+
+    public void setStatusPaciente(String statusPaciente) {
+        this.statusPaciente = statusPaciente;
+    }
+
+    public String getNumeroCarterinha() {
+        return numeroCarterinha;
+    }
+
+    public void setNumeroCarterinha(String numeroCarterinha) {
+        this.numeroCarterinha = numeroCarterinha;
+    }
+
     // Métodos
 
 }
