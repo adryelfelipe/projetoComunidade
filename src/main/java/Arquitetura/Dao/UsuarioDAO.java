@@ -115,5 +115,32 @@ public class UsuarioDAO {
         return usuario;
     }
 
+    public boolean deletarUsuario(long id) {
+        String querySql = "DELETE FROM Usuario WHERE idUsuario = ?";
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(querySql))
+        {
+            stmt.setLong(1, id);
+
+            int linhasAfetadas = stmt.executeUpdate();
+
+            // Retornar True se conseguiu deletar
+            if (linhasAfetadas > 0)
+            {
+                return true;
+            }
+            // E retornara False se não conseguiu ou não existe
+            else
+            {
+                return false;
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao deletar usuário com ID " + id + ": " + e.getMessage());
+            return false;
+        }
+    }
 
 }
