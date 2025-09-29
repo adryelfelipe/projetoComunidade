@@ -4,6 +4,7 @@ import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
+import Arquitetura.Service.AdministradorService;
 import Arquitetura.Utilidades.Ferramentas;
 
 import java.sql.Date;
@@ -69,11 +70,11 @@ public class MenuAdministrador
 
         if(subE.isEmpty()) {
 
-            return new Medico(nome,cpf,senha,salario,cargaHoraria,plantao,especialidade,formacao,sexo,telefone,email,sqlDate);
+            return new Medico(nome,cpf,senha,sexo,telefone,email,sqlDate,cargaHoraria,salario,plantao,especialidade,formacao);
 
         } else {
 
-            return new Medico(nome,cpf,senha,salario,cargaHoraria,plantao,especialidade,formacao,subE,sexo,telefone,email,sqlDate);
+            return new Medico(nome,cpf,senha,sexo,telefone,email,sqlDate,cargaHoraria,salario,plantao,especialidade,formacao,subE);
         }
     }
 
@@ -153,7 +154,8 @@ public class MenuAdministrador
             System.out.println("3-Excluir Usuários");
             System.out.println("4-Gerar Relatórios");
             System.out.println("5-Disponibilidade de Médicos");
-            System.out.println("6-Sair");
+            System.out.println("6-Criar adm");
+            System.out.println("7-Sair");
             int op = Ferramentas.lInteiro();
 
             switch (op) {
@@ -205,7 +207,16 @@ public class MenuAdministrador
 
                     break;
                 }
-                case 6: {
+                case 6:
+                {
+
+                    Ferramentas.limpaTerminal();
+
+                    MenuAdministrador.CriarAdm();
+
+                    break;
+                }
+                case 7: {
 
                     continuar = false;
 
@@ -229,22 +240,21 @@ public class MenuAdministrador
 
         System.out.println("\n\n  -Médicos-\n\n");
 
-        for (Usuario entrada: USUARIOS)
-        {
-            if(entrada instanceof Medico)
-            {
-                System.out.println("\n\n   Medico " + cont);
-                System.out.println(entrada.getNome());
-                System.out.println(entrada.getCpf());
-                System.out.println(entrada.getEmail());
-                System.out.println(entrada.getId());
-                System.out.println(entrada.getDataNascimento());
+        //for (Usuario entrada: USUARIOS)
+        //{
+        //    if(entrada instanceof Medico)
+        //    {
+        //        System.out.println("\n\n   Medico " + cont);
+        //        System.out.println(entrada.getNome());
+        //        System.out.println(entrada.getCpf());
+        //        System.out.println(entrada.getEmail());
+        //        System.out.println(entrada.getId());
+        //        System.out.println(entrada.getDataNascimento());
+//
+        //        cont ++;
+        //    }
+        //}
 
-                cont ++;
-            }
-        }
-
-        Menu();
     }
 
     public static void ListarPaciente()
@@ -256,20 +266,20 @@ public class MenuAdministrador
 
         System.out.println("\n\n  -Médicos-\n\n");
 
-        for (Usuario entrada: USUARIOS)
-        {
-            if(entrada instanceof Paciente)
-            {
-                System.out.println("\n\n   Paciente " + cont);
-                System.out.println(entrada.getNome());
-                System.out.println(entrada.getCpf());
-                System.out.println(entrada.getEmail());
-                System.out.println(entrada.getId());
-                System.out.println(entrada.getDataNascimento());
-
-                cont ++;
-            }
-        }
+        //for (Usuario entrada: USUARIOS)
+        //{
+        //    if(entrada instanceof Paciente)
+        //    {
+        //        System.out.println("\n\n   Paciente " + cont);
+        //        System.out.println(entrada.getNome());
+        //        System.out.println(entrada.getCpf());
+        //        System.out.println(entrada.getEmail());
+        //        System.out.println(entrada.getId());
+        //        System.out.println(entrada.getDataNascimento());
+//
+        //        cont ++;
+        //    }
+        //}
 
     }
 
@@ -282,33 +292,31 @@ public class MenuAdministrador
         System.out.println("\n\nDigite o cpf do usuario: ");
         String cpf = Ferramentas.lString();
 
-        for(Usuario entrada: USUARIOS)
-        {
-            if (entrada.getCpf().equals(cpf))
-            {
-                if(entrada instanceof Administrador)
-                {
-                    System.out.println("Administradores não podem ser excluidos!");
-                }
+       //for(Usuario entrada: USUARIOS)
+       //{
+       //    if (entrada.getCpf().equals(cpf))
+       //    {
+       //        if(entrada instanceof Administrador)
+       //        {
+       //            System.out.println("Administradores não podem ser excluidos!");
+       //        }
 
-                EXCLUIRUSUARO;
+       //        EXCLUIRUSUARO;
 
-                System.out.println("Usuario excluido");
+       //        System.out.println("Usuario excluido");
 
 
-                System.out.println("\n\nDigite para continuar");
-                String tempo = Ferramentas.lString();
+       //        System.out.println("\n\nDigite para continuar");
+       //        String tempo = Ferramentas.lString();
 
-                Menu();
-            }
-        }
+       //        return;
+       //    }
+       //}
 
         System.out.println("Usuario não encontrado!");
 
         System.out.println("\n\nDigite para continuar");
         String tempo = Ferramentas.lString();
-
-        Menu();
 
     }
 
@@ -317,7 +325,33 @@ public class MenuAdministrador
 
         Ferramentas.limpaTerminal();
 
+        System.out.println("       Relatório");
+        System.out.println("\n\nDigite: ");
+        System.out.println("1-Médico");
+        System.out.println("2-Paciente");
+        System.out.println("3-Periodo");
+        int escolha = Ferramentas.lInteiro();
 
+        switch (escolha)
+        {
+            case 1:
+            {
+                System.out.println("Digite o cpf do médico");
+
+            }
+            case 2:
+            {
+
+            }
+            case 3:
+            {
+
+            }
+            default:
+            {
+
+            }
+        }
 
     }
 
@@ -344,7 +378,6 @@ public class MenuAdministrador
         System.out.println("\n\nDigite para continuar");
         String tempo = Ferramentas.lString();
 
-        Menu();
 
     }
 
@@ -386,6 +419,58 @@ public class MenuAdministrador
 
         System.out.println("\n\nDigite para continuar");
         String tempo = Ferramentas.lString();
+    }
+
+    public static void CriarAdm()
+    {
+
+        System.out.println("Cadastro ADM");
+
+        System.out.println("\n\n\nDigite o nome: ");
+        String nome = Ferramentas.lString();
+
+        System.out.println("Digite o CPF: ");
+        String cpf = Ferramentas.lString();
+
+        System.out.println("Digite a senha: ");
+        String senha = Ferramentas.lString();
+
+        System.out.println("Digite o sexo:  ( M/F )");
+        String sexo = Ferramentas.lString();
+
+        System.out.println("Digite o número de telefone: ");
+        String telefone = Ferramentas.lString();
+
+        System.out.println("Digite o email: ");
+        String email = Ferramentas.lString();
+
+        System.out.println("Data ");
+        System.out.println("Digite o Ano: ");
+        int ano = Ferramentas.lInteiro();
+
+        System.out.println("Digite o Mês: ");
+        int mes = Ferramentas.lInteiro();
+
+        System.out.println("Digite Dia: ");
+        int dia = Ferramentas.lInteiro();
+
+        System.out.println("Digite a carga horária semanal: ");
+        int cargaHoraria = Ferramentas.lInteiro();
+
+        System.out.println("Digite o salário: ");
+        double salario = Ferramentas.lDouble();
+
+        LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
+
+        Date sqlDate = Date.valueOf(dataNascimento);
+
+        Administrador administrador = new Administrador(nome,cpf,senha,sexo,telefone,email,sqlDate,salario,cargaHoraria);
+
+        System.out.println("Adm criado");
+
+        AdministradorService administradorService =  new AdministradorService();
+
+        administradorService.inserirAdmin(administrador);
     }
 
 }
