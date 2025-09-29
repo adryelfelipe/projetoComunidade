@@ -2,7 +2,7 @@ package Arquitetura.View;
 
 import Arquitetura.Utilidades.Ferramentas;
 
-public class MenuInicial {
+public class  MenuInicial {
 
     public static void Menu() {
         boolean continuar = true;
@@ -16,11 +16,17 @@ public class MenuInicial {
 
             System.out.println("\n\n\n");
             System.out.println("1-Login ");
-            System.out.println("2-Sair: ");
+            System.out.println("2-Sair ");
             System.out.print("Digite: ");
             int op = Ferramentas.lInteiro();
 
             if (op == 1) {
+
+                Ferramentas.limpaTerminal();
+
+                MenuAdministrador.Menu();
+
+                MenuLogin.Menu();
 
             } else if (op == 2) {
                 System.out.println("\n\n\nDesligando . . .");
