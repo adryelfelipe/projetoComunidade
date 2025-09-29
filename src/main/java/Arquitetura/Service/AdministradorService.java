@@ -24,7 +24,7 @@ public class AdministradorService {
     }
 
     // Insere o objeto do tipo Administrador no banco de dados
-    public void inserirAdmin(Administrador administrador) throws SQLException {
+    public void inserirAdmin(Administrador administrador) {
         if(verificarDadosAdm(administrador)) {
             usuarioService.inserirUsuario(administrador);
         }
