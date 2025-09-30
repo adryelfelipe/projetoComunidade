@@ -4,8 +4,10 @@ import java.sql.Date;
 
 public class Administrador extends Funcionario {
 
-    // Atributos
+    // -- Atributos -- //
     private String departamento;
+
+    // -- Construtores -- //
 
     // Construtor sem id
     public Administrador(String nome, String cpf, String senha, String sexo, String telefone, String email,Date dataNascimento, double salario, int cargaHorariaSemanal, String departamento)
@@ -20,7 +22,7 @@ public class Administrador extends Funcionario {
         this.setId(id);
     }
 
-    // Setters e Getters
+    // --  Setters e Getters -- //
     public String getDepartamento() {
         return departamento;
     }

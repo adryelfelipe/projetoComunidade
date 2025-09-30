@@ -27,7 +27,7 @@ public class AdministradorService {
     }
 
     // Insere o objeto do tipo Administrador no banco de dados
-    public boolean inserirAdmin(Administrador admCriador, Administrador admCriado) {
+    public boolean inserirAdmin(Administrador admCriador, Administrador admCriado) { // Verifica as regras para inserir um Administrador
         if(verificarDadosAdm(admCriado)) {
             if(funcionarioService.inserirFuncionario(admCriador, admCriado)) {
                 administradorDao.inserirAdmin(admCriado);

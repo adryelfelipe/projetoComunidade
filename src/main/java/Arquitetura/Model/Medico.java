@@ -4,14 +4,13 @@ import java.sql.Date;
 
 public class Medico extends Funcionario{
 
-    //Atributos
+    // -- Atributos -- //
     private String plantao;
     private String especialidade;
     private String subEspecialidade;
     private String formacao;
 
-    //Construtores
-
+    // -- Construtores -- //
 
     // Não possui subEspecialidade nem id
     public Medico(String nome, String cpf, String senha, String sexo, String telefone, String email,Date dataNascimento,int cargaHorariaSemanal,double salario,  String plantao, String especialidade, String formacao ) {
@@ -44,7 +43,7 @@ public class Medico extends Funcionario{
     }
 
 
-    //Getters & Setters
+    // -- Getters & Setters -- //
     public void setEspecialidade(String especialidade) {
         if(!especialidade.isEmpty()) {
             this.especialidade = especialidade;
@@ -84,7 +83,4 @@ public class Medico extends Funcionario{
     public String getSubEspecialidade() {
         return subEspecialidade;
     }
-
-    //Métodos
-
 }

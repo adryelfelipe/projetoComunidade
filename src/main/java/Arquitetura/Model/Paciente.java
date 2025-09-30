@@ -4,12 +4,14 @@ import java.sql.Date;
 
 public class Paciente extends Usuario{
 
-    // Atributos
+    // -- Atributos -- //
     private String contatoEmergencia;
     private String statusPaciente = "Ativo";
     private String numeroCarterinha;
 
-    // Construtor
+    // -- Construtores -- //
+
+    // Não possui ID
     public Paciente(String nome, String cpf, String senha, String sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCarterinha)
     {
         super(nome, cpf, senha, sexo, telefone, email,dataNascimento);
@@ -17,12 +19,13 @@ public class Paciente extends Usuario{
         this.numeroCarterinha = numeroCarterinha;
     }
 
+    // Possui ID
     public Paciente(long id, String nome, String cpf, String senha, String sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCarterinha) {
         this(nome, cpf, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numeroCarterinha);
         this.setId(id);
     }
 
-    // Setters e Getters
+    // -- Setters e Getters -- //
     public String getContatoEmergencia() {
         return contatoEmergencia;
     }
@@ -48,7 +51,4 @@ public class Paciente extends Usuario{
     public void setNumeroCarterinha(String numeroCarterinha) {
         this.numeroCarterinha = numeroCarterinha;
     }
-
-    // Métodos
-
 }

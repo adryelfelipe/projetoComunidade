@@ -24,8 +24,8 @@ public class FuncionarioService {
 
     // Insere os atributos gerais de Funcionario na tabela Funcionario do banco de dados
     public boolean inserirFuncionario(Administrador administrador, Funcionario funcionario) {
-        if (verificarDadosFunc(funcionario.getCargaHorariaSemanal(), funcionario.getSalario())) {
-            if (usuarioService.inserirUsuario(administrador, funcionario)) {
+        if (verificarDadosFunc(funcionario.getCargaHorariaSemanal(), funcionario.getSalario())) { // Verifica os dados de Funcionario
+            if (usuarioService.inserirUsuario(administrador, funcionario)) { // Verifica os dados de Usuario
                 // adicionar funcionrario chamando funcionarioDAO
 
                 return true;
