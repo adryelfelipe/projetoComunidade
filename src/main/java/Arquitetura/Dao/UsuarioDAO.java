@@ -162,12 +162,14 @@ public class UsuarioDAO {
         {
             while (resultSet.next())
             {
-                UsuarioDAO usuarioDAO = new UsuarioDAO();
 
-                Usuario usuario = usuarioDAO.findById(resultSet.getLong("idUsuario"));
+                //Cria um objeto usuário pelo idUsuario recebido da query
+                Usuario usuario = findById(resultSet.getLong("idUsuario"));
 
+                //Verifica se o objeto usuário não é vazio
                 if(usuario != null)
                 {
+                    //Adiciona o objeto usuário na lista de usuários
                     listaUsuarios.add(usuario);
                 }
             }
@@ -177,6 +179,7 @@ public class UsuarioDAO {
                System.out.println("Erro ao buscar todos os Usuários: ");
         }
 
+        // Retorna lista de usuários completa
         return listaUsuarios;
     }
 
@@ -189,11 +192,40 @@ public class UsuarioDAO {
             stmt.setString(1, cpf);
 
             try (ResultSet rs = stmt.executeQuery()) {
+
+                //Retorna a resposta caso o cpf exista ou não
                 return rs.next();
             }
 
         } catch (SQLException e) {
             System.err.println("Erro ao verificar CPF: " + e.getMessage());
+            return false;
+        }
+    }
+    public boolean verificarSenha(String cpf, String senha)
+    {
+        String querySql = "SELECT senha FROM Usuario WHERE cpf = ? LIMIT 1";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            //Determina o cpf do Usuário para verificação
+            stmt.setString(1, cpf);
+
+            try (ResultSet rs = stmt.executeQuery())
+            {
+                rs.next();
+
+                //Recebe e verifica se a senha inserida é igual à senha do Usuário
+                boolean isCorrect = senha.equals(rs.getString("senha"));
+
+                return isCorrect;
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao verificar senha: "+ e.getMessage());
             return false;
         }
     }
