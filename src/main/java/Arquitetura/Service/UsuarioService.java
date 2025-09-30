@@ -44,4 +44,6 @@ public class UsuarioService {
     public Usuario findById(Administrador administrador, long id) {
         return usuarioDao.findById(id);
     }
+
+
 }

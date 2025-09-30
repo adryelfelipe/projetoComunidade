@@ -34,6 +34,7 @@ public class AdministradorService {
         }
     }
 
+    // Deleta um administrador do banco de dados
     public boolean deletarAdministrador(Administrador adminUsado, Administrador adminDeletado) {
         if(!(adminUsado == adminDeletado)) {
             if(usuarioDAO.deletarUsuario(adminDeletado.getId())) {
