@@ -2,7 +2,7 @@ package Arquitetura.Model;
 
 import java.sql.Date;
 
-public class Usuario {
+public abstract class Usuario {
 
     // Atributos
     private String nome;
