@@ -18,21 +18,26 @@ public class UsuarioService {
 
     // -- Métodos -- //
 
-    // -- Verifica se os atributos não são nulos -- //
+    // Verifica se os atributos não são nulos
     public boolean verificarDados(Usuario usuario) {
         return (usuario.getCpf() != null && usuario.getTelefone() != null && usuario.getTipoUsuario() != null && usuario.getSexo() != null && usuario.getNome() != null && usuario.getDataNascimento() != null && usuario.getEmail() != null && usuario.getSenha() != null);
     }
 
-    // -- Verifica se já existe um email -- //
-    public boolean isEmailExistente() {
-        return true; // alterar para retornar a duplicidade
+    // Verifica se já existe um email igual ao parâmetro
+    public boolean isEmailExistente(String email) {
+        return false; // alterar para retornar a duplicidade
+    }
+
+    // Verifica se já existe um cpf igual ao parâmetro
+    public boolean isCpfExistente(String cpf) {
+        return usuarioDao.verificarCpf(cpf);
     }
 
     // Insere os atributos gerais de Usuario na tabela Usuario do banco de dados
-    public boolean inserirUsuario(Administrador administrador, Usuario usuario) {
+    public boolean inserirUsuario(Administrador administrador, Usuario usuario, String email, String cpf) {
         if(!(administrador == usuario))
         {
-            if(verificarDados(usuario) && isEmailExistente()) {
+            if(verificarDados(usuario) && !isEmailExistente(email) && !isCpfExistente(cpf)){
                 usuarioDao.inserirUsuario(usuario);
 
                 return true;

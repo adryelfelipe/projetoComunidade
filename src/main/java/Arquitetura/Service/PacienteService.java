@@ -25,7 +25,7 @@ public class PacienteService {
     // Insere o objeto do tipo Paciente no banco de dados
     public void inserirPaciente(Administrador administrador, Paciente paciente) {
         if(verificarDadosPac(paciente)) {
-            if(usuarioService.inserirUsuario(administrador, paciente)) {
+            if(usuarioService.inserirUsuario(administrador, paciente, paciente.getEmail(), paciente.getCpf())) {
                 pacienteDAO.inserirPaciente(paciente);
             }
         }
