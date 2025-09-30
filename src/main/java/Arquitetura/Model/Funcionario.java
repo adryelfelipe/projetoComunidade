@@ -2,7 +2,7 @@ package Arquitetura.Model;
 
 import java.sql.Date;
 
-public class Funcionario extends Usuario{
+public abstract class Funcionario extends Usuario{
 
     // -- Atributos -- //
     private double salario;

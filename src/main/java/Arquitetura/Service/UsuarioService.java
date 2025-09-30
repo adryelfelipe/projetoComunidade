@@ -19,7 +19,7 @@ public class UsuarioService {
     // -- Métodos -- //
 
     // Verifica se os atributos não são nulos
-    public boolean verificarDados(Usuario usuario) {
+    public boolean verificarDadosUser(Usuario usuario) {
         return (usuario.getCpf() != null && usuario.getTelefone() != null && usuario.getTipoUsuario() != null && usuario.getSexo() != null && usuario.getNome() != null && usuario.getDataNascimento() != null && usuario.getEmail() != null && usuario.getSenha() != null);
     }
 
@@ -37,7 +37,7 @@ public class UsuarioService {
     public boolean inserirUsuario(Administrador administrador, Usuario usuario, String email, String cpf) {
         if(!(administrador == usuario))
         {
-            if(verificarDados(usuario) && !isEmailExistente(email) && !isCpfExistente(cpf)){
+            if(verificarDadosUser(usuario) && !isEmailExistente(email) && !isCpfExistente(cpf)){
                 usuarioDao.inserirUsuario(usuario);
 
                 return true;
