@@ -1,6 +1,9 @@
 package Arquitetura.Dao;
 
 import Arquitetura.Config.ConnectionFactory;
+import Arquitetura.Model.Administrador;
+import Arquitetura.Model.Medico;
+import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
 
 import java.sql.*;
@@ -43,4 +46,101 @@ public class UsuarioDAO {
             System.out.println("Erro ao inserir o Usuario: "+e.getMessage());
         }
     }
+
+
+    public Usuario findById(long idUsuario) {
+        String querySQL = "SELECT " +
+                "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, " +
+                "A.salario AS salarioAdmin, A.cargaHoraria AS cargaHorariaAdmin, " +
+                "P.numeroCarteirinha, P.contatoEmergencia, P.statusPaciente, " +
+                "M.salario AS salarioMedico, M.cargaHorariaSemanal, M.plantao, M.especialidade, M.subEspecialidade, M.formacao " +
+                "FROM Usuario U " +
+                "LEFT JOIN Administrador A ON U.idUsuario = A.idAdministrador " +
+                "LEFT JOIN Medico M ON U.idUsuario = M.idMedico " +
+                "LEFT JOIN Paciente P ON U.idUsuario = P.idPaciente " +
+                "WHERE U.idUsuario = ?";
+
+        Usuario usuario = null;
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySQL)) {
+
+            stmt.setLong(1, idUsuario);
+
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    long id = resultSet.getLong("idUsuario");
+                    String senha = resultSet.getString("senha");
+                    String nomeUsuario = resultSet.getString("nomeUsuario");
+                    String sexo = resultSet.getString("sexo");
+                    String cpf = resultSet.getString("cpf");
+                    String telefone = resultSet.getString("telefone");
+                    String email = resultSet.getString("email");
+                    Date dataNascimento = resultSet.getDate("dataNascimento");
+                    String tipoUsuario = resultSet.getString("tipoUsuario");
+
+                    // Dados Administrador
+                    double salarioAdmin = resultSet.getDouble("salarioAdmin");
+                    int cargaHorariaAdmin = resultSet.getInt("cargaHorariaAdmin");
+
+                    // Dados Paciente
+                    String numCarteirinha = resultSet.getString("numeroCarteirinha");
+                    String contatoEmergencia = resultSet.getString("contatoEmergencia");
+                    String statusPaciente = resultSet.getString("statusPaciente");
+
+                    // Dados Médico
+                    double salarioMedico = resultSet.getDouble("salarioMedico");
+                    int cargaHorariaSemanal = resultSet.getInt("cargaHorariaSemanal");
+                    String plantao = resultSet.getString("plantao");
+                    String especialidade = resultSet.getString("especialidade");
+                    String subEspecialidade = resultSet.getString("subEspecialidade");
+                    String formacao = resultSet.getString("formacao");
+
+                    // Cria o objeto correto de acordo com o tipo de usuário
+                    if (tipoUsuario.equalsIgnoreCase("Administrador")) {
+                        usuario = new Administrador(nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento, salarioAdmin, cargaHorariaAdmin);
+                    } else if (tipoUsuario.equalsIgnoreCase("Médico")) {
+                        usuario = new Medico(id, nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento,
+                                cargaHorariaSemanal, salarioMedico, plantao, especialidade, formacao, subEspecialidade);
+                    } else if (tipoUsuario.equalsIgnoreCase("Paciente")) {
+                        usuario = new Paciente(id, nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numCarteirinha);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Erro ao buscar Usuário por ID: " + e.getMessage());
+        }
+
+        return usuario;
+    }
+
+    public boolean deletarUsuario(long id) {
+        String querySql = "DELETE FROM Usuario WHERE idUsuario = ?";
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(querySql))
+        {
+            stmt.setLong(1, id);
+
+            int linhasAfetadas = stmt.executeUpdate();
+
+            // Retornar True se conseguiu deletar
+            if (linhasAfetadas > 0)
+            {
+                return true;
+            }
+            // E retornara False se não conseguiu ou não existe
+            else
+            {
+                return false;
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao deletar usuário com ID " + id + ": " + e.getMessage());
+            return false;
+        }
+    }
+
 }
