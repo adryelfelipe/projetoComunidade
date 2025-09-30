@@ -1,6 +1,7 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.AdministradorDAO;
+import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Model.Administrador;
 
 import java.sql.SQLException;
@@ -10,6 +11,7 @@ public class AdministradorService {
     // -- Atributos -- //
     final AdministradorDAO administradorDao = new AdministradorDAO();
     final UsuarioService usuarioService = new UsuarioService();
+    final UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     // -- Construtor -- //
     public AdministradorService() {
@@ -30,5 +32,17 @@ public class AdministradorService {
                 administradorDao.inserirAdmin(admCriado);
             }
         }
+    }
+
+    public boolean deletarAdministrador(Administrador adminUsado, Administrador adminDeletado) {
+        if(!(adminUsado == adminDeletado)) {
+            if(usuarioDAO.deletarUsuario(adminDeletado.getId())) {
+                // deleta chamando admDAO
+
+                //return true;
+            }
+        }
+
+        return false;
     }
 }
