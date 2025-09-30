@@ -1,6 +1,7 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.PacienteDAO;
+import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Paciente;
 
 public class PacienteService {
@@ -22,10 +23,11 @@ public class PacienteService {
     }
 
     // Insere o objeto do tipo Paciente no banco de dados
-    public void inserirPaciente(Paciente paciente) {
+    public void inserirPaciente(Administrador administrador, Paciente paciente) {
         if(verificarDadosPac(paciente)) {
-            usuarioService.inserirUsuario(paciente);
+            if(usuarioService.inserirUsuario(administrador, paciente, paciente.getEmail(), paciente.getCpf())) {
+                pacienteDAO.inserirPaciente(paciente);
+            }
         }
     }
-
 }
