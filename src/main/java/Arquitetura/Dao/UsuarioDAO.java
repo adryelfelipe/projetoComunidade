@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class UsuarioDAO {
 
-    public void inserirUsuario(Usuario usuario){
+    public void inserirUsuario(Usuario usuario) {
 
         String sql = "INSERT INTO Usuario (senha, nomeUsuario, sexo, cpf, telefone, tipoUsuario, email, dataNascimento) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         int idGerado = -1;
@@ -44,7 +44,7 @@ public class UsuarioDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println("Erro ao inserir o Usuario: "+e.getMessage());
+            System.out.println("Erro ao inserir o Usuario: " + e.getMessage());
         }
     }
 
@@ -122,20 +122,17 @@ public class UsuarioDAO {
 
         try (
                 Connection conn = ConnectionFactory.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(querySql))
-        {
+                PreparedStatement stmt = conn.prepareStatement(querySql)) {
             stmt.setLong(1, id);
 
             int linhasAfetadas = stmt.executeUpdate();
 
             // Retornar True se conseguiu deletar
-            if (linhasAfetadas > 0)
-            {
+            if (linhasAfetadas > 0) {
                 return true;
             }
             // E retornara False se não conseguiu ou não existe
-            else
-            {
+            else {
                 return false;
             }
 
@@ -183,4 +180,21 @@ public class UsuarioDAO {
         return listaUsuarios;
     }
 
+    public boolean verificarCpf(String cpf) {
+        String querySql = "SELECT 1 FROM Usuario WHERE cpf = ? LIMIT 1";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(querySql))
+        {
+            stmt.setString(1, cpf);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next();
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar CPF: " + e.getMessage());
+            return false;
+        }
+    }
 }
