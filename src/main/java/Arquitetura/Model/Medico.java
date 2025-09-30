@@ -5,8 +5,6 @@ import java.sql.Date;
 public class Medico extends Funcionario{
 
     //Atributos
-    private double salario;
-    private int cargaHorariaSemanal;
     private String plantao;
     private String especialidade;
     private String subEspecialidade;
@@ -18,8 +16,6 @@ public class Medico extends Funcionario{
     // Não possui subEspecialidade nem id
     public Medico(String nome, String cpf, String senha, String sexo, String telefone, String email,Date dataNascimento,int cargaHorariaSemanal,double salario,  String plantao, String especialidade, String formacao ) {
         super(nome,cpf,senha,sexo,telefone,email,dataNascimento, salario, cargaHorariaSemanal);
-        this.cargaHorariaSemanal = cargaHorariaSemanal;
-        this.salario = salario;
         this.plantao = plantao;
         this.especialidade = especialidade;
         this.formacao = formacao;
@@ -49,16 +45,6 @@ public class Medico extends Funcionario{
 
 
     //Getters & Setters
-    public void setCargaHorariaSemanal(int cargaHorariaSemanal) {
-        if(cargaHorariaSemanal > 0) {
-            this.cargaHorariaSemanal = cargaHorariaSemanal;
-        }
-    }
-
-    public int getCargaHorariaSemanal() {
-        return cargaHorariaSemanal;
-    }
-
     public void setEspecialidade(String especialidade) {
         if(!especialidade.isEmpty()) {
             this.especialidade = especialidade;
@@ -87,16 +73,6 @@ public class Medico extends Funcionario{
 
     public String getPlantao() {
         return plantao;
-    }
-
-    public void setSalario(double salario) {
-        if(salario > 0.0) {
-            this.salario = salario;
-        }
-    }
-
-    public double getSalario() {
-        return salario;
     }
 
     public void setSubEspecialidade(String subEspecialidade) {
