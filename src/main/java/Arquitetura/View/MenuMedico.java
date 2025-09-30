@@ -12,9 +12,12 @@ public class MenuMedico
         boolean continuar = true;
 
         while (continuar) {
+
             Ferramentas.limpaTerminal();
 
-            System.out.println("        MENU");
+            System.out.println("           ---------------");
+            System.out.println("           |     MENU    |" );
+            System.out.println("           ---------------\n\n");
             System.out.println("\n\n1-Minha Agenda");
             System.out.println("2-Prontuário Clínico");
             System.out.println("3-Prescrições e Laudos");

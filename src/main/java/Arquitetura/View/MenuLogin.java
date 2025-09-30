@@ -13,18 +13,21 @@ public class MenuLogin {
 
             Ferramentas.limpaTerminal();
 
-            System.out.println("    ---------------");
-            System.out.println("    -    LOGIN    -");
-            System.out.println("    ---------------");
+            System.out.println("                ===============");
+            System.out.println("                |    LOGIN    |");
+            System.out.println("                ===============");
 
-            System.out.println("Digite seu CPF: ");
+            System.out.println("-------------------------");
+            System.out.print("- Digite seu CPF: " );
             String cpf = Ferramentas.lString();
+            System.out.println("-------------------------");
 
 
 
-            System.out.println("Digite sua senha: ");
+            System.out.println("-------------------------");
+            System.out.println("- Digite sua senha: ");
             String senha = Ferramentas.lString();
-
+            System.out.println("-------------------------");
 
         }
     }

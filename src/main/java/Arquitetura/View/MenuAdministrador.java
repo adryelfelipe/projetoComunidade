@@ -5,6 +5,8 @@ import Arquitetura.Model.Medico;
 import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.AdministradorService;
+import Arquitetura.Service.MedicoService;
+import Arquitetura.Service.PacienteService;
 import Arquitetura.Utilidades.Ferramentas;
 
 import java.sql.Date;
@@ -14,11 +16,197 @@ import java.time.LocalDate;
 public class MenuAdministrador
 {
 
-    public static Medico cadastroMedico() {
+
+    public static void Menu()
+    {
+
+        boolean continuar = true;
+
+        while (continuar) {
+            Ferramentas.limpaTerminal();
+            System.out.println("           ---------------");
+            System.out.println("           |     MENU    |" );
+            System.out.println("           ---------------\n\n");
+            System.out.println("----------------------");
+            System.out.println("|  Digite:           |");
+            System.out.println("|--------------------|");
+            System.out.println("| 1-Listar Usuários  |");
+            System.out.println("| 2-Editar Usuários  |");
+            System.out.println("| 3-Excluir Usuários |");
+            System.out.println("| 4-Gerar Relatórios |");
+            System.out.println("| 5-Disponibilidade  |");
+            System.out.println("| 6-Cadastro adm     |");
+            System.out.println("| 7-Cadastro Medico  |");
+            System.out.println("| 8-Cadastro Paciente|");
+            System.out.println("| 9-Sair             |");
+            System.out.println("----------------------");
+
+            int op = Ferramentas.lInteiro();
+
+            switch (op) {
+                case 1: {
+
+                    Ferramentas.limpaTerminal();
+                    System.out.println("          --------------");
+                    System.out.println("          |  USUÁRIOS  |");
+                    System.out.println("          --------------");
+
+                    MenuAdministrador.ListarMedico();
+
+                    MenuAdministrador.ListarPaciente();
+
+                    System.out.println("\n\n\n---------------------");
+                    System.out.println("Digite para continuar");
+                    System.out.println("---------------------");
+                    String tempo = Ferramentas.lString();
+
+                    break;
+                }
+                case 2: {
+
+                    Ferramentas.limpaTerminal();
+
+                    MenuAdministrador.Editar();
+
+                    break;
+                }
+                case 3: {
+
+                    Ferramentas.limpaTerminal();
+
+                    MenuAdministrador.ExcluirUsuario();
+
+                    break;
+                }
+                case 4: {
+
+                    Ferramentas.limpaTerminal();
+
+                    MenuAdministrador.GerarRelatorios();
+
+                    break;
+                }
+                case 5:
+                {
+
+                    Ferramentas.limpaTerminal();
+
+                    MenuAdministrador.Disponibilidade();
+
+                    break;
+                }
+                case 6:
+                {
+
+                    Ferramentas.limpaTerminal();
+
+                    MenuAdministrador.CriarAdm();
+
+                    break;
+                }
+                case 7:
+                {
+
+                    Ferramentas.limpaTerminal();
+
+                    MenuAdministrador.cadastroMedico();
+
+                    break;
+                }
+                case 8:
+                {
+
+                    Ferramentas.limpaTerminal();
+
+                    MenuAdministrador.cadastroPaciente();
+
+                    break;
+                }
+                case 9: {
+
+                    continuar = false;
+
+                    break;
+                }
+                default: {
+
+                    System.out.println("\n\n\n\n-------------------------");
+                    System.out.println("Valor digitado incorreto!");
+                    System.out.println("-------------------------");
+
+                    Ferramentas.Delay(2000);
+
+                    break;
+                }
+            }
+        }
+
+        MenuInicial.Menu();
+    }
+
+    public static void CriarAdm()
+    {
+        System.out.println("     --------------------------");
+        System.out.println("     ----    Cadastro ADM  ----");
+        System.out.println("     --------------------------");
+
+        System.out.println("\n\n\nDigite o nome: ");
+        String nome = Ferramentas.lString();
+
+        System.out.println("Digite o CPF: ");
+        String cpf = Ferramentas.lString();
+
+        System.out.println("Digite a senha: ");
+        String senha = Ferramentas.lString();
+
+        System.out.println("Digite o sexo:  ( M/F )");
+        String sexo = Ferramentas.lString();
+
+        System.out.println("Digite o número de telefone: ");
+        String telefone = Ferramentas.lString();
+
+        System.out.println("Digite o email: ");
+        String email = Ferramentas.lString();
+
+        System.out.println("Data ");
+        System.out.println("Digite o Ano: ");
+        int ano = Ferramentas.lInteiro();
+
+        System.out.println("Digite o Mês: ");
+        int mes = Ferramentas.lInteiro();
+
+        System.out.println("Digite Dia: ");
+        int dia = Ferramentas.lInteiro();
+
+        System.out.println("Digite a carga horária semanal: ");
+        int cargaHoraria = Ferramentas.lInteiro();
+
+        System.out.println("Digite o salário: ");
+        double salario = Ferramentas.lDouble();
+
+        LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
+
+        Date sqlDate = Date.valueOf(dataNascimento);
+
+        Administrador administrador = new Administrador(nome,cpf,senha,sexo,telefone,email,sqlDate,salario,cargaHoraria);
+
+        AdministradorService administradorService =  new AdministradorService();
+
+        administradorService.inserirAdmin(administrador);
+
+        System.out.println("Adm criado");
+
+        Ferramentas.Delay(1500);
+    }
+
+    public static void cadastroMedico() {
         Ferramentas.limpaTerminal();
 
-        System.out.println("       CADASTRO\n\n\n");
-        System.out.println("Digite o nome: ");
+        System.out.println("     --------------------------");
+        System.out.println("     ----    Cadastro Médico  ----");
+        System.out.println("     --------------------------");
+
+        System.out.println("\n\n\nDigite o nome: ");
         String nome = Ferramentas.lString();
 
         System.out.println("Digite o CPF: ");
@@ -70,20 +258,41 @@ public class MenuAdministrador
 
         if(subE.isEmpty()) {
 
-            return new Medico(nome,cpf,senha,sexo,telefone,email,sqlDate,cargaHoraria,salario,plantao,especialidade,formacao);
+            Medico medico = new Medico(nome,cpf,senha,sexo,telefone,email,sqlDate,cargaHoraria,salario,plantao,especialidade,formacao);
+
+            MedicoService medicoService = new MedicoService();
+
+            medicoService.inserirMedico(medico);
+
+            System.out.println("Medico criado");
+
+            Ferramentas.Delay(1500);
 
         } else {
 
-            return new Medico(nome,cpf,senha,sexo,telefone,email,sqlDate,cargaHoraria,salario,plantao,especialidade,formacao,subE);
+            Medico medico = new Medico(nome,cpf,senha,sexo,telefone,email,sqlDate,cargaHoraria,salario,plantao,especialidade,formacao,subE);
+
+            MedicoService medicoService = new MedicoService();
+
+            medicoService.inserirMedico(medico);
+
+            System.out.println("Medico criado");
+
+            Ferramentas.Delay(1500);
+
         }
     }
 
-    public static Paciente cadastroPaciente() {
+    public static void cadastroPaciente() {
 
         Ferramentas.limpaTerminal();
 
-        System.out.println("       CADASTRO\n\n\n");
-        System.out.println("Digite o nome: ");
+        System.out.println("     -----------------------------");
+        System.out.println("     ----  Cadastro Paciente  ----");
+        System.out.println("     -----------------------------");
+
+
+        System.out.println("\n\n\nDigite o nome: ");
         String nome = Ferramentas.lString();
 
         System.out.println("Digite o CPF: ");
@@ -136,109 +345,24 @@ public class MenuAdministrador
 
         Date sqlDate = Date.valueOf(dataNascimento);
 
-        return new Paciente(nome,cpf,senha,sexo,telefone,email,sqlDate, contatoEmer, contatoEmer);
-    }
+        Paciente paciente = new Paciente(nome,cpf,senha,sexo,telefone,email,sqlDate, contatoEmer, contatoEmer);
 
-    public static void Menu()
-    {
+        PacienteService pacienteService = new PacienteService();
 
-        boolean continuar = true;
+        pacienteService.inserirPaciente(paciente);
 
-        while (continuar) {
-            Ferramentas.limpaTerminal();
+        System.out.println("Paciente criado");
 
-            System.out.println("        MENU ");
-            System.out.println("\n\nDigite:");
-            System.out.println("1-Listar Usuários");
-            System.out.println("2-Editar Usuários");
-            System.out.println("3-Excluir Usuários");
-            System.out.println("4-Gerar Relatórios");
-            System.out.println("5-Disponibilidade de Médicos");
-            System.out.println("6-Criar adm");
-            System.out.println("7-Sair");
-            int op = Ferramentas.lInteiro();
-
-            switch (op) {
-                case 1: {
-
-                    Ferramentas.limpaTerminal();
-
-                    System.out.println("             USUÁRIOS");
-
-                    MenuAdministrador.ListarMedico();
-
-                    MenuAdministrador.ListarPaciente();
-
-                    System.out.println("Digite para continuar");
-                    String tempo = Ferramentas.lString();
-
-                    break;
-                }
-                case 2: {
-
-                    Ferramentas.limpaTerminal();
-
-                    MenuAdministrador.Editar();
-
-                    break;
-                }
-                case 3: {
-
-                    Ferramentas.limpaTerminal();
-
-                    MenuAdministrador.ExcluirUsuario();
-
-                    break;
-                }
-                case 4: {
-
-                    Ferramentas.limpaTerminal();
-
-                    MenuAdministrador.GerarRelatorios();
-
-                    break;
-                }
-                case 5:
-                {
-
-                    Ferramentas.limpaTerminal();
-
-                    MenuAdministrador.Disponibilidade();
-
-                    break;
-                }
-                case 6:
-                {
-
-                    Ferramentas.limpaTerminal();
-
-                    MenuAdministrador.CriarAdm();
-
-                    break;
-                }
-                case 7: {
-
-                    continuar = false;
-
-                    break;
-                }
-                default: {
-                    System.out.println("Valor digitado incorreto!");
-
-                    Ferramentas.Delay(2000);
-
-                    break;
-                }
-            }
-        }
+        Ferramentas.Delay(1500);
     }
 
     public static void ListarMedico()
     {
 
         int cont = 1;
-
-        System.out.println("\n\n  -Médicos-\n\n");
+        System.out.println("          -------------");
+        System.out.println("          |  Médicos  |");
+        System.out.println("          -------------");
 
         //for (Usuario entrada: USUARIOS)
         //{
@@ -419,58 +543,6 @@ public class MenuAdministrador
 
         System.out.println("\n\nDigite para continuar");
         String tempo = Ferramentas.lString();
-    }
-
-    public static void CriarAdm()
-    {
-
-        System.out.println("Cadastro ADM");
-
-        System.out.println("\n\n\nDigite o nome: ");
-        String nome = Ferramentas.lString();
-
-        System.out.println("Digite o CPF: ");
-        String cpf = Ferramentas.lString();
-
-        System.out.println("Digite a senha: ");
-        String senha = Ferramentas.lString();
-
-        System.out.println("Digite o sexo:  ( M/F )");
-        String sexo = Ferramentas.lString();
-
-        System.out.println("Digite o número de telefone: ");
-        String telefone = Ferramentas.lString();
-
-        System.out.println("Digite o email: ");
-        String email = Ferramentas.lString();
-
-        System.out.println("Data ");
-        System.out.println("Digite o Ano: ");
-        int ano = Ferramentas.lInteiro();
-
-        System.out.println("Digite o Mês: ");
-        int mes = Ferramentas.lInteiro();
-
-        System.out.println("Digite Dia: ");
-        int dia = Ferramentas.lInteiro();
-
-        System.out.println("Digite a carga horária semanal: ");
-        int cargaHoraria = Ferramentas.lInteiro();
-
-        System.out.println("Digite o salário: ");
-        double salario = Ferramentas.lDouble();
-
-        LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
-
-        Date sqlDate = Date.valueOf(dataNascimento);
-
-        Administrador administrador = new Administrador(nome,cpf,senha,sexo,telefone,email,sqlDate,salario,cargaHoraria);
-
-        System.out.println("Adm criado");
-
-        AdministradorService administradorService =  new AdministradorService();
-
-        administradorService.inserirAdmin(administrador);
     }
 
 }
