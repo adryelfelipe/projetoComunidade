@@ -2,16 +2,16 @@ package Arquitetura.Model;
 
 import java.sql.Date;
 
-public class Administrador extends Usuario {
+public class Administrador extends Funcionario {
 
     // Atributos
     private double salario;
     private int cargaHoraria;
 
     // Construtor sem id
-    public Administrador(String nome, String cpf, String senha, String sexo, String telefone, String email,Date dataNascimento, double salario, int cargaHoraria )
+    public Administrador(String nome, String cpf, String senha, String sexo, String telefone, String email,Date dataNascimento, double salario, int cargaHorariaSemanal)
     {
-        super(nome, cpf, senha, sexo, telefone, email, dataNascimento);
+        super(nome, cpf, senha, sexo, telefone, email, dataNascimento, salario, cargaHorariaSemanal);
         this.salario = salario;
         this.cargaHoraria = cargaHoraria;
         setTipoUsuario("Administrador");

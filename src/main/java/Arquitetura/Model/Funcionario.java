@@ -1,0 +1,38 @@
+package Arquitetura.Model;
+
+import java.sql.Date;
+
+public class Funcionario extends Usuario{
+
+    // -- Atributos -- //
+    private double salario;
+    private int cargaHorariaSemanal;
+
+    // -- Construtor -- //
+    public Funcionario(String nome, String cpf, String senha, String sexo, String telefone, String email, Date dataNascimento, double salario, int cargaHorariaSemanal) {
+        super(nome, cpf, senha, sexo, telefone, email, dataNascimento);
+        this.salario = salario;
+        this.cargaHorariaSemanal = cargaHorariaSemanal;
+    }
+
+    // -- Setters e Getters -- //
+    public void setCargaHorariaSemanal(int cargaHorariaSemanal) {
+        if(cargaHorariaSemanal > 0) {
+            this.cargaHorariaSemanal = cargaHorariaSemanal;
+        }
+    }
+
+    public int getCargaHorariaSemanal() {
+        return cargaHorariaSemanal;
+    }
+
+    public void setSalario(double salario) {
+        if(salario > 0.0) {
+            this.salario = salario;
+        }
+    }
+
+    public double getSalario() {
+        return salario;
+    }
+}
