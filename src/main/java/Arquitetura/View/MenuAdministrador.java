@@ -17,7 +17,7 @@ public class MenuAdministrador
 {
 
 
-    public static void Menu()
+    public static void Menu(Administrador adm)
     {
 
         boolean continuar = true;
@@ -51,9 +51,9 @@ public class MenuAdministrador
                     System.out.println("          |  USUÁRIOS  |");
                     System.out.println("          --------------");
 
-                    MenuAdministrador.ListarMedico();
+                    MenuAdministrador.ListarMedico(adm);
 
-                    MenuAdministrador.ListarPaciente();
+                    MenuAdministrador.ListarPaciente(adm);
 
                     System.out.println("\n\n\n---------------------");
                     System.out.println("Digite para continuar");
@@ -66,7 +66,7 @@ public class MenuAdministrador
 
                     Ferramentas.limpaTerminal();
 
-                    MenuAdministrador.Editar();
+                    MenuAdministrador.Editar(adm);
 
                     break;
                 }
@@ -74,7 +74,7 @@ public class MenuAdministrador
 
                     Ferramentas.limpaTerminal();
 
-                    MenuAdministrador.ExcluirUsuario();
+                    MenuAdministrador.ExcluirUsuario(adm);
 
                     break;
                 }
@@ -82,7 +82,7 @@ public class MenuAdministrador
 
                     Ferramentas.limpaTerminal();
 
-                    MenuAdministrador.GerarRelatorios();
+                    MenuAdministrador.GerarRelatorios(adm);
 
                     break;
                 }
@@ -91,7 +91,7 @@ public class MenuAdministrador
 
                     Ferramentas.limpaTerminal();
 
-                    MenuAdministrador.Disponibilidade();
+                    MenuAdministrador.Disponibilidade(adm);
 
                     break;
                 }
@@ -100,7 +100,7 @@ public class MenuAdministrador
 
                     Ferramentas.limpaTerminal();
 
-                    MenuAdministrador.CriarAdm();
+                    MenuAdministrador.CriarAdm(adm);
 
                     break;
                 }
@@ -109,7 +109,7 @@ public class MenuAdministrador
 
                     Ferramentas.limpaTerminal();
 
-                    MenuAdministrador.cadastroMedico();
+                    MenuAdministrador.cadastroMedico(adm);
 
                     break;
                 }
@@ -118,7 +118,7 @@ public class MenuAdministrador
 
                     Ferramentas.limpaTerminal();
 
-                    MenuAdministrador.cadastroPaciente();
+                    MenuAdministrador.cadastroPaciente(adm);
 
                     break;
                 }
@@ -144,7 +144,7 @@ public class MenuAdministrador
         MenuInicial.Menu();
     }
 
-    public static void CriarAdm()
+    public static void CriarAdm(Administrador adm)
     {
         System.out.println("     --------------------------");
         System.out.println("     ----    Cadastro ADM  ----");
@@ -199,7 +199,7 @@ public class MenuAdministrador
         Ferramentas.Delay(1500);
     }
 
-    public static void cadastroMedico() {
+    public static void cadastroMedico(Administrador adm) {
         Ferramentas.limpaTerminal();
 
         System.out.println("     --------------------------");
@@ -283,7 +283,7 @@ public class MenuAdministrador
         }
     }
 
-    public static void cadastroPaciente() {
+    public static void cadastroPaciente(Administrador adm) {
 
         Ferramentas.limpaTerminal();
 
@@ -356,7 +356,7 @@ public class MenuAdministrador
         Ferramentas.Delay(1500);
     }
 
-    public static void ListarMedico()
+    public static void ListarMedico(Administrador adm)
     {
 
         int cont = 1;
@@ -381,7 +381,7 @@ public class MenuAdministrador
 
     }
 
-    public static void ListarPaciente()
+    public static void ListarPaciente(Administrador adm)
     {
 
         System.out.println("\n\n  -Pacientes-\n\n");
@@ -407,7 +407,7 @@ public class MenuAdministrador
 
     }
 
-    public static void ExcluirUsuario()
+    public static void ExcluirUsuario(Administrador adm)
     {
 
         Ferramentas.limpaTerminal();
@@ -444,7 +444,7 @@ public class MenuAdministrador
 
     }
 
-    public static void GerarRelatorios()
+    public static void GerarRelatorios(Administrador adm)
     {
 
         Ferramentas.limpaTerminal();
@@ -479,7 +479,7 @@ public class MenuAdministrador
 
     }
 
-    public static void Disponibilidade()
+    public static void Disponibilidade(Administrador adm)
     {
 
         Ferramentas.limpaTerminal();
@@ -505,7 +505,7 @@ public class MenuAdministrador
 
     }
 
-    public static void Editar()
+    public static void Editar(Administrador adm)
     {
         System.out.println("        EDITAR ");
         System.out.println("\n\nDigite o CPF: ");

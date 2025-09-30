@@ -23,7 +23,6 @@ public class  MenuInicial {
             System.out.println("\n");
             int op = Ferramentas.lInteiro();
 
-
             if (op == 1) {
 
                 Ferramentas.limpaTerminal();
