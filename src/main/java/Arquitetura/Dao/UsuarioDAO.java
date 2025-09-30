@@ -7,6 +7,7 @@ import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class UsuarioDAO {
 
@@ -70,6 +71,7 @@ public class UsuarioDAO {
 
             try (ResultSet resultSet = stmt.executeQuery()) {
                 if (resultSet.next()) {
+                    // Dados Gerais do Usuário
                     long id = resultSet.getLong("idUsuario");
                     String senha = resultSet.getString("senha");
                     String nomeUsuario = resultSet.getString("nomeUsuario");
@@ -99,7 +101,7 @@ public class UsuarioDAO {
 
                     // Cria o objeto correto de acordo com o tipo de usuário
                     if (tipoUsuario.equalsIgnoreCase("Administrador")) {
-                        usuario = new Administrador(nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento, salarioAdmin, cargaHorariaAdmin);
+                        usuario = new Administrador(nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento, salarioAdmin, cargaHorariaAdmin, id);
                     } else if (tipoUsuario.equalsIgnoreCase("Médico")) {
                         usuario = new Medico(id, nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento,
                                 cargaHorariaSemanal, salarioMedico, plantao, especialidade, formacao, subEspecialidade);
@@ -141,6 +143,44 @@ public class UsuarioDAO {
             System.err.println("Erro ao deletar usuário com ID " + id + ": " + e.getMessage());
             return false;
         }
+    }
+    public ArrayList<Usuario> findAllUsers()
+    {
+        ArrayList<Usuario> listaUsuarios = new ArrayList<>();
+
+        String querySql = "SELECT " +
+                "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, " +
+                "A.salario AS adminSalario, A.cargaHoraria AS adminCargaHoraria, " +
+                "P.numeroCarteirinha, P.contatoEmergencia, P.statusPaciente, " +
+                "M.salario AS medicoSalario, M.cargaHorariaSemanal, M.plantao, M.especialidade, M.subEspecialidade, M.formacao " +
+                "FROM Usuario U " +
+                "LEFT JOIN Administrador A ON U.idUsuario = A.idAdministrador " +
+                "LEFT JOIN Medico M ON U.idUsuario = M.idMedico " +
+                "LEFT JOIN Paciente P ON U.idUsuario = P.idPaciente";
+
+        try(
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql);
+                ResultSet resultSet = stmt.executeQuery())
+        {
+            while (resultSet.next())
+            {
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
+
+                Usuario usuario = usuarioDAO.findById(resultSet.getLong("idUsuario"));
+
+                if(usuario != null)
+                {
+                    listaUsuarios.add(usuario);
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+               System.out.println("Erro ao buscar todos os Usuários: ");
+        }
+
+        return listaUsuarios;
     }
 
 }
