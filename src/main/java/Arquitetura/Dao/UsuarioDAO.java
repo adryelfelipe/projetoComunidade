@@ -11,6 +11,9 @@ import java.util.ArrayList;
 
 public class UsuarioDAO {
 
+    // -- CRUD -- //
+
+    // Inserção
     public void inserirUsuario(Usuario usuario) {
 
         String sql = "INSERT INTO Usuario (senha, nomeUsuario, sexo, cpf, telefone, tipoUsuario, email, dataNascimento) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -48,7 +51,7 @@ public class UsuarioDAO {
         }
     }
 
-
+    // Leitura por ID
     public Usuario findById(long idUsuario) {
         String querySQL = "SELECT " +
                 "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, " +
@@ -117,6 +120,7 @@ public class UsuarioDAO {
         return usuario;
     }
 
+    // Remoção
     public boolean deletarUsuario(long id) {
         String querySql = "DELETE FROM Usuario WHERE idUsuario = ?";
 
@@ -141,6 +145,8 @@ public class UsuarioDAO {
             return false;
         }
     }
+
+    // Leitura de todos os usuários
     public ArrayList<Usuario> findAllUsers()
     {
         ArrayList<Usuario> listaUsuarios = new ArrayList<>();
@@ -183,6 +189,7 @@ public class UsuarioDAO {
         return listaUsuarios;
     }
 
+    // Leitura - verifica se existe um cpf igual ao do parâmetro no banco de dados
     public boolean verificarCpf(String cpf) {
         String querySql = "SELECT 1 FROM Usuario WHERE cpf = ? LIMIT 1";
 
@@ -202,6 +209,8 @@ public class UsuarioDAO {
             return false;
         }
     }
+
+    // Leitura - verifica a senha está coerente com o cpf
     public boolean verificarSenha(String cpf, String senha)
     {
         String querySql = "SELECT senha FROM Usuario WHERE cpf = ? LIMIT 1";
