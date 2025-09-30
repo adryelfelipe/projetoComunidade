@@ -12,9 +12,12 @@ public class MenuPaciente
         boolean continuar = true;
 
         while (continuar) {
+
             Ferramentas.limpaTerminal();
 
-            System.out.println("        MENU");
+            System.out.println("           ---------------");
+            System.out.println("           |     MENU    |" );
+            System.out.println("           ---------------\n\n");
             System.out.println("\n\n1-Ficha técnica");
             System.out.println("2-Laudos de exames");
             System.out.println("3-Editar cadastro");
