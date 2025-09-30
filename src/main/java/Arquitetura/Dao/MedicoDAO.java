@@ -9,6 +9,9 @@ import java.sql.SQLException;
 
 public class MedicoDAO {
 
+    // -- CRUD -- //
+
+    // Inserção
     public void inserirMedico(Medico medico)
     {
         String querySQL = "INSERT INTO Medico (idMedico, salario, cargaHorariaSemanal, plantao, especialidade, subEspecialidade, formacao) values (?, ?, ?, ?, ?, ?, ?)";

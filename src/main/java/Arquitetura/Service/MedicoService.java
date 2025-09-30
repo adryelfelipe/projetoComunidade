@@ -9,6 +9,7 @@ public class MedicoService {
     // -- Atributos -- //
     MedicoDAO medicoDAO = new MedicoDAO();
     UsuarioService usuarioService = new UsuarioService();
+    FuncionarioService funcionarioService = new FuncionarioService();
 
     // Construtor -- //
     public MedicoService() {
@@ -19,13 +20,13 @@ public class MedicoService {
 
     // Verifica a veracidade dos atributos específicos de Medico
     public boolean verificarDadosMed(Medico medico) {
-        return(medico.getFormacao() != null && medico.getEspecialidade() != null && medico.getPlantao() != null && medico.getCargaHorariaSemanal() >= 40 && medico.getSalario() > 0);
+        return(medico.getFormacao() != null && medico.getEspecialidade() != null && medico.getPlantao() != null);
     }
 
     // Insere o objeto do tipo Medico no banco de dados
     public void inserirMedico(Administrador administrador, Medico medico) {
-      if(verificarDadosMed(medico)) {
-          if(usuarioService.inserirUsuario(administrador, medico, medico.getEmail(), medico.getCpf())) {
+      if(verificarDadosMed(medico)) { // Verifica as regras para inserir um Medico
+          if(funcionarioService.inserirFuncionario(administrador, medico)) {
               medicoDAO.inserirMedico(medico);
           }
       }

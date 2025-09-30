@@ -2,24 +2,19 @@ package Arquitetura.Model;
 
 import java.sql.Date;
 
-public class Medico extends Usuario {
+public class Medico extends Funcionario{
 
-    //Atributos
-    private double salario;
-    private int cargaHorariaSemanal;
+    // -- Atributos -- //
     private String plantao;
     private String especialidade;
     private String subEspecialidade;
     private String formacao;
 
-    //Construtores
-
+    // -- Construtores -- //
 
     // Não possui subEspecialidade nem id
     public Medico(String nome, String cpf, String senha, String sexo, String telefone, String email,Date dataNascimento,int cargaHorariaSemanal,double salario,  String plantao, String especialidade, String formacao ) {
-        super(nome,cpf,senha,sexo,telefone,email,dataNascimento);
-        this.cargaHorariaSemanal = cargaHorariaSemanal;
-        this.salario = salario;
+        super(nome,cpf,senha,sexo,telefone,email,dataNascimento, salario, cargaHorariaSemanal);
         this.plantao = plantao;
         this.especialidade = especialidade;
         this.formacao = formacao;
@@ -48,17 +43,7 @@ public class Medico extends Usuario {
     }
 
 
-    //Getters & Setters
-    public void setCargaHorariaSemanal(int cargaHorariaSemanal) {
-        if(cargaHorariaSemanal > 0) {
-            this.cargaHorariaSemanal = cargaHorariaSemanal;
-        }
-    }
-
-    public int getCargaHorariaSemanal() {
-        return cargaHorariaSemanal;
-    }
-
+    // -- Getters & Setters -- //
     public void setEspecialidade(String especialidade) {
         if(!especialidade.isEmpty()) {
             this.especialidade = especialidade;
@@ -89,16 +74,6 @@ public class Medico extends Usuario {
         return plantao;
     }
 
-    public void setSalario(double salario) {
-        if(salario > 0.0) {
-            this.salario = salario;
-        }
-    }
-
-    public double getSalario() {
-        return salario;
-    }
-
     public void setSubEspecialidade(String subEspecialidade) {
         if(!subEspecialidade.isEmpty()) {
             this.subEspecialidade = subEspecialidade;
@@ -108,7 +83,4 @@ public class Medico extends Usuario {
     public String getSubEspecialidade() {
         return subEspecialidade;
     }
-
-    //Métodos
-
 }

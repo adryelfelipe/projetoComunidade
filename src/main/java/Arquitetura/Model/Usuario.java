@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public abstract class Usuario {
 
-    // Atributos
+    // -- Atributos -- //
     private String nome;
     private String cpf;
     private String senha;
@@ -15,7 +15,7 @@ public abstract class Usuario {
     private String tipoUsuario;
     private long id;
 
-    // Construtor
+    // -- Construtor -- //
     public Usuario(String nome, String cpf, String senha, String sexo, String telefone, String email, Date dataNascimento) {
         this.senha = senha;
         this.nome = nome;
@@ -26,7 +26,7 @@ public abstract class Usuario {
         this.dataNascimento = dataNascimento;
     }
 
-    // Setters e Getters
+    // -- Setters e Getters -- //
     public String getNome() {
         return nome;
     }
@@ -114,6 +114,4 @@ public abstract class Usuario {
             this.cpf = cpf;
         }
     }
-
-    // Métodos
 }

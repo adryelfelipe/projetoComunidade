@@ -2,48 +2,32 @@ package Arquitetura.Model;
 
 import java.sql.Date;
 
-public class Administrador extends Usuario {
+public class Administrador extends Funcionario {
 
-    // Atributos
-    private double salario;
-    private int cargaHoraria;
+    // -- Atributos -- //
+    private String departamento;
+
+    // -- Construtores -- //
 
     // Construtor sem id
-    public Administrador(String nome, String cpf, String senha, String sexo, String telefone, String email,Date dataNascimento, double salario, int cargaHoraria )
+    public Administrador(String nome, String cpf, String senha, String sexo, String telefone, String email,Date dataNascimento, double salario, int cargaHorariaSemanal, String departamento)
     {
-        super(nome, cpf, senha, sexo, telefone, email, dataNascimento);
-        this.salario = salario;
-        this.cargaHoraria = cargaHoraria;
+        super(nome, cpf, senha, sexo, telefone, email, dataNascimento, salario, cargaHorariaSemanal);
         setTipoUsuario("Administrador");
     }
 
     // Construtor com id
-    public Administrador( String nome, String cpf, String senha, String sexo, String telefone,String email,Date dataNascimento,double salario, int cargaHoraria,long id) {
-        this(nome, cpf, senha, sexo, telefone,email, dataNascimento, salario, cargaHoraria );
+    public Administrador(String nome, String cpf, String senha, String sexo, String telefone,String email,Date dataNascimento,double salario, int cargaHoraria,String departamento, long id) {
+        this(nome, cpf, senha, sexo, telefone,email, dataNascimento, salario, cargaHoraria, departamento);
         this.setId(id);
     }
 
-    // Setters e Getters
-    public void setSalario(double salario) {
-        if(salario > 0.0) {
-            this.salario = salario;
-        }
+    // --  Setters e Getters -- //
+    public String getDepartamento() {
+        return departamento;
     }
 
-    public double getSalario() {
-        return salario;
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
     }
-
-    public void setCargaHoraria(int cargaHoraria) {
-        if(cargaHoraria > 0) {
-            this.cargaHoraria = cargaHoraria;
-        }
-    }
-
-    public int getCargaHoraria() {
-        return cargaHoraria;
-    }
-
-    // Métodos
-
 }
