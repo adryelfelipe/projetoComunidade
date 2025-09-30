@@ -4,6 +4,8 @@ import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Usuario;
 
+import java.util.ArrayList;
+
 public class UsuarioService {
 
     // -- Atributos -- //
@@ -45,6 +47,10 @@ public class UsuarioService {
         return usuarioDao.findById(id);
     }
 
+    // Retorna uma ArrayList contendo todos os usuários do banco de dados
+    public ArrayList<Usuario> findAllUsers(Administrador administrador) {
 
+        return usuarioDao.findAllUsers();
+    }
 
 }
