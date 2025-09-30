@@ -25,10 +25,9 @@ public class MedicoService {
     // Insere o objeto do tipo Medico no banco de dados
     public void inserirMedico(Administrador administrador, Medico medico) {
       if(verificarDadosMed(medico)) {
-          usuarioService.inserirUsuario(administrador, medico);
-          medicoDAO.inserirMedico(medico);
+          if(usuarioService.inserirUsuario(administrador, medico)) {
+              medicoDAO.inserirMedico(medico);
+          }
       }
     }
-
-
 }

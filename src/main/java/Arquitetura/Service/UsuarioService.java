@@ -27,13 +27,17 @@ public class UsuarioService {
     }
 
     // Insere os atributos gerais de Usuario na tabela Usuario do banco de dados
-    public void inserirUsuario(Administrador administrador, Usuario usuario) {
+    public boolean inserirUsuario(Administrador administrador, Usuario usuario) {
         if(!(administrador == usuario))
         {
             if(verificarDados(usuario) && isEmailExistente()) {
                 usuarioDao.inserirUsuario(usuario);
+
+                return true;
             }
         }
+
+        return false;
     }
 
     // Faz procura no banco de dados por Id

@@ -26,8 +26,9 @@ public class AdministradorService {
     // Insere o objeto do tipo Administrador no banco de dados
     public void inserirAdmin(Administrador admCriador, Administrador admCriado) {
         if(verificarDadosAdm(admCriado)) {
-            usuarioService.inserirUsuario(admCriador, admCriado);
-            administradorDao.inserirAdmin(admCriado);
+            if(usuarioService.inserirUsuario(admCriador, admCriado)) {
+                administradorDao.inserirAdmin(admCriado);
+            }
         }
     }
 }
