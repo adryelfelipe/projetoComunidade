@@ -34,10 +34,10 @@ public class UsuarioService {
     }
 
     // Insere os atributos gerais de Usuario na tabela Usuario do banco de dados
-    public boolean inserirUsuario(Administrador administrador, Usuario usuario, String email, String cpf) {
+    public boolean inserirUsuario(Administrador administrador, Usuario usuario) {
         if(!(administrador == usuario))
         {
-            if(verificarDadosUser(usuario) && !isEmailExistente(email) && !isCpfExistente(cpf)){
+            if(verificarDadosUser(usuario) && !isEmailExistente(usuario.getEmail()) && !isCpfExistente(usuario.getCpf())){
                 usuarioDao.inserirUsuario(usuario);
 
                 return true;

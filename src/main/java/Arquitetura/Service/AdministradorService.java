@@ -12,6 +12,7 @@ public class AdministradorService {
     final AdministradorDAO administradorDao = new AdministradorDAO();
     final UsuarioService usuarioService = new UsuarioService();
     final UsuarioDAO usuarioDAO = new UsuarioDAO();
+    final FuncionarioService funcionarioService = new FuncionarioService();
 
     // -- Construtor -- //
     public AdministradorService() {
@@ -22,13 +23,13 @@ public class AdministradorService {
 
     // Verifica a veracidade dos atributos específicos de Admin
     public boolean verificarDadosAdm(Administrador administrador) {
-        return (administrador.getCargaHoraria() >= 40);
+        return true; //provisório
     }
 
     // Insere o objeto do tipo Administrador no banco de dados
     public boolean inserirAdmin(Administrador admCriador, Administrador admCriado) {
         if(verificarDadosAdm(admCriado)) {
-            if(usuarioService.inserirUsuario(admCriador, admCriado, admCriado.getEmail(), admCriado.getCpf())) {
+            if(funcionarioService.inserirFuncionario(admCriador, admCriado)) {
                 administradorDao.inserirAdmin(admCriado);
 
                 return true;

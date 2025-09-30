@@ -29,21 +29,21 @@ public class Medico extends Funcionario{
 
     // Não possui subEspecialidade e possui ID
     public Medico(long id, String nome, String cpf, String senha,String sexo,String telefone,  String email,  Date dataNascimento , int cargaHorariaSemanal,double salario, String plantao, String especialidade, String formacao) {
-        this(nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal, salario,plantao, especialidade, formacao );
+        this(nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal,   salario,plantao, especialidade, formacao );
         this.subEspecialidade = "N/A";
         this.setId(id);
     }
 
     // Possui subEspecialidade e possui ID
     public Medico(long id, String nome, String cpf, String senha,String sexo,String telefone,  String email,  Date dataNascimento , int cargaHorariaSemanal,double salario, String plantao, String especialidade, String formacao,String subEspecialidade) {
-        this(nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal, salario,plantao, especialidade, formacao );
+        this(nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal,   salario,plantao, especialidade, formacao );
         this.subEspecialidade = subEspecialidade;
         this.setId(id);
     }
 
     // Possui subEspecialidade e não possui ID
     public Medico( String nome, String cpf, String senha,String sexo,String telefone,  String email,  Date dataNascimento , int cargaHorariaSemanal,double salario, String plantao, String especialidade, String formacao, String subEspecialidade) {
-        this(nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal, salario,plantao, especialidade, formacao );
+        this(nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal,   salario,plantao, especialidade, formacao );
         this.subEspecialidade = subEspecialidade;
     }
 
