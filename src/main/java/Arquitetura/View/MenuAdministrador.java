@@ -188,11 +188,11 @@ public class MenuAdministrador
 
         Date sqlDate = Date.valueOf(dataNascimento);
 
-        Administrador administrador = new Administrador(nome,cpf,senha,sexo,telefone,email,sqlDate,salario,cargaHoraria);
+//        Administrador administrador = new Administrador(nome,cpf,senha,sexo,telefone,email,sqlDate,salario,cargaHoraria);
 
         AdministradorService administradorService =  new AdministradorService();
 
-        administradorService.inserirAdmin(administrador);
+//        administradorService.inserirAdmin(administrador);
 
         System.out.println("Adm criado");
 
@@ -262,7 +262,7 @@ public class MenuAdministrador
 
             MedicoService medicoService = new MedicoService();
 
-            medicoService.inserirMedico(medico);
+//            medicoService.inserirMedico(medico);
 
             System.out.println("Medico criado");
 
@@ -274,7 +274,7 @@ public class MenuAdministrador
 
             MedicoService medicoService = new MedicoService();
 
-            medicoService.inserirMedico(medico);
+//            medicoService.inserirMedico(medico);
 
             System.out.println("Medico criado");
 
@@ -349,7 +349,7 @@ public class MenuAdministrador
 
         PacienteService pacienteService = new PacienteService();
 
-        pacienteService.inserirPaciente(paciente);
+//        pacienteService.inserirPaciente(paciente);
 
         System.out.println("Paciente criado");
 
