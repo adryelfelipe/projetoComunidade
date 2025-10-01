@@ -9,6 +9,7 @@ public class Medico extends Funcionario{
     private String especialidade;
     private String subEspecialidade;
     private String formacao;
+    private static final String tipoUsuario = "Medico";
 
     // -- Construtores -- //
 
@@ -18,7 +19,6 @@ public class Medico extends Funcionario{
         this.plantao = plantao;
         this.especialidade = especialidade;
         this.formacao = formacao;
-        setTipoUsuario("Médico");
         this.subEspecialidade = "N/A";
     }
 
@@ -82,5 +82,10 @@ public class Medico extends Funcionario{
 
     public String getSubEspecialidade() {
         return subEspecialidade;
+    }
+
+    @Override
+    public String getTipoUsuario() {
+        return Medico.tipoUsuario;
     }
 }

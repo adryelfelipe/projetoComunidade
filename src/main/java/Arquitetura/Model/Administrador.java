@@ -6,6 +6,7 @@ public class Administrador extends Funcionario {
 
     // -- Atributos -- //
     private String departamento;
+    private static final String tipoUsuario = "Administrador";
 
     // -- Construtores -- //
 
@@ -13,7 +14,6 @@ public class Administrador extends Funcionario {
     public Administrador(String nome, String cpf, String senha, String sexo, String telefone, String email,Date dataNascimento, double salario, int cargaHorariaSemanal, String departamento)
     {
         super(nome, cpf, senha, sexo, telefone, email, dataNascimento, salario, cargaHorariaSemanal);
-        setTipoUsuario("Administrador");
     }
 
     // Construtor com id
@@ -29,5 +29,10 @@ public class Administrador extends Funcionario {
 
     public void setDepartamento(String departamento) {
         this.departamento = departamento;
+    }
+
+    @Override
+    public String getTipoUsuario() {
+        return Administrador.tipoUsuario;
     }
 }

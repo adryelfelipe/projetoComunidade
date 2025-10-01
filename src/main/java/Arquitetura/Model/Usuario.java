@@ -12,7 +12,6 @@ public abstract class Usuario {
     private String telefone;
     private String email;
     private Date dataNascimento;
-    private String tipoUsuario;
     private long id;
 
     // -- Construtor -- //
@@ -85,15 +84,7 @@ public abstract class Usuario {
         }
     }
 
-    public String getTipoUsuario() {
-        return tipoUsuario;
-    }
-
-    public void setTipoUsuario(String tipoUsuario) {
-        if(!tipoUsuario.isEmpty()) {
-            this.tipoUsuario = tipoUsuario;
-        }
-    }
+    public abstract String getTipoUsuario();
 
     public String getSenha() {
         return senha;
