@@ -53,7 +53,7 @@ public class UsuarioService {
     }
 
     // Retorna uma ArrayList contendo todos os usuários do banco de dados
-    public ArrayList<Usuario> findAllUsers(Administrador administrador) {
+    public ArrayList<Usuario> findAllUsers() {
 
         return usuarioDao.findAllUsers();
     }
