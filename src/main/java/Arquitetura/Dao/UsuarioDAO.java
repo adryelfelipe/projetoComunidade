@@ -55,13 +55,15 @@ public class UsuarioDAO {
     public Usuario findById(long idUsuario) {
         String querySQL = "SELECT " +
                 "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, " +
-                "A.salario AS salarioAdmin, A.cargaHoraria AS cargaHorariaAdmin, " +
+                "A.departamento, " +
                 "P.numeroCarteirinha, P.contatoEmergencia, P.statusPaciente, " +
-                "M.salario AS salarioMedico, M.cargaHorariaSemanal, M.plantao, M.especialidade, M.subEspecialidade, M.formacao " +
+                "M.plantao, M.especialidade, M.subEspecialidade, M.formacao, " +
+                "F.salario, F.cargaHorariaSemanal " +
                 "FROM Usuario U " +
                 "LEFT JOIN Administrador A ON U.idUsuario = A.idAdministrador " +
                 "LEFT JOIN Medico M ON U.idUsuario = M.idMedico " +
                 "LEFT JOIN Paciente P ON U.idUsuario = P.idPaciente " +
+                "LEFT JOIN Funcionario F ON U.idUsuario = F.idFuncionario " +
                 "WHERE U.idUsuario = ?";
 
         Usuario usuario = null;
@@ -86,8 +88,7 @@ public class UsuarioDAO {
                     String tipoUsuario = resultSet.getString("tipoUsuario");
 
                     // Dados Administrador
-                    double salarioAdmin = resultSet.getDouble("salarioAdmin");
-                    int cargaHorariaAdmin = resultSet.getInt("cargaHorariaAdmin");
+                    String departamento = resultSet.getString("departamento");
 
                     // Dados Paciente
                     String numCarteirinha = resultSet.getString("numeroCarteirinha");
@@ -95,19 +96,21 @@ public class UsuarioDAO {
                     String statusPaciente = resultSet.getString("statusPaciente");
 
                     // Dados Médico
-                    double salarioMedico = resultSet.getDouble("salarioMedico");
-                    int cargaHorariaSemanal = resultSet.getInt("cargaHorariaSemanal");
                     String plantao = resultSet.getString("plantao");
                     String especialidade = resultSet.getString("especialidade");
                     String subEspecialidade = resultSet.getString("subEspecialidade");
                     String formacao = resultSet.getString("formacao");
 
+                    // Dados Funcionario
+                    double salario = resultSet.getDouble("salario");
+                    int cargaHorariaSemanal = resultSet.getInt("cargaHorariaSemanal");
+
                     // Cria o objeto correto de acordo com o tipo de usuário
                     if (tipoUsuario.equalsIgnoreCase("Administrador")) {
-                        usuario = new Administrador(nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento, salarioAdmin, cargaHorariaAdmin, id);
+                        usuario = new Administrador(nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento, salario, cargaHorariaSemanal, departamento, id);
                     } else if (tipoUsuario.equalsIgnoreCase("Médico")) {
                         usuario = new Medico(id, nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento,
-                                cargaHorariaSemanal, salarioMedico, plantao, especialidade, formacao, subEspecialidade);
+                                cargaHorariaSemanal,salario, plantao, especialidade, formacao, subEspecialidade);
                     } else if (tipoUsuario.equalsIgnoreCase("Paciente")) {
                         usuario = new Paciente(id, nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numCarteirinha);
                     }
@@ -153,13 +156,15 @@ public class UsuarioDAO {
 
         String querySql = "SELECT " +
                 "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, " +
-                "A.salario AS adminSalario, A.cargaHoraria AS adminCargaHoraria, " +
+                "A.departamento, " +
                 "P.numeroCarteirinha, P.contatoEmergencia, P.statusPaciente, " +
-                "M.salario AS medicoSalario, M.cargaHorariaSemanal, M.plantao, M.especialidade, M.subEspecialidade, M.formacao " +
+                "M.plantao, M.especialidade, M.subEspecialidade, M.formacao, " +
+                "F.salario, F.cargaHorariaSemanal "+
                 "FROM Usuario U " +
                 "LEFT JOIN Administrador A ON U.idUsuario = A.idAdministrador " +
                 "LEFT JOIN Medico M ON U.idUsuario = M.idMedico " +
-                "LEFT JOIN Paciente P ON U.idUsuario = P.idPaciente";
+                "LEFT JOIN Paciente P ON U.idUsuario = P.idPaciente" +
+                "LEFT JOIN Funcionario F ON U.idUsuario = F.idFuncionario";
 
         try(
                 Connection connection = ConnectionFactory.getConnection();
