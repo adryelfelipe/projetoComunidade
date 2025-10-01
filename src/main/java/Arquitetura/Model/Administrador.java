@@ -14,6 +14,7 @@ public class Administrador extends Funcionario {
     public Administrador(String nome, String cpf, String senha, String sexo, String telefone, String email,Date dataNascimento, double salario, int cargaHorariaSemanal, String departamento)
     {
         super(nome, cpf, senha, sexo, telefone, email, dataNascimento, salario, cargaHorariaSemanal);
+        this.departamento = departamento;
     }
 
     // Construtor com id
