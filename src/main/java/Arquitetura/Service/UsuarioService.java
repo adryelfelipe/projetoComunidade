@@ -3,14 +3,12 @@ package Arquitetura.Service;
 import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Usuario;
-
-import java.net.IDN;
 import java.util.ArrayList;
 
 public class UsuarioService {
 
     // -- Atributos -- //
-    UsuarioDAO usuarioDao = new UsuarioDAO();
+    private final UsuarioDAO usuarioDao = new UsuarioDAO();
 
     // -- Construtor -- //
     public UsuarioService() {
@@ -64,15 +62,9 @@ public class UsuarioService {
         return usuarioDao.findAllUsers();
     }
 
-    // Deleta Usuario da tabela usuario do banco de dados
-    public boolean deletarUsuario(Administrador administrador, long id) {
-        if(isIdExistente(id)) {
-            usuarioDao.deletarUsuario(id);
+    // Cojunto de regras de negócio gerais para deletar qualquer tipo de usuario
+    public boolean deletarUsuario(long id) {
 
-            return true;
-        }
-
-        return false;
+        return isIdExistente(id);
     }
-
 }

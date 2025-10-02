@@ -1,18 +1,17 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.AdministradorDAO;
+import Arquitetura.Dao.FuncionarioDAO;
 import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Model.Administrador;
-
-import java.sql.SQLException;
 
 public class AdministradorService {
 
     // -- Atributos -- //
-    final AdministradorDAO administradorDao = new AdministradorDAO();
-    final UsuarioService usuarioService = new UsuarioService();
-    final UsuarioDAO usuarioDAO = new UsuarioDAO();
-    final FuncionarioService funcionarioService = new FuncionarioService();
+    private final AdministradorDAO administradorDao = new AdministradorDAO();
+    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final FuncionarioService funcionarioService = new FuncionarioService();
+    private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 
     // -- Construtor -- //
     public AdministradorService() {
@@ -42,9 +41,12 @@ public class AdministradorService {
     // Deleta um administrador do banco de dados
     public boolean deletarAdministrador(Administrador adminUsado, Administrador adminDeletado) {
         if(!(adminUsado == adminDeletado)) {
-            if(usuarioService.deletarUsuario(adminUsado,adminDeletado.getId())) {
+            if(funcionarioService.deletarFuncionario(adminDeletado.getId())) {
+                administradorDao.deletarAdministrador(adminDeletado.getId());
+                funcionarioDAO.deletarFuncionario(adminDeletado.getId());
+                usuarioDAO.deletarUsuario(adminUsado.getId());
 
-                return administradorDao.deletarAdministrador(adminDeletado.getId());
+                return true;
             }
         }
 

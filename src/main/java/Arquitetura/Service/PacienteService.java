@@ -8,9 +8,9 @@ import Arquitetura.Model.Paciente;
 public class PacienteService {
 
     // -- Atributos -- //
-    PacienteDAO pacienteDAO = new PacienteDAO();
-    UsuarioService usuarioService = new UsuarioService();
-    UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final PacienteDAO pacienteDAO = new PacienteDAO();
+    private final UsuarioService usuarioService = new UsuarioService();
+    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     // -- Construtor -- //
     public PacienteService() {
@@ -33,11 +33,14 @@ public class PacienteService {
         }
     }
 
-    // Deleta paciente da tabela Paciente do banco de dados
+    // Deleta paciente do banco de dados
     public boolean deletarPaciente(Administrador administrador, Paciente paciente) {
-        if(usuarioService.deletarUsuario(administrador, paciente.getId())) {
 
-            return pacienteDAO.deletarPaciente(paciente.getId());
+        if(usuarioService.deletarUsuario(paciente.getId())) {
+            pacienteDAO.deletarPaciente(paciente.getId());
+            usuarioDAO.deletarUsuario(paciente.getId());
+
+            return true;
         }
 
         return false;

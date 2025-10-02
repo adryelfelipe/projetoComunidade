@@ -1,5 +1,6 @@
 package Arquitetura.Service;
 
+import Arquitetura.Dao.FuncionarioDAO;
 import Arquitetura.Dao.MedicoDAO;
 import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Model.Administrador;
@@ -8,10 +9,10 @@ import Arquitetura.Model.Medico;
 public class MedicoService {
 
     // -- Atributos -- //
-    MedicoDAO medicoDAO = new MedicoDAO();
-    UsuarioService usuarioService = new UsuarioService();
-    FuncionarioService funcionarioService = new FuncionarioService();
-    UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final MedicoDAO medicoDAO = new MedicoDAO();
+    private final FuncionarioService funcionarioService = new FuncionarioService();
+    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 
     // Construtor -- //
     public MedicoService() {
@@ -34,11 +35,15 @@ public class MedicoService {
       }
     }
 
-    // Deleta medico da tabela Medico do banco de dados
+    // Deleta medico do banco de dados
     public boolean deletarMedico(Administrador administrador, Medico medico) {
-        if(usuarioService.deletarUsuario(administrador, medico.getId())) {
 
-            return medicoDAO.deletarMedico(medico.getId());
+        if(funcionarioService.deletarFuncionario(medico.getId())) {
+            medicoDAO.deletarMedico(medico.getId());
+            funcionarioDAO.deletarFuncionario(medico.getId());
+            usuarioDAO.deletarUsuario(medico.getId());
+
+            return true;
         }
 
         return false;

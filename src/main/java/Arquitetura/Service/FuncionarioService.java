@@ -1,16 +1,14 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.FuncionarioDAO;
-import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Funcionario;
 
 public class FuncionarioService {
 
     // -- Atributos -- //
-    UsuarioService usuarioService = new UsuarioService();
-    FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-    UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final UsuarioService usuarioService = new UsuarioService();
+    private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 
     // -- Construtor -- //
     public FuncionarioService() {
@@ -38,13 +36,11 @@ public class FuncionarioService {
         return false;
     }
 
-    // Deleta funcionário da tabela Funcionário do banco de dados
-    public boolean deletarFuncionario(Administrador administrador, Funcionario funcionario) {
-        if(usuarioService.deletarUsuario(administrador, funcionario.getId())) {
-            return funcionarioDAO.deletarFuncionario(funcionario.getId());
-        } else {
+    // Cojunto de regras de negócio gerais para deletar qualquer tipo de funcionario
+    public boolean deletarFuncionario(long id) {
 
-            return false;
-        }
+        return usuarioService.deletarUsuario(id);
+
+        // Somente verificações gerais por enquanto
     }
 }
