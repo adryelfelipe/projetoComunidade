@@ -40,7 +40,7 @@ public class FuncionarioService {
 
     // Deleta funcionário da tabela Funcionário do banco de dados
     public boolean deletarFuncionario(Administrador administrador, Funcionario funcionario) {
-        if(usuarioDAO.deletarUsuario(funcionario.getId())) {
+        if(usuarioService.deletarUsuario(administrador, funcionario.getId())) {
             return funcionarioDAO.deletarFuncionario(funcionario.getId());
         } else {
 

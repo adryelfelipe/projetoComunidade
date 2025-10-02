@@ -35,7 +35,7 @@ public class PacienteService {
 
     // Deleta paciente da tabela Paciente do banco de dados
     public boolean deletarPaciente(Administrador administrador, Paciente paciente) {
-        if(usuarioDAO.deletarUsuario(paciente.getId())) {
+        if(usuarioService.deletarUsuario(administrador, paciente.getId())) {
 
             return pacienteDAO.deletarPaciente(paciente.getId());
         }

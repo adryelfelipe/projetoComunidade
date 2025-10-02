@@ -4,6 +4,7 @@ import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Usuario;
 
+import java.net.IDN;
 import java.util.ArrayList;
 
 public class UsuarioService {
@@ -24,7 +25,7 @@ public class UsuarioService {
     }
 
     // Verifica se existe um usuario com o id igual ao parâmetro
-    public boolean isIdExistente(int id) {
+    public boolean isIdExistente(long id) {
         return !(usuarioDao.findById(id) == null);
     }
 
@@ -61,6 +62,17 @@ public class UsuarioService {
     public ArrayList<Usuario> findAllUsers() {
 
         return usuarioDao.findAllUsers();
+    }
+
+    // Deleta Usuario da tabela usuario do banco de dados
+    public boolean deletarUsuario(Administrador administrador, long id) {
+        if(isIdExistente(id)) {
+            usuarioDao.deletarUsuario(id);
+
+            return true;
+        }
+
+        return false;
     }
 
 }
