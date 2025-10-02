@@ -10,7 +10,6 @@ public class MedicoService {
 
     // -- Atributos -- //
     private final MedicoDAO medicoDAO = new MedicoDAO();
-    private final UsuarioService usuarioService = new UsuarioService();
     private final FuncionarioService funcionarioService = new FuncionarioService();
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
     private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();

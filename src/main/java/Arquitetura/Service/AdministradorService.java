@@ -5,13 +5,10 @@ import Arquitetura.Dao.FuncionarioDAO;
 import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Model.Administrador;
 
-import java.sql.SQLException;
-
 public class AdministradorService {
 
     // -- Atributos -- //
     private final AdministradorDAO administradorDao = new AdministradorDAO();
-    private final UsuarioService usuarioService = new UsuarioService();
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
     private final FuncionarioService funcionarioService = new FuncionarioService();
     private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();

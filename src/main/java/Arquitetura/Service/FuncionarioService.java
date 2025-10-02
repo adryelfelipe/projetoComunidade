@@ -1,7 +1,6 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.FuncionarioDAO;
-import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Funcionario;
 
@@ -10,7 +9,6 @@ public class FuncionarioService {
     // -- Atributos -- //
     private final UsuarioService usuarioService = new UsuarioService();
     private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     // -- Construtor -- //
     public FuncionarioService() {

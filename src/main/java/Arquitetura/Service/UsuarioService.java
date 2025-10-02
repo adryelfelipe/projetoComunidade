@@ -3,8 +3,6 @@ package Arquitetura.Service;
 import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Usuario;
-
-import java.net.IDN;
 import java.util.ArrayList;
 
 public class UsuarioService {
