@@ -9,11 +9,11 @@ import Arquitetura.Model.Medico;
 public class MedicoService {
 
     // -- Atributos -- //
-    MedicoDAO medicoDAO = new MedicoDAO();
-    UsuarioService usuarioService = new UsuarioService();
-    FuncionarioService funcionarioService = new FuncionarioService();
-    UsuarioDAO usuarioDAO = new UsuarioDAO();
-    private FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+    private final MedicoDAO medicoDAO = new MedicoDAO();
+    private final UsuarioService usuarioService = new UsuarioService();
+    private final FuncionarioService funcionarioService = new FuncionarioService();
+    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 
     // Construtor -- //
     public MedicoService() {

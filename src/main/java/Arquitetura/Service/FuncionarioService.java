@@ -8,9 +8,9 @@ import Arquitetura.Model.Funcionario;
 public class FuncionarioService {
 
     // -- Atributos -- //
-    UsuarioService usuarioService = new UsuarioService();
-    FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-    UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final UsuarioService usuarioService = new UsuarioService();
+    private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     // -- Construtor -- //
     public FuncionarioService() {

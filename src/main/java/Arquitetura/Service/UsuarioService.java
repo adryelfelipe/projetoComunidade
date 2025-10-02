@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class UsuarioService {
 
     // -- Atributos -- //
-    UsuarioDAO usuarioDao = new UsuarioDAO();
+    private final UsuarioDAO usuarioDao = new UsuarioDAO();
 
     // -- Construtor -- //
     public UsuarioService() {

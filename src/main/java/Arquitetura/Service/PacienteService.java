@@ -8,9 +8,9 @@ import Arquitetura.Model.Paciente;
 public class PacienteService {
 
     // -- Atributos -- //
-    PacienteDAO pacienteDAO = new PacienteDAO();
-    UsuarioService usuarioService = new UsuarioService();
-    UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final PacienteDAO pacienteDAO = new PacienteDAO();
+    private final UsuarioService usuarioService = new UsuarioService();
+    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     // -- Construtor -- //
     public PacienteService() {

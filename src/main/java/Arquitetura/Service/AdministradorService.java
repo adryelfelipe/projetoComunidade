@@ -10,11 +10,11 @@ import java.sql.SQLException;
 public class AdministradorService {
 
     // -- Atributos -- //
-    final AdministradorDAO administradorDao = new AdministradorDAO();
-    final UsuarioService usuarioService = new UsuarioService();
-    final UsuarioDAO usuarioDAO = new UsuarioDAO();
-    final FuncionarioService funcionarioService = new FuncionarioService();
-    private FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+    private final AdministradorDAO administradorDao = new AdministradorDAO();
+    private final UsuarioService usuarioService = new UsuarioService();
+    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final FuncionarioService funcionarioService = new FuncionarioService();
+    private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 
     // -- Construtor -- //
     public AdministradorService() {
