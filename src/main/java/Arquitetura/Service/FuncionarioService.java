@@ -36,4 +36,9 @@ public class FuncionarioService {
 
         return false;
     }
+
+    // Deleta funcionário da tabela Funcionário do banco de dados
+    public boolean deletarFuncionario(Administrador administrador, Funcionario funcionario) {
+        return funcionarioDAO.deletarFuncionario(funcionario.getId());
+    }
 }
