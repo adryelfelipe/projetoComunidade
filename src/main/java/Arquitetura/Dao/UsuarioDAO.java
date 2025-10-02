@@ -272,4 +272,37 @@ public class UsuarioDAO {
             return false;
         }
     }
+
+    //Leitura - verifica se o email existe na tabela Usuario
+    public boolean containsEmail(String email)
+    {
+        //Seleciona todos os Usuarios que possuem tal email
+        String querySQL = "SELECT COUNT(*) FROM Usuario WHERE email = ?";
+
+        try(
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySQL))
+        {
+            stmt.setString(1, email);
+
+            try( ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    //Determina quantos Usuarios esão cadastrados com aquele email
+                    int contagem = resultSet.getInt(1);
+
+                    //Retorna true caso a contagem for maior que 0, false caso seja igual a zero
+                    return contagem > 0;
+                }
+            }
+
+            return false;
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao verificar existência de email: "+ e.getMessage());
+            return false;
+        }
+    }
 }
