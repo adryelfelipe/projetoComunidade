@@ -43,9 +43,8 @@ public class AdministradorService {
     public boolean deletarAdministrador(Administrador adminUsado, Administrador adminDeletado) {
         if(!(adminUsado == adminDeletado)) {
             if(usuarioDAO.deletarUsuario(adminDeletado.getId())) {
-                // deleta chamando admDAO
 
-                //return true;
+                return administradorDao.deletarAdministrador(adminDeletado.getId());
             }
         }
 

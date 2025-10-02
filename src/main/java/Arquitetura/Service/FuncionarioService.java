@@ -43,6 +43,7 @@ public class FuncionarioService {
         if(usuarioDAO.deletarUsuario(funcionario.getId())) {
             return funcionarioDAO.deletarFuncionario(funcionario.getId());
         } else {
+
             return false;
         }
     }
