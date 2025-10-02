@@ -187,11 +187,11 @@ public class MenuAdministrador
         LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
 
         Date sqlDate = Date.valueOf(dataNascimento);
-
+//
 //        Administrador administrador = new Administrador(nome,cpf,senha,sexo,telefone,email,sqlDate,salario,cargaHoraria);
-
-        AdministradorService administradorService =  new AdministradorService();
-
+//
+//        AdministradorService administradorService =  new AdministradorService();
+//
 //        administradorService.inserirAdmin(administrador);
 
         System.out.println("Adm criado");
@@ -261,19 +261,19 @@ public class MenuAdministrador
             Medico medico = new Medico(nome,cpf,senha,sexo,telefone,email,sqlDate,cargaHoraria,salario,plantao,especialidade,formacao);
 
             MedicoService medicoService = new MedicoService();
-
+//
 //            medicoService.inserirMedico(medico);
-
-            System.out.println("Medico criado");
-
-            Ferramentas.Delay(1500);
-
-        } else {
-
-            Medico medico = new Medico(nome,cpf,senha,sexo,telefone,email,sqlDate,cargaHoraria,salario,plantao,especialidade,formacao,subE);
-
-            MedicoService medicoService = new MedicoService();
-
+//
+//            System.out.println("Medico criado");
+//
+//            Ferramentas.Delay(1500);
+//
+//        } else {
+//
+//            Medico medico = new Medico(nome,cpf,senha,sexo,telefone,email,sqlDate,cargaHoraria,salario,plantao,especialidade,formacao,subE);
+//
+//            MedicoService medicoService = new MedicoService();
+//
 //            medicoService.inserirMedico(medico);
 
             System.out.println("Medico criado");
