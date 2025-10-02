@@ -1,6 +1,7 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.MedicoDAO;
+import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Medico;
 
@@ -10,6 +11,7 @@ public class MedicoService {
     MedicoDAO medicoDAO = new MedicoDAO();
     UsuarioService usuarioService = new UsuarioService();
     FuncionarioService funcionarioService = new FuncionarioService();
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     // Construtor -- //
     public MedicoService() {
@@ -30,5 +32,15 @@ public class MedicoService {
               medicoDAO.inserirMedico(medico);
           }
       }
+    }
+
+    // Deleta medico da tabela Medico do banco de dados
+    public boolean deletarMedico(Administrador administrador, Medico medico) {
+        if(usuarioDAO.deletarUsuario(medico.getId())) {
+
+            return medicoDAO.deletarMedico(medico.getId());
+        }
+
+        return false;
     }
 }
