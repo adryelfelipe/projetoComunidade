@@ -4,6 +4,7 @@ import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Usuario;
 
+import java.net.IDN;
 import java.util.ArrayList;
 
 public class UsuarioService {
@@ -21,6 +22,11 @@ public class UsuarioService {
     // Verifica se os atributos não são nulos
     public boolean verificarDadosUser(Usuario usuario) {
         return (usuario.getCpf() != null && usuario.getTelefone() != null && usuario.getTipoUsuario() != null && usuario.getSexo() != null && usuario.getNome() != null && usuario.getDataNascimento() != null && usuario.getEmail() != null && usuario.getSenha() != null);
+    }
+
+    // Verifica se existe um usuario com o id igual ao parâmetro
+    public boolean isIdExistente(long id) {
+        return !(usuarioDao.findById(id) == null);
     }
 
     // Verifica se já existe um email igual ao parâmetro
@@ -56,6 +62,17 @@ public class UsuarioService {
     public ArrayList<Usuario> findAllUsers() {
 
         return usuarioDao.findAllUsers();
+    }
+
+    // Deleta Usuario da tabela usuario do banco de dados
+    public boolean deletarUsuario(Administrador administrador, long id) {
+        if(isIdExistente(id)) {
+            usuarioDao.deletarUsuario(id);
+
+            return true;
+        }
+
+        return false;
     }
 
 }

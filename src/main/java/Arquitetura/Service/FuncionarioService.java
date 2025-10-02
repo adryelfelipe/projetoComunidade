@@ -1,5 +1,6 @@
 package Arquitetura.Service;
 
+import Arquitetura.Dao.FuncionarioDAO;
 import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Funcionario;
@@ -8,6 +9,8 @@ public class FuncionarioService {
 
     // -- Atributos -- //
     UsuarioService usuarioService = new UsuarioService();
+    FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     // -- Construtor -- //
     public FuncionarioService() {
@@ -26,12 +29,22 @@ public class FuncionarioService {
     public boolean inserirFuncionario(Administrador administrador, Funcionario funcionario) {
         if (verificarDadosFunc(funcionario.getCargaHorariaSemanal(), funcionario.getSalario())) { // Verifica os dados de Funcionario
             if (usuarioService.inserirUsuario(administrador, funcionario)) { // Verifica os dados de Usuario
-                // adicionar funcionrario chamando funcionarioDAO
+                funcionarioDAO.inserirFuncionario(funcionario);
 
                 return true;
             }
         }
 
         return false;
+    }
+
+    // Deleta funcionário da tabela Funcionário do banco de dados
+    public boolean deletarFuncionario(Administrador administrador, Funcionario funcionario) {
+        if(usuarioService.deletarUsuario(administrador, funcionario.getId())) {
+            return funcionarioDAO.deletarFuncionario(funcionario.getId());
+        } else {
+
+            return false;
+        }
     }
 }
