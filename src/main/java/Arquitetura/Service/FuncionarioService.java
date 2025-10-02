@@ -38,13 +38,11 @@ public class FuncionarioService {
         return false;
     }
 
-    // Deleta funcionário da tabela Funcionário do banco de dados
-    public boolean deletarFuncionario(Administrador administrador, Funcionario funcionario) {
-        if(usuarioService.deletarUsuario(administrador, funcionario.getId())) {
-            return funcionarioDAO.deletarFuncionario(funcionario.getId());
-        } else {
+    // Cojunto de regras de negócio gerais para deletar qualquer tipo de funcionario
+    public boolean deletarFuncionario(long id) {
 
-            return false;
-        }
+        return usuarioService.deletarUsuario(id);
+
+        // Somente verificações gerais por enquanto
     }
 }

@@ -64,15 +64,9 @@ public class UsuarioService {
         return usuarioDao.findAllUsers();
     }
 
-    // Deleta Usuario da tabela usuario do banco de dados
-    public boolean deletarUsuario(Administrador administrador, long id) {
-        if(isIdExistente(id)) {
-            usuarioDao.deletarUsuario(id);
+    // Cojunto de regras de negócio gerais para deletar qualquer tipo de usuario
+    public boolean deletarUsuario(long id) {
 
-            return true;
-        }
-
-        return false;
+        return isIdExistente(id);
     }
-
 }
