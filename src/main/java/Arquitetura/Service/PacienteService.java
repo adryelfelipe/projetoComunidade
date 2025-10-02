@@ -25,12 +25,16 @@ public class PacienteService {
     }
 
     // Insere o objeto do tipo Paciente no banco de dados
-    public void inserirPaciente(Administrador administrador, Paciente paciente) { // Verifica as regras para inserir um Paciente
+    public boolean inserirPaciente(Administrador administrador, Paciente paciente) { // Verifica as regras para inserir um Paciente
         if(verificarDadosPac(paciente)) {
             if(usuarioService.inserirUsuario(administrador, paciente)) {
                 pacienteDAO.inserirPaciente(paciente);
+                
+                return true;
             }
         }
+
+        return false;
     }
 
     // Deleta paciente do banco de dados
