@@ -10,6 +10,7 @@ public class FuncionarioService {
     // -- Atributos -- //
     UsuarioService usuarioService = new UsuarioService();
     FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     // -- Construtor -- //
     public FuncionarioService() {
@@ -39,6 +40,10 @@ public class FuncionarioService {
 
     // Deleta funcionário da tabela Funcionário do banco de dados
     public boolean deletarFuncionario(Administrador administrador, Funcionario funcionario) {
-        return funcionarioDAO.deletarFuncionario(funcionario.getId());
+        if(usuarioDAO.deletarUsuario(funcionario.getId())) {
+            return funcionarioDAO.deletarFuncionario(funcionario.getId());
+        } else {
+            return false;
+        }
     }
 }
