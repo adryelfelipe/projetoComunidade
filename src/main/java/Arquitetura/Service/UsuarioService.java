@@ -23,6 +23,11 @@ public class UsuarioService {
         return (usuario.getCpf() != null && usuario.getTelefone() != null && usuario.getTipoUsuario() != null && usuario.getSexo() != null && usuario.getNome() != null && usuario.getDataNascimento() != null && usuario.getEmail() != null && usuario.getSenha() != null);
     }
 
+    // Verifica se existe um usuario com o id igual ao parâmetro
+    public boolean isIdExistente(int id) {
+        return !(usuarioDao.findById(id) == null);
+    }
+
     // Verifica se já existe um email igual ao parâmetro
     public boolean isEmailExistente(String email) {
         return false; // alterar para retornar a duplicidade
