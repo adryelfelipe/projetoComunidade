@@ -4,6 +4,7 @@ import Arquitetura.Config.ConnectionFactory;
 import Arquitetura.Model.Administrador;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AdministradorDAO {
@@ -54,6 +55,32 @@ public class AdministradorDAO {
 
         } catch (SQLException e) {
             System.err.println("Erro ao deletar Administrador com ID " + id + ": " + e.getMessage());
+            return false;
+        }
+    }
+
+    //Leitura - Verifica quantos se existe algum administrador no sistema
+    public boolean isUltimoAdmin()
+    {
+        String querySQl = "SELECT COUNT(*) FROM Administrador";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySQl))
+        {
+            ResultSet resultSet = stmt.executeQuery();
+
+            if(resultSet.next())
+            {
+                int cont = resultSet.getInt(1);
+
+                return cont == 1;
+            }
+            return false;
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao verificar Último Admin: "+ e.getMessage());
             return false;
         }
     }
