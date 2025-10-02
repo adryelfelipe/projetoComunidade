@@ -163,7 +163,7 @@ public class UsuarioDAO {
                 "FROM Usuario U " +
                 "LEFT JOIN Administrador A ON U.idUsuario = A.idAdministrador " +
                 "LEFT JOIN Medico M ON U.idUsuario = M.idMedico " +
-                "LEFT JOIN Paciente P ON U.idUsuario = P.idPaciente" +
+                "LEFT JOIN Paciente P ON U.idUsuario = P.idPaciente " +
                 "LEFT JOIN Funcionario F ON U.idUsuario = F.idFuncionario";
 
         try(
