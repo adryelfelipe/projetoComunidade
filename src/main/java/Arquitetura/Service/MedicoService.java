@@ -22,7 +22,7 @@ public class MedicoService {
     // -- Métodos -- //
 
     // Verifica a veracidade dos atributos específicos de Medico
-    public boolean verificarDadosMed(Medico medico) {
+    private boolean verificarDadosMed(Medico medico) {
         return(medico.getFormacao() != null && medico.getEspecialidade() != null && medico.getPlantao() != null);
     }
 

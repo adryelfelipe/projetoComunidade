@@ -18,22 +18,25 @@ public class UsuarioService {
     // -- Métodos -- //
 
     // Verifica se os atributos não são nulos
-    public boolean verificarDadosUser(Usuario usuario) {
-        return (usuario.getCpf() != null && usuario.getTelefone() != null && usuario.getTipoUsuario() != null && usuario.getSexo() != null && usuario.getNome() != null && usuario.getDataNascimento() != null && usuario.getEmail() != null && usuario.getSenha() != null);
+    private boolean verificarDadosUser(Usuario usuario) {
+        return (usuario.getCpf() != null && usuario.getTelefone() != null
+                && usuario.getTipoUsuario() != null && usuario.getSexo() != null
+                && usuario.getNome() != null && usuario.getDataNascimento() != null
+                && usuario.getEmail() != null && usuario.getSenha() != null);
     }
 
     // Verifica se existe um usuario com o id igual ao parâmetro
-    public boolean isIdExistente(long id) {
+    private boolean isIdExistente(long id) {
         return !(usuarioDao.findById(id) == null);
     }
 
     // Verifica se já existe um email igual ao parâmetro
-    public boolean isEmailExistente(String email) {
-        return false; // alterar para retornar a duplicidade
+    private boolean isEmailExistente(String email) {
+        return usuarioDao.containsEmail(email); // alterar para retornar a duplicidade
     }
 
     // Verifica se já existe um cpf igual ao parâmetro
-    public boolean isCpfExistente(String cpf) {
+    private boolean isCpfExistente(String cpf) {
         return usuarioDao.verificarCpf(cpf);
     }
 
@@ -57,13 +60,13 @@ public class UsuarioService {
     }
 
     // Retorna uma ArrayList contendo todos os usuários do banco de dados
-    public ArrayList<Usuario> findAllUsers() {
+    public ArrayList<Usuario> findAllUsers(Administrador administrador) {
 
         return usuarioDao.findAllUsers();
     }
 
     // Cojunto de regras de negócio gerais para deletar qualquer tipo de usuario
-    public boolean deletarUsuario(long id) {
+    boolean deletarUsuario(long id) {
 
         return isIdExistente(id);
     }
