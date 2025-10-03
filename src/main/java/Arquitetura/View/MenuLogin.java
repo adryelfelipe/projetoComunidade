@@ -40,11 +40,13 @@ public class MenuLogin {
 
                 Ferramentas.Delay(1500);
 
+                continuar = false;
+
             }
             else {
 
                 System.out.println("-------------------------");
-                System.out.println("- Digite sua senha: ");
+                System.out.print("- Digite sua senha: ");
                 String senha = Ferramentas.lString();
                 System.out.println("-------------------------");
 
@@ -55,6 +57,8 @@ public class MenuLogin {
                     System.out.println("Senha incorreta!");
 
                     Ferramentas.Delay(1500);
+
+                    continuar = false;
 
                 }
                 else {
