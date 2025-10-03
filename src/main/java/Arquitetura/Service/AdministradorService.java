@@ -22,7 +22,7 @@ public class AdministradorService {
 
     // Verifica a veracidade dos atributos específicos de Admin
     public boolean verificarDadosAdm(Administrador administrador) {
-        return true; //provisório
+        return !administradorDao.isUltimoAdmin(); //provisório
     }
 
     // Insere o objeto do tipo Administrador no banco de dados
