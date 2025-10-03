@@ -49,7 +49,7 @@ public class AdministradorService {
             if(funcionarioService.deletarFuncionario(adminDeletado.getId())) {
                 administradorDao.deletarAdministrador(adminDeletado.getId());
                 funcionarioDAO.deletarFuncionario(adminDeletado.getId());
-                usuarioDAO.deletarUsuario(adminUsado.getId());
+                usuarioDAO.deletarUsuario(adminDeletado.getId());
 
                 return true;
             }
