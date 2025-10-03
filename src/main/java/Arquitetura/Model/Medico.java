@@ -1,5 +1,7 @@
 package Arquitetura.Model;
 
+import Arquitetura.Model.Enums.TipoUsuario;
+
 import java.sql.Date;
 
 public class Medico extends Funcionario{
@@ -15,7 +17,7 @@ public class Medico extends Funcionario{
 
     // Não possui subEspecialidade nem id
     public Medico(String nome, String cpf, String senha, String sexo, String telefone, String email,Date dataNascimento,int cargaHorariaSemanal,double salario,  String plantao, String especialidade, String formacao ) {
-        super(nome,cpf,senha,sexo,telefone,email,dataNascimento, salario, cargaHorariaSemanal);
+        super(TipoUsuario.MEDICO, nome,cpf,senha,sexo,telefone,email,dataNascimento, salario, cargaHorariaSemanal);
         this.plantao = plantao;
         this.especialidade = especialidade;
         this.formacao = formacao;
@@ -82,10 +84,5 @@ public class Medico extends Funcionario{
 
     public String getSubEspecialidade() {
         return subEspecialidade;
-    }
-
-    @Override
-    public String getTipoUsuario() {
-        return Medico.tipoUsuario;
     }
 }
