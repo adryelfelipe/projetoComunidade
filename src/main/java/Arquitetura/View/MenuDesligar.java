@@ -11,5 +11,7 @@ public class MenuDesligar {
         System.out.println("-------------------------\n");
 
         Ferramentas.Delay(1500);
+
+        System.exit(0);
     }
 }
