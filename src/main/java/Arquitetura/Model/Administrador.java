@@ -1,19 +1,20 @@
 package Arquitetura.Model;
 
+import Arquitetura.Model.Enums.TipoUsuario;
+
 import java.sql.Date;
 
 public class Administrador extends Funcionario {
 
     // -- Atributos -- //
     private String departamento;
-    private static final String tipoUsuario = "Administrador";
 
     // -- Construtores -- //
 
     // Construtor sem id
     public Administrador(String nome, String cpf, String senha, String sexo, String telefone, String email,Date dataNascimento, double salario, int cargaHorariaSemanal, String departamento)
     {
-        super(nome, cpf, senha, sexo, telefone, email, dataNascimento, salario, cargaHorariaSemanal);
+        super(TipoUsuario.ADMIN, nome, cpf, senha, sexo, telefone, email, dataNascimento, salario, cargaHorariaSemanal);
         this.departamento = departamento;
     }
 
@@ -30,10 +31,5 @@ public class Administrador extends Funcionario {
 
     public void setDepartamento(String departamento) {
         this.departamento = departamento;
-    }
-
-    @Override
-    public String getTipoUsuario() {
-        return Administrador.tipoUsuario;
     }
 }

@@ -1,5 +1,7 @@
 package Arquitetura.Model;
 
+import Arquitetura.Model.Enums.TipoUsuario;
+
 import java.sql.Date;
 
 public abstract class Funcionario extends Usuario{
@@ -9,8 +11,8 @@ public abstract class Funcionario extends Usuario{
     private int cargaHorariaSemanal;
 
     // -- Construtor -- //
-    public Funcionario(String nome, String cpf, String senha, String sexo, String telefone, String email, Date dataNascimento, double salario, int cargaHorariaSemanal) {
-        super(nome, cpf, senha, sexo, telefone, email, dataNascimento);
+    public Funcionario(TipoUsuario tipoUsuario, String nome, String cpf, String senha, String sexo, String telefone, String email, Date dataNascimento, double salario, int cargaHorariaSemanal) {
+        super(tipoUsuario, nome, cpf, senha, sexo, telefone, email, dataNascimento);
         this.salario = salario;
         this.cargaHorariaSemanal = cargaHorariaSemanal;
     }
