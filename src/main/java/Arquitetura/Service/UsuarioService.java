@@ -66,7 +66,7 @@ public class UsuarioService {
     }
 
     // Cojunto de regras de negócio gerais para deletar qualquer tipo de usuario
-    public boolean deletarUsuario(long id) {
+    boolean deletarUsuario(long id) {
 
         return isIdExistente(id);
     }

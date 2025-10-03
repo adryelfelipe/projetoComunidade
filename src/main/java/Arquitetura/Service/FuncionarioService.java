@@ -37,7 +37,7 @@ public class FuncionarioService {
     }
 
     // Cojunto de regras de negócio gerais para deletar qualquer tipo de funcionario
-    public boolean deletarFuncionario(long id) {
+    boolean deletarFuncionario(long id) {
 
         return usuarioService.deletarUsuario(id);
 
