@@ -2,61 +2,48 @@ package Arquitetura.Model;
 
 import java.sql.Date;
 
-public class Medico extends Usuario {
+public class Medico extends Funcionario{
 
-    //Atributos
-    private double salario;
-    private int cargaHorariaSemanal;
+    // -- Atributos -- //
     private String plantao;
     private String especialidade;
     private String subEspecialidade;
     private String formacao;
+    private static final String tipoUsuario = "Medico";
 
-    //Construtores
+    // -- Construtores -- //
 
     // Não possui subEspecialidade nem id
-    public Medico(String nome, String cpf, String senha, double salario, int cargaHorariaSemanal, String plantao, String especialidade, String formacao, String sexo, String telefone, String email, Date dataNascimento) {
-        super(nome,cpf,senha, sexo, telefone, email, dataNascimento);
-        this.cargaHorariaSemanal = cargaHorariaSemanal;
-        this.salario = salario;
+    public Medico(String nome, String cpf, String senha, String sexo, String telefone, String email,Date dataNascimento,int cargaHorariaSemanal,double salario,  String plantao, String especialidade, String formacao ) {
+        super(nome,cpf,senha,sexo,telefone,email,dataNascimento, salario, cargaHorariaSemanal);
         this.plantao = plantao;
         this.especialidade = especialidade;
         this.formacao = formacao;
-        setTipoUsuario("Médico");
         this.subEspecialidade = "N/A";
     }
 
     // Não possui subEspecialidade e possui ID
-    public Medico(long id, String nome, String cpf, String senha, double salario, int cargaHorariaSemanal, String plantao, String especialidade, String formacao, String sexo, String telefone, String email, Date dataNascimento) {
-        this(nome, cpf, senha, salario, cargaHorariaSemanal, plantao, especialidade, formacao, sexo, telefone, email, dataNascimento);
+    public Medico(long id, String nome, String cpf, String senha,String sexo,String telefone,  String email,  Date dataNascimento , int cargaHorariaSemanal,double salario, String plantao, String especialidade, String formacao) {
+        this(nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal,   salario,plantao, especialidade, formacao );
         this.subEspecialidade = "N/A";
         this.setId(id);
     }
 
     // Possui subEspecialidade e possui ID
-    public Medico(long id, String nome, String cpf, String senha, double salario, int cargaHorariaSemanal, String plantao, String especialidade, String formacao, String subEspecialidade, String sexo, String telefone, String email, Date dataNascimento) {
-        this(nome, cpf, senha, salario, cargaHorariaSemanal, plantao, especialidade, formacao, sexo, telefone, email, dataNascimento);
+    public Medico(long id, String nome, String cpf, String senha,String sexo,String telefone,  String email,  Date dataNascimento , int cargaHorariaSemanal,double salario, String plantao, String especialidade, String formacao,String subEspecialidade) {
+        this(nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal,   salario,plantao, especialidade, formacao );
         this.subEspecialidade = subEspecialidade;
         this.setId(id);
     }
 
     // Possui subEspecialidade e não possui ID
-    public Medico(String nome, String cpf, String senha, double salario, int cargaHorariaSemanal, String plantao, String especialidade, String formacao, String subEspecialidade, String sexo, String telefone, String email, Date dataNascimento) {
-        this(nome, cpf, senha, salario, cargaHorariaSemanal, plantao, especialidade, formacao, sexo, telefone, email, dataNascimento);
+    public Medico( String nome, String cpf, String senha,String sexo,String telefone,  String email,  Date dataNascimento , int cargaHorariaSemanal,double salario, String plantao, String especialidade, String formacao, String subEspecialidade) {
+        this(nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal,   salario,plantao, especialidade, formacao );
         this.subEspecialidade = subEspecialidade;
     }
 
-    //Getters & Setters
-    public void setCargaHorariaSemanal(int cargaHorariaSemanal) {
-        if(cargaHorariaSemanal > 0) {
-            this.cargaHorariaSemanal = cargaHorariaSemanal;
-        }
-    }
 
-    public int getCargaHorariaSemanal() {
-        return cargaHorariaSemanal;
-    }
-
+    // -- Getters & Setters -- //
     public void setEspecialidade(String especialidade) {
         if(!especialidade.isEmpty()) {
             this.especialidade = especialidade;
@@ -87,16 +74,6 @@ public class Medico extends Usuario {
         return plantao;
     }
 
-    public void setSalario(double salario) {
-        if(salario > 0.0) {
-            this.salario = salario;
-        }
-    }
-
-    public double getSalario() {
-        return salario;
-    }
-
     public void setSubEspecialidade(String subEspecialidade) {
         if(!subEspecialidade.isEmpty()) {
             this.subEspecialidade = subEspecialidade;
@@ -107,6 +84,8 @@ public class Medico extends Usuario {
         return subEspecialidade;
     }
 
-    //Métodos
-
+    @Override
+    public String getTipoUsuario() {
+        return Medico.tipoUsuario;
+    }
 }

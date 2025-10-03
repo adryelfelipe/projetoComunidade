@@ -2,9 +2,9 @@ package Arquitetura.Model;
 
 import java.sql.Date;
 
-public class Usuario {
+public abstract class Usuario {
 
-    // Atributos
+    // -- Atributos -- //
     private String nome;
     private String cpf;
     private String senha;
@@ -12,10 +12,9 @@ public class Usuario {
     private String telefone;
     private String email;
     private Date dataNascimento;
-    private String tipoUsuario;
     private long id;
 
-    // Construtor
+    // -- Construtor -- //
     public Usuario(String nome, String cpf, String senha, String sexo, String telefone, String email, Date dataNascimento) {
         this.senha = senha;
         this.nome = nome;
@@ -26,7 +25,7 @@ public class Usuario {
         this.dataNascimento = dataNascimento;
     }
 
-    // Setters e Getters
+    // -- Setters e Getters -- //
     public String getNome() {
         return nome;
     }
@@ -85,15 +84,7 @@ public class Usuario {
         }
     }
 
-    public String getTipoUsuario() {
-        return tipoUsuario;
-    }
-
-    public void setTipoUsuario(String tipoUsuario) {
-        if(!tipoUsuario.isEmpty()) {
-            this.tipoUsuario = tipoUsuario;
-        }
-    }
+    public abstract String getTipoUsuario();
 
     public String getSenha() {
         return senha;
@@ -114,6 +105,4 @@ public class Usuario {
             this.cpf = cpf;
         }
     }
-
-    // Métodos
 }
