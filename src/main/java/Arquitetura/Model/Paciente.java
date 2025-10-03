@@ -1,5 +1,7 @@
 package Arquitetura.Model;
 
+import Arquitetura.Model.Enums.TipoUsuario;
+
 import java.sql.Date;
 
 public class Paciente extends Usuario {
@@ -15,7 +17,7 @@ public class Paciente extends Usuario {
     // Não possui ID
     public Paciente(String nome, String cpf, String senha, String sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCarterinha)
     {
-        super(nome, cpf, senha, sexo, telefone, email,dataNascimento);
+        super(TipoUsuario.PACIENTE,nome, cpf, senha, sexo, telefone, email,dataNascimento);
         this.contatoEmergencia = contatoEmergencia;
         this.numeroCarterinha = numeroCarterinha;
     }
@@ -51,10 +53,5 @@ public class Paciente extends Usuario {
 
     public void setNumeroCarterinha(String numeroCarterinha) {
         this.numeroCarterinha = numeroCarterinha;
-    }
-
-    @Override
-    public String getTipoUsuario() {
-        return Paciente.tipoUsuario;
     }
 }
