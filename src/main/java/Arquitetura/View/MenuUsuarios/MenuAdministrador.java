@@ -111,5 +111,7 @@ public class MenuAdministrador
                 }
             }
         }
+
+        MenuInicial.Menu();
     }
 }

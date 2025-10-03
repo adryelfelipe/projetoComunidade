@@ -2,6 +2,7 @@ package Arquitetura.View.MenuUsuarios;
 
 import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.MenuDefault;
+import Arquitetura.View.MenuInicial;
 
 public class MenuPaciente
 {
@@ -59,6 +60,7 @@ public class MenuPaciente
                 }
             }
         }
+        MenuInicial.Menu();
     }
 
 
