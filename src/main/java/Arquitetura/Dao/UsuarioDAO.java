@@ -106,12 +106,12 @@ public class UsuarioDAO {
                     int cargaHorariaSemanal = resultSet.getInt("cargaHorariaSemanal");
 
                     // Cria o objeto correto de acordo com o tipo de usuário
-                    if (tipoUsuario.equalsIgnoreCase("Administrador")) {
+                    if (tipoUsuario.equalsIgnoreCase("ADMIN")) {
                         usuario = new Administrador(nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento, salario, cargaHorariaSemanal, departamento, id);
-                    } else if (tipoUsuario.equalsIgnoreCase("Médico")) {
+                    } else if (tipoUsuario.equalsIgnoreCase("MEDICO")) {
                         usuario = new Medico(id, nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento,
                                 cargaHorariaSemanal,salario, plantao, especialidade, formacao, subEspecialidade);
-                    } else if (tipoUsuario.equalsIgnoreCase("Paciente")) {
+                    } else if (tipoUsuario.equalsIgnoreCase("PACIENTE")) {
                         usuario = new Paciente(id, nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numCarteirinha);
                     }
                 }
