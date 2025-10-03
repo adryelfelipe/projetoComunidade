@@ -29,7 +29,7 @@ public class UsuarioService {
 
     // Verifica se já existe um email igual ao parâmetro
     public boolean isEmailExistente(String email) {
-        return false; // alterar para retornar a duplicidade
+        return usuarioDao.containsEmail(email); // alterar para retornar a duplicidade
     }
 
     // Verifica se já existe um cpf igual ao parâmetro
