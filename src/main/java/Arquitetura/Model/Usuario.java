@@ -1,5 +1,7 @@
 package Arquitetura.Model;
 
+import Arquitetura.Model.Enums.TipoUsuario;
+
 import java.sql.Date;
 
 public abstract class Usuario {
@@ -13,9 +15,11 @@ public abstract class Usuario {
     private String email;
     private Date dataNascimento;
     private long id;
+    private final TipoUsuario tipoUsuario;
 
     // -- Construtor -- //
-    public Usuario(String nome, String cpf, String senha, String sexo, String telefone, String email, Date dataNascimento) {
+    public Usuario(TipoUsuario tipoUsuario, String nome, String cpf, String senha, String sexo, String telefone, String email, Date dataNascimento) {
+        this.tipoUsuario = tipoUsuario;
         this.senha = senha;
         this.nome = nome;
         this.cpf = cpf;
@@ -26,6 +30,10 @@ public abstract class Usuario {
     }
 
     // -- Setters e Getters -- //
+    public TipoUsuario getTipoUsuario() {
+        return this.tipoUsuario;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -83,8 +91,6 @@ public abstract class Usuario {
             this.id = id;
         }
     }
-
-    public abstract String getTipoUsuario();
 
     public String getSenha() {
         return senha;
