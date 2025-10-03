@@ -111,4 +111,18 @@ public abstract class Usuario {
             this.cpf = cpf;
         }
     }
+
+    public int getIdTipoUsuario()
+    {
+        if(getTipoUsuario().getNivelAcesso().temAcessoBaixo())
+        {
+            return 1;
+        }
+        else if (getTipoUsuario().getNivelAcesso().temAcessoModerado())
+        {
+            return 2;
+        }
+
+        return 3;
+    }
 }

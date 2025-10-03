@@ -29,7 +29,7 @@ public class UsuarioDAO {
             stmt.setString(3, usuario.getSexo());
             stmt.setString(4, usuario.getCpf());
             stmt.setString(5, usuario.getTelefone());
-            stmt.setString(6, usuario.getTipoUsuario().name());
+            stmt.setInt(6, usuario.getIdTipoUsuario());
             stmt.setString(7, usuario.getEmail());
             stmt.setDate(8, usuario.getDataNascimento());
 
@@ -85,7 +85,7 @@ public class UsuarioDAO {
                     String telefone = resultSet.getString("telefone");
                     String email = resultSet.getString("email");
                     Date dataNascimento = resultSet.getDate("dataNascimento");
-                    String tipoUsuario = resultSet.getString("tipoUsuario");
+                    int tipoUsuario = resultSet.getInt("tipoUsuario");
 
                     // Dados Administrador
                     String departamento = resultSet.getString("departamento");
@@ -106,12 +106,12 @@ public class UsuarioDAO {
                     int cargaHorariaSemanal = resultSet.getInt("cargaHorariaSemanal");
 
                     // Cria o objeto correto de acordo com o tipo de usuário
-                    if (tipoUsuario.equalsIgnoreCase("ADMIN")) {
+                    if (tipoUsuario == 3) {
                         usuario = new Administrador(nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento, salario, cargaHorariaSemanal, departamento, id);
-                    } else if (tipoUsuario.equalsIgnoreCase("MEDICO")) {
+                    } else if (tipoUsuario == 2) {
                         usuario = new Medico(id, nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento,
                                 cargaHorariaSemanal,salario, plantao, especialidade, formacao, subEspecialidade);
-                    } else if (tipoUsuario.equalsIgnoreCase("PACIENTE")) {
+                    } else if (tipoUsuario == 1) {
                         usuario = new Paciente(id, nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numCarteirinha);
                     }
                 }
