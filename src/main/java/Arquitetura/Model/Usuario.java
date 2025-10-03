@@ -114,11 +114,11 @@ public abstract class Usuario {
 
     public int getIdTipoUsuario()
     {
-        if(getTipoUsuario().getNivelAcesso().temAcessoBaixo())
+        if(getTipoUsuario() == TipoUsuario.PACIENTE)
         {
             return 1;
         }
-        else if (getTipoUsuario().getNivelAcesso().temAcessoModerado())
+        else if (getTipoUsuario() == TipoUsuario.MEDICO)
         {
             return 2;
         }
