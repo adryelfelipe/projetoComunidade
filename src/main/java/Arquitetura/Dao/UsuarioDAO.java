@@ -29,7 +29,7 @@ public class UsuarioDAO {
             stmt.setString(3, usuario.getSexo());
             stmt.setString(4, usuario.getCpf());
             stmt.setString(5, usuario.getTelefone());
-            stmt.setString(6, usuario.getTipoUsuario());
+            stmt.setString(6, usuario.getTipoUsuario().name());
             stmt.setString(7, usuario.getEmail());
             stmt.setDate(8, usuario.getDataNascimento());
 
