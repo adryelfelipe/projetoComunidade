@@ -18,14 +18,14 @@ public class FuncionarioService {
     // -- Métodos -- //
 
     // Verifica os dados gerais de funcionários
-    private boolean verificarDadosFunc(int cargaHorariaSemanal, double salario) {
+    private boolean verificarDadosFunc(Funcionario funcionario) {
 
-        return (cargaHorariaSemanal >= 40 && salario > 0);
+        return (funcionario.getCargaHorariaSemanal() >= 40 && funcionario.getSalario() > 0);
     }
 
     // Insere os atributos gerais de Funcionario na tabela Funcionario do banco de dados
     public boolean inserirFuncionario(Administrador administrador, Funcionario funcionario) {
-        if (verificarDadosFunc(funcionario.getCargaHorariaSemanal(), funcionario.getSalario())) { // Verifica os dados de Funcionario
+        if (verificarDadosFunc(funcionario)) { // Verifica os dados de Funcionario
             if (usuarioService.inserirUsuario(administrador, funcionario)) { // Verifica os dados de Usuario
                 funcionarioDAO.inserirFuncionario(funcionario);
 
