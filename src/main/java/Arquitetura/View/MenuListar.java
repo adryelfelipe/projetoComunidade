@@ -4,12 +4,13 @@ import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
+import Arquitetura.Service.UsuarioService;
 import Arquitetura.Utilidades.Ferramentas;
-
-import static Arquitetura.View.MenuUsuarios.MenuAdministrador.usuarioService;
 
 public class MenuListar
 {
+
+    private static UsuarioService usuarioService = new UsuarioService();
 
     public static void ListarUsuarios(Administrador adm)
     {
@@ -84,7 +85,4 @@ public class MenuListar
             }
         }
     }
-
-
-
 }

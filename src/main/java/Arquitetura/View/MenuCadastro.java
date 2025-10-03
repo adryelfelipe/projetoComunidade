@@ -3,6 +3,7 @@ package Arquitetura.View;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Paciente;
+import Arquitetura.Service.AdministradorService;
 import Arquitetura.Service.MedicoService;
 import Arquitetura.Service.PacienteService;
 import Arquitetura.Utilidades.Ferramentas;
@@ -76,20 +77,20 @@ public class MenuCadastro
             Medico medico = new Medico(nome, cpf, senha, sexo, telefone, email, sqlDate, cargaHoraria, salario, plantao, especialidade, formacao);
 
             MedicoService medicoService = new MedicoService();
-//
-//            medicoService.inserirMedico(medico);
-//
-//            System.out.println("Medico criado");
-//
-//            Ferramentas.Delay(1500);
-//
-//        } else {
-//
-//            Medico medico = new Medico(nome,cpf,senha,sexo,telefone,email,sqlDate,cargaHoraria,salario,plantao,especialidade,formacao,subE);
-//
-//            MedicoService medicoService = new MedicoService();
-//
-//            medicoService.inserirMedico(medico);
+
+                medicoService.inserirMedico(adm,medico);
+
+                System.out.println("Medico criado");
+
+                Ferramentas.Delay(1500);
+
+            } else {
+
+                Medico medico = new Medico(nome,cpf,senha,sexo,telefone,email,sqlDate,cargaHoraria,salario,plantao,especialidade,formacao,subE);
+
+                MedicoService medicoService = new MedicoService();
+
+                medicoService.inserirMedico(adm,medico);
 
             System.out.println("Medico criado");
 
@@ -163,7 +164,7 @@ public class MenuCadastro
 
         PacienteService pacienteService = new PacienteService();
 
-//        pacienteService.inserirPaciente(paciente);
+        pacienteService.inserirPaciente(adm,paciente);
 
         System.out.println("Paciente criado");
 
@@ -212,15 +213,18 @@ public class MenuCadastro
         System.out.println("Digite o salário: ");
         double salario = Ferramentas.lDouble();
 
+        System.out.println("Digite qual o departamento: ");
+        String departamento = Ferramentas.lString();
+
         LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
 
         Date sqlDate = Date.valueOf(dataNascimento);
-//
-//        Administrador administrador = new Administrador(nome,cpf,senha,sexo,telefone,email,sqlDate,salario,cargaHoraria);
-//
-//        AdministradorService administradorService =  new AdministradorService();
-//
-//        administradorService.inserirAdmin(administrador);
+
+        Administrador administrador = new Administrador(nome,cpf,senha,sexo,telefone,email,sqlDate,salario,cargaHoraria,departamento);
+
+        AdministradorService administradorService =  new AdministradorService();
+
+        administradorService.inserirAdmin(adm,administrador);
 
         System.out.println("Adm criado");
 

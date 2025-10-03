@@ -4,6 +4,10 @@ import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
+import Arquitetura.Service.AdministradorService;
+import Arquitetura.Service.MedicoService;
+import Arquitetura.Service.PacienteService;
+import Arquitetura.Service.UsuarioService;
 import Arquitetura.Utilidades.Ferramentas;
 
 import static Arquitetura.View.MenuUsuarios.MenuAdministrador.*;
@@ -11,6 +15,10 @@ import static Arquitetura.View.MenuUsuarios.MenuAdministrador.*;
 public class MenuExcluir
 {
 
+    private static UsuarioService usuarioService = new UsuarioService();
+    private static AdministradorService administradorService = new AdministradorService();
+    private static MedicoService medicoService = new MedicoService();
+    private static PacienteService pacienteService = new PacienteService();
 
     public static void ExcluirUsuario(Administrador adm)
     {
