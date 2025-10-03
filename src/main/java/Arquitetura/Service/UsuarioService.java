@@ -70,4 +70,16 @@ public class UsuarioService {
 
         return isIdExistente(id);
     }
+
+    public Usuario loginUsuario(String cpf, String senha) {
+        if(isCpfExistente(cpf) && !senha.isEmpty()) {
+            return usuarioDao.loginUsuario(cpf, senha);
+        } else {
+            return null;
+        }
+
+        // ADICIONAR TRATAMENTO DE EXCEÇÕES
+    }
+
+
 }
