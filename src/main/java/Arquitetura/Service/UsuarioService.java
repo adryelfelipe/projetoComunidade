@@ -36,7 +36,7 @@ public class UsuarioService {
     }
 
     // Verifica se já existe um cpf igual ao parâmetro
-    private boolean isCpfExistente(String cpf) {
+    public boolean isCpfExistente(String cpf) {
         return usuarioDao.verificarCpf(cpf);
     }
 
@@ -70,4 +70,17 @@ public class UsuarioService {
 
         return isIdExistente(id);
     }
+
+    public Usuario loginUsuario(String cpf, String senha) {
+        if(isCpfExistente(cpf) && !senha.isEmpty()) {
+            return usuarioDao.loginUsuario(cpf, senha);
+        } else {
+
+            return null;
+        }
+
+        // ADICIONAR TRATAMENTO DE EXCEÇÕES
+    }
+
+
 }

@@ -305,4 +305,33 @@ public class UsuarioDAO {
             return false;
         }
     }
+    public Usuario loginUsuario(String cpf, String senha)
+    {
+        String querySQL = "SELECT idUsuario, senha FROM Usuario WHERE cpf = ? LIMIT 1";
+
+        try (Connection connection = ConnectionFactory.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(querySQL))
+        {
+            stmt.setString(1, cpf);
+
+            try (ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    if(senha.equals(resultSet.getString("senha")))
+                    {
+                        long idUsuario = resultSet.getLong("idUsuario");
+
+                        return findById(idUsuario);
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao iniciar login com o usuário: "+ e.getMessage());
+            return null;
+        }
+        return null;
+    }
 }

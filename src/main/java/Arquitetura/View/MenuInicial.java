@@ -15,11 +15,11 @@ public class  MenuInicial {
             System.out.println("               ==================");
 
             System.out.println("\n\n\n");
-            System.out.println("============");
-            System.out.println("| Digite:  |");
-            System.out.println("| 1-Login  |");
-            System.out.println("| 2-Sair   |");
-            System.out.println("============");
+            System.out.println("=============");
+            System.out.println("| Digite:   |");
+            System.out.println("| 1-Login   |");
+            System.out.println("| 2-Sair    |");
+            System.out.println("=============");
             System.out.println("\n");
             int op = Ferramentas.lInteiro();
 
