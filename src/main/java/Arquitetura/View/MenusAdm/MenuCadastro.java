@@ -226,7 +226,12 @@ public class MenuCadastro
 
         administradorService.inserirAdmin(adm,administrador);
 
-        System.out.println("Adm criado");
+        if(administrador.getId() == 0) {
+            System.out.println("    Erro, dados invalidos, por favor tente novamente.");
+        }
+        else {
+            System.out.println("Adm criado");
+        }
 
         Ferramentas.Delay(1500);
 

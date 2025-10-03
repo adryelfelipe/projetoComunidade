@@ -21,6 +21,8 @@ public class MenuExcluir
     public static void ExcluirUsuario(Administrador adm)
     {
 
+        boolean excluir = false;
+
         Ferramentas.limpaTerminal();
 
         System.out.println("     EXCLUIR");
@@ -35,24 +37,27 @@ public class MenuExcluir
                 {
                     Administrador admdel = (Administrador) entrada;
 
-                    administradorService.deletarAdministrador(adm,admdel);
+                    excluir = administradorService.deletarAdministrador(adm,admdel);
                 }
                 else if(entrada instanceof Medico)
                 {
                     Medico medicodel = (Medico) entrada;
 
-                    medicoService.deletarMedico(adm,medicodel);
+                    excluir = medicoService.deletarMedico(adm,medicodel);
                 }
                 else if(entrada instanceof Paciente)
                 {
                     Paciente pacientedel = (Paciente) entrada;
 
-                    pacienteService.deletarPaciente(adm,pacientedel);
+                    excluir = pacienteService.deletarPaciente(adm,pacientedel);
                 }
 
-                System.out.println("Usuario excluido");
-
-
+                if(excluir == true) {
+                    System.out.println("Usuario excluido");
+                }
+                else {
+                    System.out.println("Erro ao excluir usuario");
+                }
                 System.out.println("\n\nDigite para continuar");
                 String tempo = Ferramentas.lString();
 
