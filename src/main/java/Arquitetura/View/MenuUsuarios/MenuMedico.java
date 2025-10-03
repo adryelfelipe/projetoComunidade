@@ -1,6 +1,7 @@
 package Arquitetura.View.MenuUsuarios;
 
 import Arquitetura.Utilidades.Ferramentas;
+import Arquitetura.View.MenuDefault;
 
 public class MenuMedico
 {
@@ -54,9 +55,8 @@ public class MenuMedico
                     break;
                 }
                 default: {
-                    System.out.println("Valor digitado está incorreto!");
 
-                    Ferramentas.Delay(2000);
+                    MenuDefault.menuDefault();
                 }
             }
         }

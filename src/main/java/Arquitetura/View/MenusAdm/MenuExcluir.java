@@ -1,4 +1,4 @@
-package Arquitetura.View;
+package Arquitetura.View.MenusAdm;
 
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Medico;
@@ -9,8 +9,6 @@ import Arquitetura.Service.MedicoService;
 import Arquitetura.Service.PacienteService;
 import Arquitetura.Service.UsuarioService;
 import Arquitetura.Utilidades.Ferramentas;
-
-import static Arquitetura.View.MenuUsuarios.MenuAdministrador.*;
 
 public class MenuExcluir
 {

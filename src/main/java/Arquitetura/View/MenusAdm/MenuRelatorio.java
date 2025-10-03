@@ -1,7 +1,8 @@
-package Arquitetura.View;
+package Arquitetura.View.MenusAdm;
 
 import Arquitetura.Model.Administrador;
 import Arquitetura.Utilidades.Ferramentas;
+import Arquitetura.View.MenuDefault;
 
 public class MenuRelatorio
 {
@@ -36,6 +37,7 @@ public class MenuRelatorio
             default:
             {
 
+                MenuDefault.menuDefault();
             }
         }
     }
