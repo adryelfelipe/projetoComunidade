@@ -20,9 +20,13 @@ public class UsuarioService {
     // Verifica se os atributos não são nulos
     private boolean verificarDadosUser(Usuario usuario) {
         return (usuario.getCpf() != null && usuario.getTelefone() != null
+                && !usuario.getCpf().isEmpty() && !usuario.getTelefone().isEmpty()
                 && usuario.getTipoUsuario() != null && usuario.getSexo() != null
+                && !usuario.getSexo().isEmpty()
                 && usuario.getNome() != null && usuario.getDataNascimento() != null
-                && usuario.getEmail() != null && usuario.getSenha() != null);
+                && !usuario.getNome().isEmpty()
+                && usuario.getEmail() != null && usuario.getSenha() != null
+                && !usuario.getEmail().isEmpty());
     }
 
     // Verifica se existe um usuario com o id igual ao parâmetro
