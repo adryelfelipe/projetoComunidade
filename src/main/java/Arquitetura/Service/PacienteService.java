@@ -20,7 +20,7 @@ public class PacienteService {
     // -- Métodos -- //
 
     // Verifica a veracidade dos atributos específicos de Paciente
-    public boolean verificarDadosPac(Paciente paciente) {
+    private boolean verificarDadosPac(Paciente paciente) {
         return (paciente.getStatusPaciente() != null && paciente.getContatoEmergencia() != null && paciente.getNumeroCarterinha() != null);
     }
 
