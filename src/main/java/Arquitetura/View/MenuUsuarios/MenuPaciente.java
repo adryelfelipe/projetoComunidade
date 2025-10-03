@@ -1,4 +1,4 @@
-package Arquitetura.View;
+package Arquitetura.View.MenuUsuarios;
 
 import Arquitetura.Utilidades.Ferramentas;
 
