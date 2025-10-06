@@ -99,4 +99,17 @@ public class Medico extends Funcionario{
     public String getSubEspecialidade() {
         return subEspecialidade;
     }
+
+    @Override
+    public void dadosPessoais() {
+        super.dadosPessoais();
+        System.out.println("PLANTÃO: " + plantao.name());
+        System.out.println("ESPECIALIDADE: " + especialidade);
+
+        if(!subEspecialidade.isEmpty() && !(subEspecialidade == null)) {
+            System.out.println("SUBESPECIALIDADE: " + subEspecialidade);
+        }
+
+        System.out.println("FORMAÇÃO: " + formacao);
+    }
 }

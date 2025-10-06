@@ -54,4 +54,12 @@ public class Paciente extends Usuario {
     public void setNumeroCarterinha(String numeroCarterinha) {
         this.numeroCarterinha = numeroCarterinha;
     }
+
+    @Override
+    public void dadosPessoais() {
+        super.dadosPessoais();
+        System.out.println("CONTATO EMERGÊNCIA: " + contatoEmergencia);
+        System.out.println("STATUS: " + statusPaciente);
+        System.out.println("NÚMERO CARTEIRINHA: " + numeroCarterinha);
+    }
 }
