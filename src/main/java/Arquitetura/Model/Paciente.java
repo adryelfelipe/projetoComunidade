@@ -1,5 +1,6 @@
 package Arquitetura.Model;
 
+import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.TipoUsuario;
 
 import java.sql.Date;
@@ -15,7 +16,7 @@ public class Paciente extends Usuario {
     // -- Construtores -- //
 
     // Não possui ID
-    public Paciente(String nome, String cpf, String senha, String sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCarterinha)
+    public Paciente(String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCarterinha)
     {
         super(TipoUsuario.PACIENTE,nome, cpf, senha, sexo, telefone, email,dataNascimento);
         this.contatoEmergencia = contatoEmergencia;
@@ -23,7 +24,7 @@ public class Paciente extends Usuario {
     }
 
     // Possui ID
-    public Paciente(long id, String nome, String cpf, String senha, String sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCarterinha) {
+    public Paciente(long id, String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCarterinha) {
         this(nome, cpf, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numeroCarterinha);
         this.setId(id);
     }
