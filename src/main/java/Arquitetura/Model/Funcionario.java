@@ -37,4 +37,11 @@ public abstract class Funcionario extends Usuario{
     public double getSalario() {
         return salario;
     }
+
+    @Override
+    public void dadosPessoais() {
+        super.dadosPessoais();
+        System.out.println("SALÁRIO: " + salario);
+        System.out.println("CARGA HORÁRIA: " + cargaHorariaSemanal);
+    }
 }

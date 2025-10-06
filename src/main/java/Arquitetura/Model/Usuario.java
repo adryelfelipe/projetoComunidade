@@ -125,4 +125,14 @@ public abstract class Usuario {
 
         return 3;
     }
+
+    public void dadosPessoais() {
+        System.out.println("ID: " + getId());
+        System.out.println("NOME: " + getNome());
+        System.out.println("EMAIL: " + getEmail());
+        System.out.println("CPF: " + getCpf());
+        System.out.println("SEXO: " + getSexo());
+        System.out.println("TELEFONE: " + getTelefone());
+        System.out.println("DATA DE NASCIMENTO: " + getDataNascimento());
+    }
 }

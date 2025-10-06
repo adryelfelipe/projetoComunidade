@@ -52,4 +52,10 @@ public class Administrador extends Funcionario {
             return 4;
         }
     }
+
+    @Override
+    public void dadosPessoais() {
+        super.dadosPessoais();
+        System.out.println("DEPARTAMENTO: " + departamento.name());
+    }
 }
