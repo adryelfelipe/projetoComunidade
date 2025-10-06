@@ -112,7 +112,7 @@ public abstract class Usuario {
         }
     }
 
-    public int getIdTipoUsuario()
+    public long getIdTipoUsuario()
     {
         if(getTipoUsuario() == TipoUsuario.PACIENTE)
         {
