@@ -2,6 +2,7 @@ package Arquitetura.View.MenuUsuarios;
 
 import Arquitetura.Model.Paciente;
 import Arquitetura.Utilidades.Ferramentas;
+import Arquitetura.View.FuncoesPACIENTE.*;
 import Arquitetura.View.MenuDefault;
 import Arquitetura.View.MenuInicial;
 
@@ -32,22 +33,32 @@ public class MenuPaciente
             switch (op) {
                 case 1: {
 
+                    MenuFicha.Ficha(paciente);
+
                     break;
                 }
                 case 2: {
+
+                    MenuLaudo.Laudo(paciente);
 
                     break;
                 }
                 case 3: {
 
+                    MenuEditarConta.Editar(paciente);
+
                     break;
                 }
                 case 4: {
+
+                    MenuAgendar.Agendar(paciente);
 
                     break;
                 }
                 case 5:
                 {
+
+                    MenuAgenda.Agenda(paciente);
 
                     break;
                 }

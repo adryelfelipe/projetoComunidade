@@ -2,6 +2,9 @@ package Arquitetura.View.MenuUsuarios;
 
 import Arquitetura.Model.Medico;
 import Arquitetura.Utilidades.Ferramentas;
+import Arquitetura.View.FuncoesMedico.MenuMinhaAgenda;
+import Arquitetura.View.FuncoesMedico.MenuPrescricoesLaudos;
+import Arquitetura.View.FuncoesMedico.MenuProntuario;
 import Arquitetura.View.MenuDefault;
 import Arquitetura.View.MenuInicial;
 
@@ -30,29 +33,24 @@ public class MenuMedico
             switch (op) {
                 case 1: {
 
-                    Ferramentas.limpaTerminal();
-
-                    MinhaAgenda();
+                    MenuMinhaAgenda.MinhaAgenda(medico);
 
                     break;
                 }
                 case 2: {
 
-                    Ferramentas.limpaTerminal();
-
-                    Prontuario();
+                    MenuProntuario.Prontuario(medico);
 
                     break;
                 }
                 case 3: {
 
-                    Ferramentas.limpaTerminal();
-
-                    Prescricoes();
+                    MenuPrescricoesLaudos.Prescricao(medico);
 
                     break;
                 }
                 case 4: {
+
                     continuar = false;
                     break;
                 }
@@ -64,23 +62,4 @@ public class MenuMedico
         }
         MenuInicial.Menu();
     }
-
-    public static void MinhaAgenda()
-    {
-
-    }
-
-    public static void Prontuario()
-    {
-
-    }
-
-    public static void Prescricoes()
-    {
-
-    }
-
-
-
-
 }
