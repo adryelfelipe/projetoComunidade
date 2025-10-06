@@ -11,6 +11,7 @@ import Arquitetura.Service.PacienteService;
 import Arquitetura.Utilidades.Ferramentas;
 
 import java.sql.Date;
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 
 public class MenuCadastro
@@ -81,6 +82,10 @@ public class MenuCadastro
 
             if(opPlantao != 1 && opPlantao != 2 && opPlantao != 3) {
                 verificaOp = false;
+
+                Ferramentas.limpaTerminal();
+
+                System.out.println("ERRO! OPÇÃO INVÁLIDA \n");
             } else {
                 verificaOp = true;
             }
@@ -102,19 +107,19 @@ public class MenuCadastro
 
             MedicoService medicoService = new MedicoService();
 
-                medicoService.inserirMedico(adm,medico);
+            medicoService.inserirMedico(adm,medico);
 
-                System.out.println("Medico criado");
+            System.out.println("Medico criado");
 
-                Ferramentas.Delay(1500);
+            Ferramentas.Delay(1500);
 
             } else {
 
-                Medico medico = new Medico(nome,cpf,senha,sexo,telefone,email,sqlDate,cargaHoraria,salario,plantao,especialidade,formacao,subE);
+            Medico medico = new Medico(nome,cpf,senha,sexo,telefone,email,sqlDate,cargaHoraria,salario,plantao,especialidade,formacao,subE);
 
-                MedicoService medicoService = new MedicoService();
+            MedicoService medicoService = new MedicoService();
 
-                medicoService.inserirMedico(adm,medico);
+            medicoService.inserirMedico(adm,medico);
 
             System.out.println("Medico criado");
 
@@ -237,33 +242,35 @@ public class MenuCadastro
         System.out.println("Digite o salário: ");
         double salario = Ferramentas.lDouble();
 
-        System.out.println("Qual é o seu departamento? ");
-        System.out.println("1 - FINANCEIRO ");
-        System.out.println("2 - INFRAESTRUTURA ");
-        System.out.println("3 - MARKETING");
-        System.out.println("4 - RH");
-        int opDepartamento = Ferramentas.lInteiro();
+        boolean verificaOp;
+        int opDepartamento;
 
-        Departamento departamento = null;
+        do {
+            System.out.println("Qual é o seu departamento? ");
+            System.out.println("1 - FINANCEIRO ");
+            System.out.println("2 - INFRAESTRUTURA ");
+            System.out.println("3 - MARKETING");
+            System.out.println("4 - RH");
+            System.out.print("Opção: ");
+            opDepartamento = Ferramentas.lInteiro();
 
-        switch(opDepartamento) {
+            if(opDepartamento != 1 && opDepartamento != 2 && opDepartamento != 3 && opDepartamento != 4) {
+                verificaOp = false;
 
-            case 1 -> {
-                departamento = Departamento.FINANCEIRO;
+                Ferramentas.limpaTerminal();
+
+                System.out.println("ERRO! OPÇÃO INVÁLIDA \n");
+            } else {
+                verificaOp = true;
             }
+        } while(!verificaOp);
 
-            case 2 -> {
-                departamento = Departamento.INFRAESTRUTURA;
-            }
-
-            case 3 -> {
-                departamento = Departamento.MARKETING;
-            }
-
-            case 4 -> {
-                departamento = Departamento.RH;
-            }
-        }
+        Departamento departamento = switch(opDepartamento) {
+            case 1 -> Departamento.FINANCEIRO;
+            case 2 -> Departamento.INFRAESTRUTURA;
+            case 3 -> Departamento.MARKETING;
+            default -> Departamento.RH;
+        };
 
         LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
 
