@@ -28,7 +28,7 @@ public class UsuarioDAO {
             //Configura os parâmetros (usando os getters do objeto)
             stmt.setString(1, usuario.getSenha());
             stmt.setString(2, usuario.getNome());
-            stmt.setString(3, usuario.getSexo());
+            stmt.setLong(3, usuario.getIdSexo());
             stmt.setString(4, usuario.getCpf());
             stmt.setString(5, usuario.getTelefone());
             stmt.setLong(6, usuario.getIdTipoUsuario());
