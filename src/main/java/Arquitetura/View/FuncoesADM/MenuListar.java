@@ -1,4 +1,4 @@
-package Arquitetura.View.MenusAdm;
+package Arquitetura.View.FuncoesADM;
 
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Medico;

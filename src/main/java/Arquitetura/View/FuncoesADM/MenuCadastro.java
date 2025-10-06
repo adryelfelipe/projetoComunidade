@@ -1,4 +1,4 @@
-package Arquitetura.View.MenusAdm;
+package Arquitetura.View.FuncoesADM;
 
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Enums.Departamento;
@@ -11,7 +11,6 @@ import Arquitetura.Service.PacienteService;
 import Arquitetura.Utilidades.Ferramentas;
 
 import java.sql.Date;
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 
 public class MenuCadastro
@@ -21,9 +20,9 @@ public class MenuCadastro
     {
         Ferramentas.limpaTerminal();
 
-        System.out.println("     --------------------------");
+        System.out.println("     -----------------------------");
         System.out.println("     ----    Cadastro Médico  ----");
-        System.out.println("     --------------------------");
+        System.out.println("     -----------------------------");
 
         // Entrada do nome
         System.out.println("\n\n\nDigite o nome: ");

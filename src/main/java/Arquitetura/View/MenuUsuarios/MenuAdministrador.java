@@ -7,7 +7,7 @@ import Arquitetura.Service.PacienteService;
 import Arquitetura.Service.UsuarioService;
 import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.*;
-import Arquitetura.View.MenusAdm.*;
+import Arquitetura.View.FuncoesADM.*;
 
 public class MenuAdministrador
 {
