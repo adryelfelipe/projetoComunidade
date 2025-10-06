@@ -31,7 +31,9 @@ public class Administrador extends Funcionario {
     }
 
     public void setDepartamento(Departamento departamento) {
-        this.departamento = departamento;
+        if(departamento != null) {
+            this.departamento = departamento;
+        }
     }
 
     public long getIdDepartamento() {
