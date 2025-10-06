@@ -25,25 +25,32 @@ public class MenuCadastro
         System.out.println("     ----    Cadastro Médico  ----");
         System.out.println("     --------------------------");
 
+        // Entrada do nome
         System.out.println("\n\n\nDigite o nome: ");
         String nome = Ferramentas.lString();
 
+        // Entrada do CPF
         System.out.println("Digite o CPF: ");
         String cpf = Ferramentas.lString();
 
+        // Entrada da senha
         System.out.println("Digite a senha: ");
         String senha = Ferramentas.lString();
 
+        // Entrada do sexo
         System.out.println("Digite o sexo:  ( M/F )");
         String sexo = Ferramentas.lString();
 
+        // Entrada do telefone
         System.out.println("Digite o número de telefone: ");
         String telefone = Ferramentas.lString();
 
+        // Entrada do email
         System.out.println("Digite o email: ");
         String email = Ferramentas.lString();
 
-        System.out.println("Data ");
+        // Entrada da data de nascimento
+        System.out.println("Data de nascimento");
         System.out.println("Digite o Ano: ");
         int ano = Ferramentas.lInteiro();
 
@@ -53,22 +60,27 @@ public class MenuCadastro
         System.out.println("Digite Dia: ");
         int dia = Ferramentas.lInteiro();
 
+        // Entrada da carga horária semanal
         System.out.println("Digite a carga horária semanal: ");
         int cargaHoraria = Ferramentas.lInteiro();
 
+        // Entrada do salário
         System.out.println("Digite o salário: ");
         double salario = Ferramentas.lDouble();
 
+        // Entrada da especialidade
         System.out.println("Digite a especialidade: ");
         String especialidade = Ferramentas.lString();
 
+        // Entrada da formação acadêmica
         System.out.println("Digite a formação academica: ");
         String formacao = Ferramentas.lString();
 
+        // Entrada da sub especialidade (caso houver)
         System.out.println("Digite a Sub Especialidade: (Caso houver) ");
         String subE = Ferramentas.lString();
 
-        // Atributo plantao
+        // Entrada do plantão
         boolean verificaOp;
         int opPlantao;
 
@@ -101,6 +113,7 @@ public class MenuCadastro
 
         Date sqlDate = Date.valueOf(dataNascimento);
 
+        // Cria médico com subespecialidade
         if(subE.isEmpty()) {
 
             Medico medico = new Medico(nome, cpf, senha, sexo, telefone, email, sqlDate, cargaHoraria, salario, plantao, especialidade, formacao);
@@ -113,6 +126,7 @@ public class MenuCadastro
 
             Ferramentas.Delay(1500);
 
+            // Cria médico sem subespecialidade
             } else {
 
             Medico medico = new Medico(nome,cpf,senha,sexo,telefone,email,sqlDate,cargaHoraria,salario,plantao,especialidade,formacao,subE);
@@ -135,16 +149,19 @@ public class MenuCadastro
         System.out.println("     ----  Cadastro Paciente  ----");
         System.out.println("     -----------------------------");
 
-
+        // Entrada do nome
         System.out.println("\n\n\nDigite o nome: ");
         String nome = Ferramentas.lString();
 
+        // Entrada do CPF
         System.out.println("Digite o CPF: ");
         String cpf = Ferramentas.lString();
 
+        // Entrada da senha
         System.out.println("Digite a senha: ");
         String senha = Ferramentas.lString();
 
+        // Entrada do sexo
         String sexo = "Null";
 
         boolean continuar = true;
@@ -163,13 +180,16 @@ public class MenuCadastro
             }
         }
 
+        // Entrada do telefone
         System.out.println("Digite o número de telefone: ");
         String telefone = Ferramentas.lString();
 
+        // Entrada do email
         System.out.println("Digite o email: ");
         String email = Ferramentas.lString();
 
-        System.out.println("Data ");
+        // Entrada da data de nascimento
+        System.out.println("Data de nascimento");
         System.out.println("Digite o Ano: ");
         int ano = Ferramentas.lInteiro();
 
@@ -179,9 +199,11 @@ public class MenuCadastro
         System.out.println("Digite Dia: ");
         int dia = Ferramentas.lInteiro();
 
+        // Entrada do contato de emergência
         System.out.println("Digite o número do contato de emergência: ");
         String contatoEmer = Ferramentas.lString();
 
+        // Entrada do número da carteirinha
         System.out.println("Digite o número da carteirinha: ");
         String numeroCar = Ferramentas.lString();
 
@@ -208,25 +230,32 @@ public class MenuCadastro
         System.out.println("     ----    Cadastro ADM  ----");
         System.out.println("     --------------------------");
 
+        // Entrada do nome
         System.out.println("\n\n\nDigite o nome: ");
         String nome = Ferramentas.lString();
 
+        // Entrada do CPF
         System.out.println("Digite o CPF: ");
         String cpf = Ferramentas.lString();
 
+        // Entrada da senha
         System.out.println("Digite a senha: ");
         String senha = Ferramentas.lString();
 
+        // Entrada do sexo
         System.out.println("Digite o sexo:  ( M/F )");
         String sexo = Ferramentas.lString();
 
+        // Entrada do telefone
         System.out.println("Digite o número de telefone: ");
         String telefone = Ferramentas.lString();
 
+        // Entrada do email
         System.out.println("Digite o email: ");
         String email = Ferramentas.lString();
 
-        System.out.println("Data ");
+        // Entrada da data de nascimento
+        System.out.println("Data de nascimento");
         System.out.println("Digite o Ano: ");
         int ano = Ferramentas.lInteiro();
 
@@ -236,12 +265,14 @@ public class MenuCadastro
         System.out.println("Digite Dia: ");
         int dia = Ferramentas.lInteiro();
 
+        // Entrada da carga horária semanal
         System.out.println("Digite a carga horária semanal: ");
         int cargaHoraria = Ferramentas.lInteiro();
 
         System.out.println("Digite o salário: ");
         double salario = Ferramentas.lDouble();
 
+        // Entrada do departamento
         boolean verificaOp;
         int opDepartamento;
 
@@ -265,6 +296,7 @@ public class MenuCadastro
             }
         } while(!verificaOp);
 
+        // Converte a entrada de departamento usando switch expression
         Departamento departamento = switch(opDepartamento) {
             case 1 -> Departamento.FINANCEIRO;
             case 2 -> Departamento.INFRAESTRUTURA;
@@ -282,14 +314,16 @@ public class MenuCadastro
 
         administradorService.inserirAdmin(adm,administrador);
 
+        // Cadastro falhou
         if(administrador.getId() == 0) {
             System.out.println("    Erro, dados invalidos, por favor tente novamente.");
         }
+
+        // Cadastro funcinou
         else {
             System.out.println("Adm criado");
         }
 
         Ferramentas.Delay(1500);
-
     }
 }
