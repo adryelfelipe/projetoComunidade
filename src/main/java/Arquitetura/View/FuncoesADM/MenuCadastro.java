@@ -39,8 +39,35 @@ public class MenuCadastro
         String senha = Ferramentas.lString();
 
         // Entrada do sexo
-        System.out.println("Digite o sexo:  ( M/F )");
-        String sexo = Ferramentas.lString();
+        int opsex;
+        boolean verifica;
+
+        do{
+
+            System.out.println("Digite o seu sexo:");
+            System.out.println("1-Masculino");
+            System.out.println("2-Feminino");
+            opsex =  Ferramentas.lInteiro();
+
+            if(opsex != 1 && opsex != 2)
+            {
+                verifica = false;
+
+                Ferramentas.limpaTerminal();
+
+                System.out.println("ERRO.  OPÇÂO INVALIDA");
+            }
+            else
+            {
+                verifica = true;
+            }
+        }while (!verifica);
+
+        // Converte a entrada de genero usando switch expression
+        Genero genero = switch (opsex){
+            case 1 -> Genero.MASCULINO;
+            default -> Genero.FEMININO;
+        };
 
         // Entrada do telefone
         System.out.println("Digite o número de telefone: ");
@@ -117,7 +144,7 @@ public class MenuCadastro
         // Cria médico com subespecialidade
         if(subE.isEmpty()) {
 
-            Medico medico = new Medico(nome, cpf, senha, sexo, telefone, email, sqlDate, cargaHoraria, salario, plantao, especialidade, formacao);
+            Medico medico = new Medico(nome, cpf, senha, genero, telefone, email, sqlDate, cargaHoraria, salario, plantao, especialidade, formacao);
 
             MedicoService medicoService = new MedicoService();
 
@@ -130,7 +157,7 @@ public class MenuCadastro
             // Cria médico sem subespecialidade
             } else {
 
-            Medico medico = new Medico(nome,cpf,senha,sexo,telefone,email,sqlDate,cargaHoraria,salario,plantao,especialidade,formacao,subE);
+            Medico medico = new Medico(nome,cpf,senha,genero,telefone,email,sqlDate,cargaHoraria,salario,plantao,especialidade,formacao,subE);
 
             MedicoService medicoService = new MedicoService();
 
@@ -163,23 +190,35 @@ public class MenuCadastro
         String senha = Ferramentas.lString();
 
         // Entrada do sexo
-        String sexo = "Null";
+        int opsex;
+        boolean verifica;
 
-        boolean continuar = true;
+        do{
 
-        while (continuar) {
+            System.out.println("Digite o seu sexo:");
+            System.out.println("1-Masculino");
+            System.out.println("2-Feminino");
+            opsex =  Ferramentas.lInteiro();
 
-            System.out.println("Digite o sexo:  ( M/F )");
-            sexo = Ferramentas.lString();
+            if(opsex != 1 && opsex != 2)
+            {
+                verifica = false;
 
-            if (!(sexo.equals("M") || sexo.equals("F"))) {
+                Ferramentas.limpaTerminal();
 
+                System.out.println("ERRO!  OPÇÂO INVALIDA");
             }
             else
             {
-                continuar = false;
+                verifica = true;
             }
-        }
+        }while (!verifica);
+
+        // Converte a entrada de genero usando switch expression
+        Genero genero = switch (opsex){
+            case 1 -> Genero.MASCULINO;
+            default -> Genero.FEMININO;
+        };
 
         // Entrada do telefone
         System.out.println("Digite o número de telefone: ");
@@ -212,7 +251,7 @@ public class MenuCadastro
 
         Date sqlDate = Date.valueOf(dataNascimento);
 
-        Paciente paciente = new Paciente(nome,cpf,senha,sexo,telefone,email,sqlDate, contatoEmer, contatoEmer);
+        Paciente paciente = new Paciente(nome,cpf,senha,genero,telefone,email,sqlDate, contatoEmer, contatoEmer);
 
         PacienteService pacienteService = new PacienteService();
 
@@ -245,7 +284,7 @@ public class MenuCadastro
 
         // Entrada do sexo
         int opsex;
-        boolean verifica = false;
+        boolean verifica;
 
         do{
 
@@ -256,6 +295,7 @@ public class MenuCadastro
 
             if(opsex != 1 && opsex != 2)
             {
+                verifica = false;
 
                 Ferramentas.limpaTerminal();
 
@@ -269,7 +309,6 @@ public class MenuCadastro
 
         // Converte a entrada de genero usando switch expression
         Genero genero = switch (opsex){
-
             case 1 -> Genero.MASCULINO;
             default -> Genero.FEMININO;
         };
@@ -334,7 +373,7 @@ public class MenuCadastro
 
         Date sqlDate = Date.valueOf(dataNascimento);
 
-        Administrador administrador = new Administrador(nome,cpf,senha,genero.name(),telefone,email,sqlDate,salario,cargaHoraria, departamento);
+        Administrador administrador = new Administrador(nome,cpf,senha,genero,telefone,email,sqlDate,salario,cargaHoraria, departamento);
 
         AdministradorService administradorService =  new AdministradorService();
 
