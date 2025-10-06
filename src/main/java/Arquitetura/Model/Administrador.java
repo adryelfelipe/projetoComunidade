@@ -2,48 +2,38 @@ package Arquitetura.Model;
 
 import java.sql.Date;
 
-public class Administrador extends Usuario {
+public class Administrador extends Funcionario {
 
-    // Atributos
-    private double salario;
-    private int cargaHoraria;
+    // -- Atributos -- //
+    private String departamento;
+    private static final String tipoUsuario = "Administrador";
+
+    // -- Construtores -- //
 
     // Construtor sem id
-    public Administrador(String nome, String cpf, String senha, double salario, int cargaHoraria, String sexo, String telefone, String email, Date dataNascimento)
+    public Administrador(String nome, String cpf, String senha, String sexo, String telefone, String email,Date dataNascimento, double salario, int cargaHorariaSemanal, String departamento)
     {
-        super(nome, cpf, senha, sexo, telefone, email, dataNascimento);
-        this.salario = salario;
-        this.cargaHoraria = cargaHoraria;
-        setTipoUsuario("Administrador");
+        super(nome, cpf, senha, sexo, telefone, email, dataNascimento, salario, cargaHorariaSemanal);
+        this.departamento = departamento;
     }
 
     // Construtor com id
-    public Administrador(long id, String nome, String cpf, String senha, double salario, int cargaHoraria, String sexo, String telefone, String email, Date dataNascimento) {
-        this(nome, cpf, senha, salario, cargaHoraria, sexo, telefone, email, dataNascimento);
+    public Administrador(String nome, String cpf, String senha, String sexo, String telefone,String email,Date dataNascimento,double salario, int cargaHoraria,String departamento, long id) {
+        this(nome, cpf, senha, sexo, telefone,email, dataNascimento, salario, cargaHoraria, departamento);
         this.setId(id);
     }
 
-    // Setters e Getters
-    public void setSalario(double salario) {
-        if(salario > 0.0) {
-            this.salario = salario;
-        }
+    // --  Setters e Getters -- //
+    public String getDepartamento() {
+        return departamento;
     }
 
-    public double getSalario() {
-        return salario;
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
     }
 
-    public void setCargaHoraria(int cargaHoraria) {
-        if(cargaHoraria > 0) {
-            this.cargaHoraria = cargaHoraria;
-        }
+    @Override
+    public String getTipoUsuario() {
+        return Administrador.tipoUsuario;
     }
-
-    public int getCargaHoraria() {
-        return cargaHoraria;
-    }
-
-    // Métodos
-
 }
