@@ -2,6 +2,7 @@ package Arquitetura.View.FuncoesADM;
 
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Enums.Departamento;
+import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.Plantao;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Paciente;
@@ -9,6 +10,7 @@ import Arquitetura.Service.AdministradorService;
 import Arquitetura.Service.MedicoService;
 import Arquitetura.Service.PacienteService;
 import Arquitetura.Utilidades.Ferramentas;
+import Arquitetura.View.MenuDefault;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -242,8 +244,35 @@ public class MenuCadastro
         String senha = Ferramentas.lString();
 
         // Entrada do sexo
-        System.out.println("Digite o sexo:  ( M/F )");
-        String sexo = Ferramentas.lString();
+        int opsex;
+        boolean verifica = false;
+
+        do{
+
+            System.out.println("Digite o seu sexo:");
+            System.out.println("1-Masculino");
+            System.out.println("2-Feminino");
+            opsex =  Ferramentas.lInteiro();
+
+            if(opsex != 1 && opsex != 2)
+            {
+
+                Ferramentas.limpaTerminal();
+
+                System.out.println("ERRO.  OPÇÂO INVALIDA");
+            }
+            else
+            {
+                verifica = true;
+            }
+        }while (!verifica);
+
+        // Converte a entrada de genero usando switch expression
+        Genero genero = switch (opsex){
+
+            case 1 -> Genero.MASCULINO;
+            default -> Genero.FEMININO;
+        };
 
         // Entrada do telefone
         System.out.println("Digite o número de telefone: ");
@@ -281,15 +310,13 @@ public class MenuCadastro
             System.out.println("2 - INFRAESTRUTURA ");
             System.out.println("3 - MARKETING");
             System.out.println("4 - RH");
-            System.out.print("Opção: ");
             opDepartamento = Ferramentas.lInteiro();
 
             if(opDepartamento != 1 && opDepartamento != 2 && opDepartamento != 3 && opDepartamento != 4) {
                 verificaOp = false;
 
-                Ferramentas.limpaTerminal();
+                MenuDefault.menuDefault();
 
-                System.out.println("ERRO! OPÇÃO INVÁLIDA \n");
             } else {
                 verificaOp = true;
             }
@@ -307,7 +334,7 @@ public class MenuCadastro
 
         Date sqlDate = Date.valueOf(dataNascimento);
 
-        Administrador administrador = new Administrador(nome,cpf,senha,sexo,telefone,email,sqlDate,salario,cargaHoraria, departamento);
+        Administrador administrador = new Administrador(nome,cpf,senha,genero.name(),telefone,email,sqlDate,salario,cargaHoraria, departamento);
 
         AdministradorService administradorService =  new AdministradorService();
 

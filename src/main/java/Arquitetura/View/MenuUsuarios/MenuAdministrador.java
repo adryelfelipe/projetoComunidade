@@ -25,9 +25,9 @@ public class MenuAdministrador
         while (continuar) {
 
             Ferramentas.limpaTerminal();
-            System.out.println("           ---------------");
-            System.out.println("           |     MENU    |" );
-            System.out.println("           ---------------\n\n");
+            System.out.println("           ---------------                         Usuário: " + adm.getId());
+            System.out.println("           |     MENU    |                                      " );
+            System.out.println("           ---------------                                      \n\n");
             System.out.println("----------------------");
             System.out.println("|  Digite:           |");
             System.out.println("|--------------------|");

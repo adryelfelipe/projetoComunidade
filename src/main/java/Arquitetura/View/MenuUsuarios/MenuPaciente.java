@@ -1,5 +1,6 @@
 package Arquitetura.View.MenuUsuarios;
 
+import Arquitetura.Model.Paciente;
 import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.MenuDefault;
 import Arquitetura.View.MenuInicial;
@@ -8,7 +9,7 @@ public class MenuPaciente
 {
 
 
-    public static void Menu()
+    public static void Menu(Paciente paciente)
     {
 
         boolean continuar = true;
@@ -17,7 +18,7 @@ public class MenuPaciente
 
             Ferramentas.limpaTerminal();
 
-            System.out.println("           ---------------");
+            System.out.println("           ---------------                         Usuário: " + paciente.getId());
             System.out.println("           |     MENU    |" );
             System.out.println("           ---------------\n\n");
             System.out.println("\n\n1-Ficha técnica");
@@ -62,8 +63,4 @@ public class MenuPaciente
         }
         MenuInicial.Menu();
     }
-
-
-
-
 }

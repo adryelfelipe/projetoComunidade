@@ -2,6 +2,7 @@ package Arquitetura.View;
 
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Medico;
+import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.AdministradorService;
 import Arquitetura.Service.UsuarioService;
@@ -73,11 +74,17 @@ public class MenuLogin {
                     }
                     else if(usuario instanceof Medico)
                     {
-                        MenuMedico.Menu();
+
+                        Medico medico = (Medico) usuario;
+
+                        MenuMedico.Menu(medico);
                     }
                     else
                     {
-                        MenuPaciente.Menu();
+
+                        Paciente paciente = (Paciente) usuario;
+
+                        MenuPaciente.Menu(paciente);
                     }
                 }
             }

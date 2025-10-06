@@ -1,5 +1,6 @@
 package Arquitetura.Model;
 
+import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.TipoUsuario;
 
 import java.sql.Date;
@@ -10,7 +11,7 @@ public abstract class Usuario {
     private String nome;
     private String cpf;
     private String senha;
-    private String sexo;
+    private Genero sexo;
     private String telefone;
     private String email;
     private Date dataNascimento;
@@ -18,7 +19,7 @@ public abstract class Usuario {
     private final TipoUsuario tipoUsuario;
 
     // -- Construtor -- //
-    public Usuario(TipoUsuario tipoUsuario, String nome, String cpf, String senha, String sexo, String telefone, String email, Date dataNascimento) {
+    public Usuario(TipoUsuario tipoUsuario, String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento) {
         this.tipoUsuario = tipoUsuario;
         this.senha = senha;
         this.nome = nome;
@@ -44,12 +45,12 @@ public abstract class Usuario {
         }
     }
 
-    public String getSexo() {
+    public Genero getSexo() {
         return sexo;
     }
 
-    public void setSexo(String sexo) {
-        if(!sexo.isEmpty()) {
+    public void setSexo(Genero sexo) {
+        if(sexo != null) {
             this.sexo = sexo;
         }
     }
