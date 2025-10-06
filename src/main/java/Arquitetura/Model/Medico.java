@@ -1,5 +1,6 @@
 package Arquitetura.Model;
 
+import Arquitetura.Model.Enums.Plantao;
 import Arquitetura.Model.Enums.TipoUsuario;
 
 import java.sql.Date;
@@ -7,7 +8,7 @@ import java.sql.Date;
 public class Medico extends Funcionario{
 
     // -- Atributos -- //
-    private String plantao;
+    private Plantao plantao;
     private String especialidade;
     private String subEspecialidade;
     private String formacao;
@@ -16,7 +17,7 @@ public class Medico extends Funcionario{
     // -- Construtores -- //
 
     // Não possui subEspecialidade nem id
-    public Medico(String nome, String cpf, String senha, String sexo, String telefone, String email,Date dataNascimento,int cargaHorariaSemanal,double salario,  String plantao, String especialidade, String formacao ) {
+    public Medico(String nome, String cpf, String senha, String sexo, String telefone, String email,Date dataNascimento,int cargaHorariaSemanal,double salario,  Plantao plantao, String especialidade, String formacao ) {
         super(TipoUsuario.MEDICO, nome,cpf,senha,sexo,telefone,email,dataNascimento, salario, cargaHorariaSemanal);
         this.plantao = plantao;
         this.especialidade = especialidade;
@@ -25,21 +26,21 @@ public class Medico extends Funcionario{
     }
 
     // Não possui subEspecialidade e possui ID
-    public Medico(long id, String nome, String cpf, String senha,String sexo,String telefone,  String email,  Date dataNascimento , int cargaHorariaSemanal,double salario, String plantao, String especialidade, String formacao) {
+    public Medico(long id, String nome, String cpf, String senha,String sexo,String telefone,  String email,  Date dataNascimento , int cargaHorariaSemanal,double salario, Plantao plantao, String especialidade, String formacao) {
         this(nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal,   salario,plantao, especialidade, formacao );
         this.subEspecialidade = "N/A";
         this.setId(id);
     }
 
     // Possui subEspecialidade e possui ID
-    public Medico(long id, String nome, String cpf, String senha,String sexo,String telefone,  String email,  Date dataNascimento , int cargaHorariaSemanal,double salario, String plantao, String especialidade, String formacao,String subEspecialidade) {
+    public Medico(long id, String nome, String cpf, String senha,String sexo,String telefone,  String email,  Date dataNascimento , int cargaHorariaSemanal,double salario, Plantao plantao, String especialidade, String formacao,String subEspecialidade) {
         this(nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal,   salario,plantao, especialidade, formacao );
         this.subEspecialidade = subEspecialidade;
         this.setId(id);
     }
 
     // Possui subEspecialidade e não possui ID
-    public Medico( String nome, String cpf, String senha,String sexo,String telefone,  String email,  Date dataNascimento , int cargaHorariaSemanal,double salario, String plantao, String especialidade, String formacao, String subEspecialidade) {
+    public Medico( String nome, String cpf, String senha,String sexo,String telefone,  String email,  Date dataNascimento , int cargaHorariaSemanal,double salario, Plantao plantao, String especialidade, String formacao, String subEspecialidade) {
         this(nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal,   salario,plantao, especialidade, formacao );
         this.subEspecialidade = subEspecialidade;
     }
@@ -66,19 +67,32 @@ public class Medico extends Funcionario{
         return formacao;
     }
 
-    public void setPlantao(String plantao) {
-        if(!plantao.isEmpty()) {
+    public void setPlantao(Plantao plantao) {
+        if (plantao != null) {
             this.plantao = plantao;
         }
     }
 
-    public String getPlantao() {
+    public Plantao getPlantao() {
         return plantao;
     }
 
     public void setSubEspecialidade(String subEspecialidade) {
         if(!subEspecialidade.isEmpty()) {
             this.subEspecialidade = subEspecialidade;
+        }
+    }
+
+    public long getIdPlantao() {
+        if(plantao == Plantao.MATUTINO) {
+
+            return 1;
+        } else if(plantao == Plantao.VERPERTINO) {
+
+            return 2;
+        } else {
+
+            return 3;
         }
     }
 
