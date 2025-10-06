@@ -21,7 +21,7 @@ public class MedicoDAO {
             PreparedStatement stmt = connection.prepareStatement(querySQL))
         {
             stmt.setLong(1, medico.getId());
-            stmt.setString(2,medico.getPlantao());
+            stmt.setLong(2,medico.getIdPlantao());
             stmt.setString(3, medico.getEspecialidade());
             stmt.setString(4, medico.getSubEspecialidade());
             stmt.setString(5, medico.getFormacao());
