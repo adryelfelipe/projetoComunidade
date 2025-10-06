@@ -1,6 +1,7 @@
 package Arquitetura.View.MenusAdm;
 
 import Arquitetura.Model.Administrador;
+import Arquitetura.Model.Enums.Departamento;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Paciente;
 import Arquitetura.Service.AdministradorService;
@@ -213,14 +214,39 @@ public class MenuCadastro
         System.out.println("Digite o salário: ");
         double salario = Ferramentas.lDouble();
 
-        System.out.println("Digite qual o departamento: ");
-        String departamento = Ferramentas.lString();
+        System.out.println("Qual é o seu departamento? ");
+        System.out.println("1 - FINANCEIRO ");
+        System.out.println("2 - INFRAESTRUTURA ");
+        System.out.println("3 - MARKETING");
+        System.out.println("4 - RH");
+        int opDepartamento = Ferramentas.lInteiro();
+
+        Departamento departamento = null;
+
+        switch(opDepartamento) {
+
+            case 1 -> {
+                departamento = Departamento.FINANCEIRO;
+            }
+
+            case 2 -> {
+                departamento = Departamento.INFRAESTRUTURA;
+            }
+
+            case 3 -> {
+                departamento = Departamento.MARKETING;
+            }
+
+            case 4 -> {
+                departamento = Departamento.RH;
+            }
+        }
 
         LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
 
         Date sqlDate = Date.valueOf(dataNascimento);
 
-        Administrador administrador = new Administrador(nome,cpf,senha,sexo,telefone,email,sqlDate,salario,cargaHoraria,departamento);
+        Administrador administrador = new Administrador(nome,cpf,senha,sexo,telefone,email,sqlDate,salario,cargaHoraria, departamento);
 
         AdministradorService administradorService =  new AdministradorService();
 
