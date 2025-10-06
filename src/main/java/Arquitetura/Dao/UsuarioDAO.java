@@ -2,6 +2,8 @@ package Arquitetura.Dao;
 
 import Arquitetura.Config.ConnectionFactory;
 import Arquitetura.Model.Administrador;
+import Arquitetura.Model.Enums.Departamento;
+import Arquitetura.Model.Enums.Plantao;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
@@ -29,7 +31,7 @@ public class UsuarioDAO {
             stmt.setString(3, usuario.getSexo());
             stmt.setString(4, usuario.getCpf());
             stmt.setString(5, usuario.getTelefone());
-            stmt.setInt(6, usuario.getIdTipoUsuario());
+            stmt.setLong(6, usuario.getIdTipoUsuario());
             stmt.setString(7, usuario.getEmail());
             stmt.setDate(8, usuario.getDataNascimento());
 
@@ -88,7 +90,14 @@ public class UsuarioDAO {
                     int tipoUsuario = resultSet.getInt("tipoUsuario");
 
                     // Dados Administrador
-                    String departamento = resultSet.getString("departamento");
+                    int idDepartamento = resultSet.getInt("departamento");
+
+                    Departamento departamento = switch(idDepartamento) {
+                        case 1 -> Departamento.FINANCEIRO;
+                        case 2 -> Departamento.INFRAESTRUTURA;
+                        case 3 -> Departamento.MARKETING;
+                        default -> Departamento.RH;
+                    };
 
                     // Dados Paciente
                     String numCarteirinha = resultSet.getString("numeroCarteirinha");
@@ -96,10 +105,16 @@ public class UsuarioDAO {
                     String statusPaciente = resultSet.getString("statusPaciente");
 
                     // Dados Médico
-                    String plantao = resultSet.getString("plantao");
                     String especialidade = resultSet.getString("especialidade");
                     String subEspecialidade = resultSet.getString("subEspecialidade");
                     String formacao = resultSet.getString("formacao");
+                    int idPlantao = resultSet.getInt("plantao");
+
+                    Plantao plantao = switch(idPlantao) {
+                        case 1 -> Plantao.MATUTINO;
+                        case 2 -> Plantao.VERPERTINO;
+                        default -> Plantao.NOTURNO;
+                    };
 
                     // Dados Funcionario
                     double salario = resultSet.getDouble("salario");
