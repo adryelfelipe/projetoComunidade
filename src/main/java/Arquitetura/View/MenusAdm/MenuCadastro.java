@@ -2,6 +2,7 @@ package Arquitetura.View.MenusAdm;
 
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Enums.Departamento;
+import Arquitetura.Model.Enums.Plantao;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Paciente;
 import Arquitetura.Service.AdministradorService;
@@ -57,9 +58,6 @@ public class MenuCadastro
         System.out.println("Digite o salário: ");
         double salario = Ferramentas.lDouble();
 
-        System.out.println("Digite o horário de plantão:    ( Matutino | Vespertino | Noturno )");
-        String plantao = Ferramentas.lString();
-
         System.out.println("Digite a especialidade: ");
         String especialidade = Ferramentas.lString();
 
@@ -68,6 +66,31 @@ public class MenuCadastro
 
         System.out.println("Digite a Sub Especialidade: (Caso houver) ");
         String subE = Ferramentas.lString();
+
+        // Atributo plantao
+        boolean verificaOp;
+        int opPlantao;
+
+        do {
+            System.out.println("Qual é o seu plantão? ");
+            System.out.println("1 - MATUTINO ");
+            System.out.println("2 - VESPERTINO ");
+            System.out.println("3 - NORTURNO");
+            System.out.print("Opção: ");
+            opPlantao = Ferramentas.lInteiro();
+
+            if(opPlantao != 1 && opPlantao != 2 && opPlantao != 3) {
+                verificaOp = false;
+            } else {
+                verificaOp = true;
+            }
+        } while(!verificaOp);
+
+        Plantao plantao = switch(opPlantao) {
+            case 1 -> Plantao.MATUTINO;
+            case 2 -> Plantao.VERPERTINO;
+            default -> Plantao.NOTURNO;
+        };
 
         LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
 
