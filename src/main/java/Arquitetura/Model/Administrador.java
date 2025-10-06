@@ -1,6 +1,7 @@
 package Arquitetura.Model;
 
 import Arquitetura.Model.Enums.Departamento;
+import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.TipoUsuario;
 
 import java.sql.Date;
@@ -13,14 +14,14 @@ public class Administrador extends Funcionario {
     // -- Construtores -- //
 
     // Construtor sem id
-    public Administrador(String nome, String cpf, String senha, String sexo, String telefone, String email,Date dataNascimento, double salario, int cargaHorariaSemanal, Departamento departamento)
+    public Administrador(String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento, double salario, int cargaHorariaSemanal, Departamento departamento)
     {
         super(TipoUsuario.ADMIN, nome, cpf, senha, sexo, telefone, email, dataNascimento, salario, cargaHorariaSemanal);
         this.departamento = departamento;
     }
 
     // Construtor com id
-    public Administrador(String nome, String cpf, String senha, String sexo, String telefone,String email,Date dataNascimento,double salario, int cargaHoraria,Departamento departamento, long id) {
+    public Administrador(String nome, String cpf, String senha, Genero sexo, String telefone,String email,Date dataNascimento,double salario, int cargaHoraria,Departamento departamento, long id) {
         this(nome, cpf, senha, sexo, telefone,email, dataNascimento, salario, cargaHoraria, departamento);
         this.setId(id);
     }

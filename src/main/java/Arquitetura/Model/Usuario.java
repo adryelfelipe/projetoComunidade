@@ -127,6 +127,14 @@ public abstract class Usuario {
         return 3;
     }
 
+    public long getIdSexo() {
+        if(sexo == Genero.MASCULINO) {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+
     public void dadosPessoais() {
         System.out.println("ID: " + getId());
         System.out.println("NOME: " + getNome());

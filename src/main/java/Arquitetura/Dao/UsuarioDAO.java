@@ -3,6 +3,7 @@ package Arquitetura.Dao;
 import Arquitetura.Config.ConnectionFactory;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Enums.Departamento;
+import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.Plantao;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Paciente;
@@ -28,7 +29,7 @@ public class UsuarioDAO {
             //Configura os parâmetros (usando os getters do objeto)
             stmt.setString(1, usuario.getSenha());
             stmt.setString(2, usuario.getNome());
-            stmt.setString(3, usuario.getSexo());
+            stmt.setLong(3, usuario.getIdSexo());
             stmt.setString(4, usuario.getCpf());
             stmt.setString(5, usuario.getTelefone());
             stmt.setLong(6, usuario.getIdTipoUsuario());
@@ -82,12 +83,17 @@ public class UsuarioDAO {
                     long id = resultSet.getLong("idUsuario");
                     String senha = resultSet.getString("senha");
                     String nomeUsuario = resultSet.getString("nomeUsuario");
-                    String sexo = resultSet.getString("sexo");
+                    int sexoId = resultSet.getInt("sexo");
                     String cpf = resultSet.getString("cpf");
                     String telefone = resultSet.getString("telefone");
                     String email = resultSet.getString("email");
                     Date dataNascimento = resultSet.getDate("dataNascimento");
                     int tipoUsuario = resultSet.getInt("tipoUsuario");
+
+                    Genero sexo = switch (sexoId) {
+                        case 1 -> Genero.MASCULINO;
+                        default -> Genero.FEMININO;
+                    };
 
                     // Dados Administrador
                     int idDepartamento = resultSet.getInt("departamento");

@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class FuncionarioDAO {
 
-    // -- CRUD -- //
+    // -- CRDU -- //
 
     // Inserção
     public void inserirFuncionario(Funcionario funcionario)

@@ -22,7 +22,6 @@ public class UsuarioService {
         return (usuario.getCpf() != null && usuario.getTelefone() != null
                 && !usuario.getCpf().isEmpty() && !usuario.getTelefone().isEmpty()
                 && usuario.getTipoUsuario() != null && usuario.getSexo() != null
-                && !usuario.getSexo().isEmpty()
                 && usuario.getNome() != null && usuario.getDataNascimento() != null
                 && !usuario.getNome().isEmpty()
                 && usuario.getEmail() != null && usuario.getSenha() != null
