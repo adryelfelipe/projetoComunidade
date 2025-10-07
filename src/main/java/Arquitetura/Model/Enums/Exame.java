@@ -30,6 +30,6 @@ public enum Exame {
     Visao,
 
     // ID 10
-    Sangue,
+    Sangue;
 
 }
