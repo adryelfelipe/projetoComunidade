@@ -103,4 +103,48 @@ public class Consulta {
     public void setExame(Exame exame) {
         this.exame = exame;
     }
+
+    public long getIdExame()
+    {
+        if(exame == Exame.Hemograma)
+        {
+            return 1;
+        }
+        else if(exame == Exame.Glicemia)
+        {
+            return 2;
+        }
+        else if(exame == Exame.Colesterol)
+        {
+            return 3;
+        }
+        else if(exame == Exame.RaioX)
+        {
+            return 4;
+        }
+        else if(exame == Exame.Eletrocardiograma)
+        {
+            return 5;
+        }
+        else if(exame == Exame.TesteErgometrico)
+        {
+            return 6;
+        }
+        else if(exame == Exame.Audiometria)
+        {
+            return 7;
+        }
+        else if(exame == Exame.Audio)
+        {
+            return  8;
+        }
+        else if(exame == Exame.Visao)
+        {
+            return 9;
+        }
+        else
+        {
+            return 10;
+        }
+    }
 }
