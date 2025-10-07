@@ -4,13 +4,13 @@ public enum NivelAcesso {
 
     // -- Objetos Estáticos Finais -- //
 
-    // ACESSO BAIXO
+    // ACESSO BAIXO, ID 1
     N1,
 
-    // ACESSO MODERADO
+    // ACESSO MODERADO, ID 2
     N2,
 
-    // ACESSO TOTAL
+    // ACESSO TOTAL, ID 3
     N3;
 
     // -- Métodos que checam o acesso -- //
