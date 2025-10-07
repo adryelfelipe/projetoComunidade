@@ -14,7 +14,7 @@ public enum NivelAcesso {
     N3("ACESSO TOTAL");
 
     // -- Atributos extras -- //
-    private final String descricao;
+    private String descricao;
 
     // -- Construtor -- //
     NivelAcesso(String descricao) {
