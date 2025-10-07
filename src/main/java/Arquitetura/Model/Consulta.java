@@ -23,7 +23,7 @@ public class Consulta {
     //Construtor
 
     //Possui relatorio
-    public Consulta(int idConsulta, LocalDate dataConsulta, LocalTime horarioConsulta, Paciente paciente, Medico medico,Exame exame,String relatorio)
+    public Consulta(LocalDate dataConsulta, LocalTime horarioConsulta, Paciente paciente, Medico medico,Exame exame,String relatorio)
     {
         this.idConsulta = idConsulta;
         this.dataConsulta  = dataConsulta;
@@ -35,7 +35,7 @@ public class Consulta {
     }
 
     //Não possui relatorio
-    public Consulta(int idConsulta, LocalDate dataConsulta, LocalTime horarioConsulta, Paciente paciente, Medico medico,Exame exame)
+    public Consulta(LocalDate dataConsulta, LocalTime horarioConsulta, Paciente paciente, Medico medico,Exame exame)
     {
         this.idConsulta = idConsulta;
         this.dataConsulta  = dataConsulta;
