@@ -5,6 +5,7 @@ import Arquitetura.Dao.MedicoDAO;
 import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Medico;
+import Arquitetura.Model.Usuario;
 
 public class MedicoService {
 
@@ -23,31 +24,35 @@ public class MedicoService {
 
     // Verifica a veracidade dos atributos específicos de Medico
     private boolean verificarDadosMed(Medico medico) {
+
         return(medico.getFormacao() != null && medico.getEspecialidade() != null && medico.getPlantao() != null);
     }
 
     // Insere o objeto do tipo Medico no banco de dados
-    public boolean inserirMedico(Administrador administrador, Medico medico) {
-      if(verificarDadosMed(medico)) { // Verifica as regras para inserir um Medico
-          if(funcionarioService.inserirFuncionario(administrador, medico)) {
-              medicoDAO.inserirMedico(medico);
+    public boolean inserirMedico(Usuario usuario, Medico medico) {
+       if(usuario.getTipoUsuario().getNivelAcesso().temAcessoTotal()) {
+           if(verificarDadosMed(medico)) { // Verifica as regras para inserir um Medico
+               if(funcionarioService.inserirFuncionario(usuario, medico)) {
+                   medicoDAO.inserirMedico(medico);
 
-              return true;
-          }
-      }
+                   return true;
+               }
+           }
+       }
 
       return false;
     }
 
     // Deleta medico do banco de dados
-    public boolean deletarMedico(Administrador administrador, Medico medico) {
+    public boolean deletarMedico(Usuario usuario, Medico medico) {
+        if(usuario.getTipoUsuario().getNivelAcesso().temAcessoTotal()) {
+            if(funcionarioService.deletarFuncionario(medico.getId())) {
+                medicoDAO.deletarMedico(medico.getId());
+                funcionarioDAO.deletarFuncionario(medico.getId());
+                usuarioDAO.deletarUsuario(medico.getId());
 
-        if(funcionarioService.deletarFuncionario(medico.getId())) {
-            medicoDAO.deletarMedico(medico.getId());
-            funcionarioDAO.deletarFuncionario(medico.getId());
-            usuarioDAO.deletarUsuario(medico.getId());
-
-            return true;
+                return true;
+            }
         }
 
         return false;
