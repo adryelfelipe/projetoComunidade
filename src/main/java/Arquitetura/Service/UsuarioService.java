@@ -44,13 +44,15 @@ public class UsuarioService {
     }
 
     // Insere os atributos gerais de Usuario na tabela Usuario do banco de dados
-    public boolean inserirUsuario(Administrador administrador, Usuario usuario) { // Verifica as regras para inserir um Usuario
-        if(!(administrador == usuario))
-        {
-            if(verificarDadosUser(usuario) && !isEmailExistente(usuario.getEmail()) && !isCpfExistente(usuario.getCpf())){
-                usuarioDao.inserirUsuario(usuario);
+    public boolean inserirUsuario(Usuario usuario, Usuario usuarioDeletado) { // Verifica as regras para inserir um Usuario
+        if(usuario.getTipoUsuario().getNivelAcesso().temAcessoTotal()) {
+            if(usuario != usuarioDeletado)
+            {
+                if(verificarDadosUser(usuario) && !isEmailExistente(usuario.getEmail()) && !isCpfExistente(usuario.getCpf())){
+                    usuarioDao.inserirUsuario(usuario);
 
-                return true;
+                    return true;
+                }
             }
         }
 
@@ -58,14 +60,22 @@ public class UsuarioService {
     }
 
     // Faz procura no banco de dados por Id
-    public Usuario findById(Administrador administrador, long id) {
-        return usuarioDao.findById(id);
+    public Usuario findById(Usuario usuario, long id) {
+        if(usuario.getTipoUsuario().getNivelAcesso().temAcessoTotal()) {
+
+            return usuarioDao.findById(id);
+        }
+
+        return null;
     }
 
     // Retorna uma ArrayList contendo todos os usuários do banco de dados
-    public ArrayList<Usuario> findAllUsers(Administrador administrador) {
+    public ArrayList<Usuario> findAllUsers(Usuario usuario) {
+        if(usuario.getTipoUsuario().getNivelAcesso().temAcessoTotal()) {
+            return usuarioDao.findAllUsers();
+        }
 
-        return usuarioDao.findAllUsers();
+        return null;
     }
 
     // Cojunto de regras de negócio gerais para deletar qualquer tipo de usuario
