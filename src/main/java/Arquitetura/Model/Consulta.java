@@ -12,7 +12,7 @@ public class Consulta {
 
     //Atributos
 
-    private int idConsulta;
+    private long idConsulta;
     private LocalDate dataConsulta;
     private LocalTime horarioConsulta;
     private String relatorio;
@@ -25,7 +25,6 @@ public class Consulta {
     //Possui relatorio
     public Consulta(LocalDate dataConsulta, LocalTime horarioConsulta, Paciente paciente, Medico medico,Exame exame,String relatorio)
     {
-        this.idConsulta = idConsulta;
         this.dataConsulta  = dataConsulta;
         this.horarioConsulta = horarioConsulta;
         this.paciente = paciente;
@@ -37,7 +36,6 @@ public class Consulta {
     //Não possui relatorio
     public Consulta(LocalDate dataConsulta, LocalTime horarioConsulta, Paciente paciente, Medico medico,Exame exame)
     {
-        this.idConsulta = idConsulta;
         this.dataConsulta  = dataConsulta;
         this.horarioConsulta = horarioConsulta;
         this.paciente = paciente;
@@ -48,7 +46,7 @@ public class Consulta {
 
     //getters e setters
 
-    public int getIdConsulta() {
+    public long getIdConsulta() {
         return idConsulta;
     }
 
