@@ -1,5 +1,4 @@
-import Arquitetura.Dao.UsuarioDAO;
-import Arquitetura.Model.Usuario;
+
 import Arquitetura.View.MenuInicial;
 
 import java.sql.SQLException;

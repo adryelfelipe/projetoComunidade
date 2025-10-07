@@ -13,7 +13,6 @@ public class Medico extends Funcionario{
     private String especialidade;
     private String subEspecialidade;
     private String formacao;
-    private static final String tipoUsuario = "Medico";
 
     // -- Construtores -- //
 
@@ -42,7 +41,7 @@ public class Medico extends Funcionario{
 
     // Possui subEspecialidade e não possui ID
     public Medico( String nome, String cpf, String senha,Genero sexo,String telefone,  String email,  Date dataNascimento , int cargaHorariaSemanal,double salario, Plantao plantao, String especialidade, String formacao, String subEspecialidade) {
-        this(nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal,   salario,plantao, especialidade, formacao );
+        this(nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal,   salario,plantao, especialidade, formacao);
         this.subEspecialidade = subEspecialidade;
     }
 

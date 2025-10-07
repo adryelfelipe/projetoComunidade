@@ -10,7 +10,7 @@ public class ConsultaDAO
 {
     public void marcarConsulta(Consulta consulta)
     {
-        String querySql = "INSERT INTO Consulta (dataConsulta, horarioConsulta, relatorio, idPaciente, idMedico, idExame) VALUES (?,?,?,?,?,?); ";
+        String querySql = "INSERT INTO Consulta (dataConsulta, horarioConsulta, relatorio, idPaciente, idMedico, idExame) VALUES (?,?,?,?,?,?) ";
 
         try(
                 Connection connection = ConnectionFactory.getConnection();
@@ -21,15 +21,15 @@ public class ConsultaDAO
             stmt.setString(3, consulta.getRelatorio());
             stmt.setLong(4, consulta.getPaciente().getId());
             stmt.setLong(5, consulta.getMedico().getId());
-            stmt.setLong(6, consulta.getIdConsulta());
+            stmt.setLong(6, consulta.getIdExame());
 
-            stmt.executeUpdate(querySql);
+            stmt.executeUpdate();
 
             try(ResultSet resultSet = stmt.getGeneratedKeys())
             {
                 if(resultSet.next())
                 {
-                    consulta.setIdConsulta(resultSet.getInt(1));
+                    consulta.setIdConsulta(resultSet.getLong(1));
                 }
             }
 

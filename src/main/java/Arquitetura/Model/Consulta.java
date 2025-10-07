@@ -50,7 +50,7 @@ public class Consulta {
         return idConsulta;
     }
 
-    public void setIdConsulta(int idConsulta) {
+    public void setIdConsulta(long idConsulta) {
         this.idConsulta = idConsulta;
     }
 

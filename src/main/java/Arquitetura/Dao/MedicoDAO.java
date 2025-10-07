@@ -14,7 +14,7 @@ public class MedicoDAO {
     // Inserção
     public void inserirMedico(Medico medico)
     {
-        String querySQL = "INSERT INTO Medico (idMedico, plantao, especialidade, subEspecialidade, formacao) values (?, ?, ?, ?, ?)";
+        String querySQL = "INSERT INTO Medico (idMedico, idPlantao, especialidade, subEspecialidade, formacao) values (?, ?, ?, ?, ?)";
 
         try(
             Connection connection = ConnectionFactory.getConnection();
