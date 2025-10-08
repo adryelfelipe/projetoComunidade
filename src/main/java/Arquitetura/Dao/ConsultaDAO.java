@@ -69,28 +69,4 @@ public class ConsultaDAO
         }
     }
 
-    public Consulta findById(long id)
-    {
-        String querySql = "";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    }
 }

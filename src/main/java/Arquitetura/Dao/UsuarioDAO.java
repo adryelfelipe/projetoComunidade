@@ -60,7 +60,7 @@ public class UsuarioDAO {
                 "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, " +
                 "A.idDepartamento, " +
                 "P.numeroCarteirinha, P.contatoEmergencia, P.statusPaciente, " +
-                "M.plantao, M.especialidade, M.subEspecialidade, M.formacao, " +
+                "M.idPlantao, M.idEspecialidade, M.subEspecialidade, M.formacao, " +
                 "F.salario, F.cargaHorariaSemanal " +
                 "FROM Usuario U " +
                 "LEFT JOIN Administrador A ON U.idUsuario = A.idAdministrador " +
@@ -111,7 +111,7 @@ public class UsuarioDAO {
                     String statusPaciente = resultSet.getString("statusPaciente");
 
                     // Dados Médico
-                    String especialidade = resultSet.getString("especialidade");
+                    long especialidade = resultSet.getLong("idEspecialidade");
                     String subEspecialidade = resultSet.getString("subEspecialidade");
                     String formacao = resultSet.getString("formacao");
                     int idPlantao = resultSet.getInt("plantao");
@@ -177,9 +177,9 @@ public class UsuarioDAO {
 
         String querySql = "SELECT " +
                 "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, " +
-                "A.departamento, " +
+                "A.idDepartamento, " +
                 "P.numeroCarteirinha, P.contatoEmergencia, P.statusPaciente, " +
-                "M.plantao, M.especialidade, M.subEspecialidade, M.formacao, " +
+                "M.idPlantao, M.idEspecialidade, M.subEspecialidade, M.formacao, " +
                 "F.salario, F.cargaHorariaSemanal "+
                 "FROM Usuario U " +
                 "LEFT JOIN Administrador A ON U.idUsuario = A.idAdministrador " +
