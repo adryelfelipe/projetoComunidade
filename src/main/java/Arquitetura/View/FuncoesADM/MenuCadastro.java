@@ -2,6 +2,7 @@ package Arquitetura.View.FuncoesADM;
 
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Enums.Departamento;
+import Arquitetura.Model.Enums.Especialidade;
 import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.Plantao;
 import Arquitetura.Model.Medico;
@@ -96,9 +97,39 @@ public class MenuCadastro
         System.out.println("Digite o salário: ");
         double salario = Ferramentas.lDouble();
 
-        // Entrada da especialidade
-        System.out.println("Digite a especialidade: ");
-        String especialidade = Ferramentas.lString();
+        do{
+
+            // Entrada da especialidade
+            System.out.println("Digite a especialidade: ");
+            System.out.println("1-CLINICO_GERAL           2-CARDIOLOGISTA    3-RADIOLOGISTA");
+            System.out.println("4-OTORRINOLARINGOLOGISTA  5-OFTALMOLOGISTA   6-ENDOCRINOLOGISTA");
+            System.out.println("7-HEMATOLOGISTA");
+            opsex =  Ferramentas.lInteiro();
+
+            if(opsex != 1 && opsex != 2)
+            {
+                verifica = false;
+
+                Ferramentas.limpaTerminal();
+
+                System.out.println("ERRO.  OPÇÂO INVALIDA");
+            }
+            else
+            {
+                verifica = true;
+            }
+        }while (!verifica);
+
+        // Converte a entrada de genero usando switch expression
+        Especialidade especialidade = switch (opsex){
+            case 1 -> Especialidade.CLINICO_GERAL;
+            case 2 -> Especialidade.CARDIOLOGISTA;
+            case 3 -> Especialidade.RADIOLOGISTA;
+            case 4 -> Especialidade.OTORRINOLARINGOLOGISTA;
+            case 5 -> Especialidade.OFTALMOLOGISTA;
+            case 6 -> Especialidade.ENDOCRINOLOGISTA;
+            default -> Especialidade.HEMATOLOGISTA;
+        };
 
         // Entrada da formação acadêmica
         System.out.println("Digite a formação academica: ");

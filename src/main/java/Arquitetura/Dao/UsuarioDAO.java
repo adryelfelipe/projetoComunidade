@@ -3,6 +3,7 @@ package Arquitetura.Dao;
 import Arquitetura.Config.ConnectionFactory;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Enums.Departamento;
+import Arquitetura.Model.Enums.Especialidade;
 import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.Plantao;
 import Arquitetura.Model.Medico;
@@ -111,7 +112,7 @@ public class UsuarioDAO {
                     String statusPaciente = resultSet.getString("statusPaciente");
 
                     // Dados Médico
-                    long especialidade = resultSet.getLong("idEspecialidade");
+                    int idEspecialidade = resultSet.getInt("idEspecialidade");
                     String subEspecialidade = resultSet.getString("subEspecialidade");
                     String formacao = resultSet.getString("formacao");
                     int idPlantao = resultSet.getInt("plantao");
@@ -120,6 +121,17 @@ public class UsuarioDAO {
                         case 1 -> Plantao.MATUTINO;
                         case 2 -> Plantao.VERPERTINO;
                         default -> Plantao.NOTURNO;
+                    };
+
+                    Especialidade especialidade = switch (idEspecialidade)
+                    {
+                        case 1 -> Especialidade.CLINICO_GERAL;
+                        case 2 -> Especialidade.CARDIOLOGISTA;
+                        case 3 -> Especialidade.RADIOLOGISTA;
+                        case 4 -> Especialidade.OTORRINOLARINGOLOGISTA;
+                        case 5 -> Especialidade.OFTALMOLOGISTA;
+                        case 6 -> Especialidade.ENDOCRINOLOGISTA;
+                        default -> Especialidade.HEMATOLOGISTA;
                     };
 
                     // Dados Funcionario
