@@ -58,7 +58,7 @@ public class UsuarioDAO {
     public Usuario findById(long idUsuario) {
         String querySQL = "SELECT " +
                 "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, " +
-                "A.departamento, " +
+                "A.idDepartamento, " +
                 "P.numeroCarteirinha, P.contatoEmergencia, P.statusPaciente, " +
                 "M.plantao, M.especialidade, M.subEspecialidade, M.formacao, " +
                 "F.salario, F.cargaHorariaSemanal " +

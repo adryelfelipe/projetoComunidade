@@ -68,4 +68,29 @@ public class ConsultaDAO
             return false;
         }
     }
+
+    public Consulta findById(long id)
+    {
+        String querySql = "";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
 }
