@@ -37,23 +37,6 @@ public class Administrador extends Funcionario {
         }
     }
 
-    public long getIdDepartamento() {
-
-        if(departamento == Departamento.FINANCEIRO) {
-
-            return 1;
-        } else if(departamento == Departamento.INFRAESTRUTURA) {
-
-            return 2;
-        } else if(departamento == Departamento.MARKETING) {
-
-            return 3;
-        } else {
-
-            return 4;
-        }
-    }
-
     @Override
     public void dadosPessoais() {
         super.dadosPessoais();

@@ -84,19 +84,6 @@ public class Medico extends Funcionario{
         }
     }
 
-    public long getIdPlantao() {
-        if(plantao == Plantao.MATUTINO) {
-
-            return 1;
-        } else if(plantao == Plantao.VERPERTINO) {
-
-            return 2;
-        } else {
-
-            return 3;
-        }
-    }
-
     public String getSubEspecialidade() {
         return subEspecialidade;
     }
