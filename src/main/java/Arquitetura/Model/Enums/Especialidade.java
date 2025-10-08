@@ -27,7 +27,7 @@ public enum Especialidade {
 
     // -- Atributos extras -- //
     private String descricao;
-    private long idEspecialidade;
+    private final long idEspecialidade;
 
     // -- Construtor -- //
     Especialidade(String descricao, long idEspecialidade) {
