@@ -68,5 +68,4 @@ public class ConsultaDAO
             return false;
         }
     }
-
 }
