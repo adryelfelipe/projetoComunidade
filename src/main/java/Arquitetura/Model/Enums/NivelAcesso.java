@@ -5,25 +5,31 @@ public enum NivelAcesso {
     // -- Objetos Estáticos Finais -- //
 
     // ID 1
-    N1("ACESSO BAIXO"),
+    N1("ACESSO BAIXO", 1),
 
     // ID 2
-    N2("ACESSO MODERADO"),
+    N2("ACESSO MODERADO", 2),
 
     // ID 3
-    N3("ACESSO TOTAL");
+    N3("ACESSO TOTAL", 3);
 
     // -- Atributos extras -- //
     private String descricao;
+    private final long idNivelAcesso;
 
     // -- Construtor -- //
-    NivelAcesso(String descricao) {
+    NivelAcesso(String descricao, long idNivelAcesso) {
         this.descricao = descricao;
+        this.idNivelAcesso = idNivelAcesso;
     }
 
-    // -- Getter -- //
+    // -- Getters -- //
     public String getDescricao() {
         return this.descricao;
+    }
+
+    public long getIdNivelAcesso() {
+        return this.idNivelAcesso;
     }
 
 

@@ -20,7 +20,7 @@ public class AdministradorDAO {
             PreparedStatement stmt = conexao.prepareStatement(querySQL))
         {
             stmt.setLong(1, administrador.getId());
-            stmt.setLong(2, administrador.getIdDepartamento());
+            stmt.setLong(2, administrador.getDepartamento().getIdDepartamento());
 
             stmt.executeUpdate();
 
