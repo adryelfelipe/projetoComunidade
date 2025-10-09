@@ -39,7 +39,7 @@ public class MenuEditarConta {
 
             try {
                 escolha = Ferramentas.lInteiro();
-            } catch (Exception e) {
+            } catch (IllegalArgumentException e) {
                 MenuDefault.menuDefault();
             }
             switch (escolha) {
@@ -48,8 +48,11 @@ public class MenuEditarConta {
                     System.out.println("Digite seu novo Email: ");
                     String email = Ferramentas.lString();
 
-                    paciente.setEmail(email);
-
+                    try {
+                        paciente.setEmail(email);
+                    }catch (IllegalArgumentException e){
+                        e.getMessage();
+                    }
                     break;
                 }
                 case 2: {
@@ -57,8 +60,12 @@ public class MenuEditarConta {
                     System.out.println("Digite seu novo Telefone: ");
                     String telefone = Ferramentas.lString();
 
-                    paciente.setTelefone(telefone);
-
+                    try {
+                        paciente.setTelefone(telefone);
+                    }catch (IllegalArgumentException e)
+                    {
+                        e.getMessage();
+                    }
                     break;
                 }
                 case 3: {
@@ -66,7 +73,12 @@ public class MenuEditarConta {
                     System.out.println("Digite sua nova Senha: ");
                     String senha = Ferramentas.lString();
 
-                    paciente.setSenha(senha);
+                    try {
+                        paciente.setSenha(senha);
+                    }catch (IllegalArgumentException e)
+                    {
+                        e.getMessage();
+                    }
                     break;
                 }
                 case 4: {
@@ -74,8 +86,12 @@ public class MenuEditarConta {
                     System.out.println("Digite seu novo Contato de emergência: ");
                     String contato = Ferramentas.lString();
 
-                    paciente.setContatoEmergencia(contato);
-
+                    try {
+                        paciente.setContatoEmergencia(contato);
+                    }catch (IllegalArgumentException e)
+                    {
+                        e.getMessage();
+                    }
                     break;
                 }
                 case 5: {
@@ -83,8 +99,12 @@ public class MenuEditarConta {
                     System.out.println("Digite seu novo numero da carteirinha: ");
                     String carteirinha = Ferramentas.lString();
 
-                    paciente.setNumeroCarterinha(carteirinha);
-
+                    try {
+                        paciente.setNumeroCarterinha(carteirinha);
+                    }catch (IllegalArgumentException e)
+                    {
+                        e.getMessage();
+                    }
                     break;
                 }
                 case 6: {
@@ -176,8 +196,12 @@ public class MenuEditarConta {
                     System.out.println("Digite seu novo Email: ");
                     String email = Ferramentas.lString();
 
-                    medico.setEmail(email);
-
+                    try {
+                        medico.setEmail(email);
+                    }catch (IllegalArgumentException e)
+                    {
+                        e.getMessage();
+                    }
                     break;
                 }
                 case 2: {
@@ -185,8 +209,12 @@ public class MenuEditarConta {
                     System.out.println("Digite seu novo Telefone: ");
                     String telefone = Ferramentas.lString();
 
-                    medico.setTelefone(telefone);
-
+                    try {
+                        medico.setTelefone(telefone);
+                    }catch (IllegalArgumentException e)
+                    {
+                        e.getMessage();
+                    }
                     break;
                 }
                 case 3: {
@@ -194,8 +222,12 @@ public class MenuEditarConta {
                     System.out.println("Digite sua nova Senha: ");
                     String senha = Ferramentas.lString();
 
-                    medico.setSenha(senha);
-
+                    try {
+                        medico.setSenha(senha);
+                    }catch (IllegalArgumentException e)
+                    {
+                        e.getMessage();
+                    }
                     break;
                 }
                 case 4: {
@@ -203,8 +235,12 @@ public class MenuEditarConta {
                     System.out.println("Digite sua nova Formação: ");
                     String formacao = Ferramentas.lString();
 
-                    medico.setFormacao(formacao);
-
+                    try {
+                        medico.setFormacao(formacao);
+                    }catch (IllegalArgumentException e)
+                    {
+                        e.getMessage();
+                    }
                     break;
                 }
                 case 5: {
@@ -255,8 +291,11 @@ public class MenuEditarConta {
                     System.out.println("Digite sua nova SubEspecialidade");
                     String subespecialidade = Ferramentas.lString();
 
-                    medico.setSubEspecialidade(subespecialidade);
-
+                    try {
+                        medico.setSubEspecialidade(subespecialidade);
+                    }catch (IllegalArgumentException e) {
+                        e.getMessage();
+                    }
                     break;
                 }
                 case 7: {

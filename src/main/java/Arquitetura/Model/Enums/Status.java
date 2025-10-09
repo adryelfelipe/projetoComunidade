@@ -30,10 +30,13 @@ public enum Status
     //ID 7
     FALTA(7);
 
+    // -- Atributos extras -- //
     private int idStatus;
 
+    // -- Construtor -- //
     Status(int idStatus) {this.idStatus = idStatus;}
 
+    // -- Getter - //
     public int getIdStatus() {return idStatus;}
 
 }

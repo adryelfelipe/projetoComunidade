@@ -204,15 +204,20 @@ public class MenuCadastro
             // Cria médico sem subespecialidade
             } else {
 
-            Medico medico = new Medico(nome,cpf,senha,genero,telefone,email,sqlDate,cargaHoraria,salario,plantao,especialidade,formacao,subE);
+            try {
+                Medico medico = new Medico(nome, cpf, senha, genero, telefone, email, sqlDate, cargaHoraria, salario, plantao, especialidade, formacao, subE);
 
-            MedicoService medicoService = new MedicoService();
+                MedicoService medicoService = new MedicoService();
 
-            medicoService.inserirMedico(adm,medico);
+                medicoService.inserirMedico(adm,medico);
 
-            System.out.println("Medico criado");
+                System.out.println("Medico criado");
 
-            Ferramentas.Delay(1500);
+                Ferramentas.Delay(1500);
+
+            }catch (IllegalArgumentException e) {
+                e.getMessage();
+            }
         }
     }
 
@@ -298,6 +303,7 @@ public class MenuCadastro
 
         Date sqlDate = Date.valueOf(dataNascimento);
 
+        try {
         Paciente paciente = new Paciente(nome,cpf,senha,genero,telefone,email,sqlDate, contatoEmer, contatoEmer);
 
         PacienteService pacienteService = new PacienteService();
@@ -307,6 +313,10 @@ public class MenuCadastro
         System.out.println("Paciente criado");
 
         Ferramentas.Delay(1500);
+        }catch (IllegalArgumentException e) {
+            e.getMessage();
+        }
+
     }
 
     public static void CriarADM(Administrador adm)
@@ -416,26 +426,21 @@ public class MenuCadastro
             default -> Departamento.RH;
         };
 
-        LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
+        try {
 
-        Date sqlDate = Date.valueOf(dataNascimento);
+            LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
 
-        Administrador administrador = new Administrador(nome,cpf,senha,genero,telefone,email,sqlDate,salario,cargaHoraria, departamento);
+            Date sqlDate = Date.valueOf(dataNascimento);
 
-        AdministradorService administradorService =  new AdministradorService();
+            Administrador administrador = new Administrador(nome, cpf, senha, genero, telefone, email, sqlDate, salario, cargaHoraria, departamento);
 
-        administradorService.inserirAdmin(adm,administrador);
+            AdministradorService administradorService = new AdministradorService();
 
-        // Cadastro falhou
-        if(administrador.getId() == 0) {
-            System.out.println("    Erro, dados invalidos, por favor tente novamente.");
+            administradorService.inserirAdmin(adm, administrador);
+
+            Ferramentas.Delay(1500);
+        }catch (IllegalArgumentException e){
+            e.getMessage();
         }
-
-        // Cadastro funcinou
-        else {
-            System.out.println("Adm criado");
-        }
-
-        Ferramentas.Delay(1500);
     }
 }
