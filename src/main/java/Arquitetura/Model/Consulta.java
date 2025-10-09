@@ -1,14 +1,9 @@
 package Arquitetura.Model;
 
-import Arquitetura.Dao.MedicoDAO;
-import Arquitetura.Dao.PacienteDAO;
-import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Model.Enums.Exame;
-import Arquitetura.Model.Enums.Status;
+import Arquitetura.Model.Enums.StatusConsulta;
 
 import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Date;
 
 public class Consulta {
@@ -23,7 +18,7 @@ public class Consulta {
     private Paciente paciente;
     private Medico medico;
     private Exame exame;
-    private Status status;
+    private StatusConsulta status;
     private long idPaciente;
     private long idMedico;
 
@@ -38,11 +33,11 @@ public class Consulta {
         setRelatorio(relatorio);
         setIdMedico(idMedico);
         setIdPaciente(idPaciente);
-        this.status = Status.AGENDADA;
+        this.status = StatusConsulta.AGENDADA;
     }
 
     //Possui idConsulta
-    public Consulta(Date dataConsulta, Time horarioConsulta, long idPaciente, long idMedico, Exame exame, String relatorio, Status status, long idConsulta)
+    public Consulta(Date dataConsulta, Time horarioConsulta, long idPaciente, long idMedico, Exame exame, String relatorio, StatusConsulta status, long idConsulta)
     {
         this(dataConsulta, horarioConsulta, idPaciente, idMedico, exame, relatorio);
         this.idConsulta = idConsulta;
@@ -112,7 +107,7 @@ public class Consulta {
         this.exame = exame;
     }
 
-    public Status getStatus()
+    public StatusConsulta getStatus()
     {
         return status;
     }
@@ -133,7 +128,7 @@ public class Consulta {
         this.idMedico = idMedico;
     }
 
-    public void setStatus(Status status)
+    public void setStatus(StatusConsulta status)
     {
         this.status = status;
     }

@@ -1,7 +1,7 @@
 package Arquitetura.Model.Enums;
 
 
-public enum Status
+public enum StatusConsulta
 {
     //Status de Agendamento
 
@@ -34,7 +34,7 @@ public enum Status
     private int idStatus;
 
     // -- Construtor -- //
-    Status(int idStatus) {this.idStatus = idStatus;}
+    StatusConsulta(int idStatus) {this.idStatus = idStatus;}
 
     // -- Getter - //
     public int getIdStatus() {return idStatus;}
