@@ -15,18 +15,18 @@ public class Paciente extends Usuario {
 
     // -- Construtores -- //
 
+    // Possui ID
+    public Paciente(long id, String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCarterinha) {
+        super(TipoUsuario.PACIENTE,nome, cpf, senha, sexo, telefone, email,dataNascimento);
+        this.setId(id);
+        setContatoEmergencia(contatoEmergencia);
+        setNumeroCarterinha(numeroCarterinha);
+    }
+
     // Não possui ID
     public Paciente(String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCarterinha)
     {
-        super(TipoUsuario.PACIENTE,nome, cpf, senha, sexo, telefone, email,dataNascimento);
-        this.contatoEmergencia = contatoEmergencia;
-        this.numeroCarterinha = numeroCarterinha;
-    }
-
-    // Possui ID
-    public Paciente(long id, String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCarterinha) {
-        this(nome, cpf, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numeroCarterinha);
-        this.setId(id);
+        this(0, nome, cpf, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numeroCarterinha);
     }
 
     // -- Setters e Getters -- //
@@ -35,9 +35,11 @@ public class Paciente extends Usuario {
     }
 
     public void setContatoEmergencia(String contatoEmergencia) {
-        if(!contatoEmergencia.isEmpty()) {
-            this.contatoEmergencia = contatoEmergencia;
+        if(contatoEmergencia.isEmpty()) {
+            throw new IllegalArgumentException("ERRO! CONTATO DE EMERGÊNCIA NÃO PODE SER VAZIO");
         }
+
+        this.contatoEmergencia = contatoEmergencia;
     }
 
     public String getStatusPaciente() {
@@ -53,6 +55,10 @@ public class Paciente extends Usuario {
     }
 
     public void setNumeroCarterinha(String numeroCarterinha) {
+        if(numeroCarterinha.isEmpty()) {
+            throw new IllegalArgumentException("ERRO! NÚMERO DA CARTERINHA NÃO PODE SER VAZIO");
+        }
+
         this.numeroCarterinha = numeroCarterinha;
     }
 
