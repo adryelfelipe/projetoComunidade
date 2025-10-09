@@ -3,6 +3,7 @@ package Arquitetura.Dao;
 import Arquitetura.Config.ConnectionFactory;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Enums.Departamento;
+import Arquitetura.Model.Enums.Especialidade;
 import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.Plantao;
 import Arquitetura.Model.Medico;
@@ -29,10 +30,10 @@ public class UsuarioDAO {
             //Configura os parâmetros (usando os getters do objeto)
             stmt.setString(1, usuario.getSenha());
             stmt.setString(2, usuario.getNome());
-            stmt.setLong(3, usuario.getIdSexo());
+            stmt.setLong(3, usuario.getSexo().getIdGenero());
             stmt.setString(4, usuario.getCpf());
             stmt.setString(5, usuario.getTelefone());
-            stmt.setLong(6, usuario.getIdTipoUsuario());
+            stmt.setLong(6, usuario.getTipoUsuario().getIdTipoUsuario());
             stmt.setString(7, usuario.getEmail());
             stmt.setDate(8, usuario.getDataNascimento());
 
@@ -111,7 +112,7 @@ public class UsuarioDAO {
                     String statusPaciente = resultSet.getString("statusPaciente");
 
                     // Dados Médico
-                    long especialidade = resultSet.getLong("idEspecialidade");
+                    int idEspecialidade = resultSet.getInt("idEspecialidade");
                     String subEspecialidade = resultSet.getString("subEspecialidade");
                     String formacao = resultSet.getString("formacao");
                     int idPlantao = resultSet.getInt("plantao");
@@ -122,19 +123,28 @@ public class UsuarioDAO {
                         default -> Plantao.NOTURNO;
                     };
 
+                    Especialidade especialidade = switch (idEspecialidade)
+                    {
+                        case 1 -> Especialidade.CLINICO_GERAL;
+                        case 2 -> Especialidade.CARDIOLOGISTA;
+                        case 3 -> Especialidade.RADIOLOGISTA;
+                        case 4 -> Especialidade.OTORRINOLARINGOLOGISTA;
+                        case 5 -> Especialidade.OFTALMOLOGISTA;
+                        case 6 -> Especialidade.ENDOCRINOLOGISTA;
+                        default -> Especialidade.HEMATOLOGISTA;
+                    };
+
                     // Dados Funcionario
                     double salario = resultSet.getDouble("salario");
                     int cargaHorariaSemanal = resultSet.getInt("cargaHorariaSemanal");
 
                     // Cria o objeto correto de acordo com o tipo de usuário
-                    if (tipoUsuario == 3) {
-                        usuario = new Administrador(nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento, salario, cargaHorariaSemanal, departamento, id);
-                    } else if (tipoUsuario == 2) {
-                        usuario = new Medico(id, nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento,
-                                cargaHorariaSemanal,salario, plantao, especialidade, formacao, subEspecialidade);
-                    } else if (tipoUsuario == 1) {
-                        usuario = new Paciente(id, nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numCarteirinha);
-                    }
+                    usuario = switch (tipoUsuario)
+                    {
+                        case 1 -> new Paciente(nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numCarteirinha);
+                        case 2 -> new Medico(nomeUsuario,cpf, senha, sexo, telefone, email, dataNascimento, cargaHorariaSemanal,  salario, plantao, especialidade, formacao, subEspecialidade);
+                        default -> new Administrador(nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento, salario, cargaHorariaSemanal, departamento);
+                    };
                 }
             }
         } catch (Exception e) {

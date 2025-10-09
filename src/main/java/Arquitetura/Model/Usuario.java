@@ -113,28 +113,6 @@ public abstract class Usuario {
         }
     }
 
-    public long getIdTipoUsuario()
-    {
-        if(getTipoUsuario() == TipoUsuario.PACIENTE)
-        {
-            return 1;
-        }
-        else if (getTipoUsuario() == TipoUsuario.MEDICO)
-        {
-            return 2;
-        }
-
-        return 3;
-    }
-
-    public long getIdSexo() {
-        if(sexo == Genero.MASCULINO) {
-            return 1;
-        } else {
-            return 2;
-        }
-    }
-
     public void dadosPessoais() {
         System.out.println("ID: " + getId());
         System.out.println("NOME: " + getNome());

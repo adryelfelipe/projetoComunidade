@@ -5,11 +5,24 @@ public enum Plantao {
     // -- Objetos Estáticos Finais -- //
 
     // ID 1
-    MATUTINO,
+    MATUTINO(1),
 
     // ID 2
-    VERPERTINO,
+    VERPERTINO(2),
 
     // ID 3
-    NOTURNO;
+    NOTURNO(3);
+
+    // -- Atributos extras -- //
+    long idPlantao;
+
+    // -- Construtor -- //
+    Plantao(long idPlantao) {
+        this.idPlantao = idPlantao;
+    }
+
+    // -- Getter -- //
+    public long getIdPlantao() {
+        return idPlantao;
+    }
 }

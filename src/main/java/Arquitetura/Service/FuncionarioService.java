@@ -3,6 +3,7 @@ package Arquitetura.Service;
 import Arquitetura.Dao.FuncionarioDAO;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Funcionario;
+import Arquitetura.Model.Usuario;
 
 public class FuncionarioService {
 
@@ -24,12 +25,14 @@ public class FuncionarioService {
     }
 
     // Insere os atributos gerais de Funcionario na tabela Funcionario do banco de dados
-    public boolean inserirFuncionario(Administrador administrador, Funcionario funcionario) {
-        if (verificarDadosFunc(funcionario)) { // Verifica os dados de Funcionario
-            if (usuarioService.inserirUsuario(administrador, funcionario)) { // Verifica os dados de Usuario
-                funcionarioDAO.inserirFuncionario(funcionario);
+    public boolean inserirFuncionario(Usuario usuario, Funcionario funcionario) {
+        if(usuario.getTipoUsuario().getNivelAcesso().temAcessoTotal()) {
+            if (verificarDadosFunc(funcionario)) { // Verifica os dados de Funcionario
+                if (usuarioService.inserirUsuario(usuario, funcionario)) { // Verifica os dados de Usuario
+                    funcionarioDAO.inserirFuncionario(funcionario);
 
-                return true;
+                    return true;
+                }
             }
         }
 

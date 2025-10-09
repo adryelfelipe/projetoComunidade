@@ -4,6 +4,7 @@ import Arquitetura.Dao.PacienteDAO;
 import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Paciente;
+import Arquitetura.Model.Usuario;
 
 public class PacienteService {
 
@@ -25,12 +26,14 @@ public class PacienteService {
     }
 
     // Insere o objeto do tipo Paciente no banco de dados
-    public boolean inserirPaciente(Administrador administrador, Paciente paciente) { // Verifica as regras para inserir um Paciente
-        if(verificarDadosPac(paciente)) {
-            if(usuarioService.inserirUsuario(administrador, paciente)) {
-                pacienteDAO.inserirPaciente(paciente);
-                
-                return true;
+    public boolean inserirPaciente(Usuario usuario, Paciente paciente) { // Verifica as regras para inserir um Paciente
+        if(usuario.getTipoUsuario().getNivelAcesso().temAcessoTotal()) {
+            if(verificarDadosPac(paciente)) {
+                if(usuarioService.inserirUsuario(usuario, paciente)) {
+                    pacienteDAO.inserirPaciente(paciente);
+
+                    return true;
+                }
             }
         }
 
@@ -38,13 +41,14 @@ public class PacienteService {
     }
 
     // Deleta paciente do banco de dados
-    public boolean deletarPaciente(Administrador administrador, Paciente paciente) {
+    public boolean deletarPaciente(Usuario usuario, Paciente paciente) {
+        if(usuario.getTipoUsuario().getNivelAcesso().temAcessoTotal()) {
+            if(usuarioService.deletarUsuario(paciente.getId())) {
+                pacienteDAO.deletarPaciente(paciente.getId());
+                usuarioDAO.deletarUsuario(paciente.getId());
 
-        if(usuarioService.deletarUsuario(paciente.getId())) {
-            pacienteDAO.deletarPaciente(paciente.getId());
-            usuarioDAO.deletarUsuario(paciente.getId());
-
-            return true;
+                return true;
+            }
         }
 
         return false;

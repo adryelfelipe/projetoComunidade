@@ -1,5 +1,8 @@
 package Arquitetura.Model;
 
+import Arquitetura.Dao.MedicoDAO;
+import Arquitetura.Dao.PacienteDAO;
+import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Model.Enums.Exame;
 
 import java.sql.Time;
@@ -13,36 +16,35 @@ public class Consulta {
     //Atributos
 
     private long idConsulta;
-    private LocalDate dataConsulta;
-    private LocalTime horarioConsulta;
+    private Date dataConsulta;
+    private Time horarioConsulta;
     private String relatorio;
     private Paciente paciente;
     private Medico medico;
     private Exame exame;
+    private long idPaciente;
+    private long idMedico;
 
     //Construtor
 
-    //Possui relatorio
-    public Consulta(LocalDate dataConsulta, LocalTime horarioConsulta, Paciente paciente, Medico medico,Exame exame,String relatorio)
+    //Não possui idConsulta
+    public Consulta(Date dataConsulta, Time horarioConsulta, long idPaciente, long idMedico,Exame exame,String relatorio)
     {
         this.dataConsulta  = dataConsulta;
         this.horarioConsulta = horarioConsulta;
-        this.paciente = paciente;
-        this.medico = medico;
         this.exame = exame;
         this.relatorio = relatorio;
+        this.idPaciente = idPaciente;
+        this.idMedico = idMedico;
     }
 
-    //Não possui relatorio
-    public Consulta(LocalDate dataConsulta, LocalTime horarioConsulta, Paciente paciente, Medico medico,Exame exame)
+    //Possui idConsulta
+    public Consulta(Date dataConsulta, Time horarioConsulta, long idPaciente, long idMedico, Exame exame, String relatorio, long idConsulta)
     {
-        this.dataConsulta  = dataConsulta;
-        this.horarioConsulta = horarioConsulta;
-        this.paciente = paciente;
-        this.medico = medico;
-        this.exame = exame;
-        this.relatorio = null;
+        this(dataConsulta, horarioConsulta, idPaciente, idMedico, exame, relatorio);
+        this.idConsulta = idConsulta;
     }
+
 
     //getters e setters
 
@@ -54,19 +56,19 @@ public class Consulta {
         this.idConsulta = idConsulta;
     }
 
-    public LocalDate getDataConsulta() {
+    public Date getDataConsulta() {
         return dataConsulta;
     }
 
-    public void setDataConsulta(LocalDate dataConsulta) {
+    public void setDataConsulta(Date dataConsulta) {
         this.dataConsulta = dataConsulta;
     }
 
-    public LocalTime getHorarioConsulta() {
+    public Time getHorarioConsulta() {
         return horarioConsulta;
     }
 
-    public void setHorarioConsulta(LocalTime horarioConsulta) {
+    public void setHorarioConsulta(Time horarioConsulta) {
         this.horarioConsulta = horarioConsulta;
     }
 
@@ -102,47 +104,4 @@ public class Consulta {
         this.exame = exame;
     }
 
-    public long getIdExame()
-    {
-        if(exame == Exame.Hemograma)
-        {
-            return 1;
-        }
-        else if(exame == Exame.Glicemia)
-        {
-            return 2;
-        }
-        else if(exame == Exame.Colesterol)
-        {
-            return 3;
-        }
-        else if(exame == Exame.RaioX)
-        {
-            return 4;
-        }
-        else if(exame == Exame.Eletrocardiograma)
-        {
-            return 5;
-        }
-        else if(exame == Exame.TesteErgometrico)
-        {
-            return 6;
-        }
-        else if(exame == Exame.Audiometria)
-        {
-            return 7;
-        }
-        else if(exame == Exame.Audio)
-        {
-            return  8;
-        }
-        else if(exame == Exame.Visao)
-        {
-            return 9;
-        }
-        else
-        {
-            return 10;
-        }
-    }
 }

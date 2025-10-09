@@ -2,6 +2,7 @@ package Arquitetura.Dao;
 
 import Arquitetura.Config.ConnectionFactory;
 import Arquitetura.Model.Consulta;
+import Arquitetura.Model.Enums.Exame;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -16,12 +17,12 @@ public class ConsultaDAO
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(querySql, Statement.RETURN_GENERATED_KEYS))
         {
-            stmt.setDate(1, Date.valueOf(consulta.getDataConsulta()));
-            stmt.setTime(2, Time.valueOf(consulta.getHorarioConsulta()));
+            stmt.setDate(1, (Date) consulta.getDataConsulta());
+            stmt.setTime(2, (Time) consulta.getHorarioConsulta());
             stmt.setString(3, consulta.getRelatorio());
             stmt.setLong(4, consulta.getPaciente().getId());
             stmt.setLong(5, consulta.getMedico().getId());
-            stmt.setLong(6, consulta.getIdExame());
+            stmt.setLong(6, consulta.getExame().getIdExame());
 
             stmt.executeUpdate();
 
@@ -67,5 +68,58 @@ public class ConsultaDAO
             System.err.println("Erro ao deletar Consulta com ID " + id + ": " + e.getMessage());
             return false;
         }
+    }
+
+    public Consulta findById(long id)
+    {
+        String querySQL = "SELECT idConsulta, dataConsulta, horarioConsulta, relatorio, idPaciente, idMedico, idExame "+
+                "FROM Consulta WHERE idConsulta = ? ";
+
+        Consulta consulta = null;
+
+        try(
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySQL))
+        {
+            stmt.setLong(1, id);
+
+            try(ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    Exame exame = switch (resultSet.getInt("idExame"))
+                    {
+                        case 1 -> Exame.Hemograma;
+                        case 2 -> Exame.Glicemia;
+                        case 3 -> Exame.Colesterol;
+                        case 4 -> Exame.RaioX;
+                        case 5 -> Exame.Eletrocardiograma;
+                        case 6 -> Exame.TesteErgometrico;
+                        case 7 -> Exame.Audiometria;
+                        case 8 -> Exame.Audio;
+                        case 9 -> Exame.Visao;
+                        default -> Exame.Sangue;
+                    };
+
+                    consulta = new Consulta(
+                            resultSet.getDate("dataConsulta"),
+                            resultSet.getTime("horarioConsulta"),
+                            resultSet.getLong("idPaciente"),
+                            resultSet.getLong("idMedico"),
+                            exame,
+                            resultSet.getString("relatorio"),
+                            resultSet.getLong("idConsulta")
+
+                    );
+                }
+            }
+
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Não foi possível buscar Consulta: "+ e.getMessage());
+        }
+
+        return consulta;
     }
 }

@@ -4,6 +4,7 @@ import Arquitetura.Dao.AdministradorDAO;
 import Arquitetura.Dao.FuncionarioDAO;
 import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Model.Administrador;
+import Arquitetura.Model.Usuario;
 
 public class AdministradorService {
 
@@ -31,21 +32,23 @@ public class AdministradorService {
     }
 
     // Insere o objeto do tipo Administrador no banco de dados
-    public boolean inserirAdmin(Administrador admCriador, Administrador admCriado) { // Verifica as regras para inserir um Administrador
-        if(verificarDadosAdm(admCriado)) {
-            if(funcionarioService.inserirFuncionario(admCriador, admCriado)) {
-                administradorDao.inserirAdmin(admCriado);
+    public boolean inserirAdmin(Usuario usuario, Administrador admCriado) { // Verifica as regras para inserir um Administrador
+       if(usuario.getTipoUsuario().getNivelAcesso().temAcessoTotal()) {
+               if(verificarDadosAdm(admCriado)) {
+                   if(funcionarioService.inserirFuncionario(usuario, admCriado)) {
+                       administradorDao.inserirAdmin(admCriado);
 
-                return true;
-            }
-        }
+                       return true;
+                   }
+               }
+       }
 
         return false;
     }
 
     // Deleta um administrador do banco de dados
-    public boolean deletarAdministrador(Administrador adminUsado, Administrador adminDeletado) {
-        if(!(adminUsado == adminDeletado) && !isUltimoAdmin(adminDeletado)) {
+    public boolean deletarAdministrador(Usuario usuario, Administrador adminDeletado) {
+        if(usuario.getTipoUsuario().getNivelAcesso().temAcessoTotal() && usuario != adminDeletado && !isUltimoAdmin(adminDeletado)) {
             if(funcionarioService.deletarFuncionario(adminDeletado.getId())) {
                 administradorDao.deletarAdministrador(adminDeletado.getId());
                 funcionarioDAO.deletarFuncionario(adminDeletado.getId());
