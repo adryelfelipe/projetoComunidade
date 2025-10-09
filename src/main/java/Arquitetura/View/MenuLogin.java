@@ -19,6 +19,9 @@ public class MenuLogin {
 
         boolean continuar = true;
 
+        String cpf = "1";
+        String senha = "1";
+
         while (continuar) {
 
 
@@ -30,7 +33,11 @@ public class MenuLogin {
 
             System.out.println("-------------------------");
             System.out.print("- Digite seu CPF: " );
-            String cpf = Ferramentas.lString();
+            try {
+                cpf = Ferramentas.lString();
+            } catch (Exception e) {
+                MenuDefault.menuDefault();
+            }
             System.out.println("-------------------------");
 
             boolean cpfexiste = usuarioService.isCpfExistente(cpf);
@@ -48,7 +55,11 @@ public class MenuLogin {
 
                 System.out.println("-------------------------");
                 System.out.print("- Digite sua senha: ");
-                String senha = Ferramentas.lString();
+                try {
+                    senha = Ferramentas.lString();
+                } catch (Exception e) {
+                    MenuDefault.menuDefault();
+                }
                 System.out.println("-------------------------");
 
                 Usuario usuario = usuarioService.loginUsuario(cpf, senha);
