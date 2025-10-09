@@ -1,6 +1,7 @@
 package Arquitetura.Model;
 
 import Arquitetura.Model.Enums.Genero;
+import Arquitetura.Model.Enums.StatusPaciente;
 import Arquitetura.Model.Enums.TipoUsuario;
 
 import java.sql.Date;
@@ -9,16 +10,15 @@ public class Paciente extends Usuario {
 
     // -- Atributos -- //
     private String contatoEmergencia;
-    private String statusPaciente = "Ativo";
     private String numeroCarterinha;
-    private static final String tipoUsuario = "Paciente";
-
+    private StatusPaciente statusPaciente;
     // -- Construtores -- //
 
     // Possui ID
     public Paciente(long id, String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCarterinha) {
         super(TipoUsuario.PACIENTE,nome, cpf, senha, sexo, telefone, email,dataNascimento);
         this.setId(id);
+        this.statusPaciente = StatusPaciente.ATIVO;
         setContatoEmergencia(contatoEmergencia);
         setNumeroCarterinha(numeroCarterinha);
     }
@@ -42,11 +42,11 @@ public class Paciente extends Usuario {
         this.contatoEmergencia = contatoEmergencia;
     }
 
-    public String getStatusPaciente() {
+    public StatusPaciente getStatusPaciente() {
         return statusPaciente;
     }
 
-    public void setStatusPaciente(String statusPaciente) {
+    public void setStatusPaciente(StatusPaciente statusPaciente) {
         this.statusPaciente = statusPaciente;
     }
 

@@ -4,9 +4,9 @@ public enum StatusPaciente {
 
     // -- Objetos Estáticos Finais -- //
 
-    Ativo(1),
+    ATIVO(1),
 
-    Inativo(1);
+    INATIVO(1);
 
 
     // -- Atributos Extras -- //
