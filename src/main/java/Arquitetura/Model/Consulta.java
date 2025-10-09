@@ -35,9 +35,9 @@ public class Consulta {
         this.dataConsulta  = dataConsulta;
         this.horarioConsulta = horarioConsulta;
         this.exame = exame;
-        this.relatorio = relatorio;
-        this.idPaciente = idPaciente;
-        this.idMedico = idMedico;
+        setRelatorio(relatorio);
+        setIdMedico(idMedico);
+        setIdPaciente(idPaciente);
         this.status = Status.AGENDADA;
     }
 
@@ -81,6 +81,10 @@ public class Consulta {
     }
 
     public void setRelatorio(String relatorio) {
+        if(relatorio.isEmpty()) {
+            throw new IllegalArgumentException("ERRO! O RELATÓRIO NÃO PODE SER VAZIO");
+        }
+
         this.relatorio = relatorio;
     }
 
@@ -111,6 +115,22 @@ public class Consulta {
     public Status getStatus()
     {
         return status;
+    }
+
+    public void setIdPaciente(long idPaciente) {
+        if(idPaciente < 0) {
+            throw new IllegalArgumentException("ERRO! O ID DO PACIENTE NÃO PODE SER MENOR QUE 0");
+        }
+
+        this.idPaciente = idPaciente;
+    }
+
+    public void setIdMedico(long idMedico) {
+        if(idMedico < 0) {
+            throw new IllegalArgumentException("ERRO! O ID DE MÉDICO NÃO PODE SER MENOR QUE 0");
+        }
+
+        this.idMedico = idMedico;
     }
 
     public void setStatus(Status status)
