@@ -97,7 +97,7 @@ public class UsuarioDAO {
                     };
 
                     // Dados Administrador
-                    int idDepartamento = resultSet.getInt("departamento");
+                    int idDepartamento = resultSet.getInt("idDepartamento");
 
                     Departamento departamento = switch(idDepartamento) {
                         case 1 -> Departamento.FINANCEIRO;
@@ -115,7 +115,7 @@ public class UsuarioDAO {
                     int idEspecialidade = resultSet.getInt("idEspecialidade");
                     String subEspecialidade = resultSet.getString("subEspecialidade");
                     String formacao = resultSet.getString("formacao");
-                    int idPlantao = resultSet.getInt("plantao");
+                    int idPlantao = resultSet.getInt("idPlantao");
 
                     Plantao plantao = switch(idPlantao) {
                         case 1 -> Plantao.MATUTINO;
