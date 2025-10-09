@@ -3,8 +3,8 @@ package Arquitetura.View.MenuUsuarios;
 import Arquitetura.Model.Paciente;
 import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.FuncoesPACIENTE.*;
+import Arquitetura.View.FuncoesPACIENTE.MenuEditarConta;
 import Arquitetura.View.MenuDefault;
-import Arquitetura.View.MenuEditarConta;
 import Arquitetura.View.MenuInicial;
 
 public class MenuPaciente
@@ -46,7 +46,7 @@ public class MenuPaciente
                 }
                 case 3: {
 
-                    MenuEditarConta.EditarPaciente(paciente);
+                    MenuEditarConta.Editar(paciente);
 
                     break;
                 }
