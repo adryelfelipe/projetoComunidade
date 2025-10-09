@@ -32,9 +32,7 @@ public class Administrador extends Funcionario {
     }
 
     public void setDepartamento(Departamento departamento) {
-        if(departamento != null) {
-            this.departamento = departamento;
-        }
+        this.departamento = departamento;
     }
 
     @Override
