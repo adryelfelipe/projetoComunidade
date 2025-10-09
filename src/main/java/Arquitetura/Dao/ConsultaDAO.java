@@ -22,7 +22,7 @@ public class ConsultaDAO
             stmt.setString(3, consulta.getRelatorio());
             stmt.setLong(4, consulta.getPaciente().getId());
             stmt.setLong(5, consulta.getMedico().getId());
-            stmt.setLong(6, consulta.getExame());
+            stmt.setLong(6, consulta.getExame().getIdExame());
 
             stmt.executeUpdate();
 
