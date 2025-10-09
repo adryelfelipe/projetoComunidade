@@ -38,6 +38,7 @@ public class Consulta {
         this.relatorio = relatorio;
         this.idPaciente = idPaciente;
         this.idMedico = idMedico;
+        this.status = Status.AGENDADA;
     }
 
     //Possui idConsulta
@@ -107,4 +108,13 @@ public class Consulta {
         this.exame = exame;
     }
 
+    public Status getStatus()
+    {
+        return status;
+    }
+
+    public void setStatus(Status status)
+    {
+        this.status = status;
+    }
 }

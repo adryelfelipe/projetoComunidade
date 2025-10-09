@@ -24,6 +24,7 @@ public class ConsultaDAO
             stmt.setLong(4, consulta.getPaciente().getId());
             stmt.setLong(5, consulta.getMedico().getId());
             stmt.setLong(6, consulta.getExame().getIdExame());
+            stmt.setLong(7,consulta.getStatus().getIdStatus());
 
             stmt.executeUpdate();
 
