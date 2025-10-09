@@ -39,12 +39,10 @@ public class MenuListar
 
         Ferramentas.limpaTerminal();
 
-        System.out.println("\n\n  -Pacientes-\n\n");
-
         int cont = 1;
-
-        System.out.println("\n\n  -Médicos-\n\n");
-
+        System.out.println("          -------------");
+        System.out.println("          |  Paciente |");
+        System.out.println("          -------------");
         for (Usuario entrada: usuarioService.findAllUsers(adm))
         {
             if(entrada instanceof Paciente)

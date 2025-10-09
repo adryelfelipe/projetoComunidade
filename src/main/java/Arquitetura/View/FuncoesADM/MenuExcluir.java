@@ -69,7 +69,5 @@ public class MenuExcluir
 
         System.out.println("\n\nDigite para continuar");
         String tempo = Ferramentas.lString();
-
     }
-
 }

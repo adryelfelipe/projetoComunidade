@@ -20,6 +20,7 @@ public class MenuAdministrador
     public static void Menu(Administrador adm)
     {
 
+        int op = 0;
         boolean continuar = true;
 
         while (continuar) {
@@ -42,8 +43,11 @@ public class MenuAdministrador
             System.out.println("| 9-Sair             |");
             System.out.println("----------------------");
 
-            int op = Ferramentas.lInteiro();
-
+            try {
+                op = Ferramentas.lInteiro();
+            }catch (IllegalArgumentException e){
+                MenuDefault.menuDefault();
+            }
             switch (op) {
                 case 1: {
 
