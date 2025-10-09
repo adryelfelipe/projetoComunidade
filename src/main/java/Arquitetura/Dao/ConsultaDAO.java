@@ -7,6 +7,8 @@ import Arquitetura.Model.Enums.Status;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConsultaDAO
 {
@@ -135,5 +137,34 @@ public class ConsultaDAO
         }
 
         return consulta;
+    }
+
+    public ArrayList<Consulta> findAllConsultas()
+    {
+        String querySql = "SELECT C.idConsulta FROM Consulta C";
+
+        ArrayList<Consulta> listaConsultas = new ArrayList<>();
+
+        try(
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql);
+                ResultSet resultSet = stmt.executeQuery())
+        {
+            while(resultSet.next())
+            {
+                Consulta consulta = findById(resultSet.getLong("idConsulta"));
+
+                if(consulta != null)
+                {
+                    listaConsultas.add(consulta);
+                }
+            }
+
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Não foi possível buscar todas as consultas: "+e.getMessage());
+        }
+        return listaConsultas;
     }
 }
