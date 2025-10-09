@@ -2,9 +2,14 @@ package Arquitetura.View;
 
 import Arquitetura.Utilidades.Ferramentas;
 
+import javax.swing.*;
+
 public class  MenuInicial {
 
     public static void Menu() {
+
+        int op = 0;
+
         boolean continuar = true;
 
         while (continuar) {
@@ -21,7 +26,15 @@ public class  MenuInicial {
             System.out.println("| 2-Sair    |");
             System.out.println("=============");
             System.out.println("\n");
-            int op = Ferramentas.lInteiro();
+
+            try {
+
+                op = Ferramentas.lInteiro();
+
+            }catch (Exception e){
+
+                MenuDefault.menuDefault();
+            }
 
             System.out.println("\n\n\n"); // pula 4 linhas
 
