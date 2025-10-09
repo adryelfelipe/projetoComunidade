@@ -31,13 +31,19 @@ public class MenuCadastro
         System.out.println("\n\n\nDigite o nome: ");
         String nome = Ferramentas.lString();
 
+
+
         // Entrada do CPF
         System.out.println("Digite o CPF: ");
         String cpf = Ferramentas.lString();
 
+
+
         // Entrada da senha
         System.out.println("Digite a senha: ");
         String senha = Ferramentas.lString();
+
+
 
         // Entrada do sexo
         int opsex;
@@ -70,13 +76,19 @@ public class MenuCadastro
             default -> Genero.FEMININO;
         };
 
+
+
         // Entrada do telefone
         System.out.println("Digite o número de telefone: ");
         String telefone = Ferramentas.lString();
 
+
+
         // Entrada do email
         System.out.println("Digite o email: ");
         String email = Ferramentas.lString();
+
+
 
         // Entrada da data de nascimento
         System.out.println("Data de nascimento");
@@ -89,9 +101,13 @@ public class MenuCadastro
         System.out.println("Digite Dia: ");
         int dia = Ferramentas.lInteiro();
 
+
+
         // Entrada da carga horária semanal
         System.out.println("Digite a carga horária semanal: ");
         int cargaHoraria = Ferramentas.lInteiro();
+
+
 
         // Entrada do salário
         System.out.println("Digite o salário: ");
@@ -120,7 +136,7 @@ public class MenuCadastro
             }
         }while (!verifica);
 
-        // Converte a entrada de genero usando switch expression
+        // Converte a entrada de Especialidade usando switch expression
         Especialidade especialidade = switch (opsex){
             case 1 -> Especialidade.CLINICO_GERAL;
             case 2 -> Especialidade.CARDIOLOGISTA;
