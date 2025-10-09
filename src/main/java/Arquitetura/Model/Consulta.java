@@ -16,8 +16,8 @@ public class Consulta {
     //Atributos
 
     private long idConsulta;
-    private LocalDate dataConsulta;
-    private LocalTime horarioConsulta;
+    private Date dataConsulta;
+    private Time horarioConsulta;
     private String relatorio;
     private Paciente paciente;
     private Medico medico;
@@ -28,7 +28,7 @@ public class Consulta {
     //Construtor
 
     //Não possui idConsulta
-    public Consulta(LocalDate dataConsulta, LocalTime horarioConsulta, long idPaciente, long idMedico,Exame exame,String relatorio)
+    public Consulta(Date dataConsulta, Time horarioConsulta, long idPaciente, long idMedico,Exame exame,String relatorio)
     {
         this.dataConsulta  = dataConsulta;
         this.horarioConsulta = horarioConsulta;
@@ -39,7 +39,7 @@ public class Consulta {
     }
 
     //Possui idConsulta
-    public Consulta(LocalDate dataConsulta, LocalTime horarioConsulta, long idPaciente, long idMedico, Exame exame, String relatorio, long idConsulta)
+    public Consulta(Date dataConsulta, Time horarioConsulta, long idPaciente, long idMedico, Exame exame, String relatorio, long idConsulta)
     {
         this(dataConsulta, horarioConsulta, idPaciente, idMedico, exame, relatorio);
         this.idConsulta = idConsulta;
@@ -56,19 +56,19 @@ public class Consulta {
         this.idConsulta = idConsulta;
     }
 
-    public LocalDate getDataConsulta() {
+    public Date getDataConsulta() {
         return dataConsulta;
     }
 
-    public void setDataConsulta(LocalDate dataConsulta) {
+    public void setDataConsulta(Date dataConsulta) {
         this.dataConsulta = dataConsulta;
     }
 
-    public LocalTime getHorarioConsulta() {
+    public Time getHorarioConsulta() {
         return horarioConsulta;
     }
 
-    public void setHorarioConsulta(LocalTime horarioConsulta) {
+    public void setHorarioConsulta(Time horarioConsulta) {
         this.horarioConsulta = horarioConsulta;
     }
 
