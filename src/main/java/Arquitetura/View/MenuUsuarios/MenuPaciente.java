@@ -4,6 +4,7 @@ import Arquitetura.Model.Paciente;
 import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.FuncoesPACIENTE.*;
 import Arquitetura.View.MenuDefault;
+import Arquitetura.View.MenuEditarConta;
 import Arquitetura.View.MenuInicial;
 
 public class MenuPaciente
@@ -45,7 +46,7 @@ public class MenuPaciente
                 }
                 case 3: {
 
-                    MenuEditarConta.Editar(paciente);
+                    MenuEditarConta.EditarPaciente(paciente);
 
                     break;
                 }

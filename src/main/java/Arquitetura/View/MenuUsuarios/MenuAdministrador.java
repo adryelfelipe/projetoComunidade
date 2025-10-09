@@ -53,7 +53,7 @@ public class MenuAdministrador
                 }
                 case 2: {
 
-                    MenuEditar.Editar(adm);
+                    MenuEditarConta.Editar(adm);
 
                     break;
                 }

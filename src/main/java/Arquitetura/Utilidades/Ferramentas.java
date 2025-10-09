@@ -1,5 +1,6 @@
 package Arquitetura.Utilidades;
 
+import java.rmi.server.ExportException;
 import java.util.Scanner;
 
 public class Ferramentas {
@@ -68,25 +69,44 @@ public class Ferramentas {
 
     // ------ FAZ INPUT DE DOUBLE E RETORNA ------ //
     public static double lDouble() {
-        double num = ler.nextDouble();
 
-        ler.nextLine(); // Esvazia o buffer
+        try {
+            double num = ler.nextDouble();
 
-        return num;
+            return num;
+        }catch (Exception e) {
+
+            ler.nextLine(); // Esvazia o buffer
+
+            throw e;
+        }
     }
 
     // ------ FAZ INPUT DE STRING E RETORNA ------ //
     public static String lString() {
-        return ler.nextLine();
+
+        try {
+            String t = ler.nextLine();
+
+            return t;
+        }catch (Exception e){
+            ler.nextLine();
+
+            throw e;
+        }
     }
 
     // ------ FAZ INPUT DE INTEIRO E RETORNA ------ //
     public static int lInteiro() {
-        int num = ler.nextInt();
+        try{
+            int num = ler.nextInt();
 
-        ler.nextLine(); // Esvazia o buffer
+            return num;
+        } catch(Exception e) {
+            ler.nextLine();
 
-        return num;
+            throw e;
+        }
     }
 
     // ------ PULA MUITAS LINHAS DO TERMINAL ------ //
