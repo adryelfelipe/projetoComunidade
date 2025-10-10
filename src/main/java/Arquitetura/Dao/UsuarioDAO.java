@@ -366,13 +366,14 @@ public class UsuarioDAO {
         return null;
     }
 
-    public void updateNomeUsuario (int id, String novoNome) throws SQLException {
+    public void updateNomeUsuario (long id, String novoNome) throws SQLException {
         String queySql = "UPDATE Usuario " +
                 "SET nomeUsuario = ? " +
                 "WHERE idUsuario = ?";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(queySql)) {
+
             stmt.setString(1, novoNome);
             stmt.setLong(2, id);
 
@@ -380,7 +381,26 @@ public class UsuarioDAO {
 
         } catch (SQLException e)
         {
-            throw new SQLException("Erro ao atualizar o Usuario: ", e);
+            throw new SQLException("Erro ao atualizar o usuário com ID: " + id, e);
+        }
+    }
+
+    public void updateSenhaUsuario (long id, String novaSenha) throws SQLException {
+        String queySql = "UPDATE Usuario " +
+                "SET senha = ? " +
+                "WHERE idUsuario = ?";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(queySql)) {
+
+            stmt.setString(1, novaSenha);
+            stmt.setLong(2, id);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e)
+        {
+            throw new SQLException("Erro ao atualizar o usuário com ID: " + id, e);
         }
     }
 }
