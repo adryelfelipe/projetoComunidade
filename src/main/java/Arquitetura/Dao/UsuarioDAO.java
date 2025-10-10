@@ -403,4 +403,20 @@ public class UsuarioDAO {
             throw new SQLException("Erro ao atualizar o usuário com ID: " + id, e);
         }
     }
+
+    public void updateCpf (long id, String novoCpf) throws SQLException {
+        String qurySql = "UPDATE Usuario " +
+                "SET cpf = ? " +
+                "WHERE idUsuario = ?";
+
+        try(Connection conn = ConnectionFactory.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(qurySql))
+        {
+
+
+        }catch (SQLException e)
+        {
+            throw new SQLException("Erro ao atualizar o usuário com ID: " + id, e);
+        }
+    }
 }
