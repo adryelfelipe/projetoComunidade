@@ -4,6 +4,8 @@ import Arquitetura.Config.ConnectionFactory;
 import Arquitetura.Model.Consulta;
 import Arquitetura.Model.Enums.Exame;
 import Arquitetura.Model.Enums.Status;
+import Arquitetura.Model.Medico;
+import Arquitetura.Model.Paciente;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -166,5 +168,74 @@ public class ConsultaDAO
             System.err.println("Não foi possível buscar todas as consultas: "+e.getMessage());
         }
         return listaConsultas;
+    }
+    public ArrayList<Consulta> findAllConsultasOfPaciente(Paciente paciente)
+    {
+        ArrayList<Consulta> listaConsultasPaciente = new ArrayList<>();
+
+        String querySql = "SELECT DISTINCT "+
+                "C.idConsulta "+
+                "FROM Consulta C "+
+                "WHERE C.idPaciente = ?";
+
+        try(
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1, paciente.getId());
+
+            try(ResultSet resultSet = stmt.executeQuery())
+            {
+                while(resultSet.next())
+                {
+                    Consulta consulta = findById(resultSet.getLong("idConsulta"));
+
+                    if(consulta != null && !listaConsultasPaciente.contains(consulta))
+                    {
+                        listaConsultasPaciente.add(consulta);
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Não possível buscar lista de Consultas: "+e.getMessage());
+        }
+
+        return listaConsultasPaciente;
+    }
+
+    public ArrayList<Consulta> findAllConsultasOfMedico(Medico medico)
+    {
+        ArrayList<Consulta> listaConsultasMedico = new ArrayList<>();
+
+        String querySql = "SELECT DISTINCT "+
+                "C.idConsulta "+
+                "FROM Consulta C "+
+                "WHERE C.idMedico = ?";
+        try(
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1, medico.getId());
+
+            try(ResultSet resultSet = stmt.executeQuery())
+            {
+                while(resultSet.next())
+                {
+                    Consulta consulta = findById(resultSet.getLong("idConsulta"));
+
+                    if(consulta != null && !listaConsultasMedico.contains(consulta))
+                    {
+                        listaConsultasMedico.add(consulta);
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Não foi possível buscar lista de Consultas: "+e.getMessage());
+        }
+        return listaConsultasMedico;
     }
 }

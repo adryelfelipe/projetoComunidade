@@ -8,6 +8,7 @@ import Arquitetura.Service.UsuarioService;
 import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.*;
 import Arquitetura.View.FuncoesADM.*;
+import Arquitetura.View.FuncoesPACIENTE.MenuEditarConta;
 
 public class MenuAdministrador
 {
@@ -53,7 +54,7 @@ public class MenuAdministrador
                 }
                 case 2: {
 
-                    MenuEditarConta.Editar(adm);
+                    //MenuEditarConta.Editar(adm);
 
                     break;
                 }
