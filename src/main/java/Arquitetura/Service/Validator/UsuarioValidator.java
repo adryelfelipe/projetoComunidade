@@ -5,7 +5,7 @@ import Arquitetura.Model.Usuario;
 public class UsuarioValidator {
 
     // -- Métodos de verificação -- //
-    private void verificarDadosUser(Usuario usuario) {
+    public void verificarDadosUser(Usuario usuario) {
 
        if(usuario.getCpf() == null) {
            throw new IllegalArgumentException("ERRO! O CPF NÃO PODE SER NULO");
