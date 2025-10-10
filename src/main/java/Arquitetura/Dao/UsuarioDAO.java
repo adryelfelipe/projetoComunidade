@@ -365,4 +365,22 @@ public class UsuarioDAO {
         }
         return null;
     }
+
+    public void updateNomeUsuario (int id, String novoNome) throws SQLException {
+        String queySql = "UPDATE Usuario " +
+                "SET nomeUsuario = ? " +
+                "WHERE idUsuario = ?";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(queySql)) {
+            stmt.setString(1, novoNome);
+            stmt.setLong(2, id);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e)
+        {
+            throw new SQLException("Erro ao atualizar o Usuario: ", e);
+        }
+    }
 }
