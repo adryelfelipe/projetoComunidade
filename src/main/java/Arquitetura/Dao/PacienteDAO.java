@@ -77,4 +77,23 @@ public class PacienteDAO {
             throw new SQLException("Erro ao atualizar número da carteirinha do paciente com ID: "+idConsulta, e);
         }
     }
+
+    public void updateContatoEmergencia(long idConsulta, String contatoEmergencia) throws SQLException
+    {
+        String querySql = "UPDATE Consulta "+
+                "SET contatoEmergencia = ? "+
+                "WHERE idConsulta = ? ";
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setString(1, contatoEmergencia);
+            stmt.setLong(2, idConsulta);
+
+            stmt.executeUpdate();
+        }
+        catch (Exception e) {
+            throw  new SQLException("Erro ao atualizar o contato de emergência do paciente com ID: "+idConsulta, e);
+        }
+    }
 }
