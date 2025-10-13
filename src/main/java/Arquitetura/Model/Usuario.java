@@ -20,14 +20,23 @@ public abstract class Usuario {
 
     // -- Construtor -- //
     public Usuario(TipoUsuario tipoUsuario, String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento) {
+        if(tipoUsuario == null) {
+            throw new IllegalArgumentException("ERRO! O TIPO USUÁRIO NÃO PODE SER NULO");
+        }
+
         this.tipoUsuario = tipoUsuario;
-        this.senha = senha;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.sexo = sexo;
-        this.telefone = telefone;
-        this.email = email;
-        this.dataNascimento = dataNascimento;
+
+        setSenha(senha);
+
+        setNome(nome);
+
+        setCpf(cpf);
+
+        setSexo(sexo);
+
+        setTelefone(telefone);
+
+        setEmail(email);
     }
 
     // -- Setters e Getters -- //
@@ -40,9 +49,11 @@ public abstract class Usuario {
     }
 
     public void setNome(String nome) {
-        if(!nome.isEmpty()) {
-            this.nome = nome;
+        if(nome.isEmpty()) {
+            throw new IllegalArgumentException("ERRO! O NOME NÃO PODE SER VAZIO");
         }
+
+        this.nome = nome;
     }
 
     public Genero getSexo() {
@@ -50,9 +61,7 @@ public abstract class Usuario {
     }
 
     public void setSexo(Genero sexo) {
-        if(sexo != null) {
-            this.sexo = sexo;
-        }
+        this.sexo = sexo;
     }
 
     public String getTelefone() {
@@ -60,9 +69,15 @@ public abstract class Usuario {
     }
 
     public void setTelefone(String telefone) {
-        if(!telefone.isEmpty()) {
-            this.telefone = telefone;
+        if(telefone.isEmpty()) {
+            throw new IllegalArgumentException("ERRO! O TELEFONE NÃO PODE SER VAZIO");
         }
+
+        if(telefone.length() != 11) {
+            throw new IllegalArgumentException("ERRO! O TELEFONE DEVE TER 11 DÍGITOS");
+        }
+
+        this.telefone = telefone;
     }
 
     public String getEmail() {
@@ -70,9 +85,15 @@ public abstract class Usuario {
     }
 
     public void setEmail(String email) {
-        if(!email.isEmpty()) {
-            this.email = email;
+        if(email.isEmpty()) {
+            throw new IllegalArgumentException("ERRO! O EMAIL NÃO PODE SER VAZIO");
         }
+
+        if(!email.contains("@")) {
+            throw new IllegalArgumentException("ERRO! EMAIL INVÁLIDO");
+        }
+
+        this.email = email;
     }
 
     public Date getDataNascimento() {
@@ -88,8 +109,8 @@ public abstract class Usuario {
     }
 
     public void setId(long id) {
-        if(id > 0) {
-            this.id = id;
+        if(id < 0) {
+            throw new IllegalArgumentException("ERRO! O ID NÃO PODE SER MENOR QUE 0");
         }
     }
 
@@ -98,9 +119,11 @@ public abstract class Usuario {
     }
 
     public void setSenha(String senha) {
-        if(!senha.isEmpty()){
-        this.senha = senha;
+        if(senha.isEmpty()) {
+            throw new IllegalArgumentException("ERRO! A SENHA NÃO PODE SER VAZIA");
         }
+
+        this.senha = senha;
     }
 
     public String getCpf() {
@@ -108,9 +131,11 @@ public abstract class Usuario {
     }
 
     public void setCpf(String cpf) {
-        if(!cpf.isEmpty()) {
-            this.cpf = cpf;
+        if(cpf.isEmpty()) {
+            throw new IllegalArgumentException("ERRO! O CPF NÃO PODE SER VAZIO");
         }
+
+        this.cpf = cpf;
     }
 
     public void dadosPessoais() {

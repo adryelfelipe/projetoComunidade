@@ -31,13 +31,19 @@ public class MenuCadastro
         System.out.println("\n\n\nDigite o nome: ");
         String nome = Ferramentas.lString();
 
+
+
         // Entrada do CPF
         System.out.println("Digite o CPF: ");
         String cpf = Ferramentas.lString();
 
+
+
         // Entrada da senha
         System.out.println("Digite a senha: ");
         String senha = Ferramentas.lString();
+
+
 
         // Entrada do sexo
         int opsex;
@@ -70,13 +76,19 @@ public class MenuCadastro
             default -> Genero.FEMININO;
         };
 
+
+
         // Entrada do telefone
         System.out.println("Digite o número de telefone: ");
         String telefone = Ferramentas.lString();
 
+
+
         // Entrada do email
         System.out.println("Digite o email: ");
         String email = Ferramentas.lString();
+
+
 
         // Entrada da data de nascimento
         System.out.println("Data de nascimento");
@@ -89,9 +101,13 @@ public class MenuCadastro
         System.out.println("Digite Dia: ");
         int dia = Ferramentas.lInteiro();
 
+
+
         // Entrada da carga horária semanal
         System.out.println("Digite a carga horária semanal: ");
         int cargaHoraria = Ferramentas.lInteiro();
+
+
 
         // Entrada do salário
         System.out.println("Digite o salário: ");
@@ -120,7 +136,7 @@ public class MenuCadastro
             }
         }while (!verifica);
 
-        // Converte a entrada de genero usando switch expression
+        // Converte a entrada de Especialidade usando switch expression
         Especialidade especialidade = switch (opsex){
             case 1 -> Especialidade.CLINICO_GERAL;
             case 2 -> Especialidade.CARDIOLOGISTA;
@@ -188,15 +204,20 @@ public class MenuCadastro
             // Cria médico sem subespecialidade
             } else {
 
-            Medico medico = new Medico(nome,cpf,senha,genero,telefone,email,sqlDate,cargaHoraria,salario,plantao,especialidade,formacao,subE);
+            try {
+                Medico medico = new Medico(nome, cpf, senha, genero, telefone, email, sqlDate, cargaHoraria, salario, plantao, especialidade, formacao, subE);
 
-            MedicoService medicoService = new MedicoService();
+                MedicoService medicoService = new MedicoService();
 
-            medicoService.inserirMedico(adm,medico);
+                medicoService.inserirMedico(adm,medico);
 
-            System.out.println("Medico criado");
+                System.out.println("Medico criado");
 
-            Ferramentas.Delay(1500);
+                Ferramentas.Delay(1500);
+
+            }catch (IllegalArgumentException e) {
+                e.getMessage();
+            }
         }
     }
 
@@ -282,6 +303,7 @@ public class MenuCadastro
 
         Date sqlDate = Date.valueOf(dataNascimento);
 
+        try {
         Paciente paciente = new Paciente(nome,cpf,senha,genero,telefone,email,sqlDate, contatoEmer, contatoEmer);
 
         PacienteService pacienteService = new PacienteService();
@@ -291,6 +313,10 @@ public class MenuCadastro
         System.out.println("Paciente criado");
 
         Ferramentas.Delay(1500);
+        }catch (IllegalArgumentException e) {
+            e.getMessage();
+        }
+
     }
 
     public static void CriarADM(Administrador adm)
@@ -400,26 +426,21 @@ public class MenuCadastro
             default -> Departamento.RH;
         };
 
-        LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
+        try {
 
-        Date sqlDate = Date.valueOf(dataNascimento);
+            LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
 
-        Administrador administrador = new Administrador(nome,cpf,senha,genero,telefone,email,sqlDate,salario,cargaHoraria, departamento);
+            Date sqlDate = Date.valueOf(dataNascimento);
 
-        AdministradorService administradorService =  new AdministradorService();
+            Administrador administrador = new Administrador(nome, cpf, senha, genero, telefone, email, sqlDate, salario, cargaHoraria, departamento);
 
-        administradorService.inserirAdmin(adm,administrador);
+            AdministradorService administradorService = new AdministradorService();
 
-        // Cadastro falhou
-        if(administrador.getId() == 0) {
-            System.out.println("    Erro, dados invalidos, por favor tente novamente.");
+            administradorService.inserirAdmin(adm, administrador);
+
+            Ferramentas.Delay(1500);
+        }catch (IllegalArgumentException e){
+            e.getMessage();
         }
-
-        // Cadastro funcinou
-        else {
-            System.out.println("Adm criado");
-        }
-
-        Ferramentas.Delay(1500);
     }
 }

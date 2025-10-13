@@ -3,14 +3,10 @@ package Arquitetura.Dao;
 import Arquitetura.Config.ConnectionFactory;
 import Arquitetura.Model.Consulta;
 import Arquitetura.Model.Enums.Exame;
-import Arquitetura.Model.Enums.Status;
-import Arquitetura.Model.Medico;
-import Arquitetura.Model.Paciente;
+import Arquitetura.Model.Enums.StatusConsulta;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ConsultaDAO
 {
@@ -107,15 +103,15 @@ public class ConsultaDAO
                         default -> Exame.Sangue;
                     };
 
-                    Status status = switch (resultSet.getInt("idStatus"))
+                    StatusConsulta status = switch (resultSet.getInt("idStatus"))
                     {
-                        case 1 -> Status.AGENDADA;
-                        case 2 -> Status.REAGENDADA;
-                        case 3 -> Status.AGUARDANDO;
-                        case 4 -> Status.EM_ATENDIMENTO;
-                        case 5 -> Status.REALIZADA;
-                        case 6 -> Status.CANCELADA;
-                        default -> Status.FALTA;
+                        case 1 -> StatusConsulta.AGENDADA;
+                        case 2 -> StatusConsulta.REAGENDADA;
+                        case 3 -> StatusConsulta.AGUARDANDO;
+                        case 4 -> StatusConsulta.EM_ATENDIMENTO;
+                        case 5 -> StatusConsulta.REALIZADA;
+                        case 6 -> StatusConsulta.CANCELADA;
+                        default -> StatusConsulta.FALTA;
                     };
 
                     consulta = new Consulta(
@@ -168,74 +164,5 @@ public class ConsultaDAO
             System.err.println("Não foi possível buscar todas as consultas: "+e.getMessage());
         }
         return listaConsultas;
-    }
-    public ArrayList<Consulta> findAllConsultasOfPaciente(Paciente paciente)
-    {
-        ArrayList<Consulta> listaConsultasPaciente = new ArrayList<>();
-
-        String querySql = "SELECT DISTINCT "+
-                "C.idConsulta "+
-                "FROM Consulta C "+
-                "WHERE C.idPaciente = ?";
-
-        try(
-                Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement stmt = connection.prepareStatement(querySql))
-        {
-            stmt.setLong(1, paciente.getId());
-
-            try(ResultSet resultSet = stmt.executeQuery())
-            {
-                while(resultSet.next())
-                {
-                    Consulta consulta = findById(resultSet.getLong("idConsulta"));
-
-                    if(consulta != null && !listaConsultasPaciente.contains(consulta))
-                    {
-                        listaConsultasPaciente.add(consulta);
-                    }
-                }
-            }
-        }
-        catch (SQLException e)
-        {
-            System.err.println("Não possível buscar lista de Consultas: "+e.getMessage());
-        }
-
-        return listaConsultasPaciente;
-    }
-
-    public ArrayList<Consulta> findAllConsultasOfMedico(Medico medico)
-    {
-        ArrayList<Consulta> listaConsultasMedico = new ArrayList<>();
-
-        String querySql = "SELECT DISTINCT "+
-                "C.idConsulta "+
-                "FROM Consulta C "+
-                "WHERE C.idMedico = ?";
-        try(
-                Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement stmt = connection.prepareStatement(querySql))
-        {
-            stmt.setLong(1, medico.getId());
-
-            try(ResultSet resultSet = stmt.executeQuery())
-            {
-                while(resultSet.next())
-                {
-                    Consulta consulta = findById(resultSet.getLong("idConsulta"));
-
-                    if(consulta != null && !listaConsultasMedico.contains(consulta))
-                    {
-                        listaConsultasMedico.add(consulta);
-                    }
-                }
-            }
-        }
-        catch (SQLException e)
-        {
-            System.out.println("Não foi possível buscar lista de Consultas: "+e.getMessage());
-        }
-        return listaConsultasMedico;
     }
 }

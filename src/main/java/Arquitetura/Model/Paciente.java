@@ -1,6 +1,7 @@
 package Arquitetura.Model;
 
 import Arquitetura.Model.Enums.Genero;
+import Arquitetura.Model.Enums.StatusPaciente;
 import Arquitetura.Model.Enums.TipoUsuario;
 
 import java.sql.Date;
@@ -9,24 +10,23 @@ public class Paciente extends Usuario {
 
     // -- Atributos -- //
     private String contatoEmergencia;
-    private String statusPaciente = "Ativo";
     private String numeroCarterinha;
-    private static final String tipoUsuario = "Paciente";
-
+    private StatusPaciente statusPaciente;
     // -- Construtores -- //
+
+    // Possui ID
+    public Paciente(long id, String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCarterinha) {
+        super(TipoUsuario.PACIENTE,nome, cpf, senha, sexo, telefone, email,dataNascimento);
+        this.setId(id);
+        this.statusPaciente = StatusPaciente.ATIVO;
+        setContatoEmergencia(contatoEmergencia);
+        setNumeroCarterinha(numeroCarterinha);
+    }
 
     // Não possui ID
     public Paciente(String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCarterinha)
     {
-        super(TipoUsuario.PACIENTE,nome, cpf, senha, sexo, telefone, email,dataNascimento);
-        this.contatoEmergencia = contatoEmergencia;
-        this.numeroCarterinha = numeroCarterinha;
-    }
-
-    // Possui ID
-    public Paciente(long id, String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCarterinha) {
-        this(nome, cpf, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numeroCarterinha);
-        this.setId(id);
+        this(0, nome, cpf, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numeroCarterinha);
     }
 
     // -- Setters e Getters -- //
@@ -35,16 +35,18 @@ public class Paciente extends Usuario {
     }
 
     public void setContatoEmergencia(String contatoEmergencia) {
-        if(!contatoEmergencia.isEmpty()) {
-            this.contatoEmergencia = contatoEmergencia;
+        if(contatoEmergencia.isEmpty()) {
+            throw new IllegalArgumentException("ERRO! CONTATO DE EMERGÊNCIA NÃO PODE SER VAZIO");
         }
+
+        this.contatoEmergencia = contatoEmergencia;
     }
 
-    public String getStatusPaciente() {
+    public StatusPaciente getStatusPaciente() {
         return statusPaciente;
     }
 
-    public void setStatusPaciente(String statusPaciente) {
+    public void setStatusPaciente(StatusPaciente statusPaciente) {
         this.statusPaciente = statusPaciente;
     }
 
@@ -53,6 +55,10 @@ public class Paciente extends Usuario {
     }
 
     public void setNumeroCarterinha(String numeroCarterinha) {
+        if(numeroCarterinha.isEmpty()) {
+            throw new IllegalArgumentException("ERRO! NÚMERO DA CARTERINHA NÃO PODE SER VAZIO");
+        }
+
         this.numeroCarterinha = numeroCarterinha;
     }
 

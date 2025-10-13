@@ -14,6 +14,7 @@ public class MenuPaciente
     public static void Menu(Paciente paciente)
     {
 
+        int op = 0;
         boolean continuar = true;
 
         while (continuar) {
@@ -29,7 +30,12 @@ public class MenuPaciente
             System.out.println("4-Agedar consilta");
             System.out.println("5-Minha agenda");
             System.out.println("6-Sair");
-            int op = Ferramentas.lInteiro();
+
+            try {
+                op = Ferramentas.lInteiro();
+            }catch (IllegalArgumentException e) {
+                MenuDefault.menuDefault();
+            }
 
             switch (op) {
                 case 1: {
