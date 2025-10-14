@@ -164,8 +164,9 @@ public class UsuarioDAO {
             stmt.setString(1, cpf);
             stmt.executeUpdate();
         }
-        catch (SQLException e) {
-            System.err.println("Erro ao deletar usuário com ID " + cpf + ": " + e.getMessage());
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao deletar usuário com CPF " + cpf + ": " + e.getMessage());
         }
     }
 
