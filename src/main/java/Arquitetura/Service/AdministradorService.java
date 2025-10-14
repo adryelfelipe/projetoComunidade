@@ -11,6 +11,7 @@ import Arquitetura.Service.Validator.AdministradorValidator;
 import Arquitetura.Service.Validator.FuncionarioValidator;
 import Arquitetura.Service.Validator.TipoUsuarioValidator;
 import Arquitetura.Service.Validator.UsuarioValidator;
+import Arquitetura.Exception.DadosInvalidosException;
 
 public class AdministradorService {
 
@@ -42,29 +43,27 @@ public class AdministradorService {
      * <p>Este método realiza as seguintes ações: </p>
      *
      * <ol>
-     *     <li>Verifica se o administrador inserido não é nulo </li>
-     *     <li>Verifica se o usuário que está inserindo possui acesso para tal </li>
+     *     <li>Verifica se o usuario inseridor possui acesso para tal </li>
+     *     <li>Verifica se o administrador inserido segue as regras gerais de inserção de um usuário </li>
      *     <li>Verifica os dados do administrador a ser inserido</li>
-     *     <li>Insere o administrador nas tabelas Usuario e Funcionario respectivamente</li>
-     *     <li>Insere o administrador na tabela Administrador</li>
+     *     <li>Insere o administrador nas tabelas Usuario, Funcionario e Administrador respectivamente</li>
      * </ol>
      *
      * @param usuario Quem está inserindo
      * @param administradorCriado Quem será inserido
      * @throws TipoUsuarioException Se o usuario não possuir acesso total (necessário para inserção)
-     * @throws IllegalArgumentException Se os campos obrigatórios do inserido estiverem inválidos
+     * @throws DadosInvalidosException Se os campos obrigatórios do inserido estiverem inválidos
      */
 
     public void inserirAdmin(Usuario usuario, Administrador administradorCriado)  {
-        usuarioValidator.verificaRegrasInsercaoUsuario(administradorCriado);
+        // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
-
-        // Verifica os dados específicos de um Administrador
+        usuarioValidator.verificaRegrasInsercaoUsuario(administradorCriado);
         administradorValidator.verificarDadosAdm(administradorCriado);
 
-        // Verifica os dados gerais (Funcionario + Usuario)
-        funcionarioService.inserirFuncionario(usuario, administradorCriado);
-
+        // Insere nessa ordem para respeitar as chaves estrangeiras
+        usuarioDAO.inserirUsuario(administradorCriado);
+        funcionarioDAO.inserirFuncionario(administradorCriado);
         administradorDao.inserirAdmin(administradorCriado);
     }
 
@@ -81,10 +80,11 @@ public class AdministradorService {
      * @param usuario Quem está deletando
      * @param administradorDeletado Quem será deletado
      * @throws TipoUsuarioException Se o usuário não possuir acesso total (necessário para deletar)
-     * @throws IllegalArgumentException Se os dados do administradorDeletado estiverem inválidos
+     * @throws DadosInvalidosException Se os dados do administradorDeletado estiverem inválidos
      */
 
     public void deletarAdministrador(Usuario usuario, Administrador administradorDeletado) {
+        // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
         usuarioValidator.verificaRegrasDelecaoUsuario(administradorDeletado);
         administradorValidator.verificaAutoDelete(usuario, administradorDeletado);
