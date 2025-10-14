@@ -85,6 +85,7 @@ public class AdministradorService {
      */
 
     public void deletarAdministrador(Usuario usuario, Administrador administradorDeletado) {
+        tipoUsuarioValidator.temAcessoTotal(usuario);
         usuarioValidator.verificaRegrasDelecaoUsuario(administradorDeletado);
         administradorValidator.verificaAutoDelete(usuario, administradorDeletado);
         isUltimoAdmin(administradorDeletado);
