@@ -10,6 +10,7 @@ import Arquitetura.Model.Usuario;
 import Arquitetura.Service.Validator.AdministradorValidator;
 import Arquitetura.Service.Validator.FuncionarioValidator;
 import Arquitetura.Service.Validator.TipoUsuarioValidator;
+import Arquitetura.Service.Validator.UsuarioValidator;
 
 public class AdministradorService {
 
@@ -21,6 +22,7 @@ public class AdministradorService {
     private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
     private final AdministradorValidator administradorValidator = new AdministradorValidator();
     private final FuncionarioValidator funcionarioValidator = new FuncionarioValidator();
+    private final UsuarioValidator usuarioValidator = new UsuarioValidator();
 
     // -- Construtor -- //
     public AdministradorService() {
@@ -38,10 +40,11 @@ public class AdministradorService {
      * <p>Este método realiza as seguintes ações: </p>
      *
      * <ol>
-     *      <li>Verifica se o usuário que está inserindo possui acesso para tal </li>
-     *      <li>Verifica os dados do administrador a ser inserido</li>
-     *      <li>Insere o administrador nas tabelas Usuario e Funcionario respectivamente</li>
-     *      <li>Insere o administrador na tabela Administrador</li>
+     *     <li>Verifica se o administrador inserido não é nulo </li>
+     *     <li>Verifica se o usuário que está inserindo possui acesso para tal </li>
+     *     <li>Verifica os dados do administrador a ser inserido</li>
+     *     <li>Insere o administrador nas tabelas Usuario e Funcionario respectivamente</li>
+     *     <li>Insere o administrador na tabela Administrador</li>
      * </ol>
      *
      * @param usuario Quem está inserindo
@@ -51,14 +54,16 @@ public class AdministradorService {
      */
 
     public void inserirAdmin(Usuario usuario, Administrador administradorCriado)  {
-       tipoUsuarioValidator.temAcessoTotal(usuario);
+        usuarioValidator.verificaRegrasInsercaoUsuario(administradorCriado);
+        tipoUsuarioValidator.temAcessoTotal(usuario);
 
-       // Verifica os dados específicos de um Administrador
-       administradorValidator.verificarDadosAdm(administradorCriado);
+        // Verifica os dados específicos de um Administrador
+        administradorValidator.verificarDadosAdm(administradorCriado);
 
-       // Verifica os dados gerais (Funcionario + Usuario)
-       funcionarioService.inserirFuncionario(usuario, administradorCriado);
-       administradorDao.inserirAdmin(administradorCriado);
+        // Verifica os dados gerais (Funcionario + Usuario)
+        funcionarioService.inserirFuncionario(usuario, administradorCriado);
+
+        administradorDao.inserirAdmin(administradorCriado);
     }
 
     /**
@@ -78,7 +83,7 @@ public class AdministradorService {
      */
 
     public void deletarAdministrador(Usuario usuario, Administrador administradorDeletado) {
-        usuarioValidator.verificaRegrasDeletarUsuario();
+        usuarioValidator.verificaRegrasDelecaoUsuario(administradorDeletado);
         administradorValidator.verificaAutoDelecao(usuario, administradorDeletado);
         isUltimoAdmin(administradorDeletado);
 

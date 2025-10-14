@@ -39,4 +39,16 @@ public class UsuarioValidator {
            throw new IllegalArgumentException("ERRO! A DATA DE NASCIMENTO NÃO PODE SER NULA");
        }
     }
+
+    public void verificaRegrasInsercaoUsuario(Usuario usuarioInserido) {
+        if(usuarioInserido == null) {
+            throw new IllegalArgumentException("ERRO! NÃO É POSSÍVEL INSERIR UM USARIO NULO");
+        }
+    }
+
+    public void verificaRegrasDelecaoUsuario(Usuario usuarioDeletado) {
+        if(usuarioDeletado == null) {
+            throw new IllegalArgumentException("ERRO! NÃO É POSSÍVEL DELETAR UM USUARIO NULO");
+        }
+    }
 }
