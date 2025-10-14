@@ -7,8 +7,12 @@ import Arquitetura.Model.Usuario;
 
 public class AdministradorValidator {
 
+    // -- Atributos -- //
+    private final FuncionarioValidator funcionarioValidator = new FuncionarioValidator();
+
     // -- Métodos de verificação -- //
     public void verificarDadosAdm(Administrador administrador) {
+        funcionarioValidator.verificarDadosFuncionario(administrador);
 
         if(administrador.getDepartamento() == null)
         {
