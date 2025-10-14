@@ -84,7 +84,7 @@ public class AdministradorService {
 
     public void deletarAdministrador(Usuario usuario, Administrador administradorDeletado) {
         usuarioValidator.verificaRegrasDelecaoUsuario(administradorDeletado);
-        administradorValidator.verificaAutoDelecao(usuario, administradorDeletado);
+        administradorValidator.verificaAutoDelete(usuario, administradorDeletado);
         isUltimoAdmin(administradorDeletado);
 
         // Deleta nessa ordem para respeitar as chaves estrangeiras
