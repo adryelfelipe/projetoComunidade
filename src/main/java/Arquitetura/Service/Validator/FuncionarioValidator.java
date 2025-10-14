@@ -15,7 +15,7 @@ public class FuncionarioValidator {
 
         if(funcionario.getCargaHorariaSemanal() < 40)
         {
-            throw new DadosInvalidosException("ERRO! A CARGA GHORÁRIA NÃO PODE SER MENOR QUE 40");
+            throw new DadosInvalidosException("ERRO! A CARGA HORÁRIA NÃO PODE SER MENOR QUE 40");
         }
 
         if (funcionario.getSalario() < 1500)

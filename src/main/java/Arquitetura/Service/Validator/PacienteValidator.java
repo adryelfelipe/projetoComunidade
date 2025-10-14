@@ -14,7 +14,7 @@ public class PacienteValidator {
         }
 
         if(paciente.getNumeroCarterinha() == null) {
-            throw new DadosInvalidosException("ERRO! O NÚMERO DA CARTERINHA NÃO PODE SER NULO");
+            throw new DadosInvalidosException("ERRO! O NÚMERO DA CARTERINHA NÃO PODE SER NULA");
         }
 
         if(paciente.getContatoEmergencia() == null) {
