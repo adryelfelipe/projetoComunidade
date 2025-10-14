@@ -33,7 +33,9 @@ public class AdministradorService {
 
     // Verifica se é o último administrador do banco de dados
     private void isUltimoAdmin(Administrador administrador){
-        throw new UltimoAdminException("ERRO! NÃO É PERMITIDO DELETAR O ÚLTIMO ADMINISTRADOR DO BANCO DE DADOS");
+        if(administradorDao.isUltimoAdmin()) {
+            throw new UltimoAdminException("ERRO! NÃO É PERMITIDO DELETAR O ÚLTIMO ADMINISTRADOR DO BANCO DE DADOS");
+        }
     }
 
     /**
