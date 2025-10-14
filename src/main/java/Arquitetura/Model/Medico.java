@@ -46,9 +46,7 @@ public class Medico extends Funcionario{
 
     // -- Getters & Setters -- //
     public void setEspecialidade(Especialidade especialidade) {
-        if(especialidade != null) {
-            this.especialidade = especialidade;
-        }
+        this.especialidade = especialidade;
     }
 
     public Especialidade getEspecialidade() {
@@ -68,7 +66,7 @@ public class Medico extends Funcionario{
     }
 
     public void setPlantao(Plantao plantao) {
-
+        this.plantao = plantao;
     }
 
     public Plantao getPlantao() {
