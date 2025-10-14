@@ -1,6 +1,7 @@
 package Arquitetura.Service.Validator;
 
 import Arquitetura.Exception.AutoDeleteException;
+import Arquitetura.Exception.DadosInvalidosException;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Usuario;
 
@@ -11,7 +12,7 @@ public class AdministradorValidator {
 
         if(administrador.getDepartamento() == null)
         {
-            throw new IllegalArgumentException("ERRO! O DEPARTAMENTO NÃO PODE SER NULO");
+            throw new DadosInvalidosException("ERRO! O DEPARTAMENTO NÃO PODE SER NULO");
         }
     }
 

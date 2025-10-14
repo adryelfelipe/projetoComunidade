@@ -1,5 +1,6 @@
 package Arquitetura.Service.Validator;
 
+import Arquitetura.Exception.DadosInvalidosException;
 import Arquitetura.Model.Usuario;
 
 public class UsuarioValidator {
@@ -8,47 +9,47 @@ public class UsuarioValidator {
     public void verificarDadosUser(Usuario usuario) {
 
        if(usuario.getCpf() == null) {
-           throw new IllegalArgumentException("ERRO! O CPF NÃO PODE SER NULO");
+           throw new DadosInvalidosException("ERRO! O CPF NÃO PODE SER NULO");
        }
 
        if(usuario.getTelefone() == null) {
-           throw new IllegalArgumentException("ERRO! O TELEFONE NÃO PODE SER NULO");
+           throw new DadosInvalidosException("ERRO! O TELEFONE NÃO PODE SER NULO");
        }
 
        if(usuario.getTipoUsuario() == null) {
-           throw new IllegalArgumentException("ERRO! O TIPO USUÁRIO NÃO PODE SER NULO");
+           throw new DadosInvalidosException("ERRO! O TIPO USUÁRIO NÃO PODE SER NULO");
        }
 
        if(usuario.getSexo() == null) {
-           throw new IllegalArgumentException("ERRO! O SEXO NÃO PODE SER NULO");
+           throw new DadosInvalidosException("ERRO! O SEXO NÃO PODE SER NULO");
        }
 
        if(usuario.getNome() == null) {
-           throw new IllegalArgumentException("ERRO! O NOME NÃO PODE SER NULO");
+           throw new DadosInvalidosException("ERRO! O NOME NÃO PODE SER NULO");
        }
 
        if(usuario.getEmail() == null) {
-           throw new IllegalArgumentException("ERRO! O EMAIL NÃO PODE SER NULO");
+           throw new DadosInvalidosException("ERRO! O EMAIL NÃO PODE SER NULO");
        }
 
        if(usuario.getSenha() == null) {
-           throw new IllegalArgumentException("ERRO! A SENHA NÃO PODE SER NULA");
+           throw new DadosInvalidosException("ERRO! A SENHA NÃO PODE SER NULA");
        }
 
        if(usuario.getDataNascimento() == null) {
-           throw new IllegalArgumentException("ERRO! A DATA DE NASCIMENTO NÃO PODE SER NULA");
+           throw new DadosInvalidosException("ERRO! A DATA DE NASCIMENTO NÃO PODE SER NULA");
        }
     }
 
     public void verificaRegrasInsercaoUsuario(Usuario usuarioInserido) {
         if(usuarioInserido == null) {
-            throw new IllegalArgumentException("ERRO! NÃO É POSSÍVEL INSERIR UM USARIO NULO");
+            throw new DadosInvalidosException("ERRO! NÃO É POSSÍVEL INSERIR UM USARIO NULO");
         }
     }
 
     public void verificaRegrasDelecaoUsuario(Usuario usuarioDeletado) {
         if(usuarioDeletado == null) {
-            throw new IllegalArgumentException("ERRO! NÃO É POSSÍVEL DELETAR UM USUARIO NULO");
+            throw new DadosInvalidosException("ERRO! NÃO É POSSÍVEL DELETAR UM USUARIO NULO");
         }
     }
 }

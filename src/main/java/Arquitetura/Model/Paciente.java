@@ -1,5 +1,6 @@
 package Arquitetura.Model;
 
+import Arquitetura.Exception.DadosInvalidosException;
 import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.StatusPaciente;
 import Arquitetura.Model.Enums.TipoUsuario;
@@ -36,7 +37,7 @@ public class Paciente extends Usuario {
 
     public void setContatoEmergencia(String contatoEmergencia) {
         if(contatoEmergencia.isEmpty()) {
-            throw new IllegalArgumentException("ERRO! CONTATO DE EMERGÊNCIA NÃO PODE SER VAZIO");
+            throw new DadosInvalidosException("ERRO! CONTATO DE EMERGÊNCIA NÃO PODE SER VAZIO");
         }
 
         this.contatoEmergencia = contatoEmergencia;
@@ -56,7 +57,7 @@ public class Paciente extends Usuario {
 
     public void setNumeroCarterinha(String numeroCarterinha) {
         if(numeroCarterinha.isEmpty()) {
-            throw new IllegalArgumentException("ERRO! NÚMERO DA CARTERINHA NÃO PODE SER VAZIO");
+            throw new DadosInvalidosException("ERRO! NÚMERO DA CARTERINHA NÃO PODE SER VAZIO");
         }
 
         this.numeroCarterinha = numeroCarterinha;

@@ -1,5 +1,6 @@
 package Arquitetura.Model;
 
+import Arquitetura.Exception.DadosInvalidosException;
 import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.TipoUsuario;
 
@@ -21,7 +22,7 @@ public abstract class Funcionario extends Usuario{
     // -- Setters e Getters -- //
     public void setCargaHorariaSemanal(int cargaHorariaSemanal) {
         if(cargaHorariaSemanal < 0) {
-            throw new IllegalArgumentException("ERRO! A CARGA HORÁRIA SEMANAL NÃO PODE SER MENOR QUE 0");
+            throw new DadosInvalidosException("ERRO! A CARGA HORÁRIA SEMANAL NÃO PODE SER MENOR QUE 0");
         }
 
         this.cargaHorariaSemanal = cargaHorariaSemanal;
@@ -33,7 +34,7 @@ public abstract class Funcionario extends Usuario{
 
     public void setSalario(double salario) {
         if(salario < 0) {
-            throw new IllegalArgumentException("ERRO! O SALÁRIO NÃO PODE SER MENOR QUE 0");
+            throw new DadosInvalidosException("ERRO! O SALÁRIO NÃO PODE SER MENOR QUE 0");
         }
 
         this.salario = salario;

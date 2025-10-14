@@ -1,5 +1,6 @@
 package Arquitetura.Model;
 
+import Arquitetura.Exception.DadosInvalidosException;
 import Arquitetura.Model.Enums.Especialidade;
 import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.Plantao;
@@ -56,7 +57,7 @@ public class Medico extends Funcionario{
 
     public void setFormacao(String formacao) {
         if(formacao.isEmpty()) {
-            throw new IllegalArgumentException("ERRO! FORMAÇÃO NÃO PODE SER VAZIA");
+            throw new DadosInvalidosException("ERRO! FORMAÇÃO NÃO PODE SER VAZIA");
         }
 
         this.formacao = formacao;
@@ -76,7 +77,7 @@ public class Medico extends Funcionario{
 
     public void setSubEspecialidade(String subEspecialidade) {
         if(subEspecialidade.isEmpty()) {
-            throw new IllegalArgumentException("ERRO! SUBESPECIALIDADE NÃO PODE SER VAZIA");
+            throw new DadosInvalidosException("ERRO! SUBESPECIALIDADE NÃO PODE SER VAZIA");
         }
 
         this.subEspecialidade = subEspecialidade;
