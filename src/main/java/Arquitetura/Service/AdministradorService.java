@@ -4,6 +4,7 @@ import Arquitetura.Dao.AdministradorDAO;
 import Arquitetura.Dao.FuncionarioDAO;
 import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Exception.TipoUsuarioException;
+import Arquitetura.Exception.UltimoAdminException;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.Validator.AdministradorValidator;
