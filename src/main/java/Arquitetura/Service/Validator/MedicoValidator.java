@@ -21,11 +21,6 @@ public class MedicoValidator {
             throw new DadosInvalidosException("ERRO! A ESPECIALIDADE NÃO PODE SER NULA");
         }
 
-        if(medico.getSubEspecialidade() == null)
-        {
-            throw  new DadosInvalidosException("ERRO! A SUBESPECIALIDADE NÃO PODE SER NULA");
-        }
-
         if(medico.getFormacao() == null)
         {
             throw new DadosInvalidosException("ERRO! A FORMAÇÃO NÃO PODE SER NULA");
