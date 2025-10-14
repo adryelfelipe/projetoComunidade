@@ -41,7 +41,7 @@ public class Consulta {
     public Consulta(Date dataConsulta, Time horarioConsulta, long idPaciente, long idMedico, Exame exame, String relatorio, StatusConsulta status, long idConsulta)
     {
         this(dataConsulta, horarioConsulta, idPaciente, idMedico, exame, relatorio);
-        this.idConsulta = idConsulta;
+        setIdConsulta(idConsulta);
         this.status = status;
     }
 
@@ -53,6 +53,10 @@ public class Consulta {
     }
 
     public void setIdConsulta(long idConsulta) {
+        if(idConsulta < 0) {
+            throw new DadosInvalidosException("ERRO! O ID DA CONSULTA NÃO PODE SER MENOR QUE 0");
+        }
+
         this.idConsulta = idConsulta;
     }
 
