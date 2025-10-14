@@ -6,5 +6,5 @@ import Arquitetura.Model.Funcionario;
 import Arquitetura.Model.Usuario;
 
 public class FuncionarioService {
-    // NO FUTURO ADICIONAR VERIFICAÇÕES QUE EXIGAM DAOS
+    // NO FUTURO ADICIONAR VERIFICAÇÕES QUE EXIJAM DAOS
 }
