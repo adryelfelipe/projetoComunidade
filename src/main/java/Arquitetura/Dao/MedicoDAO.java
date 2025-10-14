@@ -196,4 +196,24 @@ public class MedicoDAO {
             System.err.println("Erro ao atualizar a especialidade do médico com ID: "+idMedico+ e);
         }
     }
+    public void updateSubEspecialidade(long idMedico, String subEspecialidade)
+    {
+        String querySql = "UPDATE Medico "+
+                    "SET subEspecialidade = ? "+
+                    "WHERE idMedico = ? ";
+
+        try(
+            Connection connection = ConnectionFactory.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setString(1, subEspecialidade);
+            stmt.setLong(2, idMedico);
+
+            stmt.executeUpdate();
+        }
+        catch(SQLException e)
+        {
+            System.out.println("Erro ao atualizar subespecialidade do médico com ID: "+idMedico + e);
+        }
+    }
 }
