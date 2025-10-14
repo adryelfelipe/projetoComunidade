@@ -58,23 +58,43 @@ public class PacienteDAO {
             return false;
         }
     }
-    public void updateNumeroCarteirinha(long idConsulta, String numCarteirinha ) throws SQLException
+    public void updateNumeroCarteirinha(long idPaciente, String numCarteirinha )
     {
-        String querySql = "UPDATE Consulta "+
+        String querySql = "UPDATE Paciente "+
                 "SET numeroCarteirinha = ? "+
-                "WHERE idConsulta = ? ";
+                "WHERE idPaciente = ? ";
         try(
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(querySql))
         {
             stmt.setString(1, numCarteirinha);
-            stmt.setLong(2, idConsulta);
+            stmt.setLong(2, idPaciente);
 
             stmt.executeUpdate();
 
         }
-        catch (Exception e) {
-            throw new SQLException("Erro ao atualizar número da carteirinha do paciente com ID: "+idConsulta, e);
+        catch (SQLException e) {
+            System.err.println("Erro ao atualizar número da carteirinha do paciente com ID: "+idPaciente+ e);
+        }
+    }
+    public void updateContatoEmergencia(long idPaciente, String contatoEmergencia)
+    {
+        String querySql = "UPDATE Paciente "+
+                "SET contatoCarteirinha = ? "+
+                "WHERE idPaciente= ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setString(1, contatoEmergencia);
+            stmt.setLong(2, idPaciente);
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar o contato de emergência do paciente com o ID: "+idPaciente+ e);
         }
     }
 }
