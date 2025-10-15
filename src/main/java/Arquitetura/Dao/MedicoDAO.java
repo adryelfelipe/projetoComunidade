@@ -177,43 +177,62 @@ public class MedicoDAO {
         }
 
     }
-    public void updateEspecialidade(long idMedico, Especialidade especialidade)
+    public void updateEspecialidade(String cpf, Especialidade especialidade)
     {
         String querySql = "UPDATE Medico "+
                 "SET idEspecialidade = ?"+
-                "WHERE idMedico = ?";
+                "WHERE cpf = ?";
         try(
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(querySql))
         {
             stmt.setLong(1, especialidade.getIdEspecialidade());
-            stmt.setLong(2, idMedico);
+            stmt.setString(2, cpf);
 
             stmt.executeUpdate();
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao atualizar a especialidade do médico com ID: "+idMedico+ e);
+            System.err.println("Erro ao atualizar a especialidade do médico com ID: "+cpf+ e);
         }
     }
-    public void updateSubEspecialidade(long idMedico, String subEspecialidade)
+    public void updateSubEspecialidade(String cpf, String subEspecialidade)
     {
         String querySql = "UPDATE Medico "+
                     "SET subEspecialidade = ? "+
-                    "WHERE idMedico = ? ";
+                    "WHERE cpf = ? ";
 
         try(
             Connection connection = ConnectionFactory.getConnection();
             PreparedStatement stmt = connection.prepareStatement(querySql))
         {
             stmt.setString(1, subEspecialidade);
-            stmt.setLong(2, idMedico);
+            stmt.setString(2, cpf);
 
             stmt.executeUpdate();
         }
         catch(SQLException e)
         {
-            System.out.println("Erro ao atualizar subespecialidade do médico com ID: "+idMedico + e);
+            System.out.println("Erro ao atualizar subespecialidade do médico com CPF: "+cpf + e);
+        }
+    }
+    public void updateFormacao(String cpf, String formacao)
+    {
+        String querySql = "UPDATE Medico "+
+                "SET formacao = ? "+
+                "WHERE cpf = ?";
+        try(
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setString(1, formacao);
+            stmt.setString(2, cpf);
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar formação do médico com CPF: "+cpf + e);
         }
     }
 }
