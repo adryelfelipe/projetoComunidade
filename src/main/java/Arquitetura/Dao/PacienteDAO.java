@@ -35,7 +35,10 @@ public class PacienteDAO {
 
     // Remoção
     public void deletarPaciente(String cpf) {
-        String querySql = "DELETE FROM Paciente WHERE cpf = ?";
+        String querySql = "DELETE p " +
+                          "FROM Paciente p " +
+                          "JOIN Usuario u ON p.idPaciente = u.idUsuario " +
+                          "WHERE u.cpf = ?";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(querySql))
