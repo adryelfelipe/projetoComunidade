@@ -235,4 +235,25 @@ public class MedicoDAO {
             System.err.println("Erro ao atualizar formação do médico com CPF: "+cpf + e);
         }
     }
+    public void updatePlantao(String cpf, Plantao plantao)
+    {
+        String querySql = "UPDATE Medico "+
+                "SET idPlantao = ? "+
+                "WHERE cpf = ? ";
+
+        try(
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1, plantao.getIdPlantao());
+            stmt.setString(2, cpf);
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar plantão do médico com CPF: "+cpf + e);
+        }
+
+    }
 }
