@@ -154,29 +154,117 @@ public class UsuarioDAO {
         return usuario;
     }
 
-    // Remoção
-    public boolean deletarUsuario(long id) {
-        String querySql = "DELETE FROM Usuario WHERE idUsuario = ?";
+    public Usuario findByCpf(String cpf) {
+        String querySQL = "SELECT " +
+                "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, " +
+                "A.idDepartamento, " +
+                "P.numeroCarteirinha, P.contatoEmergencia, P.statusPaciente, " +
+                "M.idPlantao, M.idEspecialidade, M.subEspecialidade, M.formacao, " +
+                "F.salario, F.cargaHorariaSemanal " +
+                "FROM Usuario U " +
+                "LEFT JOIN Administrador A ON U.idUsuario = A.idAdministrador " +
+                "LEFT JOIN Medico M ON U.idUsuario = M.idMedico " +
+                "LEFT JOIN Paciente P ON U.idUsuario = P.idPaciente " +
+                "LEFT JOIN Funcionario F ON U.idUsuario = F.idFuncionario " +
+                "WHERE U.cpf = ?";
+
+        Usuario usuario = null;
 
         try (
-                Connection conn = ConnectionFactory.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(querySql)) {
-            stmt.setLong(1, id);
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySQL)) {
 
-            int linhasAfetadas = stmt.executeUpdate();
+            stmt.setString(1, cpf);
 
-            // Retornar True se conseguiu deletar
-            if (linhasAfetadas > 0) {
-                return true;
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    // Dados Gerais do Usuário
+                    long id = resultSet.getLong("idUsuario");
+                    String senha = resultSet.getString("senha");
+                    String nomeUsuario = resultSet.getString("nomeUsuario");
+                    int sexoId = resultSet.getInt("sexo");
+                    String cpfUsuario = resultSet.getString("cpf");
+                    String telefone = resultSet.getString("telefone");
+                    String email = resultSet.getString("email");
+                    Date dataNascimento = resultSet.getDate("dataNascimento");
+                    int tipoUsuario = resultSet.getInt("tipoUsuario");
+
+                    Genero sexo = switch (sexoId) {
+                        case 1 -> Genero.MASCULINO;
+                        default -> Genero.FEMININO;
+                    };
+
+                    // Dados Administrador
+                    int idDepartamento = resultSet.getInt("idDepartamento");
+
+                    Departamento departamento = switch(idDepartamento) {
+                        case 1 -> Departamento.FINANCEIRO;
+                        case 2 -> Departamento.INFRAESTRUTURA;
+                        case 3 -> Departamento.MARKETING;
+                        default -> Departamento.RH;
+                    };
+
+                    // Dados Paciente
+                    String numCarteirinha = resultSet.getString("numeroCarteirinha");
+                    String contatoEmergencia = resultSet.getString("contatoEmergencia");
+                    String statusPaciente = resultSet.getString("statusPaciente");
+
+                    // Dados Médico
+                    int idEspecialidade = resultSet.getInt("idEspecialidade");
+                    String subEspecialidade = resultSet.getString("subEspecialidade");
+                    String formacao = resultSet.getString("formacao");
+                    int idPlantao = resultSet.getInt("idPlantao");
+
+                    Plantao plantao = switch(idPlantao) {
+                        case 1 -> Plantao.MATUTINO;
+                        case 2 -> Plantao.VERPERTINO;
+                        default -> Plantao.NOTURNO;
+                    };
+
+                    Especialidade especialidade = switch (idEspecialidade)
+                    {
+                        case 1 -> Especialidade.CLINICO_GERAL;
+                        case 2 -> Especialidade.CARDIOLOGISTA;
+                        case 3 -> Especialidade.RADIOLOGISTA;
+                        case 4 -> Especialidade.OTORRINOLARINGOLOGISTA;
+                        case 5 -> Especialidade.OFTALMOLOGISTA;
+                        case 6 -> Especialidade.ENDOCRINOLOGISTA;
+                        default -> Especialidade.HEMATOLOGISTA;
+                    };
+
+                    // Dados Funcionario
+                    double salario = resultSet.getDouble("salario");
+                    int cargaHorariaSemanal = resultSet.getInt("cargaHorariaSemanal");
+
+                    // Cria o objeto correto de acordo com o tipo de usuário
+                    usuario = switch (tipoUsuario)
+                    {
+                        case 1 -> new Paciente(id, nomeUsuario, cpfUsuario, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numCarteirinha);
+                        case 2 -> new Medico(id, nomeUsuario,cpfUsuario, senha, sexo, telefone, email, dataNascimento, cargaHorariaSemanal,  salario, plantao, especialidade, formacao, subEspecialidade);
+                        default -> new Administrador(nomeUsuario, cpfUsuario, senha, sexo, telefone, email, dataNascimento, salario, cargaHorariaSemanal, departamento, id);
+                    };
+                }
             }
-            // E retornara False se não conseguiu ou não existe
-            else {
-                return false;
-            }
+        } catch (Exception e) {
+            System.err.println("Erro ao buscar Usuário por ID: " + e.getMessage());
+        }
 
-        } catch (SQLException e) {
-            System.err.println("Erro ao deletar usuário com ID " + id + ": " + e.getMessage());
-            return false;
+        return usuario;
+    }
+
+    // Remoção
+    public void deletarUsuario(String cpf) {
+        String querySql = "DELETE FROM Usuario WHERE cpf = ?";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(querySql))
+        {
+            stmt.setString(1, cpf);
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao deletar usuário com CPF " + cpf + ": " + e.getMessage());
         }
     }
 

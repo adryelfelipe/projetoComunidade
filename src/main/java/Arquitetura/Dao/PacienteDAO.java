@@ -34,30 +34,24 @@ public class PacienteDAO {
     }
 
     // Remoção
-    public boolean deletarPaciente(long id) {
-        String querySql = "DELETE FROM Paciente WHERE idPaciente = ?";
+    public void deletarPaciente(String cpf) {
+        String querySql = "DELETE p " +
+                          "FROM Paciente p " +
+                          "JOIN Usuario u ON p.idPaciente = u.idUsuario " +
+                          "WHERE u.cpf = ?";
 
-        try (
-                Connection conn = ConnectionFactory.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(querySql)) {
-            stmt.setLong(1, id);
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(querySql))
+        {
 
-            int linhasAfetadas = stmt.executeUpdate();
-
-            // Retornar True se conseguiu deletar
-            if (linhasAfetadas > 0) {
-                return true;
-            }
-            // E retornara False se não conseguiu ou não existe
-            else {
-                return false;
-            }
+            stmt.setString(1, cpf);
+            stmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("Erro ao deletar Paciente com ID " + id + ": " + e.getMessage());
-            return false;
+            System.err.println("Erro ao deletar Paciente com CPF " + cpf + ": " + e.getMessage());
         }
     }
+
     public void updateNumeroCarteirinha(long idConsulta, String numCarteirinha ) throws SQLException
     {
         String querySql = "UPDATE Consulta "+

@@ -44,31 +44,20 @@ public class ConsultaDAO
     }
 
     // Remoção
-    public boolean deletarConsulta(long id)
+    public void deletarConsulta(long id)
     {
 
-        String querySql = "delete from Consulta where idConsulta = ?";
+        String querySql = "DELETE FROM Consulta WHERE idConsulta = ?";
 
-        try (
-                Connection conn = ConnectionFactory.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(querySql))
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(querySql))
         {
+
             stmt.setLong(1, id);
-
-            int linhasAfetadas = stmt.executeUpdate();
-
-            // Retornar True se conseguiu deletar
-            if (linhasAfetadas > 0) {
-                return true;
-            }
-            // E retornara False se não conseguiu ou não existe
-            else {
-                return false;
-            }
+            stmt.executeUpdate();
 
         } catch (SQLException e) {
             System.err.println("Erro ao deletar Consulta com ID " + id + ": " + e.getMessage());
-            return false;
         }
     }
 

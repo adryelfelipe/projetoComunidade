@@ -34,28 +34,21 @@ public class AdministradorDAO {
     }
 
     // Remoção
-    public boolean deletarAdministrador(long id) {
-        String querySql = "DELETE FROM Administrador WHERE idAdministrador = ?";
+    public void deletarAdministrador(String cpf) {
+        String querySql = "DELETE a " +
+                "FROM Administrador a " +
+                "JOIN Usuario u ON u.idUsuario = a.idAdministrador " +
+                "WHERE u.cpf = ?";
 
-        try (
-                Connection conn = ConnectionFactory.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(querySql)) {
-                stmt.setLong(1, id);
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(querySql))
+        {
 
-            int linhasAfetadas = stmt.executeUpdate();
-
-            // Retornar True se conseguiu deletar
-            if (linhasAfetadas > 0) {
-                return true;
-            }
-            // E retornara False se não conseguiu ou não existe
-            else {
-                return false;
-            }
+            stmt.setString(1, cpf);
+            stmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("Erro ao deletar Administrador com ID " + id + ": " + e.getMessage());
-            return false;
+            System.err.println("Erro ao deletar Administrador com o CPF " + cpf + ": " + e.getMessage());
         }
     }
 
