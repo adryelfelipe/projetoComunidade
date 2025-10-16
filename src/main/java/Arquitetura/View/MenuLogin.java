@@ -1,5 +1,6 @@
 package Arquitetura.View;
 
+import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Paciente;
@@ -35,8 +36,8 @@ public class MenuLogin {
             System.out.print("- Digite seu CPF: " );
             try {
                 cpf = Ferramentas.lString();
-            } catch (Exception e) {
-                MenuDefault.menuDefault();
+            } catch (CpfInvalidoException e) {
+                e.getMessage();
             }
             System.out.println("-------------------------");
 
@@ -55,11 +56,9 @@ public class MenuLogin {
 
                 System.out.println("-------------------------");
                 System.out.print("- Digite sua senha: ");
-                try {
-                    senha = Ferramentas.lString();
-                } catch (Exception e) {
-                    MenuDefault.menuDefault();
-                }
+
+                senha = Ferramentas.lString();
+
                 System.out.println("-------------------------");
 
                 Usuario usuario = usuarioService.loginUsuario(cpf, senha);

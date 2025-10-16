@@ -1,5 +1,6 @@
 package Arquitetura.View.FuncoesADM;
 
+import Arquitetura.Exception.*;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Paciente;
@@ -21,7 +22,6 @@ public class MenuExcluir
     public static void ExcluirUsuario(Administrador adm)
     {
 
-        boolean excluir = false;
 
         Ferramentas.limpaTerminal();
 
@@ -29,45 +29,25 @@ public class MenuExcluir
         System.out.println("\n\nDigite o cpf do usuario: ");
         String cpf = Ferramentas.lString();
 
-        for(Usuario entrada: usuarioService.findAllUsers(adm))
+
+        try{
+
+
+
+        } catch(TipoUsuarioException | AutoDeleteException | CpfInvalidoException e )
         {
-            if (entrada.getCpf().equals(cpf))
-            {
-                if(entrada instanceof Administrador)
-                {
-                    Administrador admdel = (Administrador) entrada;
-
-                    excluir = administradorService.deletarAdministrador(adm,admdel);
-                }
-                else if(entrada instanceof Medico)
-                {
-                    Medico medicodel = (Medico) entrada;
-
-                    excluir = medicoService.deletarMedico(adm,medicodel);
-                }
-                else if(entrada instanceof Paciente)
-                {
-                    Paciente pacientedel = (Paciente) entrada;
-
-                    excluir = pacienteService.deletarPaciente(adm,pacientedel);
-                }
-
-                if(excluir == true) {
-                    System.out.println("Usuario excluido");
-                }
-                else {
-                    System.out.println("Erro ao excluir usuario");
-                }
-                System.out.println("\n\nDigite para continuar");
-                String tempo = Ferramentas.lString();
-
-                return;
-            }
+            e.getMessage();
         }
+        catch (UltimoAdminException e)
+        {
+            System.out.printf("Não foi possivel deletar adm");
+        }
+
 
         System.out.println("Usuario não encontrado!");
 
         System.out.println("\n\nDigite para continuar");
+
         String tempo = Ferramentas.lString();
     }
 }
