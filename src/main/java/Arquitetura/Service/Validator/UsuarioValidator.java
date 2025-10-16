@@ -1,6 +1,7 @@
 package Arquitetura.Service.Validator;
 
 import Arquitetura.Exception.DadosInvalidosException;
+import Arquitetura.Exception.UsuarioExistenteException;
 import Arquitetura.Model.Usuario;
 
 public class UsuarioValidator {
@@ -44,6 +45,10 @@ public class UsuarioValidator {
     public void verificaRegrasInsercaoUsuario(Usuario usuarioInserido) {
         if(usuarioInserido == null) {
             throw new DadosInvalidosException("ERRO! NÃO É POSSÍVEL INSERIR UM USARIO NULO");
+        }
+
+        if(usuarioInserido.getId() != 0) {
+            throw new UsuarioExistenteException("ERRO! ESTE USUÁRIO JÁ FOI CADASTRADO");
         }
     }
 
