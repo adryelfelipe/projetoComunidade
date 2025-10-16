@@ -6,6 +6,9 @@ import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Usuario;
+import Arquitetura.Service.Validator.MedicoValidator;
+import Arquitetura.Service.Validator.TipoUsuarioValidator;
+import Arquitetura.Service.Validator.UsuarioValidator;
 
 public class MedicoService {
 
@@ -14,6 +17,9 @@ public class MedicoService {
     private final FuncionarioService funcionarioService = new FuncionarioService();
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
     private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+    private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
+    private final UsuarioValidator usuarioValidator = new UsuarioValidator();
+    private final MedicoValidator medicoValidator = new MedicoValidator();
 
     // Construtor -- //
     public MedicoService() {
@@ -22,39 +28,29 @@ public class MedicoService {
 
     // -- Métodos -- //
 
-    // Verifica a veracidade dos atributos específicos de Medico
-    private boolean verificarDadosMed(Medico medico) {
-
-        return(medico.getFormacao() != null && medico.getEspecialidade() != null && medico.getPlantao() != null);
-    }
-
     // Insere o objeto do tipo Medico no banco de dados
-    public boolean inserirMedico(Usuario usuario, Medico medico) {
-       if(usuario.getTipoUsuario().getNivelAcesso().temAcessoTotal()) {
-           if(verificarDadosMed(medico)) { // Verifica as regras para inserir um Medico
-               if(funcionarioService.inserirFuncionario(usuario, medico)) {
-                   medicoDAO.inserirMedico(medico);
+    public void inserirMedico(Usuario usuario, Medico medicoInserido) {
+        // Verificações de dados
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        usuarioValidator.verificaRegrasInsercaoUsuario(medicoInserido);
+        medicoValidator.verificarDadosMedico(medicoInserido);
 
-                   return true;
-               }
-           }
-       }
-
-      return false;
+        // Insere nessa ordem para respeitar as chaves estrangeiras
+        usuarioDAO.inserirUsuario(medicoInserido);
+        funcionarioDAO.inserirFuncionario(medicoInserido);
+        medicoDAO.inserirMedico(medicoInserido);
     }
 
     // Deleta medico do banco de dados
-    public boolean deletarMedico(Usuario usuario, Medico medico) {
-        if(usuario.getTipoUsuario().getNivelAcesso().temAcessoTotal()) {
-            if(funcionarioService.deletarFuncionario(medico.getId())) {
-                medicoDAO.deletarMedico(medico.getId());
-                funcionarioDAO.deletarFuncionario(medico.getId());
-                usuarioDAO.deletarUsuario(medico.getId());
+    public void deletarMedico(Usuario usuario, Medico medicoDeletado) {
+        // Verificação de dados
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        usuarioValidator.verificaRegrasDelecaoUsuario(medicoDeletado);
+        medicoValidator.verificarDadosMedico(medicoDeletado);
 
-                return true;
-            }
-        }
-
-        return false;
+        // Deleta nessa ordem para respeitar as chaves estrangeiras
+        medicoDAO.deletarMedico(medicoDeletado.getId());
+        funcionarioDAO.deletarFuncionario(medicoDeletado.getId());
+        usuarioDAO.deletarUsuario(medicoDeletado.getId());
     }
 }
