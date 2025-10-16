@@ -3,6 +3,7 @@ package Arquitetura.Service;
 import Arquitetura.Dao.FuncionarioDAO;
 import Arquitetura.Dao.MedicoDAO;
 import Arquitetura.Dao.UsuarioDAO;
+import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Usuario;
@@ -20,6 +21,7 @@ public class MedicoService {
     private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
     private final UsuarioValidator usuarioValidator = new UsuarioValidator();
     private final MedicoValidator medicoValidator = new MedicoValidator();
+    private final UsuarioService usuarioService = new UsuarioService();
 
     // Construtor -- //
     public MedicoService() {
@@ -42,14 +44,19 @@ public class MedicoService {
     }
 
     // Deleta medico do banco de dados
-    public void deletarMedico(Usuario usuario, Medico medicoDeletado) {
+    public void deletarMedico(Usuario usuario, String cpfMedicoDeletado) {
         // Verificação de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
-        medicoValidator.verificarDadosMedico(medicoDeletado);
+
+        if(!usuarioService.isCpfExistente(cpfMedicoDeletado)) {
+            throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
+        }
+
+        // ADICIONAR VERFIFICAÇÃO DE SE O CPF CONDIZ COM UM MÉDICO
 
         // Deleta nessa ordem para respeitar as chaves estrangeiras
-        medicoDAO.deletarMedico(medicoDeletado.getId());
-        funcionarioDAO.deletarFuncionario(medicoDeletado.getId());
-        usuarioDAO.deletarUsuario(medicoDeletado.getId());
+        medicoDAO.deletarMedico(cpfMedicoDeletado);
+        funcionarioDAO.deletarFuncionario(cpfMedicoDeletado);
+        usuarioDAO.deletarUsuario(cpfMedicoDeletado);
     }
 }
