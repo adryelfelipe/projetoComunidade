@@ -8,6 +8,9 @@ public class UsuarioValidator {
 
     // -- Métodos de verificação -- //
     public void verificarDadosUser(Usuario usuario) {
+        if(usuario == null) {
+            throw new DadosInvalidosException("ERRO! O USUÁRIO NÃO PODE SER NULO");
+        }
 
        if(usuario.getCpf() == null) {
            throw new DadosInvalidosException("ERRO! O CPF NÃO PODE SER NULO");
@@ -43,10 +46,6 @@ public class UsuarioValidator {
     }
 
     public void verificaRegrasInsercaoUsuario(Usuario usuarioInserido) {
-        if(usuarioInserido == null) {
-            throw new DadosInvalidosException("ERRO! NÃO É POSSÍVEL INSERIR UM USARIO NULO");
-        }
-
         if(usuarioInserido.getId() != 0) {
             throw new UsuarioExistenteException("ERRO! ESTE USUÁRIO JÁ FOI CADASTRADO");
         }
