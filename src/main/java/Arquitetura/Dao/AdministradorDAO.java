@@ -77,4 +77,25 @@ public class AdministradorDAO {
             return false;
         }
     }
+
+    public boolean isCpfAdministrador(String cpf) {
+        String querySql = "SELECT tipoUsuario FROM Usuario WHERE cpf = ?";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(querySql)) {
+
+            stmt.setString(1, cpf);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                long tipo = rs.getLong("tipoUsuario");
+                return tipo == 3;
+            }
+
+        } catch (SQLException e)
+        {
+            System.err.println("Erro ao verificar o CPF do Administrador. ");
+        }
+        return false;
+    }
 }
