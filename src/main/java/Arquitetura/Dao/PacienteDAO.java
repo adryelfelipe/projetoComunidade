@@ -79,7 +79,8 @@ public class PacienteDAO {
     }
     public void updateContatoEmergencia(String cpf, String contatoEmergencia)
     {
-        String querySql = "UPDATE Paciente "+
+        String querySql = "UPDATE Paciente p"+
+                "INNER JOIN Usuario u ON p.idPaciente = u.idUsuario "+
                 "SET contatoCarteirinha = ? "+
                 "WHERE cpf = ? ";
 
