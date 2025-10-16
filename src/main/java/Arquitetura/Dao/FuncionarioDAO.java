@@ -58,4 +58,22 @@ public class FuncionarioDAO {
             return false;
         }
     }
+    public void updateSalario(String cpf, double salario)
+    {
+        String querySql = "UPDATE Funcionario "+
+                "SET salario = ? "+
+                "WHERE cpf = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setDouble(1, salario);
+            stmt.setString(2, cpf);
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar salário do funcionario com CPF: "+cpf+ e);
+        }
+    }
 }
