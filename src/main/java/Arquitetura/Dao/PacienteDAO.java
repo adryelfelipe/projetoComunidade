@@ -88,7 +88,7 @@ public class PacienteDAO {
             }
 
         } catch (SQLException e) {
-            System.err.println("Erro ao verificar o CPF do Paciente: " + e.getMessage());
+            System.err.println("Erro ao verificar o CPF do Paciente. ");
         }
         return false;
     }
