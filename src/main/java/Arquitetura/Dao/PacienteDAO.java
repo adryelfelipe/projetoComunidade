@@ -22,7 +22,7 @@ public class PacienteDAO {
             stmt.setLong(1, paciente.getId());
             stmt.setString(2, paciente.getNumeroCarterinha() );
             stmt.setString(3, paciente.getContatoEmergencia());
-            stmt.setString(4, paciente.getContatoEmergencia());
+            stmt.setString(4, paciente.getStatusPaciente());
 
             stmt.executeUpdate();
 
@@ -60,7 +60,8 @@ public class PacienteDAO {
     }
     public void updateNumeroCarteirinha(String cpf, String numCarteirinha )
     {
-        String querySql = "UPDATE Paciente "+
+        String querySql = "UPDATE Paciente p "+
+                "INNER JOIN Usuario u ON p.idPaciente = u.idUsuario "+
                 "SET numeroCarteirinha = ? "+
                 "WHERE cpf = ? ";
         try(
