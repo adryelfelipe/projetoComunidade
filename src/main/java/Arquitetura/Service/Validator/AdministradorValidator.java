@@ -20,8 +20,8 @@ public class AdministradorValidator {
         }
     }
 
-    public void verificaAutoDelete(Usuario usuarioDeletador, Administrador administradorDeletado) {
-        if(usuarioDeletador == administradorDeletado) {
+    public void verificaAutoDelete(String cpfUsuarioDeletador, String cpfAdministradorDeletado) {
+        if(cpfUsuarioDeletador.equals(cpfAdministradorDeletado)) {
             throw new AutoDeleteException("ERRO! NÃO É PERMITIDO DELETAR A SI MESMO");
         }
     }

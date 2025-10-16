@@ -3,6 +3,7 @@ package Arquitetura.Service;
 import Arquitetura.Dao.AdministradorDAO;
 import Arquitetura.Dao.FuncionarioDAO;
 import Arquitetura.Dao.UsuarioDAO;
+import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Exception.TipoUsuarioException;
 import Arquitetura.Exception.UltimoAdminException;
 import Arquitetura.Model.Administrador;
@@ -12,6 +13,7 @@ import Arquitetura.Service.Validator.FuncionarioValidator;
 import Arquitetura.Service.Validator.TipoUsuarioValidator;
 import Arquitetura.Service.Validator.UsuarioValidator;
 import Arquitetura.Exception.DadosInvalidosException;
+import Arquitetura.Exception.AutoDeleteException;
 
 public class AdministradorService {
 
@@ -24,6 +26,7 @@ public class AdministradorService {
     private final AdministradorValidator administradorValidator = new AdministradorValidator();
     private final FuncionarioValidator funcionarioValidator = new FuncionarioValidator();
     private final UsuarioValidator usuarioValidator = new UsuarioValidator();
+    private final UsuarioService usuarioService = new UsuarioService();
 
     // -- Construtor -- //
     public AdministradorService() {
@@ -33,10 +36,8 @@ public class AdministradorService {
     // -- Métodos -- //
 
     // Verifica se é o último administrador do banco de dados
-    private void isUltimoAdmin(Administrador administrador){
-        if(administradorDao.isUltimoAdmin()) {
-            throw new UltimoAdminException("ERRO! NÃO É PERMITIDO DELETAR O ÚLTIMO ADMINISTRADOR DO BANCO DE DADOS");
-        }
+    private boolean isUltimoAdmin(){
+        return administradorDao.isUltimoAdmin();
     }
 
     /**
@@ -71,27 +72,39 @@ public class AdministradorService {
      *<p>Este método realiza as seguintes ações: </p>
      *
      *<ol>
-     *      <li>Verifica as regras de negócio gerais para deletar um usuário</li>
-     *      <li>Verifica se o administrador não está deletando a si mesmo</li>
+     *      <li>Verifica se o usuário possui acesso para deletar</li>
+     *      <li>Verifica se o usuário está tentando deletar a si mesmo</li>
+     *      <li>Verifica se o cpf inserido existe</li>
      *      <li>Verifica se o administradorDeletado não é o último ADM do DB</li>
      *      <li>Deleta o ADM das tabelas Administrador, Funcionario e Usuario do banco de dados, respectivamente</li>
      *</ol>
      *
      * @param usuario Quem está deletando
-     * @param administradorDeletado Quem será deletado
+     * @param cpfAdministradorDeletado Cpf de quem será deletado
      * @throws TipoUsuarioException Se o usuário não possuir acesso total (necessário para deletar)
-     * @throws DadosInvalidosException Se os dados do administradorDeletado estiverem inválidos
+     * @throws AutoDeleteException Se o usuário tentar deletar a si mesmo
+     * @throws CpfInvalidoException Se o cpf do administrador deletado não existir no DB
+     * @throws UltimoAdminException Se o administrador deletado for o último do banco de dados;
      */
 
-    public void deletarAdministrador(Usuario usuario, Administrador administradorDeletado) {
+    public void deletarAdministrador(Usuario usuario, String cpfAdministradorDeletado) {
         // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
-        administradorValidator.verificaAutoDelete(usuario, administradorDeletado);
-        isUltimoAdmin(administradorDeletado);
+        administradorValidator.verificaAutoDelete(usuario.getCpf(), cpfAdministradorDeletado);
+
+        if(!usuarioService.isCpfExistente(cpfAdministradorDeletado)) {
+            throw new CpfInvalidoException("ERRO! O CPF INEXISTENTE");
+        }
+
+        // ADICIONAR VERIFICAÇÃO DE SE O CPF CONDIZ COM O ADM
+
+        if(isUltimoAdmin()) {
+            throw new UltimoAdminException("ERRO! NÃO É PERMITIDO DELETAR ESTE ADMINISTRADOR");
+        }
 
         // Deleta nessa ordem para respeitar as chaves estrangeiras
-        administradorDao.deletarAdministrador(administradorDeletado.getId());
-        funcionarioDAO.deletarFuncionario(administradorDeletado.getId());
-        usuarioDAO.deletarUsuario(administradorDeletado.getId());
+        administradorDao.deletarAdministrador(cpfAdministradorDeletado);
+        funcionarioDAO.deletarFuncionario(cpfAdministradorDeletado);
+        usuarioDAO.deletarUsuario(cpfAdministradorDeletado);
     }
 }
