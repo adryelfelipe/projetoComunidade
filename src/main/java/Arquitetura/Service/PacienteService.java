@@ -5,6 +5,9 @@ import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
+import Arquitetura.Service.Validator.PacienteValidator;
+import Arquitetura.Service.Validator.TipoUsuarioValidator;
+import Arquitetura.Service.Validator.UsuarioValidator;
 
 public class PacienteService {
 
@@ -12,6 +15,9 @@ public class PacienteService {
     private final PacienteDAO pacienteDAO = new PacienteDAO();
     private final UsuarioService usuarioService = new UsuarioService();
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
+    private final PacienteValidator pacienteValidator = new PacienteValidator();
+    private final UsuarioValidator usuarioValidator = new UsuarioValidator();
 
     // -- Construtor -- //
     public PacienteService() {
@@ -25,19 +31,15 @@ public class PacienteService {
         return (paciente.getStatusPaciente() != null && paciente.getContatoEmergencia() != null && paciente.getNumeroCarterinha() != null);
     }
 
-    // Insere o objeto do tipo Paciente no banco de dados
-    public boolean inserirPaciente(Usuario usuario, Paciente paciente) { // Verifica as regras para inserir um Paciente
-        if(usuario.getTipoUsuario().getNivelAcesso().temAcessoTotal()) {
-            if(verificarDadosPac(paciente)) {
-                if(usuarioService.inserirUsuario(usuario, paciente)) {
-                    pacienteDAO.inserirPaciente(paciente);
+    public void inserirPaciente(Usuario usuario, Paciente paciente) {
+        // Verificações de dados
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        usuarioValidator.verificaRegrasInsercaoUsuario(paciente);
+        pacienteValidator.verificarDadosPaciente(paciente);
 
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        // Insere nessa ordem para respeitar as chaves estrangeiras
+        usuarioDAO.inserirUsuario(paciente);
+        pacienteDAO.inserirPaciente(paciente);
     }
 
     // Deleta paciente do banco de dados
