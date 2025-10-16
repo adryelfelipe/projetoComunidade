@@ -58,23 +58,22 @@ public class PacienteDAO {
             return false;
         }
     }
-    public void updateNumeroCarteirinha(long idPaciente, String numCarteirinha )
+    public void updateNumeroCarteirinha(String cpf, String numCarteirinha )
     {
         String querySql = "UPDATE Paciente "+
                 "SET numeroCarteirinha = ? "+
-                "WHERE idPaciente = ? ";
+                "WHERE cpf = ? ";
         try(
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(querySql))
         {
             stmt.setString(1, numCarteirinha);
-            stmt.setLong(2, idPaciente);
+            stmt.setString(2, cpf);
 
             stmt.executeUpdate();
-
         }
         catch (SQLException e) {
-            System.err.println("Erro ao atualizar número da carteirinha do paciente com ID: "+idPaciente+ e);
+            System.err.println("Erro ao atualizar número da carteirinha do paciente com ID: "+cpf+ e);
         }
     }
     public void updateContatoEmergencia(long idPaciente, String contatoEmergencia)
