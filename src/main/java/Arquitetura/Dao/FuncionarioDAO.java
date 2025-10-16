@@ -60,7 +60,8 @@ public class FuncionarioDAO {
     }
     public void updateSalario(String cpf, double salario)
     {
-        String querySql = "UPDATE Funcionario "+
+        String querySql = "UPDATE Funcionario f"+
+                "INNER JOIN Usuario u ON f.idFuncionario = u.idUsuario "+
                 "SET salario = ? "+
                 "WHERE cpf = ? ";
 
