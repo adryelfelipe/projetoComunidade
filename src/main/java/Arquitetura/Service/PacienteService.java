@@ -2,6 +2,7 @@ package Arquitetura.Service;
 
 import Arquitetura.Dao.PacienteDAO;
 import Arquitetura.Dao.UsuarioDAO;
+import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
@@ -42,17 +43,16 @@ public class PacienteService {
         pacienteDAO.inserirPaciente(paciente);
     }
 
-    // Deleta paciente do banco de dados
-    public boolean deletarPaciente(Usuario usuario, Paciente paciente) {
-        if(usuario.getTipoUsuario().getNivelAcesso().temAcessoTotal()) {
-            if(usuarioService.deletarUsuario(paciente.getId())) {
-                pacienteDAO.deletarPaciente(paciente.getId());
-                usuarioDAO.deletarUsuario(paciente.getId());
+    public void deletarPaciente(Usuario usuario, String cpfPacienteDeletado) {
+       // Verificações de dados
+        tipoUsuarioValidator.temAcessoTotal(usuario);
 
-                return true;
-            }
+        if(!usuarioService.isCpfExistente(cpfPacienteDeletado)) {
+            throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
         }
 
-        return false;
+        // Deleta nessa ordem para respeitar as chaves estrangeiras
+        pacienteDAO.deletarPaciente(cpfPacienteDeletado);
+        usuarioDAO.deletarUsuario(cpfPacienteDeletado);
     }
 }
