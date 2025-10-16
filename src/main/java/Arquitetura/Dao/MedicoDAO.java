@@ -220,7 +220,8 @@ public class MedicoDAO {
     }
     public void updateFormacao(String cpf, String formacao)
     {
-        String querySql = "UPDATE Medico "+
+        String querySql = "UPDATE Medico m "+
+                "INNER JOIN Usuario u ON m.idMedico = u.idUsuario "+
                 "SET formacao = ? "+
                 "WHERE cpf = ?";
         try(
