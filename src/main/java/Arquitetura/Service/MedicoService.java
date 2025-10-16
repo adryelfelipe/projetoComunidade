@@ -45,7 +45,6 @@ public class MedicoService {
     public void deletarMedico(Usuario usuario, Medico medicoDeletado) {
         // Verificação de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
-        usuarioValidator.verificaRegrasDelecaoUsuario(medicoDeletado);
         medicoValidator.verificarDadosMedico(medicoDeletado);
 
         // Deleta nessa ordem para respeitar as chaves estrangeiras

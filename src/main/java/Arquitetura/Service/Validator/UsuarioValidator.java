@@ -50,10 +50,4 @@ public class UsuarioValidator {
             throw new UsuarioExistenteException("ERRO! ESTE USUÁRIO JÁ FOI CADASTRADO");
         }
     }
-
-    public void verificaRegrasDelecaoUsuario(Usuario usuarioDeletado) {
-        if(usuarioDeletado == null) {
-            throw new DadosInvalidosException("ERRO! NÃO É POSSÍVEL DELETAR UM USUARIO NULO");
-        }
-    }
 }
