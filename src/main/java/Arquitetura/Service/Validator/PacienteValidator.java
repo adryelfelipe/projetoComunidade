@@ -7,8 +7,13 @@ import Arquitetura.Model.Usuario;
 
 public class PacienteValidator {
 
+    // -- Atributos -- //
+    UsuarioValidator usuarioValidator = new UsuarioValidator();
+
     // -- Métodos de verificação -- //
     public void verificarDadosPaciente(Paciente paciente) {
+        usuarioValidator.verificarDadosUser(paciente);
+
         if(paciente.getStatusPaciente() == null) {
             throw new DadosInvalidosException("ERRO! O STATUS DO PACIENTE NÃO PODE SER NULO");
         }
