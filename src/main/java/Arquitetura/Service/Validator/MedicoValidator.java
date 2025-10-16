@@ -8,8 +8,12 @@ import Arquitetura.Model.Medico;
 
 public class MedicoValidator {
 
+    // -- Atributos -- //
+    FuncionarioValidator funcionarioValidator = new FuncionarioValidator();
+
     // -- Métodos de verificação -- //
     public void verificarDadosMedico(Medico medico) {
+        funcionarioValidator.verificarDadosFuncionario(medico);
 
         if(medico.getPlantao() == null)
         {
