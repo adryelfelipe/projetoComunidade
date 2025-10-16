@@ -46,6 +46,7 @@ public class MedicoService {
      * @throws TipoUsuarioException Se o usuario não possuir acesso total (necessário para inserção)
      * @throws DadosInvalidosException Se os dados do medico não seguirem as regras de negócio
      */
+    
     public void inserirMedico(Usuario usuario, Medico medicoInserido) {
         // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
@@ -72,9 +73,9 @@ public class MedicoService {
      * @throws TipoUsuarioException Se o usuario não possuir acesso total (necessário para deletar)
      * @throws CpfInvalidoException Se o cpf não existir no banco de dados
      */
-    // Deleta medico do banco de dados
+
     public void deletarMedico(Usuario usuario, String cpfMedicoDeletado) {
-        // Verificação de dados
+        // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
 
         if(!usuarioService.isCpfExistente(cpfMedicoDeletado)) {
