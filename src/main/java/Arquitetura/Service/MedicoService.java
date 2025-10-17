@@ -42,14 +42,14 @@ public class MedicoService {
      * <p>Este método realiza as seguintes ações: </p>
      *
      * <ol>
-     *     <li>Verifica se o usuário possui permissão para inserir</li>
+     *     <li>Verifica se o usuário possui acesso total</li>
      *     <li>Verifica se o médico inserido segue as regras gerais de inserção de um usuário </li>
-     *     <li>Verifica se os dados do médico</li>
-     *     <li>Insere o médico nas tabelas: Usuario, Funcionario e Medico respectivamente</li>
+     *     <li>Verifica os dados do médico a ser inserido</li>
+     *     <li>Insere o médico nas tabelas Usuario, Funcionario e Medico respectivamente</li>
      * </ol>
      * @param usuario Quem está inserindo
      * @param medicoInserido Quem será inserido
-     * @throws TipoUsuarioException Se o usuario não possuir acesso total (necessário para inserção)
+     * @throws TipoUsuarioException Se o usuario não possuir acesso total (necessário para inserir)
      * @throws DadosInvalidosException Se os dados do medico não seguirem as regras de negócio
      */
     

@@ -44,7 +44,7 @@ public class AdministradorService {
      * <p>Este método realiza as seguintes ações: </p>
      *
      * <ol>
-     *     <li>Verifica se o usuario inseridor possui acesso para tal </li>
+     *     <li>Verifica se o usuario possui acesso total</li>
      *     <li>Verifica se o administrador inserido segue as regras gerais de inserção de um usuário </li>
      *     <li>Verifica os dados do administrador a ser inserido</li>
      *     <li>Insere o administrador nas tabelas Usuario, Funcionario e Administrador respectivamente</li>
@@ -52,8 +52,8 @@ public class AdministradorService {
      *
      * @param usuario Quem está inserindo
      * @param administradorCriado Quem será inserido
-     * @throws TipoUsuarioException Se o usuario não possuir acesso total (necessário para inserção)
-     * @throws DadosInvalidosException Se os campos obrigatórios do inserido estiverem inválidos
+     * @throws TipoUsuarioException Se o usuario não possuir acesso total (necessário para inserir)
+     * @throws DadosInvalidosException Se os dados do administrador não seguirem as regras de negócio
      */
 
     public void inserirAdmin(Usuario usuario, Administrador administradorCriado)  {
