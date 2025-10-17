@@ -86,4 +86,18 @@ public class PacienteService {
         pacienteDAO.deletarPaciente(cpfPacienteDeletado);
         usuarioDAO.deletarUsuario(cpfPacienteDeletado);
     }
+
+    public void cpfPacienteValidator (String cpf)
+    {
+        if(!isCpfPaciente(cpf))
+        {
+            throw new CpfInvalidoException("ERRO ! CPF NÃO PERTENCE A UM PACIENTE");
+        }
+    }
+
+    public boolean isCpfPaciente(String cpf) {
+
+        return pacienteDAO.isCpfPaciente(cpf);
+
+    }
 }
