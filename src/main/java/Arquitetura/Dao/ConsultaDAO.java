@@ -48,20 +48,31 @@ public class ConsultaDAO
     }
 
     // Remoção
-    public void deletarConsulta(long id)
+    public boolean deletarConsulta(long id)
     {
 
-        String querySql = "DELETE FROM Consulta WHERE idConsulta = ?";
+        String querySql = "delete from Consulta where idConsulta = ?";
 
-        try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(querySql))
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(querySql))
         {
-
             stmt.setLong(1, id);
-            stmt.executeUpdate();
+
+            int linhasAfetadas = stmt.executeUpdate();
+
+            // Retornar True se conseguiu deletar
+            if (linhasAfetadas > 0) {
+                return true;
+            }
+            // E retornara False se não conseguiu ou não existe
+            else {
+                return false;
+            }
 
         } catch (SQLException e) {
             System.err.println("Erro ao deletar Consulta com ID " + id + ": " + e.getMessage());
+            return false;
         }
     }
 
@@ -193,7 +204,6 @@ public class ConsultaDAO
 
         return listaConsultasPaciente;
     }
-
     public ArrayList<Consulta> findAllConsultasOfMedico(Medico medico)
     {
         ArrayList<Consulta> listaConsultasMedico = new ArrayList<>();
@@ -227,4 +237,82 @@ public class ConsultaDAO
         }
         return listaConsultasMedico;
     }
+    public ArrayList<Consulta> findAllConsultasByData(Date date)
+    {
+        Consulta consulta = null;
+
+        ArrayList<Consulta> listaConsultas = new ArrayList<>();
+
+        String querySql = "SELECT "+
+                "idConsulta, "+
+                "dataConsulta, "+
+                "horarioConsulta, "+
+                "relatorio, "+
+                "idPaciente, "+
+                "idMedico, "+
+                "idExame,"+
+                "isStatus "+
+                "FROM Consulta "+
+                "WHERE dataConsulta = ?";
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setDate(1, date);
+
+            try(ResultSet resultSet = stmt.executeQuery())
+            {
+                while (resultSet.next())
+                {
+                    Exame exame = switch (resultSet.getInt("idExame"))
+                    {
+                        case 1 -> Exame.Hemograma;
+                        case 2 -> Exame.Glicemia;
+                        case 3 -> Exame.Colesterol;
+                        case 4 -> Exame.RaioX;
+                        case 5 -> Exame.Eletrocardiograma;
+                        case 6 -> Exame.TesteErgometrico;
+                        case 7 -> Exame.Audiometria;
+                        case 8 -> Exame.Audio;
+                        case 9 -> Exame.Visao;
+                        default -> Exame.Sangue;
+                    };
+
+                    Status status = switch (resultSet.getInt("idStatus"))
+                    {
+                        case 1 -> Status.AGENDADA;
+                        case 2 -> Status.REAGENDADA;
+                        case 3 -> Status.AGUARDANDO;
+                        case 4 -> Status.EM_ATENDIMENTO;
+                        case 5 -> Status.REALIZADA;
+                        case 6 -> Status.CANCELADA;
+                        default -> Status.FALTA;
+                    };
+
+                    consulta = new Consulta(
+                            resultSet.getDate("dataConsulta"),
+                            resultSet.getTime("horarioConsulta"),
+                            resultSet.getLong("idPaciente"),
+                            resultSet.getLong("idMedico"),
+                            exame,
+                            resultSet.getString("relatorio"),
+                            status,
+                            resultSet.getLong("idConsulta")
+
+                    );
+
+                    if (consulta != null && !listaConsultas.contains(consulta))
+                    {
+                        listaConsultas.add(consulta);
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Não foi possível buscar consultas na data: "+date+ e);
+        }
+        return listaConsultas;
+    }
+
 }

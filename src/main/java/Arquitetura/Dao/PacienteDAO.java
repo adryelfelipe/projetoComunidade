@@ -5,6 +5,7 @@ import Arquitetura.Model.Paciente;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class PacienteDAO {
@@ -71,4 +72,67 @@ public class PacienteDAO {
             throw new SQLException("Erro ao atualizar número da carteirinha do paciente com ID: "+idConsulta, e);
         }
     }
+
+    public boolean isCpfPaciente(String cpf) {
+        String querySql = "SELECT tipoUsuario FROM Usuario WHERE cpf = ?";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(querySql)) {
+
+            stmt.setString(1, cpf);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                long tipo = rs.getLong("tipoUsuario");
+                return tipo == 1;
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar o CPF do Paciente. ");
+        }
+        return false;
+    }
+
+    public void updateNumeroCarteirinha(String cpf, String numCarteirinha )
+    {
+        String querySql = "UPDATE Paciente p "+
+                "INNER JOIN Usuario u ON p.idPaciente = u.idUsuario "+
+                "SET numeroCarteirinha = ? "+
+                "WHERE cpf = ? ";
+        try(
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setString(1, numCarteirinha);
+            stmt.setString(2, cpf);
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e) {
+            System.err.println("Erro ao atualizar número da carteirinha do paciente com ID: "+cpf+ e);
+        }
+    }
+
+    public void updateContatoEmergencia(String cpf, String contatoEmergencia)
+    {
+        String querySql = "UPDATE Paciente p"+
+                "INNER JOIN Usuario u ON p.idPaciente = u.idUsuario "+
+                "SET contatoCarteirinha = ? "+
+                "WHERE cpf = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setString(1, contatoEmergencia);
+            stmt.setString(2, cpf);
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar o contato de emergência do paciente com o ID: "+cpf+ e);
+        }
+    }
+
 }

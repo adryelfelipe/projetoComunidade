@@ -33,22 +33,42 @@ public class FuncionarioDAO {
 
     }
 
-        // Remoção
-        public void deletarFuncionario(String cpf) {
-            String querySql = "DELETE f " +
-                    "FROM Funcionario f " +
-                    "JOIN Usuario u ON u.idUsuario = f.idFuncionario " +
-                    "WHERE u.cpf = ?";
+    // Remoção
+    public void deletarFuncionario(String cpf) {
+        String querySql = "DELETE f " +
+                "FROM Funcionario f " +
+                "JOIN Usuario u ON u.idUsuario = f.idFuncionario " +
+                "WHERE u.cpf = ?";
 
-            try (Connection conn = ConnectionFactory.getConnection();
-                 PreparedStatement stmt = conn.prepareStatement(querySql))
-            {
-                stmt.setString(1, cpf);
-                stmt.executeUpdate();
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(querySql))
+        {
+            stmt.setString(1, cpf);
+            stmt.executeUpdate();
 
-            } catch (SQLException e) {
-                System.err.println("Erro ao deletar Funcionário com o CPF " + cpf + ": " + e.getMessage());
-            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao deletar Funcionário com o CPF " + cpf + ": " + e.getMessage());
         }
+    }
+
+    public void updateSalario(String cpf, double salario)
+    {
+        String querySql = "UPDATE Funcionario f"+
+                "INNER JOIN Usuario u ON f.idFuncionario = u.idUsuario "+
+                "SET salario = ? "+
+                "WHERE cpf = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setDouble(1, salario);
+            stmt.setString(2, cpf);
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar salário do funcionario com CPF: "+cpf+ e);
+        }
+    }
 
 }
