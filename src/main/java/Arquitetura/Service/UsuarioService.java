@@ -1,6 +1,7 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.UsuarioDAO;
+import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Usuario;
 import java.util.ArrayList;
@@ -52,14 +53,11 @@ public class UsuarioService {
     }
 
     public Usuario loginUsuario(String cpf, String senha) {
-        if(isCpfExistente(cpf) && !senha.isEmpty()) {
-            return usuarioDao.loginUsuario(cpf, senha);
-        } else {
-
-            return null;
+        if(!isCpfExistente(cpf)) {
+            throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
         }
 
-        // ADICIONAR TRATAMENTO DE EXCEÇÕES
+        return usuarioDao.loginUsuario(cpf,senha);
     }
 
 
