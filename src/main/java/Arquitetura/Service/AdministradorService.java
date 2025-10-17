@@ -72,18 +72,18 @@ public class AdministradorService {
      *<p>Este método realiza as seguintes ações: </p>
      *
      *<ol>
-     *      <li>Verifica se o usuário possui acesso para deletar</li>
+     *      <li>Verifica se o usuário possui acesso total</li>
      *      <li>Verifica se o usuário está tentando deletar a si mesmo</li>
-     *      <li>Verifica se o cpf inserido existe</li>
+     *      <li>Verifica se o cpf recebido existe</li>
      *      <li>Verifica se o administradorDeletado não é o último ADM do DB</li>
-     *      <li>Deleta o ADM das tabelas Administrador, Funcionario e Usuario do banco de dados, respectivamente</li>
+     *      <li>Deleta o ADM das tabelas Administrador, Funcionario e Usuario respectivamente</li>
      *</ol>
      *
      * @param usuario Quem está deletando
-     * @param cpfAdministradorDeletado Cpf de quem será deletado
+     * @param cpfAdministradorDeletado cpf de quem será deletado
      * @throws TipoUsuarioException Se o usuário não possuir acesso total (necessário para deletar)
      * @throws AutoDeleteException Se o usuário tentar deletar a si mesmo
-     * @throws CpfInvalidoException Se o cpf do administrador deletado não existir no DB
+     * @throws CpfInvalidoException Se o cpf do administrador não existir no banco de dados
      * @throws UltimoAdminException Se o administrador deletado for o último do banco de dados;
      */
 

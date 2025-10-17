@@ -69,15 +69,15 @@ public class MedicoService {
      * <p>Este método realiza as seguintes ações: </p>
      *
      *<ol>
-     *     <li>Verifica se o usuario possui acesso para deletar</li>
-     *     <li>Verifica se o CPF inserido existe</li>
-     *     <li>Deleta o médico das tabelas Medico, Funcionario e Usuario do banco de dados</li>
+     *     <li>Verifica se o usuario possui acesso total</li>
+     *     <li>Verifica se o cpf recebido existe</li>
+     *     <li>Deleta o médico das tabelas Medico, Funcionario e Usuario respectivamente</li>
      *</ol>
      *
      * @param usuario Quem está deletando
-     * @param cpfMedicoDeletado CPF de quem será deletado
+     * @param cpfMedicoDeletado cpf de quem será deletado
      * @throws TipoUsuarioException Se o usuario não possuir acesso total (necessário para deletar)
-     * @throws CpfInvalidoException Se o cpf não existir no banco de dados
+     * @throws CpfInvalidoException Se o cpf do Médico não existir no banco de dados
      */
 
     public void deletarMedico(Usuario usuario, String cpfMedicoDeletado) {
