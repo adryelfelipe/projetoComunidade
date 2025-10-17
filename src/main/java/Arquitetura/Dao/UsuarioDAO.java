@@ -507,8 +507,13 @@ public class UsuarioDAO {
             PreparedStatement stmt = conn.prepareStatement(qurySql))
         {
 
+            stmt.setString(1, novoCpf);
+            stmt.setLong(2, id);
 
-        }catch (SQLException e)
+            stmt.executeUpdate();
+
+        }
+        catch (SQLException e)
         {
             System.err.println("Erro ao atualizar o Cpf do usuário com ID: " + id+ e);
         }
