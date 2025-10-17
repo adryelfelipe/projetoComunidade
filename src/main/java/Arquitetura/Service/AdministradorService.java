@@ -3,8 +3,17 @@ package Arquitetura.Service;
 import Arquitetura.Dao.AdministradorDAO;
 import Arquitetura.Dao.FuncionarioDAO;
 import Arquitetura.Dao.UsuarioDAO;
+import Arquitetura.Exception.CpfInvalidoException;
+import Arquitetura.Exception.TipoUsuarioException;
+import Arquitetura.Exception.UltimoAdminException;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Usuario;
+import Arquitetura.Service.Validator.AdministradorValidator;
+import Arquitetura.Service.Validator.FuncionarioValidator;
+import Arquitetura.Service.Validator.TipoUsuarioValidator;
+import Arquitetura.Service.Validator.UsuarioValidator;
+import Arquitetura.Exception.DadosInvalidosException;
+import Arquitetura.Exception.AutoDeleteException;
 
 public class AdministradorService {
 
@@ -13,6 +22,11 @@ public class AdministradorService {
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
     private final FuncionarioService funcionarioService = new FuncionarioService();
     private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+    private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
+    private final AdministradorValidator administradorValidator = new AdministradorValidator();
+    private final FuncionarioValidator funcionarioValidator = new FuncionarioValidator();
+    private final UsuarioValidator usuarioValidator = new UsuarioValidator();
+    private final UsuarioService usuarioService = new UsuarioService();
 
     // -- Construtor -- //
     public AdministradorService() {
@@ -22,42 +36,75 @@ public class AdministradorService {
     // -- Métodos -- //
 
     // Verifica se é o último administrador do banco de dados
-    private boolean isUltimoAdmin(Administrador administrador) {
+    private boolean isUltimoAdmin(){
         return administradorDao.isUltimoAdmin();
     }
 
-    // Verifica a veracidade dos atributos específicos de Admin
-    private boolean verificarDadosAdm(Administrador administrador) {
-       return true; // provisório
+    /**
+     * <p>Este método realiza as seguintes ações: </p>
+     *
+     * <ol>
+     *     <li>Verifica se o usuario inseridor possui acesso para tal </li>
+     *     <li>Verifica se o administrador inserido segue as regras gerais de inserção de um usuário </li>
+     *     <li>Verifica os dados do administrador a ser inserido</li>
+     *     <li>Insere o administrador nas tabelas Usuario, Funcionario e Administrador respectivamente</li>
+     * </ol>
+     *
+     * @param usuario Quem está inserindo
+     * @param administradorCriado Quem será inserido
+     * @throws TipoUsuarioException Se o usuario não possuir acesso total (necessário para inserção)
+     * @throws DadosInvalidosException Se os campos obrigatórios do inserido estiverem inválidos
+     */
+
+    public void inserirAdmin(Usuario usuario, Administrador administradorCriado)  {
+        // Verificações de dados
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        usuarioValidator.verificaRegrasInsercaoUsuario(administradorCriado);
+        administradorValidator.verificarDadosAdm(administradorCriado);
+
+        // Insere nessa ordem para respeitar as chaves estrangeiras
+        usuarioDAO.inserirUsuario(administradorCriado);
+        funcionarioDAO.inserirFuncionario(administradorCriado);
+        administradorDao.inserirAdmin(administradorCriado);
     }
 
-    // Insere o objeto do tipo Administrador no banco de dados
-    public boolean inserirAdmin(Usuario usuario, Administrador admCriado) { // Verifica as regras para inserir um Administrador
-       if(usuario.getTipoUsuario().getNivelAcesso().temAcessoTotal()) {
-               if(verificarDadosAdm(admCriado)) {
-                   if(funcionarioService.inserirFuncionario(usuario, admCriado)) {
-                       administradorDao.inserirAdmin(admCriado);
+    /**
+     *<p>Este método realiza as seguintes ações: </p>
+     *
+     *<ol>
+     *      <li>Verifica se o usuário possui acesso para deletar</li>
+     *      <li>Verifica se o usuário está tentando deletar a si mesmo</li>
+     *      <li>Verifica se o cpf inserido existe</li>
+     *      <li>Verifica se o administradorDeletado não é o último ADM do DB</li>
+     *      <li>Deleta o ADM das tabelas Administrador, Funcionario e Usuario do banco de dados, respectivamente</li>
+     *</ol>
+     *
+     * @param usuario Quem está deletando
+     * @param cpfAdministradorDeletado Cpf de quem será deletado
+     * @throws TipoUsuarioException Se o usuário não possuir acesso total (necessário para deletar)
+     * @throws AutoDeleteException Se o usuário tentar deletar a si mesmo
+     * @throws CpfInvalidoException Se o cpf do administrador deletado não existir no DB
+     * @throws UltimoAdminException Se o administrador deletado for o último do banco de dados;
+     */
 
-                       return true;
-                   }
-               }
-       }
+    public void deletarAdministrador(Usuario usuario, String cpfAdministradorDeletado) {
+        // Verificações de dados
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        administradorValidator.verificaAutoDelete(usuario.getCpf(), cpfAdministradorDeletado);
 
-        return false;
-    }
-
-    // Deleta um administrador do banco de dados
-    public boolean deletarAdministrador(Usuario usuario, Administrador adminDeletado) {
-        if(usuario.getTipoUsuario().getNivelAcesso().temAcessoTotal() && usuario != adminDeletado && !isUltimoAdmin(adminDeletado)) {
-            if(funcionarioService.deletarFuncionario(adminDeletado.getId())) {
-                administradorDao.deletarAdministrador(adminDeletado.getId());
-                funcionarioDAO.deletarFuncionario(adminDeletado.getId());
-                usuarioDAO.deletarUsuario(adminDeletado.getId());
-
-                return true;
-            }
+        if(!usuarioService.isCpfExistente(cpfAdministradorDeletado)) {
+            throw new CpfInvalidoException("ERRO! O CPF INEXISTENTE");
         }
 
-        return false;
+        // ADICIONAR VERIFICAÇÃO DE SE O CPF CONDIZ COM O ADM
+
+        if(isUltimoAdmin()) {
+            throw new UltimoAdminException("ERRO! NÃO É PERMITIDO DELETAR ESTE ADMINISTRADOR");
+        }
+
+        // Deleta nessa ordem para respeitar as chaves estrangeiras
+        administradorDao.deletarAdministrador(cpfAdministradorDeletado);
+        funcionarioDAO.deletarFuncionario(cpfAdministradorDeletado);
+        usuarioDAO.deletarUsuario(cpfAdministradorDeletado);
     }
 }

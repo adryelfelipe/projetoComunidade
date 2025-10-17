@@ -1,5 +1,6 @@
 package Arquitetura.Model;
 
+import Arquitetura.Exception.DadosInvalidosException;
 import Arquitetura.Model.Enums.Especialidade;
 import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.Plantao;
@@ -17,41 +18,35 @@ public class Medico extends Funcionario{
 
     // -- Construtores -- //
 
-    // Não possui subEspecialidade nem id
-    public Medico(String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento, int cargaHorariaSemanal, double salario, Plantao plantao, Especialidade especialidade, String formacao ) {
-        super(TipoUsuario.MEDICO, nome,cpf,senha,sexo,telefone,email,dataNascimento, salario, cargaHorariaSemanal);
+    // Possui subEspecialidade e possui ID
+    public Medico(long id, String nome, String cpf, String senha,Genero sexo,String telefone,  String email,  Date dataNascimento , int cargaHorariaSemanal,double salario, Plantao plantao, Especialidade especialidade, String formacao,String subEspecialidade) {
+        super(TipoUsuario.MEDICO, nome, cpf, senha, sexo, telefone, email, dataNascimento, salario, cargaHorariaSemanal);
         this.plantao = plantao;
         this.especialidade = especialidade;
-        this.formacao = formacao;
-        this.subEspecialidade = "N/A";
+        setFormacao(formacao);
+        setSubEspecialidade(subEspecialidade);
+        this.setId(id);
+    }
+
+    // Não possui subEspecialidade nem id
+    public Medico(String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento, int cargaHorariaSemanal, double salario, Plantao plantao, Especialidade especialidade, String formacao ) {
+        this(0, nome, cpf, senha ,sexo, telefone, email, dataNascimento, cargaHorariaSemanal, salario, plantao, especialidade, formacao, "N/A" );
     }
 
     // Não possui subEspecialidade e possui ID
     public Medico(long id, String nome, String cpf, String senha,Genero sexo,String telefone,  String email,  Date dataNascimento , int cargaHorariaSemanal,double salario, Plantao plantao, Especialidade especialidade, String formacao) {
-        this(nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal,   salario,plantao, especialidade, formacao );
-        this.subEspecialidade = "N/A";
-        this.setId(id);
-    }
-
-    // Possui subEspecialidade e possui ID
-    public Medico(long id, String nome, String cpf, String senha,Genero sexo,String telefone,  String email,  Date dataNascimento , int cargaHorariaSemanal,double salario, Plantao plantao, Especialidade especialidade, String formacao,String subEspecialidade) {
-        this(nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal,   salario,plantao, especialidade, formacao );
-        this.subEspecialidade = subEspecialidade;
-        this.setId(id);
+        this(id, nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal, salario,plantao, especialidade, formacao, "N/A" );
     }
 
     // Possui subEspecialidade e não possui ID
     public Medico( String nome, String cpf, String senha,Genero sexo,String telefone,  String email,  Date dataNascimento , int cargaHorariaSemanal,double salario, Plantao plantao, Especialidade especialidade, String formacao, String subEspecialidade) {
-        this(nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal,   salario,plantao, especialidade, formacao);
-        this.subEspecialidade = subEspecialidade;
+        this(0, nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal, salario,plantao, especialidade, formacao, subEspecialidade);
     }
 
 
     // -- Getters & Setters -- //
     public void setEspecialidade(Especialidade especialidade) {
-        if(especialidade != null) {
-            this.especialidade = especialidade;
-        }
+        this.especialidade = especialidade;
     }
 
     public Especialidade getEspecialidade() {
@@ -59,9 +54,11 @@ public class Medico extends Funcionario{
     }
 
     public void setFormacao(String formacao) {
-        if(!formacao.isEmpty()) {
-            this.formacao = formacao;
+        if(formacao.isEmpty()) {
+            throw new DadosInvalidosException("ERRO! FORMAÇÃO NÃO PODE SER VAZIA");
         }
+
+        this.formacao = formacao;
     }
 
     public String getFormacao() {
@@ -69,9 +66,7 @@ public class Medico extends Funcionario{
     }
 
     public void setPlantao(Plantao plantao) {
-        if (plantao != null) {
-            this.plantao = plantao;
-        }
+        this.plantao = plantao;
     }
 
     public Plantao getPlantao() {
@@ -79,9 +74,11 @@ public class Medico extends Funcionario{
     }
 
     public void setSubEspecialidade(String subEspecialidade) {
-        if(!subEspecialidade.isEmpty()) {
-            this.subEspecialidade = subEspecialidade;
+        if(subEspecialidade.isEmpty()) {
+            throw new DadosInvalidosException("ERRO! SUBESPECIALIDADE NÃO PODE SER VAZIA");
         }
+
+        this.subEspecialidade = subEspecialidade;
     }
 
     public String getSubEspecialidade() {

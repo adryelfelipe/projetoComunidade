@@ -15,6 +15,7 @@ public class MenuMedico
     public static void Menu(Medico medico)
     {
 
+        int op = 0;
         boolean continuar = true;
 
         while (continuar) {
@@ -28,8 +29,12 @@ public class MenuMedico
             System.out.println("2-Prontuário Clínico");
             System.out.println("3-Prescrições e Laudos");
             System.out.println("4-Sair");
-            int op = Ferramentas.lInteiro();
 
+            try {
+                op = Ferramentas.lInteiro();
+            }catch (IllegalArgumentException e){
+                MenuDefault.menuDefault();
+            }
             switch (op) {
                 case 1: {
 

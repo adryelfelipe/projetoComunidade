@@ -17,17 +17,6 @@ public class UsuarioService {
 
     // -- Métodos -- //
 
-    // Verifica se os atributos não são nulos
-    private boolean verificarDadosUser(Usuario usuario) {
-        return (usuario.getCpf() != null && usuario.getTelefone() != null
-                && !usuario.getCpf().isEmpty() && !usuario.getTelefone().isEmpty()
-                && usuario.getTipoUsuario() != null && usuario.getSexo() != null
-                && usuario.getNome() != null && usuario.getDataNascimento() != null
-                && !usuario.getNome().isEmpty()
-                && usuario.getEmail() != null && usuario.getSenha() != null
-                && !usuario.getEmail().isEmpty());
-    }
-
     // Verifica se existe um usuario com o id igual ao parâmetro
     private boolean isIdExistente(long id) {
         return !(usuarioDao.findById(id) == null);
@@ -41,22 +30,6 @@ public class UsuarioService {
     // Verifica se já existe um cpf igual ao parâmetro
     public boolean isCpfExistente(String cpf) {
         return usuarioDao.verificarCpf(cpf);
-    }
-
-    // Insere os atributos gerais de Usuario na tabela Usuario do banco de dados
-    public boolean inserirUsuario(Usuario usuario, Usuario usuarioDeletado) { // Verifica as regras para inserir um Usuario
-        if(usuario.getTipoUsuario().getNivelAcesso().temAcessoTotal()) {
-            if(usuario != usuarioDeletado)
-            {
-                if(verificarDadosUser(usuario) && !isEmailExistente(usuario.getEmail()) && !isCpfExistente(usuario.getCpf())){
-                    usuarioDao.inserirUsuario(usuario);
-
-                    return true;
-                }
-            }
-        }
-
-        return false;
     }
 
     // Faz procura no banco de dados por Id
@@ -76,12 +49,6 @@ public class UsuarioService {
         }
 
         return null;
-    }
-
-    // Cojunto de regras de negócio gerais para deletar qualquer tipo de usuario
-    boolean deletarUsuario(long id) {
-
-        return isIdExistente(id);
     }
 
     public Usuario loginUsuario(String cpf, String senha) {
