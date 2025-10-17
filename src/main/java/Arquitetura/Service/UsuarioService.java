@@ -1,15 +1,22 @@
 package Arquitetura.Service;
 
-import Arquitetura.Dao.UsuarioDAO;
+import Arquitetura.Dao.*;
 import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Model.Administrador;
+import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
+
+import java.util.AbstractMap;
 import java.util.ArrayList;
 
 public class UsuarioService {
 
     // -- Atributos -- //
     private final UsuarioDAO usuarioDao = new UsuarioDAO();
+    private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+    private final PacienteDAO pacienteDAO = new PacienteDAO();
+    private final MedicoDAO medicoDAO = new MedicoDAO();
+    private final AdministradorDAO administradorDAO = new AdministradorDAO();
 
     // -- Construtor -- //
     public UsuarioService() {
@@ -60,5 +67,20 @@ public class UsuarioService {
         return usuarioDao.loginUsuario(cpf,senha);
     }
 
+    public int cpfParaTipoUsuario(String cpf) {
+        if(!isCpfExistente(cpf)) {
+            throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
+        }
 
+        if(administradorDAO.isCpfAdministrador(cpf)) {
+            return 3;
+        }
+
+        if(medicoDAO.isCpfMedico(cpf)) {
+            return 2;
+        }
+
+        // CPF DO PACIENTE
+        return 1;
+    }
 }
