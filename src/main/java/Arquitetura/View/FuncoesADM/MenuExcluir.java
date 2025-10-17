@@ -1,5 +1,6 @@
 package Arquitetura.View.FuncoesADM;
 
+import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Exception.*;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Medico;
@@ -18,6 +19,7 @@ public class MenuExcluir
     private static AdministradorService administradorService = new AdministradorService();
     private static MedicoService medicoService = new MedicoService();
     private static PacienteService pacienteService = new PacienteService();
+    private static UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     public static void ExcluirUsuario(Administrador adm)
     {
@@ -27,13 +29,25 @@ public class MenuExcluir
 
         System.out.println("     EXCLUIR");
         System.out.println("\n\nDigite o cpf do usuario: ");
-        String cpf = Ferramentas.lString();
-
 
         try{
 
+            String cpf = Ferramentas.lString();
 
+            Usuario usuario = usuarioDAO.findByCpf(cpf);
 
+            if(usuario instanceof  Paciente)
+            {
+
+            }
+            else if(usuario instanceof Medico)
+            {
+
+            }
+            else
+            {
+
+            }
         } catch(TipoUsuarioException | AutoDeleteException | CpfInvalidoException e )
         {
             e.getMessage();
@@ -43,10 +57,6 @@ public class MenuExcluir
             System.out.printf("Não foi possivel deletar adm");
         }
 
-
-        System.out.println("Usuario não encontrado!");
-
-        System.out.println("\n\nDigite para continuar");
 
         String tempo = Ferramentas.lString();
     }
