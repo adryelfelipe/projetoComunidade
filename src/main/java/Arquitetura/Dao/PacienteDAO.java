@@ -1,6 +1,7 @@
 package Arquitetura.Dao;
 
 import Arquitetura.Config.ConnectionFactory;
+import Arquitetura.Model.Enums.StatusPaciente;
 import Arquitetura.Model.Paciente;
 
 import java.sql.Connection;
@@ -89,13 +90,13 @@ public class PacienteDAO {
             stmt.executeUpdate();
         }
         catch (SQLException e) {
-            System.err.println("Erro ao atualizar número da carteirinha do paciente com ID: "+cpf+ e);
+            System.err.println("Erro ao atualizar número da carteirinha do paciente com Cpf: "+cpf+ e);
         }
     }
 
     public void updateContatoEmergencia(String cpf, String contatoEmergencia)
     {
-        String querySql = "UPDATE Paciente p"+
+        String querySql = "UPDATE Paciente p "+
                 "INNER JOIN Usuario u ON p.idPaciente = u.idUsuario "+
                 "SET contatoCarteirinha = ? "+
                 "WHERE cpf = ? ";
@@ -111,8 +112,27 @@ public class PacienteDAO {
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao atualizar o contato de emergência do paciente com o ID: "+cpf+ e);
+            System.err.println("Erro ao atualizar o contato de emergência do paciente com o Cpf: "+cpf+ e);
         }
     }
+    public void updateStatusPaciente(String cpf, StatusPaciente statusPaciente)
+    {
+        String querySql = "UPDATE Paciente p "+
+                "INNER JOIN Usuario u ON p.idPaciente = u.idUsuario "+
+                "SET idStatusPaciente = ? "+
+                "WHERE cpf = ? ";
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1, statusPaciente.getIdPaciente());
+            stmt.setString(2, cpf);
 
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar o status do paciente com o Cpf: "+cpf + e);
+        }
+    }
 }
