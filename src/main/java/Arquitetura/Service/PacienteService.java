@@ -9,6 +9,8 @@ import Arquitetura.Model.Usuario;
 import Arquitetura.Service.Validator.PacienteValidator;
 import Arquitetura.Service.Validator.TipoUsuarioValidator;
 import Arquitetura.Service.Validator.UsuarioValidator;
+import Arquitetura.Exception.TipoUsuarioException;
+import Arquitetura.Exception.DadosInvalidosException;
 
 public class PacienteService {
 
@@ -32,7 +34,20 @@ public class PacienteService {
         return (paciente.getStatusPaciente() != null && paciente.getContatoEmergencia() != null && paciente.getNumeroCarterinha() != null);
     }
 
-    public void inserirPaciente(Usuario usuario, Paciente paciente) {
+    /**<p>Este método realiza as seguintes ações: </p>
+     * <ol>
+     *     <li>Verifica se o usuario inseridor possui acesso total</li>
+     *     <li>Verifica se o médico inserido segue as regras gerais de inserção de um usuário</li>
+     *     <li>Verifica os dados do paciente a ser inserido</li>
+     *     <li>Insere o médico nas tabelas: Usuario e Paciente respectivamente</li>
+     * </ol>
+     *
+     * @param usuario Quem insere
+     * @param pacienteInserido Quem é inserido
+     * @throws TipoUsuarioException Se o usuário não possuir acesso total (necessário para inserir)
+     * @throws DadosInvalidosException Se os campos obrigatórios do inserido estiverem inválidos
+     */
+    public void inserirPaciente(Usuario usuario, Paciente pacienteInserido) {
         // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
         usuarioValidator.verificaRegrasInsercaoUsuario(paciente);
