@@ -58,6 +58,20 @@ public class PacienteService {
         pacienteDAO.inserirPaciente(pacienteInserido);
     }
 
+    /**
+     * <p>Este método realiza as seguintes ações: </p>
+     *
+     * <ol>
+     *     <li>Verifica se o usuario possui acesso total </li>
+     *     <li>Verifica se o CPF recebido existe </li>
+     *     <li>Deleta o paciente das tabelas Paciente e Usuario respectivamente </li>
+     * </ol>
+     * @param usuario Quem está deletando
+     * @param cpfPacienteDeletado CPF de quem será deletado
+     * @throws TipoUsuarioException Se o usuario não possuir acesso total (necessário para deletar)
+     * @throws CpfInvalidoException Se o cpf não existir no banco de dados
+     */
+
     public void deletarPaciente(Usuario usuario, String cpfPacienteDeletado) {
        // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
@@ -65,6 +79,8 @@ public class PacienteService {
         if(!usuarioService.isCpfExistente(cpfPacienteDeletado)) {
             throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
         }
+
+        // ADICIONAR verificação de se o cpf condiz com o de algum Paciente
 
         // Deleta nessa ordem para respeitar as chaves estrangeiras
         pacienteDAO.deletarPaciente(cpfPacienteDeletado);
