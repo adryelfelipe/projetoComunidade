@@ -308,4 +308,92 @@ public class MedicoDAO {
         }
         return false;
     }
+
+    public void updateEspecialidade(String cpf, Especialidade especialidade)
+    {
+        String querySql = "UPDATE Medico m "+
+                "INNER JOIN Usuario u ON m.idMedico = u.idUsuario "+
+                "SET idEspecialidade = ?"+
+                "WHERE cpf = ?";
+        try(
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1, especialidade.getIdEspecialidade());
+            stmt.setString(2, cpf);
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar a especialidade do médico com ID: "+cpf+ e);
+        }
+    }
+
+    public void updateSubEspecialidade(String cpf, String subEspecialidade)
+    {
+        String querySql = "UPDATE Medico m "+
+                "INNER JOIN Usuario u ON m.idMedico = u.idUsuario "+
+                "SET subEspecialidade = ? "+
+                "WHERE cpf = ? ";
+
+        try(
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setString(1, subEspecialidade);
+            stmt.setString(2, cpf);
+
+            stmt.executeUpdate();
+        }
+        catch(SQLException e)
+        {
+            System.out.println("Erro ao atualizar subespecialidade do médico com CPF: "+cpf + e);
+        }
+    }
+
+    public void updateFormacao(String cpf, String formacao)
+    {
+        String querySql = "UPDATE Medico m "+
+                "INNER JOIN Usuario u ON m.idMedico = u.idUsuario "+
+                "SET formacao = ? "+
+                "WHERE cpf = ?";
+        try(
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setString(1, formacao);
+            stmt.setString(2, cpf);
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar formação do médico com CPF: "+cpf + e);
+        }
+    }
+
+    public void updatePlantao(String cpf, Plantao plantao)
+    {
+        String querySql = "UPDATE Medico m "+
+                "INNER JOIN Usuario u ON m.idMedico = u.idUsuario "+
+                "SET idPlantao = ? "+
+                "WHERE cpf = ? ";
+
+        try(
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1, plantao.getIdPlantao());
+            stmt.setString(2, cpf);
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar plantão do médico com CPF: "+cpf + e);
+        }
+
+    }
+
 }
