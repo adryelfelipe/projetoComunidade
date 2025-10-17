@@ -79,7 +79,7 @@ public class ConsultaDAO
 
     public void deletarConsultaWhereCpfPaciente(String cpfPaciente)
     {
-        String querySql = "DELETE c"+
+        String querySql = "DELETE c "+
                 "FROM Consulta c "+
                 "INNER JOIN Usuario u ON c.idPaciente = u.idUsuario "+
                 "WHERE u.cpf = ?";
@@ -94,6 +94,26 @@ public class ConsultaDAO
         catch (SQLException e)
         {
             System.err.println("Não foi possível deletar Consulta onde CPF do Paciente é igual: "+cpfPaciente+ e);
+        }
+    }
+
+    public void deletarConsultaWhereCpfMedico(String cpfMedico)
+    {
+        String querySql = "DELETE c "+
+                "FROM Consulta c "+
+                "INNER JOIN Usuario u ON c.idMedico = u.idUsuario "+
+                "WHERE u.cpf = ? ";
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setString(1, cpfMedico);
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Não foi possível deletar Consulta onde CPF do Médico é igual: "+cpfMedico + e);
         }
     }
 
