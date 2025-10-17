@@ -107,4 +107,18 @@ public class AdministradorService {
         funcionarioDAO.deletarFuncionario(cpfAdministradorDeletado);
         usuarioDAO.deletarUsuario(cpfAdministradorDeletado);
     }
+
+    public void cpfDeAdmValidator (String cpf)
+    {
+        if(!isCpfAdmin(cpf))
+        {
+            throw new CpfInvalidoException("ERRO ! CPF NÃO PERTENCE A UM ADMINISTRADOR");
+        }
+    }
+
+    public boolean isCpfAdmin(String cpf) {
+
+        return administradorDao.isCpfAdministrador(cpf);
+
+    }
 }
