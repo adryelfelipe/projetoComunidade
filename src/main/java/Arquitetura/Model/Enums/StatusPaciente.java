@@ -6,7 +6,7 @@ public enum StatusPaciente {
 
     ATIVO(1),
 
-    INATIVO(1);
+    INATIVO(2);
 
 
     // -- Atributos Extras -- //
