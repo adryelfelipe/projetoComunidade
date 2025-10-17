@@ -16,10 +16,10 @@ public class Paciente extends Usuario {
     // -- Construtores -- //
 
     // Possui ID
-    public Paciente(long id, String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCarterinha) {
+    public Paciente(long id, String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCarterinha, StatusPaciente statusPaciente) {
         super(TipoUsuario.PACIENTE,nome, cpf, senha, sexo, telefone, email,dataNascimento);
         this.setId(id);
-        this.statusPaciente = StatusPaciente.ATIVO;
+        this.statusPaciente = statusPaciente;
         setContatoEmergencia(contatoEmergencia);
         setNumeroCarterinha(numeroCarterinha);
     }
@@ -27,7 +27,7 @@ public class Paciente extends Usuario {
     // Não possui ID
     public Paciente(String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCarterinha)
     {
-        this(0, nome, cpf, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numeroCarterinha);
+        this(0, nome, cpf, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numeroCarterinha, StatusPaciente.ATIVO);
     }
 
     // -- Setters e Getters -- //
