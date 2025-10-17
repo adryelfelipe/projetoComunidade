@@ -2,10 +2,7 @@ package Arquitetura.Dao;
 
 import Arquitetura.Config.ConnectionFactory;
 import Arquitetura.Model.Administrador;
-import Arquitetura.Model.Enums.Departamento;
-import Arquitetura.Model.Enums.Especialidade;
-import Arquitetura.Model.Enums.Genero;
-import Arquitetura.Model.Enums.Plantao;
+import Arquitetura.Model.Enums.*;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
@@ -60,7 +57,7 @@ public class UsuarioDAO {
         String querySQL = "SELECT " +
                 "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, " +
                 "A.idDepartamento, " +
-                "P.numeroCarteirinha, P.contatoEmergencia, P.statusPaciente, " +
+                "P.numeroCarteirinha, P.contatoEmergencia, P.idStatusPaciente, " +
                 "M.idPlantao, M.idEspecialidade, M.subEspecialidade, M.formacao, " +
                 "F.salario, F.cargaHorariaSemanal " +
                 "FROM Usuario U " +
@@ -109,7 +106,13 @@ public class UsuarioDAO {
                     // Dados Paciente
                     String numCarteirinha = resultSet.getString("numeroCarteirinha");
                     String contatoEmergencia = resultSet.getString("contatoEmergencia");
-                    String statusPaciente = resultSet.getString("statusPaciente");
+                    int statusPaciente = resultSet.getInt("idStatusPaciente");
+
+                    StatusPaciente status = switch (statusPaciente)
+                    {
+                        case 1 -> StatusPaciente.ATIVO;
+                        default -> StatusPaciente.INATIVO;
+                    };
 
                     // Dados Médico
                     int idEspecialidade = resultSet.getInt("idEspecialidade");
@@ -141,7 +144,7 @@ public class UsuarioDAO {
                     // Cria o objeto correto de acordo com o tipo de usuário
                     usuario = switch (tipoUsuario)
                     {
-                        case 1 -> new Paciente(id, nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numCarteirinha);
+                        case 1 -> new Paciente(id, nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numCarteirinha, status);
                         case 2 -> new Medico(id, nomeUsuario,cpf, senha, sexo, telefone, email, dataNascimento, cargaHorariaSemanal,  salario, plantao, especialidade, formacao, subEspecialidade);
                         default -> new Administrador(nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento, salario, cargaHorariaSemanal, departamento, id);
                     };
@@ -158,7 +161,7 @@ public class UsuarioDAO {
         String querySQL = "SELECT " +
                 "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, " +
                 "A.idDepartamento, " +
-                "P.numeroCarteirinha, P.contatoEmergencia, P.statusPaciente, " +
+                "P.numeroCarteirinha, P.contatoEmergencia, P.idStatusPaciente, " +
                 "M.idPlantao, M.idEspecialidade, M.subEspecialidade, M.formacao, " +
                 "F.salario, F.cargaHorariaSemanal " +
                 "FROM Usuario U " +
@@ -207,7 +210,13 @@ public class UsuarioDAO {
                     // Dados Paciente
                     String numCarteirinha = resultSet.getString("numeroCarteirinha");
                     String contatoEmergencia = resultSet.getString("contatoEmergencia");
-                    String statusPaciente = resultSet.getString("statusPaciente");
+                    int statusPaciente = resultSet.getInt("idStatusPaciente");
+
+                    StatusPaciente status = switch (statusPaciente)
+                    {
+                        case 1 -> StatusPaciente.ATIVO;
+                        default -> StatusPaciente.INATIVO;
+                    };
 
                     // Dados Médico
                     int idEspecialidade = resultSet.getInt("idEspecialidade");
@@ -239,7 +248,7 @@ public class UsuarioDAO {
                     // Cria o objeto correto de acordo com o tipo de usuário
                     usuario = switch (tipoUsuario)
                     {
-                        case 1 -> new Paciente(id, nomeUsuario, cpfUsuario, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numCarteirinha);
+                        case 1 -> new Paciente(id, nomeUsuario, cpfUsuario, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numCarteirinha, status);
                         case 2 -> new Medico(id, nomeUsuario,cpfUsuario, senha, sexo, telefone, email, dataNascimento, cargaHorariaSemanal,  salario, plantao, especialidade, formacao, subEspecialidade);
                         default -> new Administrador(nomeUsuario, cpfUsuario, senha, sexo, telefone, email, dataNascimento, salario, cargaHorariaSemanal, departamento, id);
                     };
@@ -276,7 +285,7 @@ public class UsuarioDAO {
         String querySql = "SELECT " +
                 "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, " +
                 "A.idDepartamento, " +
-                "P.numeroCarteirinha, P.contatoEmergencia, P.statusPaciente, " +
+                "P.numeroCarteirinha, P.contatoEmergencia, P.idStatusPaciente, " +
                 "M.idPlantao, M.idEspecialidade, M.subEspecialidade, M.formacao, " +
                 "F.salario, F.cargaHorariaSemanal "+
                 "FROM Usuario U " +
@@ -454,32 +463,37 @@ public class UsuarioDAO {
         return null;
     }
 
-    public void updateNomeUsuario (long id, String novoNome) throws SQLException {
+    public void updateNomeUsuario (long id, String novoNome)
+    {
         String queySql = "UPDATE Usuario " +
                 "SET nomeUsuario = ? " +
                 "WHERE idUsuario = ?";
 
         try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(queySql)) {
+             PreparedStatement stmt = conn.prepareStatement(queySql))
+        {
 
             stmt.setString(1, novoNome);
             stmt.setLong(2, id);
 
             stmt.executeUpdate();
 
-        } catch (SQLException e)
+        }
+        catch (SQLException e)
         {
-            throw new SQLException("Erro ao atualizar o usuário com ID: " + id, e);
+            System.err.println("Erro ao atualizar o nome do usuário com ID: " + id+ e);
         }
     }
 
-    public void updateSenhaUsuario (long id, String novaSenha) throws SQLException {
+    public void updateSenhaUsuario (long id, String novaSenha)
+    {
         String queySql = "UPDATE Usuario " +
                 "SET senha = ? " +
                 "WHERE idUsuario = ?";
 
         try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(queySql)) {
+             PreparedStatement stmt = conn.prepareStatement(queySql))
+        {
 
             stmt.setString(1, novaSenha);
             stmt.setLong(2, id);
@@ -488,11 +502,12 @@ public class UsuarioDAO {
 
         } catch (SQLException e)
         {
-            throw new SQLException("Erro ao atualizar o usuário com ID: " + id, e);
+            System.err.println("Erro ao atualizar a senha do usuário com ID: " + id+ e);
         }
     }
 
-    public void updateCpf (long id, String novoCpf) throws SQLException {
+    public void updateCpf (long id, String novoCpf)
+    {
         String qurySql = "UPDATE Usuario " +
                 "SET cpf = ? " +
                 "WHERE idUsuario = ?";
@@ -501,10 +516,15 @@ public class UsuarioDAO {
             PreparedStatement stmt = conn.prepareStatement(qurySql))
         {
 
+            stmt.setString(1, novoCpf);
+            stmt.setLong(2, id);
 
-        }catch (SQLException e)
+            stmt.executeUpdate();
+
+        }
+        catch (SQLException e)
         {
-            throw new SQLException("Erro ao atualizar o usuário com ID: " + id, e);
+            System.err.println("Erro ao atualizar o Cpf do usuário com ID: " + id+ e);
         }
     }
 }

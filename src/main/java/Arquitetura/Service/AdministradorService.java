@@ -75,6 +75,7 @@ public class AdministradorService {
      *      <li>Verifica se o usuário possui acesso total</li>
      *      <li>Verifica se o usuário está tentando deletar a si mesmo</li>
      *      <li>Verifica se o cpf recebido existe</li>
+     *      <li>Verifica se o cpf é de um Administrador</li>
      *      <li>Verifica se o administradorDeletado não é o último ADM do DB</li>
      *      <li>Deleta o ADM das tabelas Administrador, Funcionario e Usuario respectivamente</li>
      *</ol>
@@ -83,7 +84,7 @@ public class AdministradorService {
      * @param cpfAdministradorDeletado cpf de quem será deletado
      * @throws TipoUsuarioException Se o usuário não possuir acesso total (necessário para deletar)
      * @throws AutoDeleteException Se o usuário tentar deletar a si mesmo
-     * @throws CpfInvalidoException Se o cpf do administrador não existir no banco de dados
+     * @throws CpfInvalidoException Se o cpf do administrador não existir no banco de dados ou se não for Administrador
      * @throws UltimoAdminException Se o administrador deletado for o último do banco de dados;
      */
 
@@ -96,7 +97,7 @@ public class AdministradorService {
             throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
         }
 
-        // ADICIONAR VERIFICAÇÃO DE SE O CPF CONDIZ COM O ADM
+        cpfDeAdmValidator(cpfAdministradorDeletado);
 
         if(isUltimoAdmin()) {
             throw new UltimoAdminException("ERRO! NÃO É PERMITIDO DELETAR ESTE ADMINISTRADOR");
@@ -106,5 +107,19 @@ public class AdministradorService {
         administradorDao.deletarAdministrador(cpfAdministradorDeletado);
         funcionarioDAO.deletarFuncionario(cpfAdministradorDeletado);
         usuarioDAO.deletarUsuario(cpfAdministradorDeletado);
+    }
+
+    public void cpfDeAdmValidator (String cpf)
+    {
+        if(!isCpfAdmin(cpf))
+        {
+            throw new CpfInvalidoException("ERRO ! CPF NÃO PERTENCE A UM ADMINISTRADOR");
+        }
+    }
+
+    public boolean isCpfAdmin(String cpf) {
+
+        return administradorDao.isCpfAdministrador(cpf);
+
     }
 }

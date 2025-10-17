@@ -5,6 +5,7 @@ import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
+import Arquitetura.Service.Validator.TipoUsuarioValidator;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class UsuarioService {
     private final PacienteDAO pacienteDAO = new PacienteDAO();
     private final MedicoDAO medicoDAO = new MedicoDAO();
     private final AdministradorDAO administradorDAO = new AdministradorDAO();
+    TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
 
     // -- Construtor -- //
     public UsuarioService() {
@@ -82,5 +84,21 @@ public class UsuarioService {
 
         // CPF DO PACIENTE
         return 1;
+    }
+
+    public void cpfUtilizadoValidator(String cpf) {
+        if(isCpfExistente(cpf)) {
+            throw new CpfInvalidoException("ERRO! CPF JÁ UTILIZADO");
+        }
+    }
+
+    public void updateCpf(Usuario usuario, long id, String cpf) {
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        cpfUtilizadoValidator(cpf);
+        usuarioDao.updateCpf(id, cpf);
+
+        if(usuario.getId() == id) {
+            usuario.setCpf(cpf);
+        }
     }
 }

@@ -64,12 +64,13 @@ public class PacienteService {
      * <ol>
      *     <li>Verifica se o usuario possui acesso total </li>
      *     <li>Verifica se o cpf recebido existe </li>
+     *     <li>Verifica se o cpf recebido é de um Paciente</li>
      *     <li>Deleta o paciente das tabelas Paciente e Usuario respectivamente </li>
      * </ol>
      * @param usuario Quem está deletando
      * @param cpfPacienteDeletado cpf de quem será deletado
      * @throws TipoUsuarioException Se o usuario não possuir acesso total (necessário para deletar)
-     * @throws CpfInvalidoException Se o cpf do Paciente não existir no banco de dados
+     * @throws CpfInvalidoException Se o cpf do Paciente não existir no banco de dados ou se não for um Paciente
      */
 
     public void deletarPaciente(Usuario usuario, String cpfPacienteDeletado) {
@@ -80,10 +81,24 @@ public class PacienteService {
             throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
         }
 
-        // ADICIONAR verificação de se o cpf condiz com o de algum Paciente
+        cpfPacienteValidator(cpfPacienteDeletado);
 
         // Deleta nessa ordem para respeitar as chaves estrangeiras
         pacienteDAO.deletarPaciente(cpfPacienteDeletado);
         usuarioDAO.deletarUsuario(cpfPacienteDeletado);
+    }
+
+    public void cpfPacienteValidator (String cpf)
+    {
+        if(!isCpfPaciente(cpf))
+        {
+            throw new CpfInvalidoException("ERRO ! CPF NÃO PERTENCE A UM PACIENTE");
+        }
+    }
+
+    public boolean isCpfPaciente(String cpf) {
+
+        return pacienteDAO.isCpfPaciente(cpf);
+
     }
 }

@@ -6,18 +6,18 @@ public enum StatusPaciente {
 
     ATIVO(1),
 
-    INATIVO(1);
+    INATIVO(2);
 
 
     // -- Atributos Extras -- //
 
-    private long idPaciente;
+    private long idStatusPaciente;
 
 
     // -- Construtor -- //
 
-    StatusPaciente(long idPaciente) {
-        this.idPaciente = idPaciente;
+    StatusPaciente(long idStatusPaciente) {
+        this.idStatusPaciente = idStatusPaciente;
     }
 
 
@@ -25,7 +25,7 @@ public enum StatusPaciente {
 
     public long getIdPaciente()
     {
-        return idPaciente;
+        return idStatusPaciente;
     }
 }
 
