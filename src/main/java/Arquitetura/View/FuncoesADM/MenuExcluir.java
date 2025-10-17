@@ -24,7 +24,6 @@ public class MenuExcluir
     public static void ExcluirUsuario(Administrador adm)
     {
 
-
         Ferramentas.limpaTerminal();
 
         System.out.println("     EXCLUIR");
@@ -34,19 +33,15 @@ public class MenuExcluir
 
             String cpf = Ferramentas.lString();
 
-            Usuario usuario = usuarioDAO.findByCpf(cpf);
+            int i = usuarioService.cpfParaTipoUsuario(cpf);
 
-            if(usuario instanceof  Paciente)
-            {
-
+            if(i == 1) {
+                pacienteService.deletarPaciente(adm,cpf);
             }
-            else if(usuario instanceof Medico)
-            {
-
-            }
-            else
-            {
-
+            else if(i == 2) {
+                medicoService.deletarMedico(adm,cpf);
+            }else {
+                administradorService.deletarAdministrador(adm,cpf);
             }
         } catch(TipoUsuarioException | AutoDeleteException | CpfInvalidoException e )
         {
@@ -54,9 +49,9 @@ public class MenuExcluir
         }
         catch (UltimoAdminException e)
         {
-            System.out.printf("Não foi possivel deletar adm");
+            Ferramentas.limpaTerminal();
+            System.out.printf("Não foi possivel deletar ADM");
         }
-
 
         String tempo = Ferramentas.lString();
     }
