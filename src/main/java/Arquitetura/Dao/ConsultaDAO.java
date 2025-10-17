@@ -3,7 +3,8 @@ package Arquitetura.Dao;
 import Arquitetura.Config.ConnectionFactory;
 import Arquitetura.Model.Consulta;
 import Arquitetura.Model.Enums.Exame;
-import Arquitetura.Model.Enums.Status;
+import Arquitetura.Model.Enums.StatusConsulta;
+import Arquitetura.Model.Enums.StatusConsulta;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Paciente;
 
@@ -107,15 +108,15 @@ public class ConsultaDAO
                         default -> Exame.Sangue;
                     };
 
-                    Status status = switch (resultSet.getInt("idStatus"))
+                    StatusConsulta status = switch (resultSet.getInt("idStatus"))
                     {
-                        case 1 -> Status.AGENDADA;
-                        case 2 -> Status.REAGENDADA;
-                        case 3 -> Status.AGUARDANDO;
-                        case 4 -> Status.EM_ATENDIMENTO;
-                        case 5 -> Status.REALIZADA;
-                        case 6 -> Status.CANCELADA;
-                        default -> Status.FALTA;
+                        case 1 -> StatusConsulta.AGENDADA;
+                        case 2 -> StatusConsulta.REAGENDADA;
+                        case 3 -> StatusConsulta.AGUARDANDO;
+                        case 4 -> StatusConsulta.EM_ATENDIMENTO;
+                        case 5 -> StatusConsulta.REALIZADA;
+                        case 6 -> StatusConsulta.CANCELADA;
+                        default -> StatusConsulta.FALTA;
                     };
 
                     consulta = new Consulta(
@@ -278,15 +279,15 @@ public class ConsultaDAO
                         default -> Exame.Sangue;
                     };
 
-                    Status status = switch (resultSet.getInt("idStatus"))
+                    StatusConsulta status = switch (resultSet.getInt("idStatus"))
                     {
-                        case 1 -> Status.AGENDADA;
-                        case 2 -> Status.REAGENDADA;
-                        case 3 -> Status.AGUARDANDO;
-                        case 4 -> Status.EM_ATENDIMENTO;
-                        case 5 -> Status.REALIZADA;
-                        case 6 -> Status.CANCELADA;
-                        default -> Status.FALTA;
+                        case 1 -> StatusConsulta.AGENDADA;
+                        case 2 -> StatusConsulta.REAGENDADA;
+                        case 3 -> StatusConsulta.AGUARDANDO;
+                        case 4 -> StatusConsulta.EM_ATENDIMENTO;
+                        case 5 -> StatusConsulta.REALIZADA;
+                        case 6 -> StatusConsulta.CANCELADA;
+                        default -> StatusConsulta.FALTA;
                     };
 
                     consulta = new Consulta(
