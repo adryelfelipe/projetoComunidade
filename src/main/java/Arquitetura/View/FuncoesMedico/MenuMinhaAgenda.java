@@ -47,7 +47,8 @@ public class MenuMinhaAgenda
                     op = Ferramentas.lInteiro();
                 }catch (InputMismatchException e)
                 {
-                    e.getMessage();
+                    System.err.print(e.getMessage());
+                    Ferramentas.Delay(1500);
                 }
 
                 switch (op){
@@ -114,7 +115,8 @@ public class MenuMinhaAgenda
                 ano = Ferramentas.lInteiro();
             } catch (InputMismatchException e) {
                 Ferramentas.limpaTerminal();
-                e.getMessage();
+                System.err.print(e.getMessage());
+                Ferramentas.Delay(1500);
 
             }
 
@@ -124,7 +126,8 @@ public class MenuMinhaAgenda
                 mes = Ferramentas.lInteiro();
             } catch (InputMismatchException e) {
                 Ferramentas.limpaTerminal();
-                e.getMessage();
+                System.err.print(e.getMessage());
+                Ferramentas.Delay(1500);
 
             }
 
@@ -135,7 +138,8 @@ public class MenuMinhaAgenda
                 dia = Ferramentas.lInteiro();
             } catch (InputMismatchException e) {
                 Ferramentas.limpaTerminal();
-                e.getMessage();
+                System.err.print(e.getMessage());
+                Ferramentas.Delay(1500);
 
             }
 
@@ -164,7 +168,7 @@ public class MenuMinhaAgenda
             }catch (Exception e)
             {
                 Ferramentas.limpaTerminal();
-                System.out.println("Dados inválidos!");
+                System.err.println("Dados inválidos!");
                 Ferramentas.Delay(1500);
             }
         }

@@ -51,7 +51,8 @@ public class MenuEditarConta {
                     try {
                         paciente.setEmail(email);
                     }catch (IllegalArgumentException e){
-                        e.getMessage();
+                        System.err.print(e.getMessage());
+                        Ferramentas.Delay(1500);
                     }
                     break;
                 }
@@ -64,7 +65,8 @@ public class MenuEditarConta {
                         paciente.setTelefone(telefone);
                     }catch (IllegalArgumentException e)
                     {
-                        e.getMessage();
+                        System.err.print(e.getMessage());
+                        Ferramentas.Delay(1500);
                     }
                     break;
                 }
@@ -77,7 +79,8 @@ public class MenuEditarConta {
                         paciente.setSenha(senha);
                     }catch (IllegalArgumentException e)
                     {
-                        e.getMessage();
+                        System.err.print(e.getMessage());
+                        Ferramentas.Delay(1500);
                     }
                     break;
                 }
@@ -90,7 +93,8 @@ public class MenuEditarConta {
                         paciente.setContatoEmergencia(contato);
                     }catch (IllegalArgumentException e)
                     {
-                        e.getMessage();
+                        System.err.print(e.getMessage());
+                        Ferramentas.Delay(1500);
                     }
                     break;
                 }
@@ -103,7 +107,8 @@ public class MenuEditarConta {
                         paciente.setNumeroCarterinha(carteirinha);
                     }catch (IllegalArgumentException e)
                     {
-                        e.getMessage();
+                        System.err.print(e.getMessage());
+                        Ferramentas.Delay(1500);
                     }
                     break;
                 }
@@ -158,6 +163,7 @@ public class MenuEditarConta {
                     System.out.println("\n\nEste usuário é um adm, não pode ser alterado!\n\n");
                     System.out.println("Digite para continuar");
                     String tempo = Ferramentas.lString();
+                    return;
                 }
             }
         }
@@ -200,7 +206,8 @@ public class MenuEditarConta {
                         medico.setEmail(email);
                     }catch (IllegalArgumentException e)
                     {
-                        e.getMessage();
+                        System.err.print(e.getMessage());
+                        Ferramentas.Delay(1500);
                     }
                     break;
                 }
@@ -213,7 +220,8 @@ public class MenuEditarConta {
                         medico.setTelefone(telefone);
                     }catch (IllegalArgumentException e)
                     {
-                        e.getMessage();
+                        System.err.print(e.getMessage());
+                        Ferramentas.Delay(1500);
                     }
                     break;
                 }
@@ -226,7 +234,8 @@ public class MenuEditarConta {
                         medico.setSenha(senha);
                     }catch (IllegalArgumentException e)
                     {
-                        e.getMessage();
+                        System.err.print(e.getMessage());
+                        Ferramentas.Delay(1500);
                     }
                     break;
                 }
@@ -239,7 +248,8 @@ public class MenuEditarConta {
                         medico.setFormacao(formacao);
                     }catch (IllegalArgumentException e)
                     {
-                        e.getMessage();
+                        System.err.print(e.getMessage());
+                        Ferramentas.Delay(1500);
                     }
                     break;
                 }
@@ -294,7 +304,8 @@ public class MenuEditarConta {
                     try {
                         medico.setSubEspecialidade(subespecialidade);
                     }catch (IllegalArgumentException e) {
-                        e.getMessage();
+                        System.err.print(e.getMessage());
+                        Ferramentas.Delay(1500);
                     }
                     break;
                 }
