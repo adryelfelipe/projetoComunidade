@@ -53,26 +53,6 @@ public class PacienteDAO {
         }
     }
 
-    public void updateNumeroCarteirinha(long idConsulta, String numCarteirinha ) throws SQLException
-    {
-        String querySql = "UPDATE Consulta "+
-                "SET numeroCarteirinha = ? "+
-                "WHERE idConsulta = ? ";
-        try(
-                Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement stmt = connection.prepareStatement(querySql))
-        {
-            stmt.setString(1, numCarteirinha);
-            stmt.setLong(2, idConsulta);
-
-            stmt.executeUpdate();
-
-        }
-        catch (Exception e) {
-            throw new SQLException("Erro ao atualizar número da carteirinha do paciente com ID: "+idConsulta, e);
-        }
-    }
-
     public boolean isCpfPaciente(String cpf) {
         String querySql = "SELECT tipoUsuario FROM Usuario WHERE cpf = ?";
 
