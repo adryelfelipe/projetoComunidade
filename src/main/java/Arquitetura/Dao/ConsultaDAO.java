@@ -3,7 +3,8 @@ package Arquitetura.Dao;
 import Arquitetura.Config.ConnectionFactory;
 import Arquitetura.Model.Consulta;
 import Arquitetura.Model.Enums.Exame;
-import Arquitetura.Model.Enums.Status;
+import Arquitetura.Model.Enums.StatusConsulta;
+import Arquitetura.Model.Enums.StatusConsulta;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Paciente;
 
@@ -48,7 +49,7 @@ public class ConsultaDAO
     }
 
     // Remoção
-    public boolean deletarConsulta(long id)
+    public void deletarConsulta(long id)
     {
 
         String querySql = "delete from Consulta where idConsulta = ?";
@@ -59,20 +60,51 @@ public class ConsultaDAO
         {
             stmt.setLong(1, id);
 
-            int linhasAfetadas = stmt.executeUpdate();
-
-            // Retornar True se conseguiu deletar
-            if (linhasAfetadas > 0) {
-                return true;
-            }
-            // E retornara False se não conseguiu ou não existe
-            else {
-                return false;
-            }
-
-        } catch (SQLException e) {
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
             System.err.println("Erro ao deletar Consulta com ID " + id + ": " + e.getMessage());
-            return false;
+        }
+    }
+
+    public void deletarConsultaWhereCpfPaciente(String cpfPaciente)
+    {
+        String querySql = "DELETE c "+
+                "FROM Consulta c "+
+                "INNER JOIN Usuario u ON c.idPaciente = u.idUsuario "+
+                "WHERE u.cpf = ?";
+        try(
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setString(1,cpfPaciente);
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Não foi possível deletar Consulta onde CPF do Paciente é igual: "+cpfPaciente+ e);
+        }
+    }
+
+    public void deletarConsultaWhereCpfMedico(String cpfMedico)
+    {
+        String querySql = "DELETE c "+
+                "FROM Consulta c "+
+                "INNER JOIN Usuario u ON c.idMedico = u.idUsuario "+
+                "WHERE u.cpf = ? ";
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setString(1, cpfMedico);
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Não foi possível deletar Consulta onde CPF do Médico é igual: "+cpfMedico + e);
         }
     }
 
@@ -107,15 +139,15 @@ public class ConsultaDAO
                         default -> Exame.Sangue;
                     };
 
-                    Status status = switch (resultSet.getInt("idStatus"))
+                    StatusConsulta status = switch (resultSet.getInt("idStatus"))
                     {
-                        case 1 -> Status.AGENDADA;
-                        case 2 -> Status.REAGENDADA;
-                        case 3 -> Status.AGUARDANDO;
-                        case 4 -> Status.EM_ATENDIMENTO;
-                        case 5 -> Status.REALIZADA;
-                        case 6 -> Status.CANCELADA;
-                        default -> Status.FALTA;
+                        case 1 -> StatusConsulta.AGENDADA;
+                        case 2 -> StatusConsulta.REAGENDADA;
+                        case 3 -> StatusConsulta.AGUARDANDO;
+                        case 4 -> StatusConsulta.EM_ATENDIMENTO;
+                        case 5 -> StatusConsulta.REALIZADA;
+                        case 6 -> StatusConsulta.CANCELADA;
+                        default -> StatusConsulta.FALTA;
                     };
 
                     consulta = new Consulta(
@@ -278,15 +310,15 @@ public class ConsultaDAO
                         default -> Exame.Sangue;
                     };
 
-                    Status status = switch (resultSet.getInt("idStatus"))
+                    StatusConsulta status = switch (resultSet.getInt("idStatus"))
                     {
-                        case 1 -> Status.AGENDADA;
-                        case 2 -> Status.REAGENDADA;
-                        case 3 -> Status.AGUARDANDO;
-                        case 4 -> Status.EM_ATENDIMENTO;
-                        case 5 -> Status.REALIZADA;
-                        case 6 -> Status.CANCELADA;
-                        default -> Status.FALTA;
+                        case 1 -> StatusConsulta.AGENDADA;
+                        case 2 -> StatusConsulta.REAGENDADA;
+                        case 3 -> StatusConsulta.AGUARDANDO;
+                        case 4 -> StatusConsulta.EM_ATENDIMENTO;
+                        case 5 -> StatusConsulta.REALIZADA;
+                        case 6 -> StatusConsulta.CANCELADA;
+                        default -> StatusConsulta.FALTA;
                     };
 
                     consulta = new Consulta(
