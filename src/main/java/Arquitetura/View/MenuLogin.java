@@ -39,6 +39,7 @@ public class MenuLogin {
             } catch (CpfInvalidoException e) {
                 System.err.print(e.getMessage());
                 Ferramentas.Delay(1500);
+                return;
             }
             System.out.println("-------------------------");
 

@@ -72,6 +72,7 @@ public class Ferramentas {
 
         try {
             double num = ler.nextDouble();
+            ler.nextLine();
 
             return num;
         }catch (Exception e) {
@@ -100,6 +101,7 @@ public class Ferramentas {
     public static int lInteiro() {
         try{
             int num = ler.nextInt();
+            ler.nextLine();
 
             return num;
         } catch(Exception e) {
