@@ -71,13 +71,14 @@ public class MedicoService {
      *<ol>
      *     <li>Verifica se o usuario possui acesso total</li>
      *     <li>Verifica se o cpf recebido existe</li>
+     *     <li>Verifica se o cpf recebido é de um Medico</li>
      *     <li>Deleta o médico das tabelas Medico, Funcionario e Usuario respectivamente</li>
      *</ol>
      *
      * @param usuario Quem está deletando
      * @param cpfMedicoDeletado cpf de quem será deletado
      * @throws TipoUsuarioException Se o usuario não possuir acesso total (necessário para deletar)
-     * @throws CpfInvalidoException Se o cpf do Médico não existir no banco de dados
+     * @throws CpfInvalidoException Se o cpf do Médico não existir no banco de dados ou se não for de um Medico
      */
 
     public void deletarMedico(Usuario usuario, String cpfMedicoDeletado) {
@@ -88,7 +89,7 @@ public class MedicoService {
             throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
         }
 
-        // ADICIONAR VERFIFICAÇÃO DE SE O CPF CONDIZ COM UM MÉDICO
+        cpfMedicoValidator(cpfMedicoDeletado);
 
         // Deleta nessa ordem para respeitar as chaves estrangeiras
         medicoDAO.deletarMedico(cpfMedicoDeletado);
