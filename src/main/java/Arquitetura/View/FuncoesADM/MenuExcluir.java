@@ -35,20 +35,9 @@ public class MenuExcluir
 
             Usuario usuario = usuarioDAO.findByCpf(cpf);
 
-            //Enviar cpf
 
-            if(usuario instanceof  Paciente)
-            {
 
-            }
-            else if(usuario instanceof Medico)
-            {
 
-            }
-            else
-            {
-
-            }
         } catch(TipoUsuarioException | AutoDeleteException | CpfInvalidoException e )
         {
             e.getMessage();
