@@ -50,12 +50,12 @@ public class PacienteService {
     public void inserirPaciente(Usuario usuario, Paciente pacienteInserido) {
         // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
-        usuarioValidator.verificaRegrasInsercaoUsuario(paciente);
-        pacienteValidator.verificarDadosPaciente(paciente);
+        usuarioValidator.verificaRegrasInsercaoUsuario(pacienteInserido);
+        pacienteValidator.verificarDadosPaciente(pacienteInserido);
 
         // Insere nessa ordem para respeitar as chaves estrangeiras
-        usuarioDAO.inserirUsuario(paciente);
-        pacienteDAO.inserirPaciente(paciente);
+        usuarioDAO.inserirUsuario(pacienteInserido);
+        pacienteDAO.inserirPaciente(pacienteInserido);
     }
 
     public void deletarPaciente(Usuario usuario, String cpfPacienteDeletado) {
