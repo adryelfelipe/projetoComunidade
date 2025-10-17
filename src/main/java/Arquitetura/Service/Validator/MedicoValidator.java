@@ -1,8 +1,10 @@
 package Arquitetura.Service.Validator;
 
 import Arquitetura.Exception.DadosInvalidosException;
+import Arquitetura.Exception.MedicoNaoHabilitadoException;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Enums.Especialidade;
+import Arquitetura.Model.Enums.Exame;
 import Arquitetura.Model.Enums.Plantao;
 import Arquitetura.Model.Medico;
 
@@ -28,6 +30,12 @@ public class MedicoValidator {
         if(medico.getFormacao() == null)
         {
             throw new DadosInvalidosException("ERRO! A FORMAÇÃO NÃO PODE SER NULA");
+        }
+    }
+
+    public void podeRealizarExame(Medico medico, Exame exame) {
+        if(!medico.getEspecialidade().podeRealizar(exame)) {
+            throw new MedicoNaoHabilitadoException("ERRO! O MÉDICO NÃO É HABILITADO PARA REALIZAR ESTE EXAME");
         }
     }
 }
