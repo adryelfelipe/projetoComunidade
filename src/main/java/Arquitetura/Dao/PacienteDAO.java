@@ -23,7 +23,7 @@ public class PacienteDAO {
             stmt.setLong(1, paciente.getId());
             stmt.setString(2, paciente.getNumeroCarterinha() );
             stmt.setString(3, paciente.getContatoEmergencia());
-            stmt.setString(4, paciente.getContatoEmergencia());
+            stmt.setLong(4, paciente.getStatusPaciente().getIdPaciente());
 
             stmt.executeUpdate();
 
