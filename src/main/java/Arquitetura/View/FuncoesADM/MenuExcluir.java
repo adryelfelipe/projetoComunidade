@@ -33,11 +33,16 @@ public class MenuExcluir
 
             String cpf = Ferramentas.lString();
 
-            Usuario usuario = usuarioDAO.findByCpf(cpf);
+            int i = usuarioService.cpfParaTipoUsuario(cpf);
 
-
-
-
+            if(i == 1) {
+                pacienteService.deletarPaciente(adm,cpf);
+            }
+            else if(i == 2) {
+                medicoService.deletarMedico(adm,cpf);
+            }else {
+                administradorService.deletarAdministrador(adm,cpf);
+            }
         } catch(TipoUsuarioException | AutoDeleteException | CpfInvalidoException e )
         {
             e.getMessage();
@@ -47,7 +52,6 @@ public class MenuExcluir
             Ferramentas.limpaTerminal();
             System.out.printf("Não foi possivel deletar ADM");
         }
-
 
         String tempo = Ferramentas.lString();
     }
