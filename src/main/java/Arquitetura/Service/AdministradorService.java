@@ -93,7 +93,7 @@ public class AdministradorService {
         administradorValidator.verificaAutoDelete(usuario.getCpf(), cpfAdministradorDeletado);
 
         if(!usuarioService.isCpfExistente(cpfAdministradorDeletado)) {
-            throw new CpfInvalidoException("ERRO! O CPF INEXISTENTE");
+            throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
         }
 
         // ADICIONAR VERIFICAÇÃO DE SE O CPF CONDIZ COM O ADM
