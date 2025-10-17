@@ -1,5 +1,7 @@
 package Arquitetura.View.FuncoesADM;
 
+import Arquitetura.Dao.UsuarioDAO;
+import Arquitetura.Exception.*;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Paciente;
@@ -17,57 +19,45 @@ public class MenuExcluir
     private static AdministradorService administradorService = new AdministradorService();
     private static MedicoService medicoService = new MedicoService();
     private static PacienteService pacienteService = new PacienteService();
+    private static UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     public static void ExcluirUsuario(Administrador adm)
     {
 
-        boolean excluir = false;
 
         Ferramentas.limpaTerminal();
 
         System.out.println("     EXCLUIR");
         System.out.println("\n\nDigite o cpf do usuario: ");
-        String cpf = Ferramentas.lString();
 
-        for(Usuario entrada: usuarioService.findAllUsers(adm))
-        {
-            if (entrada.getCpf().equals(cpf))
+        try{
+
+            String cpf = Ferramentas.lString();
+
+            Usuario usuario = usuarioDAO.findByCpf(cpf);
+
+            if(usuario instanceof  Paciente)
             {
-                if(entrada instanceof Administrador)
-                {
-                    Administrador admdel = (Administrador) entrada;
 
-                    excluir = administradorService.deletarAdministrador(adm,admdel);
-                }
-                else if(entrada instanceof Medico)
-                {
-                    Medico medicodel = (Medico) entrada;
-
-                    excluir = medicoService.deletarMedico(adm,medicodel);
-                }
-                else if(entrada instanceof Paciente)
-                {
-                    Paciente pacientedel = (Paciente) entrada;
-
-                    excluir = pacienteService.deletarPaciente(adm,pacientedel);
-                }
-
-                if(excluir == true) {
-                    System.out.println("Usuario excluido");
-                }
-                else {
-                    System.out.println("Erro ao excluir usuario");
-                }
-                System.out.println("\n\nDigite para continuar");
-                String tempo = Ferramentas.lString();
-
-                return;
             }
+            else if(usuario instanceof Medico)
+            {
+
+            }
+            else
+            {
+
+            }
+        } catch(TipoUsuarioException | AutoDeleteException | CpfInvalidoException e )
+        {
+            e.getMessage();
+        }
+        catch (UltimoAdminException e)
+        {
+            System.out.printf("Não foi possivel deletar adm");
         }
 
-        System.out.println("Usuario não encontrado!");
 
-        System.out.println("\n\nDigite para continuar");
         String tempo = Ferramentas.lString();
     }
 }

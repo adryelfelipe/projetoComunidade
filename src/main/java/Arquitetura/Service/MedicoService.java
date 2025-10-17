@@ -1,10 +1,12 @@
 package Arquitetura.Service;
 
+import Arquitetura.Dao.ConsultaDAO;
 import Arquitetura.Dao.FuncionarioDAO;
 import Arquitetura.Dao.MedicoDAO;
 import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Model.Administrador;
+import Arquitetura.Model.Consulta;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.Validator.MedicoValidator;
@@ -12,6 +14,9 @@ import Arquitetura.Service.Validator.TipoUsuarioValidator;
 import Arquitetura.Service.Validator.UsuarioValidator;
 import Arquitetura.Exception.TipoUsuarioException;
 import Arquitetura.Exception.DadosInvalidosException;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class MedicoService {
 
@@ -24,6 +29,7 @@ public class MedicoService {
     private final UsuarioValidator usuarioValidator = new UsuarioValidator();
     private final MedicoValidator medicoValidator = new MedicoValidator();
     private final UsuarioService usuarioService = new UsuarioService();
+    private final ConsultaDAO consultaDAO = new ConsultaDAO();
 
     // Construtor -- //
     public MedicoService() {
@@ -89,4 +95,21 @@ public class MedicoService {
         funcionarioDAO.deletarFuncionario(cpfMedicoDeletado);
         usuarioDAO.deletarUsuario(cpfMedicoDeletado);
     }
+
+    public ArrayList<Consulta> ConsultasMedico(Usuario usuario, String cpfmedico)
+    {
+        // Verificação de dados
+        tipoUsuarioValidator.temAcessoModerado(usuario);
+
+        if(!usuarioService.isCpfExistente(cpfmedico)){
+            throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
+        }
+
+        // ADICIONAR VERFIFICAÇÃO DE SE O CPF CONDIZ COM UM MÉDICO
+
+        Medico medico = medicoDAO.findByCpf(cpfmedico);
+
+        return consultaDAO.findAllConsultasOfMedico(medico);
+    }
+
 }

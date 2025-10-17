@@ -2,14 +2,20 @@ package Arquitetura.View.FuncoesADM;
 
 import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Model.Administrador;
+import Arquitetura.Model.Consulta;
+import Arquitetura.Model.Enums.StatusConsulta;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Usuario;
+import Arquitetura.Service.MedicoService;
 import Arquitetura.Utilidades.Ferramentas;
+
+import java.util.ArrayList;
 
 public class MenuDisponibilidade
 {
 
     static UsuarioDAO usuarioDAO = new UsuarioDAO();
+    static MedicoService medicoService = new MedicoService();
 
     public static void Disponibilidade(Administrador adm)
     {
@@ -20,18 +26,31 @@ public class MenuDisponibilidade
         System.out.println("\n\nDigite o cpf do medico: ");
         String cpf = Ferramentas.lString();
 
-        for (Usuario entrada: usuarioDAO.findAllUsers())
+        Usuario usuario = usuarioDAO.findByCpf(cpf);
+
+        if(usuario instanceof Medico)
         {
-            if(entrada.getCpf().equals(cpf))
+            Medico medico = (Medico) usuario;
+
+            Ferramentas.limpaTerminal();
+
+            System.out.println("       CONSULTAS DO MÉDICO");
+
+            ArrayList<Consulta> consultas = medicoService.ConsultasMedico(adm,cpf);
+
+            for (Consulta entrad: consultas)
             {
-                Medico medico = (Medico) entrada;
-
-                Ferramentas.limpaTerminal();
-
-                System.out.println("       CONSULTAS DO MÉDICO");
-
-                //medico.Consultas
+                if (entrad.getStatus().equals(StatusConsulta.AGENDADA)) System.out.println(entrad.getIdConsulta());
+                System.out.println(entrad.getDataConsulta());
+                System.out.println(entrad.getHorarioConsulta());
+                System.out.println(entrad.getExame());
+                System.out.println(entrad.getPaciente());
             }
+        }
+        else
+        {
+            Ferramentas.limpaTerminal();
+            System.out.println("Esse usuário não é um médico!");
         }
 
         System.out.println("Médico não encontrado!");
