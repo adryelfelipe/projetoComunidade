@@ -10,5 +10,7 @@ public class MenuProntuario {
     {
 
         Ferramentas.limpaTerminal();
+
+        // Pegar informações de um paciente
     }
 }

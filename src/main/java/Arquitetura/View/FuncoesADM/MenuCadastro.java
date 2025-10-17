@@ -96,6 +96,7 @@ public class MenuCadastro
             try {
                 ano = Ferramentas.lInteiro();
             } catch (InputMismatchException e) {
+                Ferramentas.limpaTerminal();
                 e.getMessage();
                 continuar = false;
             }
@@ -105,6 +106,7 @@ public class MenuCadastro
             try {
                 mes = Ferramentas.lInteiro();
             } catch (InputMismatchException e) {
+                Ferramentas.limpaTerminal();
                 e.getMessage();
                 continuar = false;
             }
@@ -126,8 +128,8 @@ public class MenuCadastro
             System.out.println("Digite a carga horária semanal: ");
             try {
                 cargaHoraria = Ferramentas.lInteiro();
-            }catch (InputMismatchException e)
-            {
+            }catch (InputMismatchException e) {
+                Ferramentas.limpaTerminal();
                 e.getMessage();
             }
             double salario = 0;
@@ -137,6 +139,7 @@ public class MenuCadastro
             try {
                 salario = Ferramentas.lDouble();
             } catch (InputMismatchException e) {
+                Ferramentas.limpaTerminal();
                 e.getMessage();
                 continuar = false;
             }
@@ -235,6 +238,7 @@ public class MenuCadastro
 
                     Ferramentas.Delay(1500);
                 } catch (IllegalArgumentException e) {
+                    Ferramentas.limpaTerminal();
                     e.getMessage();
                 }
 
@@ -252,6 +256,7 @@ public class MenuCadastro
                     Ferramentas.Delay(1500);
 
                 } catch (IllegalArgumentException e) {
+                    Ferramentas.limpaTerminal();
                     e.getMessage();
                 }
             }
@@ -335,6 +340,7 @@ public class MenuCadastro
             try {
                 ano = Ferramentas.lInteiro();
             } catch (InputMismatchException e) {
+                Ferramentas.limpaTerminal();
                 e.getMessage();
                 continuar = false;
             }
@@ -344,6 +350,7 @@ public class MenuCadastro
             try {
                 mes = Ferramentas.lInteiro();
             } catch (InputMismatchException e) {
+                Ferramentas.limpaTerminal();
                 e.getMessage();
                 continuar = false;
             }
@@ -354,6 +361,7 @@ public class MenuCadastro
             try {
                 dia = Ferramentas.lInteiro();
             } catch (InputMismatchException e) {
+                Ferramentas.limpaTerminal();
                 e.getMessage();
                 continuar = false;
             }
@@ -381,6 +389,7 @@ public class MenuCadastro
 
                 Ferramentas.Delay(1500);
             } catch (IllegalArgumentException e) {
+                Ferramentas.limpaTerminal();
                 e.getMessage();
             }
 
@@ -462,6 +471,7 @@ public class MenuCadastro
             try {
                 ano = Ferramentas.lInteiro();
             } catch (InputMismatchException e) {
+                Ferramentas.limpaTerminal();
                 e.getMessage();
                 continuar = false;
             }
@@ -471,6 +481,7 @@ public class MenuCadastro
             try {
                 mes = Ferramentas.lInteiro();
             } catch (InputMismatchException e) {
+                Ferramentas.limpaTerminal();
                 e.getMessage();
                 continuar = false;
             }
@@ -481,6 +492,7 @@ public class MenuCadastro
             try {
                 dia = Ferramentas.lInteiro();
             } catch (InputMismatchException e) {
+                Ferramentas.limpaTerminal();
                 e.getMessage();
                 continuar = false;
             }
@@ -491,8 +503,8 @@ public class MenuCadastro
             System.out.println("Digite a carga horária semanal: ");
             try {
                 cargaHoraria = Ferramentas.lInteiro();
-            }catch (InputMismatchException e)
-            {
+            }catch (InputMismatchException e) {
+                Ferramentas.limpaTerminal();
                 e.getMessage();
             }
             double salario = 0;
@@ -502,6 +514,7 @@ public class MenuCadastro
             try {
                 salario = Ferramentas.lDouble();
             } catch (InputMismatchException e) {
+                Ferramentas.limpaTerminal();
                 e.getMessage();
                 continuar = false;
             }
@@ -526,6 +539,7 @@ public class MenuCadastro
                     MenuDefault.menuDefault();
 
                 }catch (InputMismatchException e) {
+                    Ferramentas.limpaTerminal();
                     verificOp = true;
 
                     System.out.println("ERRO.  OPÇÂO INVALIDA");
@@ -555,6 +569,7 @@ public class MenuCadastro
 
                 Ferramentas.Delay(1500);
             } catch (IllegalArgumentException e) {
+                Ferramentas.limpaTerminal();
                 e.getMessage();
             }
         }while (!continuar);

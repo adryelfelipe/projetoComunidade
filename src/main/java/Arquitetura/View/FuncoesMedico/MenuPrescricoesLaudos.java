@@ -10,5 +10,7 @@ public class MenuPrescricoesLaudos {
     {
 
         Ferramentas.limpaTerminal();
+
+        //Menu editar relatorio
     }
 }
