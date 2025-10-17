@@ -24,7 +24,6 @@ public class MenuExcluir
     public static void ExcluirUsuario(Administrador adm)
     {
 
-
         Ferramentas.limpaTerminal();
 
         System.out.println("     EXCLUIR");
@@ -35,6 +34,8 @@ public class MenuExcluir
             String cpf = Ferramentas.lString();
 
             Usuario usuario = usuarioDAO.findByCpf(cpf);
+
+            //Enviar cpf
 
             if(usuario instanceof  Paciente)
             {
@@ -54,7 +55,8 @@ public class MenuExcluir
         }
         catch (UltimoAdminException e)
         {
-            System.out.printf("Não foi possivel deletar adm");
+            Ferramentas.limpaTerminal();
+            System.out.printf("Não foi possivel deletar ADM");
         }
 
 
