@@ -112,4 +112,17 @@ public class MedicoService {
         return consultaDAO.findAllConsultasOfMedico(medico);
     }
 
+    public void cpfMedicoValidator (String cpf)
+    {
+        if(!isCpfMedico(cpf))
+        {
+            throw new CpfInvalidoException("ERRO ! CPF NÃO PERTENCE A UM MÉDICO");
+        }
+    }
+
+    public boolean isCpfMedico(String cpf) {
+
+        return medicoDAO.isCpfMedico(cpf);
+
+    }
 }
