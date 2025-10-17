@@ -33,31 +33,23 @@ public class MedicoDAO {
     }
 
     // Remoção
-    public boolean deletarMedico(long id) {
-        String querySql = "DELETE FROM Medico WHERE idMedico = ?";
+    public void deletarMedico(String cpf) {
+        String querySql =
+                "DELETE m " +
+                        "FROM Medico m " +
+                        "JOIN Usuario u ON m.idMedico = u.idUsuario " +
+                        "WHERE u.cpf = ?";
 
-        try (
-                Connection conn = ConnectionFactory.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(querySql)) {
-            stmt.setLong(1, id);
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(querySql)) {
 
-            int linhasAfetadas = stmt.executeUpdate();
-
-            // Retornar True se conseguiu deletar
-            if (linhasAfetadas > 0) {
-                return true;
-            }
-            // E retornara False se não conseguiu ou não existe
-            else {
-                return false;
-            }
+            stmt.setString(1, cpf);
+            stmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("Erro ao deletar Médico com ID " + id + ": " + e.getMessage());
-            return false;
+            System.err.println("Erro ao deletar Médico com CPF " + cpf + ": " + e.getMessage());
         }
     }
-
     public Medico findByID(long id) {
 
         String querySQL = "SELECT " +
@@ -177,87 +169,143 @@ public class MedicoDAO {
         }
 
     }
-    public void updateEspecialidade(String cpf, Especialidade especialidade)
-    {
-        String querySql = "UPDATE Medico m "+
-                "INNER JOIN Usuario u ON m.idMedico = u.idUsuario "+
-                "SET idEspecialidade = ?"+
-                "WHERE cpf = ?";
-        try(
-                Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement stmt = connection.prepareStatement(querySql))
-        {
-            stmt.setLong(1, especialidade.getIdEspecialidade());
-            stmt.setString(2, cpf);
+    public Medico findByCpf(String cpf) {
 
-            stmt.executeUpdate();
+        String querySQL = "SELECT " +
+                "M.idMedico, M.idEspecialidade, M.subEspecialidade, M.formacao, M.idPlantao, " +
+                "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, "+
+                "F.idFuncionario, F.salario, F.cargaHorariaSemanal "+
+                "FROM Medico M "+
+                "LEFT JOIN Usuario U ON M.idMedico = U.idUsuario "+
+                "LEFT JOIN Funcionario F ON M.idMedico = F.idFuncionario " +
+                "WHERE M.idMedico = ? ";
+
+
+        Medico medico = null;
+
+        try
+                (Connection conn = ConnectionFactory.getConnection();
+                 PreparedStatement stmt = conn.prepareStatement(querySQL))
+        {
+            stmt.setString(1,cpf);
+
+            try(ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next()) {
+
+                    // Dados Gerais do Usuário
+                    long idU = resultSet.getLong("idUsuario");
+                    String senha = resultSet.getString("senha");
+                    String nomeUsuario = resultSet.getString("nomeUsuario");
+                    int sexoId = resultSet.getInt("sexo");
+                    String cpfMedico = resultSet.getString("cpf");
+                    String telefone = resultSet.getString("telefone");
+                    String email = resultSet.getString("email");
+                    Date dataNascimento = resultSet.getDate("dataNascimento");
+                    int tipoUsuario = resultSet.getInt("tipoUsuario");
+                    Genero sexo = switch (sexoId) {
+                        case 1 -> Genero.MASCULINO;
+                        default -> Genero.FEMININO;
+                    };
+
+
+                    // Dados Médico
+                    long idM = resultSet.getLong("idMedico");
+                    int idEspecialidade = resultSet.getInt("idEspecialidade");
+                    String subEspecialidade = resultSet.getString("subEspecialidade");
+                    String formacao = resultSet.getString("formacao");
+                    int idPlantao = resultSet.getInt("idPlantao");
+
+                    // Enum Especialidade
+                    Especialidade especialidade = switch (idEspecialidade)
+                    {
+                        case 1 -> Especialidade.CLINICO_GERAL;
+                        case 2 -> Especialidade.CARDIOLOGISTA;
+                        case 3 -> Especialidade.RADIOLOGISTA;
+                        case 4 -> Especialidade.OTORRINOLARINGOLOGISTA;
+                        case 5 -> Especialidade.OFTALMOLOGISTA;
+                        case 6 -> Especialidade.ENDOCRINOLOGISTA;
+                        default -> Especialidade.HEMATOLOGISTA;
+                    };
+
+                    // Enum Plantão
+                    Plantao plantao = switch(idPlantao) {
+                        case 1 -> Plantao.MATUTINO;
+                        case 2 -> Plantao.VERPERTINO;
+                        default -> Plantao.NOTURNO;
+                    };
+
+                    // Dados Funcionario
+                    double salario = resultSet.getDouble("salario");
+                    int cargaHorariaSemanal = resultSet.getInt("cargaHorariaSemanal");
+
+                    if (subEspecialidade.isEmpty())
+                    {
+                        medico = new Medico(
+                                idM,
+                                nomeUsuario,
+                                cpf,
+                                senha,
+                                sexo,
+                                telefone,
+                                email,
+                                dataNascimento,
+                                cargaHorariaSemanal,
+                                salario,
+                                plantao,
+                                especialidade,
+                                formacao
+                        );
+                    }
+
+                    else
+                    {
+                        medico = new Medico(
+                                idM,
+                                nomeUsuario,
+                                cpf,
+                                senha,
+                                sexo,
+                                telefone,
+                                email,
+                                dataNascimento,
+                                cargaHorariaSemanal,
+                                salario,
+                                plantao,
+                                especialidade,
+                                formacao,
+                                subEspecialidade
+                        );
+                    }
+                }
+            }
+            return medico;
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao atualizar a especialidade do médico com ID: "+cpf+ e);
+            System.err.println("Erro ao buscar o Médico : "+e.getMessage());
+            return medico;
         }
+
     }
-    public void updateSubEspecialidade(String cpf, String subEspecialidade)
-    {
-        String querySql = "UPDATE Medico m "+
-                    "INNER JOIN Usuario u ON m.idMedico = u.idUsuario "+
-                    "SET subEspecialidade = ? "+
-                    "WHERE cpf = ? ";
 
-        try(
-            Connection connection = ConnectionFactory.getConnection();
-            PreparedStatement stmt = connection.prepareStatement(querySql))
-        {
-            stmt.setString(1, subEspecialidade);
-            stmt.setString(2, cpf);
+    public boolean isCpfMedico(String cpf) {
+        String querySql = "SELECT tipoUsuario FROM Usuario WHERE cpf = ?";
 
-            stmt.executeUpdate();
-        }
-        catch(SQLException e)
-        {
-            System.out.println("Erro ao atualizar subespecialidade do médico com CPF: "+cpf + e);
-        }
-    }
-    public void updateFormacao(String cpf, String formacao)
-    {
-        String querySql = "UPDATE Medico m "+
-                "INNER JOIN Usuario u ON m.idMedico = u.idUsuario "+
-                "SET formacao = ? "+
-                "WHERE cpf = ?";
-        try(
-                Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement stmt = connection.prepareStatement(querySql))
-        {
-            stmt.setString(1, formacao);
-            stmt.setString(2, cpf);
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(querySql)) {
 
-            stmt.executeUpdate();
-        }
-        catch (SQLException e)
-        {
-            System.err.println("Erro ao atualizar formação do médico com CPF: "+cpf + e);
-        }
-    }
-    public void updatePlantao(String cpf, Plantao plantao)
-    {
-        String querySql = "UPDATE Medico m "+
-                "INNER JOIN Usuario u ON m.idMedico = u.idUsuario "+
-                "SET idPlantao = ? "+
-                "WHERE cpf = ? ";
+            stmt.setString(1, cpf);
+            ResultSet rs = stmt.executeQuery();
 
-        try(
-                Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement stmt = connection.prepareStatement(querySql))
-        {
-            stmt.setLong(1, plantao.getIdPlantao());
-            stmt.setString(2, cpf);
+            if (rs.next()) {
+                long tipo = rs.getLong("tipoUsuario");
+                return tipo == 2;
+            }
 
-            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar o CPF do Medico. ");
         }
-        catch (SQLException e)
-        {
-            System.err.println("Erro ao atualizar plantão do médico com CPF: "+cpf + e);
-        }
-
+        return false;
     }
 }

@@ -33,48 +33,22 @@ public class FuncionarioDAO {
 
     }
 
-    // Remoção
-    public boolean deletarFuncionario(long id) {
-        String querySql = "DELETE FROM Funcionario WHERE idFuncionario = ?";
+        // Remoção
+        public void deletarFuncionario(String cpf) {
+            String querySql = "DELETE f " +
+                    "FROM Funcionario f " +
+                    "JOIN Usuario u ON u.idUsuario = f.idFuncionario " +
+                    "WHERE u.cpf = ?";
 
-        try (
-                Connection conn = ConnectionFactory.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(querySql)) {
-            stmt.setLong(1, id);
+            try (Connection conn = ConnectionFactory.getConnection();
+                 PreparedStatement stmt = conn.prepareStatement(querySql))
+            {
+                stmt.setString(1, cpf);
+                stmt.executeUpdate();
 
-            int linhasAfetadas = stmt.executeUpdate();
-
-            // Retornar True se conseguiu deletar
-            if (linhasAfetadas > 0) {
-                return true;
+            } catch (SQLException e) {
+                System.err.println("Erro ao deletar Funcionário com o CPF " + cpf + ": " + e.getMessage());
             }
-            // E retornara False se não conseguiu ou não existe
-            else {
-                return false;
-            }
+        }
 
-        } catch (SQLException e) {
-            System.err.println("Erro ao deletar Funcionário com ID " + id + ": " + e.getMessage());
-            return false;
-        }
-    }
-    public void updateSalario(String cpf, double salario)
-    {
-        String querySql = "UPDATE Funcionario f"+
-                "INNER JOIN Usuario u ON f.idFuncionario = u.idUsuario "+
-                "SET salario = ? "+
-                "WHERE cpf = ? ";
-
-        try (
-                Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement stmt = connection.prepareStatement(querySql))
-        {
-            stmt.setDouble(1, salario);
-            stmt.setString(2, cpf);
-        }
-        catch (SQLException e)
-        {
-            System.err.println("Erro ao atualizar salário do funcionario com CPF: "+cpf+ e);
-        }
-    }
 }

@@ -5,6 +5,7 @@ import Arquitetura.Model.Paciente;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class PacienteDAO {
@@ -22,7 +23,7 @@ public class PacienteDAO {
             stmt.setLong(1, paciente.getId());
             stmt.setString(2, paciente.getNumeroCarterinha() );
             stmt.setString(3, paciente.getContatoEmergencia());
-            stmt.setString(4, paciente.getStatusPaciente());
+            stmt.setString(4, paciente.getContatoEmergencia());
 
             stmt.executeUpdate();
 
@@ -34,68 +35,63 @@ public class PacienteDAO {
     }
 
     // Remoção
-    public boolean deletarPaciente(long id) {
-        String querySql = "DELETE FROM Paciente WHERE idPaciente = ?";
+    public void deletarPaciente(String cpf) {
+        String querySql = "DELETE p " +
+                          "FROM Paciente p " +
+                          "JOIN Usuario u ON p.idPaciente = u.idUsuario " +
+                          "WHERE u.cpf = ?";
 
-        try (
-                Connection conn = ConnectionFactory.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(querySql)) {
-            stmt.setLong(1, id);
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(querySql))
+        {
 
-            int linhasAfetadas = stmt.executeUpdate();
-
-            // Retornar True se conseguiu deletar
-            if (linhasAfetadas > 0) {
-                return true;
-            }
-            // E retornara False se não conseguiu ou não existe
-            else {
-                return false;
-            }
+            stmt.setString(1, cpf);
+            stmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("Erro ao deletar Paciente com ID " + id + ": " + e.getMessage());
-            return false;
+            System.err.println("Erro ao deletar Paciente com CPF " + cpf + ": " + e.getMessage());
         }
     }
-    public void updateNumeroCarteirinha(String cpf, String numCarteirinha )
+
+    public void updateNumeroCarteirinha(long idConsulta, String numCarteirinha ) throws SQLException
     {
-        String querySql = "UPDATE Paciente p "+
-                "INNER JOIN Usuario u ON p.idPaciente = u.idUsuario "+
+        String querySql = "UPDATE Consulta "+
                 "SET numeroCarteirinha = ? "+
-                "WHERE cpf = ? ";
+                "WHERE idConsulta = ? ";
         try(
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(querySql))
         {
             stmt.setString(1, numCarteirinha);
-            stmt.setString(2, cpf);
+            stmt.setLong(2, idConsulta);
 
             stmt.executeUpdate();
+
         }
-        catch (SQLException e) {
-            System.err.println("Erro ao atualizar número da carteirinha do paciente com ID: "+cpf+ e);
+        catch (Exception e) {
+            throw new SQLException("Erro ao atualizar número da carteirinha do paciente com ID: "+idConsulta, e);
         }
     }
-    public void updateContatoEmergencia(String cpf, String contatoEmergencia)
-    {
-        String querySql = "UPDATE Paciente p"+
-                "INNER JOIN Usuario u ON p.idPaciente = u.idUsuario "+
-                "SET contatoCarteirinha = ? "+
-                "WHERE cpf = ? ";
 
-        try (
-                Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement stmt = connection.prepareStatement(querySql))
-        {
-            stmt.setString(1, contatoEmergencia);
-            stmt.setString(2, cpf);
+    public boolean isCpfPaciente(String cpf) {
+        String querySql = "SELECT tipoUsuario FROM Usuario WHERE cpf = ?";
 
-            stmt.executeUpdate();
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(querySql)) {
+
+            stmt.setString(1, cpf);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                long tipo = rs.getLong("tipoUsuario");
+                return tipo == 1;
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar o CPF do Paciente. ");
         }
-        catch (SQLException e)
-        {
-            System.err.println("Erro ao atualizar o contato de emergência do paciente com o ID: "+cpf+ e);
-        }
+        return false;
     }
+
+
 }
