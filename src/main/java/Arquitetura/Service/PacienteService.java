@@ -49,7 +49,7 @@ public class PacienteService {
     public void inserirPaciente(Usuario usuario, Paciente pacienteInserido) {
         // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
-        pacienteValidator.verificarInsercaoDadosPaciente(pacienteInserido);
+        pacienteValidator.verificaRegrasInsercaoPaciente(pacienteInserido);
 
         // Insere nessa ordem para respeitar as chaves estrangeiras
         usuarioDAO.inserirUsuario(pacienteInserido);

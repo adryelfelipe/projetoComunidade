@@ -11,7 +11,7 @@ public class PacienteValidator {
     UsuarioValidator usuarioValidator = new UsuarioValidator();
 
     // -- Métodos verificadores de regras de negócio -- //
-    public void verificarInsercaoDadosPaciente(Paciente paciente) {
+    public void verificaRegrasInsercaoPaciente(Paciente paciente) {
         usuarioValidator.verificaRegrasInsercaoUsuario(paciente);
         verificaRegrasNumeroCarterinha(paciente.getNumeroCarterinha());
         verificaRegrasContatoEmergencia(paciente.getContatoEmergencia());
