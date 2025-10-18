@@ -16,7 +16,7 @@ public class UsuarioValidator {
     }
 
     // -- Métodos verificadores de regras de negócio -- //
-    public void verificarDadosUser(Usuario usuario) {
+    public void verificaRegrasInsercaoUsuario(Usuario usuario) {
         verificarRegrasObjeto(usuario);
         verificarRegrasCpf(usuario.getCpf());
         verificarRegrasEmail(usuario.getEmail());

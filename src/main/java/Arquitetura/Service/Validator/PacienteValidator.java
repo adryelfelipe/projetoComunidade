@@ -12,7 +12,7 @@ public class PacienteValidator {
 
     // -- Métodos de verificação -- //
     public void verificarInsercaoDadosPaciente(Paciente paciente) {
-        usuarioValidator.verificarDadosUser(paciente);
+        usuarioValidator.verificaRegrasInsercaoUsuario(paciente);
 
         if(paciente.getStatusPaciente() == null) {
             throw new DadosInvalidosException("ERRO! O STATUS DO PACIENTE NÃO PODE SER NULO");

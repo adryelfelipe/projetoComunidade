@@ -11,7 +11,7 @@ public class FuncionarioValidator {
     // -- Métodos de verificação -- //
     public void verificarDadosFuncionario(Funcionario funcionario)
     {
-        usuarioValidator.verificarDadosUser(funcionario);
+        usuarioValidator.verificaRegrasInsercaoUsuario(funcionario);
 
         if(funcionario.getCargaHorariaSemanal() < 40)
         {
