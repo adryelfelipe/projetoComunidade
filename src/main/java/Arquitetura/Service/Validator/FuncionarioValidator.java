@@ -8,18 +8,22 @@ public class FuncionarioValidator {
     // -- Atributos -- //
     private UsuarioValidator usuarioValidator = new UsuarioValidator();
 
-    // -- Métodos de verificação -- //
+    // -- Métodos verificadores de regras de negócio -- //
     public void verificarDadosFuncionario(Funcionario funcionario)
     {
         usuarioValidator.verificaRegrasInsercaoUsuario(funcionario);
+        verificaRegrasSalario(funcionario.getSalario());
+        verificaRegrasCargaHoraria(funcionario.getCargaHorariaSemanal());
+    }
 
-        if(funcionario.getCargaHorariaSemanal() < 40)
-        {
+    public void verificaRegrasCargaHoraria(int cargaHorariaSemanal) {
+        if(cargaHorariaSemanal < 40) {
             throw new DadosInvalidosException("ERRO! A CARGA HORÁRIA NÃO PODE SER MENOR QUE 40");
         }
+    }
 
-        if (funcionario.getSalario() < 1500)
-        {
+    public void verificaRegrasSalario(double salario) {
+        if (salario < 1500) {
             throw new DadosInvalidosException("ERRO! O SALÁRIO NÃO PODE SER MENOR QUE 1500");
         }
     }
