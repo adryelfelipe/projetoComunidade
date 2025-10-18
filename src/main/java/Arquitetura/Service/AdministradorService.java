@@ -58,7 +58,7 @@ public class AdministradorService {
     public void inserirAdmin(Usuario usuario, Administrador administradorCriado)  {
         // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
-        administradorValidator.verificarDadosAdm(administradorCriado);
+        administradorValidator.verificaRegrasInsercaoAdm(administradorCriado);
 
         // Insere nessa ordem para respeitar as chaves estrangeiras
         usuarioDAO.inserirUsuario(administradorCriado);
