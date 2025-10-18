@@ -21,16 +21,19 @@ public class UsuarioValidator {
         verificarRegrasSexo(usuario.getSexo());
         verificarRegrasSenha(usuario.getSenha());
         verificarRegrasDataNascimento(usuario.getDataNascimento());
-        verificaRegrasInsercaoUsuario(usuario);
+        verificaExistenciaUsuario(usuario);
     }
 
-    public void verificaRegrasInsercaoUsuario(Usuario usuarioInserido) {
-        if(usuarioInserido.getId() != 0) {
+    public boolean isUsuarioExistente(Usuario usuario) {
+        return usuario.getId() != 0;
+    }
+
+    public void verificaExistenciaUsuario(Usuario usuario) {
+        if(isUsuarioExistente(usuario)) {
             throw new UsuarioExistenteException("ERRO! ESTE USUÁRIO JÁ FOI CADASTRADO");
         }
     }
 
-    // Verificações de regras de negócio
     public void verificarRegrasObjeto(Usuario usuario) {
         if(usuario == null) {
             throw new DadosInvalidosException("ERRO! O USUÁRIO NÃO PODE SER NULO");
