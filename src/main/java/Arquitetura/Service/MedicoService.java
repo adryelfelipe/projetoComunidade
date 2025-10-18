@@ -57,7 +57,7 @@ public class MedicoService {
         // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
         usuarioValidator.verificaRegrasInsercaoUsuario(medicoInserido);
-        medicoValidator.verificarDadosMedico(medicoInserido);
+        medicoValidator.verificarInsercaoDadosMedico(medicoInserido);
 
         // Insere nessa ordem para respeitar as chaves estrangeiras
         usuarioDAO.inserirUsuario(medicoInserido);
