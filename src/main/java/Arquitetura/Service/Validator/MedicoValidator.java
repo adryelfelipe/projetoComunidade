@@ -13,13 +13,6 @@ public class MedicoValidator {
     // -- Atributos -- //
     FuncionarioValidator funcionarioValidator = new FuncionarioValidator();
 
-    // -- Métodos de análise -- //
-    public void podeRealizarExame(Medico medico, Exame exame) {
-        if(!medico.getEspecialidade().podeRealizar(exame)) {
-            throw new MedicoNaoHabilitadoException("ERRO! O MÉDICO NÃO É HABILITADO PARA REALIZAR ESTE EXAME");
-        }
-    }
-
     // -- Métodos verificadores de regras de negócio -- //
     public void verificaRegrasInsercaoMedico(Medico medico) {
         funcionarioValidator.verificaRegrasInsercaoFuncionario(medico);
@@ -43,6 +36,12 @@ public class MedicoValidator {
     public void verificaRegrasEspecialidade(Especialidade especialidade) {
         if(especialidade == null) {
             throw new DadosInvalidosException("ERRO! A ESPECIALIDADE NÃO PODE SER NULA");
+        }
+    }
+
+    public void podeRealizarExame(Medico medico, Exame exame) {
+        if(!medico.getEspecialidade().podeRealizar(exame)) {
+            throw new MedicoNaoHabilitadoException("ERRO! O MÉDICO NÃO É HABILITADO PARA REALIZAR ESTE EXAME");
         }
     }
 
