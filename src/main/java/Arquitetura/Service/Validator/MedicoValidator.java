@@ -21,7 +21,7 @@ public class MedicoValidator {
     }
 
     // -- Métodos verificadores de regras de negócio -- //
-    public void verificarInsercaoDadosMedico(Medico medico) {
+    public void verificaRegrasInsercaoMedico(Medico medico) {
         funcionarioValidator.verificaRegrasInsercaoFuncionario(medico);
         verificaRegrasEspecialidade(medico.getEspecialidade());
         verificaRegrasFormacao(medico.getFormacao());
