@@ -10,7 +10,12 @@ import java.util.Date;
 
 public class UsuarioValidator {
 
-    // -- Métodos de verificação -- //
+    // -- Métodos de análise -- //
+    public boolean isUsuarioExistente(Usuario usuario) {
+        return usuario.getId() != 0;
+    }
+
+    // -- Métodos verificadores de regras de negócio -- //
     public void verificarDadosUser(Usuario usuario) {
         verificarRegrasObjeto(usuario);
         verificarRegrasCpf(usuario.getCpf());
@@ -22,10 +27,6 @@ public class UsuarioValidator {
         verificarRegrasSenha(usuario.getSenha());
         verificarRegrasDataNascimento(usuario.getDataNascimento());
         verificaExistenciaUsuario(usuario);
-    }
-
-    public boolean isUsuarioExistente(Usuario usuario) {
-        return usuario.getId() != 0;
     }
 
     public void verificaExistenciaUsuario(Usuario usuario) {
@@ -88,7 +89,7 @@ public class UsuarioValidator {
         }
     }
 
-    // - Verificações de integridade - //
+    // - Métodos verificadores de integridade de dados - //
     public void verificaIntegridadeCpf(String cpf) {
         if(cpf.isBlank()) {
             throw new DadosInvalidosException("ERRO! O CPF NÃO PODE SER VAZIO");
