@@ -20,22 +20,29 @@ public class MedicoValidator {
         }
     }
 
+    // -- Métodos verificadores de regras de negócio -- //
     public void verificarInsercaoDadosMedico(Medico medico) {
         funcionarioValidator.verificaRegrasInsercaoFuncionario(medico);
+        verificaRegrasEspecialidade(medico.getEspecialidade());
+        verificaRegrasFormacao(medico.getFormacao());
+        verificaRegrasPlantao(medico.getPlantao());
+    }
 
-        if(medico.getPlantao() == null)
-        {
+    public void verificaRegrasFormacao(String formacao) {
+        if(formacao == null) {
+            throw new DadosInvalidosException("ERRO! A FORMAÇÃO NÃO PODE SER NULA");
+        }
+    }
+
+    public void verificaRegrasPlantao(Plantao plantao) {
+        if(plantao == null) {
             throw new DadosInvalidosException("ERRO! O PLANTÃO NÃO PODE SER NULO");
         }
+    }
 
-        if(medico.getEspecialidade() == null)
-        {
+    public void verificaRegrasEspecialidade(Especialidade especialidade) {
+        if(especialidade == null) {
             throw new DadosInvalidosException("ERRO! A ESPECIALIDADE NÃO PODE SER NULA");
-        }
-
-        if(medico.getFormacao() == null)
-        {
-            throw new DadosInvalidosException("ERRO! A FORMAÇÃO NÃO PODE SER NULA");
         }
     }
 
