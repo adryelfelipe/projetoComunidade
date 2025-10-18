@@ -13,7 +13,13 @@ public class MedicoValidator {
     // -- Atributos -- //
     FuncionarioValidator funcionarioValidator = new FuncionarioValidator();
 
-    // -- Métodos de verificação -- //
+    // -- Métodos de análise -- //
+    public void podeRealizarExame(Medico medico, Exame exame) {
+        if(!medico.getEspecialidade().podeRealizar(exame)) {
+            throw new MedicoNaoHabilitadoException("ERRO! O MÉDICO NÃO É HABILITADO PARA REALIZAR ESTE EXAME");
+        }
+    }
+
     public void verificarInsercaoDadosMedico(Medico medico) {
         funcionarioValidator.verificaRegrasInsercaoFuncionario(medico);
 
@@ -33,9 +39,16 @@ public class MedicoValidator {
         }
     }
 
-    public void podeRealizarExame(Medico medico, Exame exame) {
-        if(!medico.getEspecialidade().podeRealizar(exame)) {
-            throw new MedicoNaoHabilitadoException("ERRO! O MÉDICO NÃO É HABILITADO PARA REALIZAR ESTE EXAME");
+    // - Métodos verificadores de integridade de dados - //
+    public void verificaIntegridadeSubespecialidade(String subEspecialidade) {
+        if(subEspecialidade.isBlank()) {
+            throw new DadosInvalidosException("ERRO! SUBESPECIALIDADE NÃO PODE SER VAZIA");
+        }
+    }
+
+    public void verificaIntegridadeFormacao(String formacao) {
+        if(formacao.isBlank()) {
+            throw new DadosInvalidosException("ERRO! FORMAÇÃO NÃO PODE SER VAZIA");
         }
     }
 }
