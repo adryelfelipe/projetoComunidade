@@ -2,52 +2,86 @@ package Arquitetura.Service.Validator;
 
 import Arquitetura.Exception.DadosInvalidosException;
 import Arquitetura.Exception.UsuarioExistenteException;
+import Arquitetura.Model.Enums.Genero;
+import Arquitetura.Model.Enums.TipoUsuario;
 import Arquitetura.Model.Usuario;
+
+import java.util.Date;
 
 public class UsuarioValidator {
 
     // -- Métodos de verificação -- //
     public void verificarDadosUser(Usuario usuario) {
-        if(usuario == null) {
-            throw new DadosInvalidosException("ERRO! O USUÁRIO NÃO PODE SER NULO");
-        }
-
-       if(usuario.getCpf() == null) {
-           throw new DadosInvalidosException("ERRO! O CPF NÃO PODE SER NULO");
-       }
-
-       if(usuario.getTelefone() == null) {
-           throw new DadosInvalidosException("ERRO! O TELEFONE NÃO PODE SER NULO");
-       }
-
-       if(usuario.getTipoUsuario() == null) {
-           throw new DadosInvalidosException("ERRO! O TIPO USUÁRIO NÃO PODE SER NULO");
-       }
-
-       if(usuario.getSexo() == null) {
-           throw new DadosInvalidosException("ERRO! O SEXO NÃO PODE SER NULO");
-       }
-
-       if(usuario.getNome() == null) {
-           throw new DadosInvalidosException("ERRO! O NOME NÃO PODE SER NULO");
-       }
-
-       if(usuario.getEmail() == null) {
-           throw new DadosInvalidosException("ERRO! O EMAIL NÃO PODE SER NULO");
-       }
-
-       if(usuario.getSenha() == null) {
-           throw new DadosInvalidosException("ERRO! A SENHA NÃO PODE SER NULA");
-       }
-
-       if(usuario.getDataNascimento() == null) {
-           throw new DadosInvalidosException("ERRO! A DATA DE NASCIMENTO NÃO PODE SER NULA");
-       }
+        verificarRegrasObjeto(usuario);
+        verificarRegrasCpf(usuario.getCpf());
+        verificarRegrasEmail(usuario.getEmail());
+        verificarRegrasNome(usuario.getNome());
+        verificarRegrasTelefone(usuario.getTelefone());
+        verificarRegrasTipoUsuario(usuario.getTipoUsuario());
+        verificarRegrasSexo(usuario.getSexo());
+        verificarRegrasSenha(usuario.getSenha());
+        verificarRegrasDataNascimento(usuario.getDataNascimento());
+        verificaRegrasInsercaoUsuario(usuario);
     }
 
     public void verificaRegrasInsercaoUsuario(Usuario usuarioInserido) {
         if(usuarioInserido.getId() != 0) {
             throw new UsuarioExistenteException("ERRO! ESTE USUÁRIO JÁ FOI CADASTRADO");
+        }
+    }
+
+    // Verificações de regras de negócio
+    public void verificarRegrasObjeto(Usuario usuario) {
+        if(usuario == null) {
+            throw new DadosInvalidosException("ERRO! O USUÁRIO NÃO PODE SER NULO");
+        }
+    }
+
+    public void verificarRegrasCpf(String cpf) {
+        if(cpf == null) {
+            throw new DadosInvalidosException("ERRO! O CPF NÃO PODE SER NULO");
+        }
+    }
+
+    public void verificarRegrasTelefone(String telefone) {
+        if(telefone == null) {
+            throw new DadosInvalidosException("ERRO! O TELEFONE NÃO PODE SER NULO");
+        }
+    }
+
+    public void verificarRegrasTipoUsuario(TipoUsuario tipoUsuario) {
+        if(tipoUsuario == null) {
+            throw new DadosInvalidosException("ERRO! O TIPO USUÁRIO NÃO PODE SER NULO");
+        }
+    }
+
+    public void verificarRegrasSexo(Genero sexo) {
+        if(sexo == null) {
+            throw new DadosInvalidosException("ERRO! O SEXO NÃO PODE SER NULO");
+        }
+    }
+
+    public void verificarRegrasNome(String nome) {
+        if(nome == null) {
+            throw new DadosInvalidosException("ERRO! O NOME NÃO PODE SER NULO");
+        }
+    }
+
+    public void verificarRegrasEmail(String email) {
+        if(email == null) {
+            throw new DadosInvalidosException("ERRO! O EMAIL NÃO PODE SER NULO");
+        }
+    }
+
+    public void verificarRegrasSenha(String senha) {
+        if(senha == null) {
+            throw new DadosInvalidosException("ERRO! A SENHA NÃO PODE SER NULA");
+        }
+    }
+
+    public void verificarRegrasDataNascimento(Date dataNascimento) {
+        if(dataNascimento == null) {
+            throw new DadosInvalidosException("ERRO! A DATA DE NASCIMENTO NÃO PODE SER NULA");
         }
     }
 
