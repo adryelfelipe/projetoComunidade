@@ -3,6 +3,7 @@ package Arquitetura.Model;
 import Arquitetura.Exception.DadosInvalidosException;
 import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.TipoUsuario;
+import Arquitetura.Service.Validator.UsuarioValidator;
 
 import java.sql.Date;
 
@@ -18,6 +19,7 @@ public abstract class Usuario {
     private Date dataNascimento;
     private long id;
     private final TipoUsuario tipoUsuario;
+    private final UsuarioValidator usuarioValidator = new UsuarioValidator();
 
     // -- Construtor -- //
     public Usuario(TipoUsuario tipoUsuario, String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento) {
@@ -28,15 +30,10 @@ public abstract class Usuario {
         this.tipoUsuario = tipoUsuario;
 
         setSenha(senha);
-
         setNome(nome);
-
         setCpf(cpf);
-
         setSexo(sexo);
-
         setTelefone(telefone);
-
         setEmail(email);
     }
 
@@ -50,9 +47,7 @@ public abstract class Usuario {
     }
 
     public void setNome(String nome) {
-        if(nome.isEmpty()) {
-            throw new DadosInvalidosException("ERRO! O NOME NÃO PODE SER VAZIO");
-        }
+        usuarioValidator.verificaIntegridadeNome(nome);
 
         this.nome = nome;
     }
@@ -70,13 +65,7 @@ public abstract class Usuario {
     }
 
     public void setTelefone(String telefone) {
-        if(telefone.isEmpty()) {
-            throw new DadosInvalidosException("ERRO! O TELEFONE NÃO PODE SER VAZIO");
-        }
-
-        if(telefone.length() != 11) {
-            throw new DadosInvalidosException("ERRO! O TELEFONE DEVE TER 11 DÍGITOS");
-        }
+        usuarioValidator.verificaIntegridadeTelefone(telefone);
 
         this.telefone = telefone;
     }
@@ -86,13 +75,7 @@ public abstract class Usuario {
     }
 
     public void setEmail(String email) {
-        if(email.isEmpty()) {
-            throw new DadosInvalidosException("ERRO! O EMAIL NÃO PODE SER VAZIO");
-        }
-
-        if(!email.contains("@")) {
-            throw new DadosInvalidosException("ERRO! EMAIL INVÁLIDO");
-        }
+        usuarioValidator.verificaIntegridadeEmail(email);
 
         this.email = email;
     }
@@ -110,9 +93,9 @@ public abstract class Usuario {
     }
 
     public void setId(long id) {
-        if(id < 0) {
-            throw new DadosInvalidosException("ERRO! O ID NÃO PODE SER MENOR QUE 0");
-        }
+        usuarioValidator.verificaIntegridadeId(id);
+
+        this.id = id;
     }
 
     public String getSenha() {
@@ -120,9 +103,7 @@ public abstract class Usuario {
     }
 
     public void setSenha(String senha) {
-        if(senha.isEmpty()) {
-            throw new DadosInvalidosException("ERRO! A SENHA NÃO PODE SER VAZIA");
-        }
+        usuarioValidator.verificaIntegridadeSenha(senha);
 
         this.senha = senha;
     }
@@ -132,9 +113,7 @@ public abstract class Usuario {
     }
 
     public void setCpf(String cpf) {
-        if(cpf.isEmpty()) {
-            throw new DadosInvalidosException("ERRO! O CPF NÃO PODE SER VAZIO");
-        }
+       usuarioValidator.verificaIntegridadeCpf(cpf);
 
         this.cpf = cpf;
     }

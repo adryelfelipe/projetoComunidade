@@ -50,4 +50,53 @@ public class UsuarioValidator {
             throw new UsuarioExistenteException("ERRO! ESTE USUÁRIO JÁ FOI CADASTRADO");
         }
     }
+
+    // - Verificações de integridade - //
+    public void verificaIntegridadeCpf(String cpf) {
+        if(cpf.isBlank()) {
+            throw new DadosInvalidosException("ERRO! O CPF NÃO PODE SER VAZIO");
+        }
+
+        if(cpf.length() != 11) {
+            throw new DadosInvalidosException("ERRO! O CPF DEVE TER 11 DÍGITOS");
+        }
+    }
+
+    public void verificaIntegridadeTelefone(String telefone) {
+        if(telefone.isBlank()) {
+            throw new DadosInvalidosException("ERRO! O TELEFONE NÃO PODE SER VAZIO");
+        }
+
+        if(telefone.length() != 11) {
+            throw new DadosInvalidosException("ERRO! O TELEFONE DEVE TER 11 DÍGITOS");
+        }
+    }
+
+    public void verificaIntegridadeNome(String nome) {
+        if(nome.isBlank()) {
+            throw new DadosInvalidosException("ERRO! O NOME NÃO PODE SER VAZIO");
+        }
+    }
+
+    public void verificaIntegridadeSenha(String senha) {
+        if(senha.isBlank()) {
+            throw new DadosInvalidosException("ERRO! A SENHA NÃO PODE SER VAZIA");
+        }
+    }
+
+    public void verificaIntegridadeEmail(String email) {
+        if(email.isBlank()) {
+            throw new DadosInvalidosException("ERRO! O EMAIL NÃO PODE SER VAZIO");
+        }
+
+        if(!email.contains("@")) {
+            throw new DadosInvalidosException("ERRO! EMAIL INVÁLIDO");
+        }
+    }
+
+    public void verificaIntegridadeId(long id) {
+        if(id < 0) {
+            throw new DadosInvalidosException("ERRO! O ID NÃO PODE SER MENOR QUE 0");
+        }
+    }
 }
