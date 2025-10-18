@@ -66,7 +66,8 @@ public class MenuCadastro
 
                     verifica = true;
 
-                    System.out.println("ERRO.  OPÇÂO INVALIDA");
+                    System.err.println("ERRO.  OPÇÂO INVALIDA");
+                    Ferramentas.Delay(1500);
                 }
 
             } while (!verifica);
@@ -97,7 +98,8 @@ public class MenuCadastro
                 ano = Ferramentas.lInteiro();
             } catch (InputMismatchException e) {
                 Ferramentas.limpaTerminal();
-                e.getMessage();
+                System.err.print(e.getMessage());
+                Ferramentas.Delay(1500);
                 continuar = false;
             }
 
@@ -107,7 +109,8 @@ public class MenuCadastro
                 mes = Ferramentas.lInteiro();
             } catch (InputMismatchException e) {
                 Ferramentas.limpaTerminal();
-                e.getMessage();
+                System.err.print(e.getMessage());
+                Ferramentas.Delay(1500);
                 continuar = false;
             }
 
@@ -117,7 +120,8 @@ public class MenuCadastro
             try {
                 dia = Ferramentas.lInteiro();
             } catch (InputMismatchException e) {
-                e.getMessage();
+                System.err.print(e.getMessage());
+                Ferramentas.Delay(1500);
                 continuar = false;
             }
 
@@ -130,7 +134,8 @@ public class MenuCadastro
                 cargaHoraria = Ferramentas.lInteiro();
             }catch (InputMismatchException e) {
                 Ferramentas.limpaTerminal();
-                e.getMessage();
+                System.err.print(e.getMessage());
+                Ferramentas.Delay(1500);
             }
             double salario = 0;
 
@@ -140,7 +145,8 @@ public class MenuCadastro
                 salario = Ferramentas.lDouble();
             } catch (InputMismatchException e) {
                 Ferramentas.limpaTerminal();
-                e.getMessage();
+                System.err.print(e.getMessage());
+                Ferramentas.Delay(1500);
                 continuar = false;
             }
 
@@ -162,7 +168,8 @@ public class MenuCadastro
 
                     Ferramentas.limpaTerminal();
 
-                    System.out.println("ERRO.  OPÇÂO INVALIDA");
+                    System.err.println("ERRO.  OPÇÂO INVALIDA");
+                    Ferramentas.Delay(1500);
 
                     verific = true;
                 }
@@ -208,7 +215,8 @@ public class MenuCadastro
 
                     Ferramentas.limpaTerminal();
 
-                    System.out.println("ERRO! OPÇÃO INVÁLIDA \n");
+                    System.err.println("ERRO! OPÇÃO INVÁLIDA \n");
+                    Ferramentas.Delay(1500);
 
                     verificaOp = true;
                 }
@@ -239,7 +247,8 @@ public class MenuCadastro
                     Ferramentas.Delay(1500);
                 } catch (IllegalArgumentException e) {
                     Ferramentas.limpaTerminal();
-                    e.getMessage();
+                    System.err.print(e.getMessage());
+                    Ferramentas.Delay(1500);
                 }
 
             } else {
@@ -257,7 +266,8 @@ public class MenuCadastro
 
                 } catch (IllegalArgumentException e) {
                     Ferramentas.limpaTerminal();
-                    e.getMessage();
+                    System.err.print(e.getMessage());
+                    Ferramentas.Delay(1500);
                 }
             }
 
@@ -310,7 +320,8 @@ public class MenuCadastro
 
                     verifica = true;
 
-                    System.out.println("ERRO.  OPÇÂO INVALIDA");
+                    System.err.println("ERRO.  OPÇÂO INVALIDA");
+                    Ferramentas.Delay(1500);
                 }
 
             } while (!verifica);
@@ -341,7 +352,8 @@ public class MenuCadastro
                 ano = Ferramentas.lInteiro();
             } catch (InputMismatchException e) {
                 Ferramentas.limpaTerminal();
-                e.getMessage();
+                System.err.print(e.getMessage());
+                Ferramentas.Delay(1500);
                 continuar = false;
             }
 
@@ -351,7 +363,8 @@ public class MenuCadastro
                 mes = Ferramentas.lInteiro();
             } catch (InputMismatchException e) {
                 Ferramentas.limpaTerminal();
-                e.getMessage();
+                System.err.print(e.getMessage());
+                Ferramentas.Delay(1500);
                 continuar = false;
             }
 
@@ -362,7 +375,8 @@ public class MenuCadastro
                 dia = Ferramentas.lInteiro();
             } catch (InputMismatchException e) {
                 Ferramentas.limpaTerminal();
-                e.getMessage();
+                System.err.print(e.getMessage());
+                Ferramentas.Delay(1500);
                 continuar = false;
             }
 
@@ -390,7 +404,8 @@ public class MenuCadastro
                 Ferramentas.Delay(1500);
             } catch (IllegalArgumentException e) {
                 Ferramentas.limpaTerminal();
-                e.getMessage();
+                System.err.print(e.getMessage());
+                Ferramentas.Delay(1500);
             }
 
         }while (!continuar);
@@ -441,7 +456,8 @@ public class MenuCadastro
 
                     verifica = true;
 
-                    System.out.println("ERRO.  OPÇÂO INVALIDA");
+                    System.err.println("ERRO.  OPÇÂO INVALIDA");
+                    Ferramentas.Delay(1500);
                 }
 
             } while (!verifica);
@@ -472,7 +488,8 @@ public class MenuCadastro
                 ano = Ferramentas.lInteiro();
             } catch (InputMismatchException e) {
                 Ferramentas.limpaTerminal();
-                e.getMessage();
+                System.err.print(e.getMessage());
+                Ferramentas.Delay(1500);
                 continuar = false;
             }
 
@@ -482,7 +499,8 @@ public class MenuCadastro
                 mes = Ferramentas.lInteiro();
             } catch (InputMismatchException e) {
                 Ferramentas.limpaTerminal();
-                e.getMessage();
+                System.err.print(e.getMessage());
+                Ferramentas.Delay(1500);
                 continuar = false;
             }
 
@@ -493,7 +511,8 @@ public class MenuCadastro
                 dia = Ferramentas.lInteiro();
             } catch (InputMismatchException e) {
                 Ferramentas.limpaTerminal();
-                e.getMessage();
+                System.err.print(e.getMessage());
+                Ferramentas.Delay(1500);
                 continuar = false;
             }
 
@@ -505,7 +524,8 @@ public class MenuCadastro
                 cargaHoraria = Ferramentas.lInteiro();
             }catch (InputMismatchException e) {
                 Ferramentas.limpaTerminal();
-                e.getMessage();
+                System.err.print(e.getMessage());
+                Ferramentas.Delay(1500);
             }
             double salario = 0;
 
@@ -515,7 +535,8 @@ public class MenuCadastro
                 salario = Ferramentas.lDouble();
             } catch (InputMismatchException e) {
                 Ferramentas.limpaTerminal();
-                e.getMessage();
+                System.err.print(e.getMessage());
+                Ferramentas.Delay(1500);
                 continuar = false;
             }
 
@@ -542,7 +563,8 @@ public class MenuCadastro
                     Ferramentas.limpaTerminal();
                     verificOp = true;
 
-                    System.out.println("ERRO.  OPÇÂO INVALIDA");
+                    System.err.println("ERRO.  OPÇÂO INVALIDA");
+                    Ferramentas.Delay(1500);
                 }
 
             } while (!verificOp);
@@ -570,7 +592,8 @@ public class MenuCadastro
                 Ferramentas.Delay(1500);
             } catch (IllegalArgumentException e) {
                 Ferramentas.limpaTerminal();
-                e.getMessage();
+                System.err.print(e.getMessage());
+                Ferramentas.Delay(1500);
             }
         }while (!continuar);
     }

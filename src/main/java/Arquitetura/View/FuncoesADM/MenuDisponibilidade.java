@@ -50,10 +50,12 @@ public class MenuDisponibilidade
         else
         {
             Ferramentas.limpaTerminal();
-            System.out.println("Esse usuário não é um médico!");
+            System.err.println("Esse usuário não é um médico!");
+            Ferramentas.Delay(1500);
+            return;
         }
 
-        System.out.println("Médico não encontrado!");
+        System.err.println("Médico não encontrado!");
 
         System.out.println("\n\nDigite para continuar");
         String tempo = Ferramentas.lString();

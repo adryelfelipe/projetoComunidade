@@ -37,20 +37,36 @@ public class MenuExcluir
 
             if(i == 1) {
                 pacienteService.deletarPaciente(adm,cpf);
+
+                System.out.println("Usuário deletado");
+
+                Ferramentas.Delay(1500);
             }
             else if(i == 2) {
                 medicoService.deletarMedico(adm,cpf);
+
+                System.out.println("Usuário deletado");
+
+                Ferramentas.Delay(1500);
             }else {
                 administradorService.deletarAdministrador(adm,cpf);
+
+                System.out.println("Usuário deletado");
+
+                Ferramentas.Delay(1500);
             }
         } catch(TipoUsuarioException | AutoDeleteException | CpfInvalidoException e )
         {
-            e.getMessage();
+            System.err.print(e.getMessage());
+
+            Ferramentas.Delay(1500);
         }
         catch (UltimoAdminException e)
         {
             Ferramentas.limpaTerminal();
-            System.out.printf("Não foi possivel deletar ADM");
+            System.err.print("Não foi possivel deletar ADM");
+
+            Ferramentas.Delay(1500);
         }
 
         String tempo = Ferramentas.lString();
