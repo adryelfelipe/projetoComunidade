@@ -27,7 +27,7 @@ public class FuncionarioValidator {
         }
     }
 
-    // - Métodos verificadores de integridade de dados - //
+    // -- Métodos verificadores de integridade de dados -- //
     public void verificaIntegridadeSalario(double salario) {
         if(salario < 0) {
             throw new DadosInvalidosException("ERRO! O SALÁRIO NÃO PODE SER MENOR QUE 0");

@@ -26,4 +26,17 @@ public class PacienteValidator {
             throw new DadosInvalidosException("ERRO! O CONTATO DE EMERGÊNCIA NÃO PODE SER NULO");
         }
     }
+
+    // -- Métodos verificadores de integridade de dados -- //
+    public void verificaIntegridadeContatoEmerg(String contatoEmergencia) {
+        if(contatoEmergencia.isBlank()) {
+            throw new DadosInvalidosException("ERRO! O CONTATO DE EMERGÊNCIA NÃO PODE SER VAZIO");
+        }
+    }
+
+    public void verificaIntegridadeNumeroCarterinha(String numeroCarterinha) {
+        if(numeroCarterinha.isBlank()) {
+            throw new DadosInvalidosException("ERRO! O NÚMERO DA CARTERINHA NÃO PODE SER VAZIO");
+        }
+    }
 }

@@ -46,7 +46,7 @@ public class MedicoValidator {
         }
     }
 
-    // - Métodos verificadores de integridade de dados - //
+    // -- Métodos verificadores de integridade de dados -- //
     public void verificaIntegridadeSubespecialidade(String subEspecialidade) {
         if(subEspecialidade.isBlank()) {
             throw new DadosInvalidosException("ERRO! SUBESPECIALIDADE NÃO PODE SER VAZIA");

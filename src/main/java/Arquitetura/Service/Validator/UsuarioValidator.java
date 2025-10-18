@@ -89,7 +89,7 @@ public class UsuarioValidator {
         }
     }
 
-    // - Métodos verificadores de integridade de dados - //
+    // -- Métodos verificadores de integridade de dados -- //
     public void verificaIntegridadeCpf(String cpf) {
         if(cpf.isBlank()) {
             throw new DadosInvalidosException("ERRO! O CPF NÃO PODE SER VAZIO");

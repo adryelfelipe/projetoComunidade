@@ -4,6 +4,7 @@ import Arquitetura.Exception.DadosInvalidosException;
 import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.StatusPaciente;
 import Arquitetura.Model.Enums.TipoUsuario;
+import Arquitetura.Service.Validator.PacienteValidator;
 
 import java.sql.Date;
 
@@ -13,6 +14,8 @@ public class Paciente extends Usuario {
     private String contatoEmergencia;
     private String numeroCarterinha;
     private StatusPaciente statusPaciente;
+    PacienteValidator pacienteValidator = new PacienteValidator();
+
     // -- Construtores -- //
 
     // Possui ID
@@ -36,9 +39,7 @@ public class Paciente extends Usuario {
     }
 
     public void setContatoEmergencia(String contatoEmergencia) {
-        if(contatoEmergencia.isEmpty()) {
-            throw new DadosInvalidosException("ERRO! CONTATO DE EMERGÊNCIA NÃO PODE SER VAZIO");
-        }
+        pacienteValidator.verificaIntegridadeContatoEmerg(contatoEmergencia);
 
         this.contatoEmergencia = contatoEmergencia;
     }
@@ -56,9 +57,7 @@ public class Paciente extends Usuario {
     }
 
     public void setNumeroCarterinha(String numeroCarterinha) {
-        if(numeroCarterinha.isEmpty()) {
-            throw new DadosInvalidosException("ERRO! NÚMERO DA CARTERINHA NÃO PODE SER VAZIO");
-        }
+        pacienteValidator.verificaIntegridadeNumeroCarterinha(numeroCarterinha);
 
         this.numeroCarterinha = numeroCarterinha;
     }
