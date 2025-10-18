@@ -11,7 +11,7 @@ public class PacienteValidator {
     UsuarioValidator usuarioValidator = new UsuarioValidator();
 
     // -- Métodos de verificação -- //
-    public void verificarDadosPaciente(Paciente paciente) {
+    public void verificarInsercaoDadosPaciente(Paciente paciente) {
         usuarioValidator.verificarDadosUser(paciente);
 
         if(paciente.getStatusPaciente() == null) {
