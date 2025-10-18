@@ -15,7 +15,7 @@ public class MedicoValidator {
 
     // -- Métodos de verificação -- //
     public void verificarInsercaoDadosMedico(Medico medico) {
-        funcionarioValidator.verificarDadosFuncionario(medico);
+        funcionarioValidator.verificaRegrasInsercaoFuncionario(medico);
 
         if(medico.getPlantao() == null)
         {

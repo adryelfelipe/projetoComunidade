@@ -13,7 +13,7 @@ public class AdministradorValidator {
 
     // -- Métodos verificadores de regras de negócio -- //
     public void verificaRegrasInsercaoAdm(Administrador administrador) {
-        funcionarioValidator.verificarDadosFuncionario(administrador);
+        funcionarioValidator.verificaRegrasInsercaoFuncionario(administrador);
 
         verificaRegrasDepartamento(administrador.getDepartamento());
     }

@@ -9,8 +9,7 @@ public class FuncionarioValidator {
     private UsuarioValidator usuarioValidator = new UsuarioValidator();
 
     // -- Métodos verificadores de regras de negócio -- //
-    public void verificarDadosFuncionario(Funcionario funcionario)
-    {
+    public void verificaRegrasInsercaoFuncionario(Funcionario funcionario) {
         usuarioValidator.verificaRegrasInsercaoUsuario(funcionario);
         verificaRegrasSalario(funcionario.getSalario());
         verificaRegrasCargaHoraria(funcionario.getCargaHorariaSemanal());
