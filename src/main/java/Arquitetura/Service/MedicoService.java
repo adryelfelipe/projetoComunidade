@@ -43,7 +43,6 @@ public class MedicoService {
      *
      * <ol>
      *     <li>Verifica se o usuário possui acesso total</li>
-     *     <li>Verifica se o médico inserido segue as regras gerais de inserção de um usuário </li>
      *     <li>Verifica os dados do médico a ser inserido</li>
      *     <li>Insere o médico nas tabelas Usuario, Funcionario e Medico respectivamente</li>
      * </ol>
@@ -56,8 +55,7 @@ public class MedicoService {
     public void inserirMedico(Usuario usuario, Medico medicoInserido) {
         // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
-        usuarioValidator.verificaRegrasInsercaoUsuario(medicoInserido);
-        medicoValidator.verificarInsercaoDadosMedico(medicoInserido);
+        medicoValidator.verificaRegrasInsercaoMedico(medicoInserido);
 
         // Insere nessa ordem para respeitar as chaves estrangeiras
         usuarioDAO.inserirUsuario(medicoInserido);

@@ -5,6 +5,7 @@ import Arquitetura.Model.Enums.Especialidade;
 import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.Plantao;
 import Arquitetura.Model.Enums.TipoUsuario;
+import Arquitetura.Service.Validator.MedicoValidator;
 
 import java.sql.Date;
 
@@ -15,6 +16,7 @@ public class Medico extends Funcionario{
     private Especialidade especialidade;
     private String subEspecialidade;
     private String formacao;
+    MedicoValidator medicoValidator = new MedicoValidator();
 
     // -- Construtores -- //
 
@@ -54,9 +56,7 @@ public class Medico extends Funcionario{
     }
 
     public void setFormacao(String formacao) {
-        if(formacao.isEmpty()) {
-            throw new DadosInvalidosException("ERRO! FORMAÇÃO NÃO PODE SER VAZIA");
-        }
+        medicoValidator.verificaIntegridadeFormacao(formacao);
 
         this.formacao = formacao;
     }
@@ -74,9 +74,7 @@ public class Medico extends Funcionario{
     }
 
     public void setSubEspecialidade(String subEspecialidade) {
-        if(subEspecialidade.isEmpty()) {
-            throw new DadosInvalidosException("ERRO! SUBESPECIALIDADE NÃO PODE SER VAZIA");
-        }
+        medicoValidator.verificaIntegridadeSubespecialidade(subEspecialidade);
 
         this.subEspecialidade = subEspecialidade;
     }

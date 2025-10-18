@@ -37,7 +37,6 @@ public class PacienteService {
     /**<p>Este método realiza as seguintes ações: </p>
      * <ol>
      *     <li>Verifica se o usuario possui acesso total</li>
-     *     <li>Verifica se o médico inserido segue as regras gerais de inserção de um usuário</li>
      *     <li>Verifica os dados do paciente a ser inserido</li>
      *     <li>Insere o médico nas tabelas Usuario e Paciente respectivamente</li>
      * </ol>
@@ -50,8 +49,7 @@ public class PacienteService {
     public void inserirPaciente(Usuario usuario, Paciente pacienteInserido) {
         // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
-        usuarioValidator.verificaRegrasInsercaoUsuario(pacienteInserido);
-        pacienteValidator.verificarInsercaoDadosPaciente(pacienteInserido);
+        pacienteValidator.verificaRegrasInsercaoPaciente(pacienteInserido);
 
         // Insere nessa ordem para respeitar as chaves estrangeiras
         usuarioDAO.inserirUsuario(pacienteInserido);
