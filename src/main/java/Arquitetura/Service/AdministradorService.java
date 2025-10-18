@@ -45,7 +45,6 @@ public class AdministradorService {
      *
      * <ol>
      *     <li>Verifica se o usuario possui acesso total</li>
-     *     <li>Verifica se o administrador inserido segue as regras gerais de inserção de um usuário </li>
      *     <li>Verifica os dados do administrador a ser inserido</li>
      *     <li>Insere o administrador nas tabelas Usuario, Funcionario e Administrador respectivamente</li>
      * </ol>
@@ -59,7 +58,6 @@ public class AdministradorService {
     public void inserirAdmin(Usuario usuario, Administrador administradorCriado)  {
         // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
-        usuarioValidator.verificaRegrasInsercaoUsuario(administradorCriado);
         administradorValidator.verificarDadosAdm(administradorCriado);
 
         // Insere nessa ordem para respeitar as chaves estrangeiras
