@@ -105,4 +105,15 @@ public class UsuarioService {
             usuario.setCpf(cpf);
         }
     }
+
+    public void updateNomeUsuario(Usuario usuario, long id, String nome) {
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        usuarioValidator.verificaIntegridadeNome(nome);
+        usuarioValidator.verificarRegrasNome(nome);
+        usuarioDao.updateNomeUsuario(id, nome);
+
+        if(usuario.getId() == id) {
+            usuario.setNome(nome);
+        }
+    }
 }
