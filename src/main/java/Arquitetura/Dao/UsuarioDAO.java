@@ -48,7 +48,7 @@ public class UsuarioDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println("Erro ao inserir o Usuario: " + e.getMessage());
+            System.err.println("Erro ao inserir o Usuario.");
         }
     }
 
@@ -255,7 +255,7 @@ public class UsuarioDAO {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Erro ao buscar Usuário por ID: " + e.getMessage());
+            System.err.println("Erro ao buscar Usuário com o CPF: "+cpf);
         }
 
         return usuario;
