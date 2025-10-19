@@ -3,6 +3,7 @@ package Arquitetura.Service;
 import Arquitetura.Dao.PacienteDAO;
 import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Exception.CpfInvalidoException;
+import Arquitetura.Exception.IdInvalidoException;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
@@ -98,5 +99,19 @@ public class PacienteService {
 
         return pacienteDAO.isCpfPaciente(cpf);
 
+    }
+
+    public void updateContatoEmergencia(Usuario usuario, long id, String contatoEmergencia) throws IdInvalidoException {
+        tipoUsuarioValidator.temAcessoBaixo(usuario);
+        pacienteValidator.verificaIntegridadeContatoEmerg(contatoEmergencia);
+        pacienteValidator.verificaRegrasContatoEmergencia(contatoEmergencia);
+        usuarioService.idExistenteValidator(id);
+        pacienteDAO.updateContatoEmergencia(id, contatoEmergencia);
+
+        // ADICIONAR VERIFICAÇÃO DE SE O ID RECEBIDO É O DE UM PACIENTE
+
+        if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
+            ((Paciente) usuario).setContatoEmergencia(contatoEmergencia);
+        }
     }
 }
