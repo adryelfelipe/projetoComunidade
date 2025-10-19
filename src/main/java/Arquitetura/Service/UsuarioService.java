@@ -116,4 +116,15 @@ public class UsuarioService {
             usuario.setNome(nome);
         }
     }
+
+    public void updateSenhaUsuario(Usuario usuario, long id, String senha) {
+        tipoUsuarioValidator.temAcessoBaixo(usuario);
+        usuarioValidator.verificaIntegridadeSenha(senha);
+        usuarioValidator.verificaIntegridadeSenha(senha);
+        usuarioDao.updateSenhaUsuario(id, senha);
+
+        if(usuario.getId() == id) {
+            usuario.setSenha(senha);
+        }
+    }
 }
