@@ -94,7 +94,7 @@ public class UsuarioService {
 
     public void idExistenteValidator(long id) throws IdInvalidoException {
         if(!isIdExistente(id)) {
-        throw new IdInvalidoException("ERRO! ID INVÁLIDO");
+        throw new IdInvalidoException("ERRO! ID NÃO ENCONTRADO");
         }
     }
 
