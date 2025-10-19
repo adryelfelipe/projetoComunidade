@@ -28,7 +28,7 @@ public class MedicoDAO {
 
             stmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Erro ao inserir Médico : " + e.getMessage());
+            System.out.println("Erro ao inserir o Médico.");
         }
     }
 
@@ -47,7 +47,7 @@ public class MedicoDAO {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("Erro ao deletar Médico com CPF " + cpf + ": " + e.getMessage());
+            System.err.println("Erro ao deletar o Médico com CPF: " + cpf);
         }
     }
     public Medico findByID(long id) {
@@ -164,7 +164,7 @@ public class MedicoDAO {
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao buscar o Médico : "+e.getMessage());
+            System.err.println("Erro ao buscar o Médico. ");
             return medico;
         }
 
@@ -283,7 +283,7 @@ public class MedicoDAO {
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao buscar o Médico : "+e.getMessage());
+            System.err.println("Erro ao buscar o Médico com CPF: "+cpf);
             return medico;
         }
 
@@ -326,7 +326,7 @@ public class MedicoDAO {
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao atualizar a especialidade do médico com ID: "+cpf+ e);
+            System.err.println("Erro ao atualizar a especialidade do médico com CPF: "+cpf);
         }
     }
 
@@ -348,7 +348,7 @@ public class MedicoDAO {
         }
         catch(SQLException e)
         {
-            System.out.println("Erro ao atualizar subespecialidade do médico com CPF: "+cpf + e);
+            System.out.println("Erro ao atualizar subespecialidade do médico com CPF: "+cpf);
         }
     }
 
@@ -369,7 +369,7 @@ public class MedicoDAO {
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao atualizar formação do médico com CPF: "+cpf + e);
+            System.err.println("Erro ao atualizar formação do médico com CPF: "+cpf);
         }
     }
 
@@ -391,7 +391,7 @@ public class MedicoDAO {
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao atualizar plantão do médico com CPF: "+cpf + e);
+            System.err.println("Erro ao atualizar plantão do médico com CPF: "+cpf);
         }
 
     }
