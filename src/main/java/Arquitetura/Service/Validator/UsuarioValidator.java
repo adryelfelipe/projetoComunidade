@@ -15,6 +15,10 @@ public class UsuarioValidator {
         return usuario.getId() != 0;
     }
 
+    public boolean isAutoUpdate(long idUsuario, long idAtualizado) {
+        return idUsuario == idAtualizado;
+    }
+
     // -- Métodos verificadores de regras de negócio -- //
     public void verificaRegrasInsercaoUsuario(Usuario usuario) {
         verificarRegrasObjeto(usuario);

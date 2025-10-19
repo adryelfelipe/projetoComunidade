@@ -2,6 +2,7 @@ package Arquitetura.Service;
 
 import Arquitetura.Dao.*;
 import Arquitetura.Exception.CpfInvalidoException;
+import Arquitetura.Exception.IdInexistenteException;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
@@ -94,14 +95,46 @@ public class UsuarioService {
         }
     }
 
-    public void updateCpf(Usuario usuario, long id, String cpf) {
+    public void idExistenteValidator(long id) throws IdInexistenteException {
+        if(!isIdExistente(id)) {
+        throw new IdInexistenteException("ERRO! ID INVÁLIDO");
+        }
+    }
+
+    public void updateCpf(Usuario usuario, long id, String cpf) throws IdInexistenteException{
         tipoUsuarioValidator.temAcessoTotal(usuario);
+        usuarioValidator.verificaIntegridadeCpf(cpf);
         usuarioValidator.verificarRegrasCpf(cpf);
+        idExistenteValidator(id);
         cpfUtilizadoValidator(cpf);
         usuarioDao.updateCpf(id, cpf);
 
-        if(usuario.getId() == id) {
+        if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
             usuario.setCpf(cpf);
+        }
+    }
+
+    public void updateNomeUsuario(Usuario usuario, long id, String nome) throws IdInexistenteException{
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        usuarioValidator.verificaIntegridadeNome(nome);
+        usuarioValidator.verificarRegrasNome(nome);
+        idExistenteValidator(id);
+        usuarioDao.updateNomeUsuario(id, nome);
+
+        if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
+            usuario.setNome(nome);
+        }
+    }
+
+    public void updateSenhaUsuario(Usuario usuario, long id, String senha) throws IdInexistenteException{
+        tipoUsuarioValidator.temAcessoBaixo(usuario);
+        usuarioValidator.verificaIntegridadeSenha(senha);
+        usuarioValidator.verificaIntegridadeSenha(senha);
+        idExistenteValidator(id);
+        usuarioDao.updateSenhaUsuario(id, senha);
+
+        if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
+            usuario.setSenha(senha);
         }
     }
 }
