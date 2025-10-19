@@ -101,7 +101,7 @@ public class UsuarioService {
         cpfUtilizadoValidator(cpf);
         usuarioDao.updateCpf(id, cpf);
 
-        if(usuario.getId() == id) {
+        if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
             usuario.setCpf(cpf);
         }
     }
@@ -112,7 +112,7 @@ public class UsuarioService {
         usuarioValidator.verificarRegrasNome(nome);
         usuarioDao.updateNomeUsuario(id, nome);
 
-        if(usuario.getId() == id) {
+        if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
             usuario.setNome(nome);
         }
     }
@@ -123,7 +123,7 @@ public class UsuarioService {
         usuarioValidator.verificaIntegridadeSenha(senha);
         usuarioDao.updateSenhaUsuario(id, senha);
 
-        if(usuario.getId() == id) {
+        if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
             usuario.setSenha(senha);
         }
     }
