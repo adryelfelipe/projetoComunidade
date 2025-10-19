@@ -48,7 +48,7 @@ public class UsuarioDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println("Erro ao inserir o Usuario: " + e.getMessage());
+            System.err.println("Erro ao inserir o Usuario.");
         }
     }
 
