@@ -6,6 +6,7 @@ import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.Validator.TipoUsuarioValidator;
+import Arquitetura.Service.Validator.UsuarioValidator;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class UsuarioService {
     private final MedicoDAO medicoDAO = new MedicoDAO();
     private final AdministradorDAO administradorDAO = new AdministradorDAO();
     TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
+    UsuarioValidator usuarioValidator = new UsuarioValidator();
 
     // -- Construtor -- //
     public UsuarioService() {
@@ -94,6 +96,8 @@ public class UsuarioService {
 
     public void updateCpf(Usuario usuario, long id, String cpf) {
         tipoUsuarioValidator.temAcessoTotal(usuario);
+        usuarioValidator.verificaIntegridadeCpf(cpf);
+        usuarioValidator.verificarRegrasCpf(cpf);
         cpfUtilizadoValidator(cpf);
         usuarioDao.updateCpf(id, cpf);
 
