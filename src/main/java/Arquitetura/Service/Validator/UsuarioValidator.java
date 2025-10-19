@@ -1,7 +1,7 @@
 package Arquitetura.Service.Validator;
 
 import Arquitetura.Exception.DadosInvalidosException;
-import Arquitetura.Exception.UsuarioExistenteException;
+import Arquitetura.Exception.UsuarioInvalidoException;
 import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.TipoUsuario;
 import Arquitetura.Model.Usuario;
@@ -35,7 +35,7 @@ public class UsuarioValidator {
 
     public void verificaExistenciaUsuario(Usuario usuario) {
         if(isUsuarioExistente(usuario)) {
-            throw new UsuarioExistenteException("ERRO! ESTE USUÁRIO JÁ FOI CADASTRADO");
+            throw new UsuarioInvalidoException("ERRO! ESTE USUÁRIO JÁ FOI CADASTRADO");
         }
     }
 
