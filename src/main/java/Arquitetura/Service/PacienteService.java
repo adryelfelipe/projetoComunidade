@@ -3,8 +3,6 @@ package Arquitetura.Service;
 import Arquitetura.Dao.PacienteDAO;
 import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Exception.CpfInvalidoException;
-import Arquitetura.Exception.IdInvalidoException;
-import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Enums.StatusPaciente;
 import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
@@ -102,7 +100,7 @@ public class PacienteService {
 
     }
 
-    public void updateContatoEmergencia(Usuario usuario, long id, String contatoEmergencia) throws IdInvalidoException {
+    public void updateContatoEmergencia(Usuario usuario, long id, String contatoEmergencia) {
         tipoUsuarioValidator.temAcessoBaixo(usuario);
         pacienteValidator.verificaIntegridadeContatoEmerg(contatoEmergencia);
         pacienteValidator.verificaRegrasContatoEmergencia(contatoEmergencia);
@@ -117,7 +115,7 @@ public class PacienteService {
         }
     }
 
-    public void updateStatusPaciente(Usuario usuario, long id, StatusPaciente statusPaciente) throws IdInvalidoException {
+    public void updateStatusPaciente(Usuario usuario, long id, StatusPaciente statusPaciente) {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         pacienteValidator.verificaRegrasStatusPaciente(statusPaciente);
         usuarioService.idExistenteValidator(id);
@@ -127,7 +125,7 @@ public class PacienteService {
         pacienteDAO.updateStatusPaciente(id, statusPaciente);
     }
 
-    public void updateNumeroCarteirinha(Usuario usuario, long id, String numeroCarteirinha) throws IdInvalidoException {
+    public void updateNumeroCarteirinha(Usuario usuario, long id, String numeroCarteirinha) {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         pacienteValidator.verificaIntegridadeNumeroCarterinha(numeroCarteirinha);
         pacienteValidator.verificaRegrasNumeroCarterinha(numeroCarteirinha);

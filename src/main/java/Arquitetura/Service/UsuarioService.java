@@ -92,13 +92,13 @@ public class UsuarioService {
         }
     }
 
-    public void idExistenteValidator(long id) throws IdInvalidoException {
+    public void idExistenteValidator(long id) {
         if(!isIdExistente(id)) {
-        throw new IdInvalidoException("ERRO! ID NÃO ENCONTRADO");
+            throw new IdInvalidoException("ERRO! ID NÃO ENCONTRADO");
         }
     }
 
-    public void updateCpf(Usuario usuario, long id, String cpf) throws IdInvalidoException {
+    public void updateCpf(Usuario usuario, long id, String cpf) {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         usuarioValidator.verificaIntegridadeCpf(cpf);
         usuarioValidator.verificarRegrasCpf(cpf);
@@ -111,7 +111,7 @@ public class UsuarioService {
         }
     }
 
-    public void updateNomeUsuario(Usuario usuario, long id, String nome) throws IdInvalidoException {
+    public void updateNomeUsuario(Usuario usuario, long id, String nome) {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         usuarioValidator.verificaIntegridadeNome(nome);
         usuarioValidator.verificarRegrasNome(nome);
@@ -123,7 +123,7 @@ public class UsuarioService {
         }
     }
 
-    public void updateSenhaUsuario(Usuario usuario, long id, String senha) throws IdInvalidoException {
+    public void updateSenhaUsuario(Usuario usuario, long id, String senha) {
         tipoUsuarioValidator.temAcessoBaixo(usuario);
         usuarioValidator.verificaIntegridadeSenha(senha);
         usuarioValidator.verificaIntegridadeSenha(senha);
