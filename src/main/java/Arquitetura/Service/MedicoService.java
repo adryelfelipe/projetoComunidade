@@ -135,4 +135,14 @@ public class MedicoService {
 
         medicoDAO.updateEspecialidade(id, especialidade);
     }
+
+    public void updateSubEspecialidadeMedico(Usuario usuario, long id, String subEspecialidade) {
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        medicoValidator.verificaIntegridadeSubespecialidade(subEspecialidade);
+        usuarioService.idExistenteValidator(id);
+
+        // ADICIONAR VERIFICAÇÃO DE SE O ID RECEBIDO É O DE UM MÉDICO
+
+        medicoDAO.updateSubEspecialidade(id, subEspecialidade);
+    }
 }
