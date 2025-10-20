@@ -7,6 +7,8 @@ import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Consulta;
+import Arquitetura.Model.Enums.Especialidade;
+import Arquitetura.Model.Enums.Plantao;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.Validator.MedicoValidator;
@@ -123,5 +125,46 @@ public class MedicoService {
 
         return medicoDAO.isCpfMedico(cpf);
 
+    }
+
+    public void updateEspecialidadeMedico(Usuario usuario, long id, Especialidade especialidade) {
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        medicoValidator.verificaRegrasEspecialidade(especialidade);
+        usuarioService.idExistenteValidator(id);
+
+        // ADICIONAR VERIFICAÇÃO DE SE O ID RECEBIDO É O DE UM MÉDICO
+
+        medicoDAO.updateEspecialidade(id, especialidade);
+    }
+
+    public void updateSubEspecialidadeMedico(Usuario usuario, long id, String subEspecialidade) {
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        medicoValidator.verificaIntegridadeSubespecialidade(subEspecialidade);
+        usuarioService.idExistenteValidator(id);
+
+        // ADICIONAR VERIFICAÇÃO DE SE O ID RECEBIDO É O DE UM MÉDICO
+
+        medicoDAO.updateSubEspecialidade(id, subEspecialidade);
+    }
+
+    public void updateFormacaoMedico(Usuario usuario, long id, String formacao) {
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        medicoValidator.verificaIntegridadeFormacao(formacao);
+        medicoValidator.verificaRegrasFormacao(formacao);
+        usuarioService.idExistenteValidator(id);
+
+        // ADICIONAR VERIFICAÇÃO DE SE O ID RECEBIDO É O DE UM MÉDICO
+
+        medicoDAO.updateFormacao(id, formacao);
+    }
+
+    public void updatePlantaoMedico(Usuario usuario, long id, Plantao plantao) {
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        medicoValidator.verificaRegrasPlantao(plantao);
+        usuarioService.idExistenteValidator(id);
+
+        // ADICIONAR VERIFICAÇÃO DE SE O ID RECEBIDO É O DE UM MÉDICO
+
+        medicoDAO.updatePlantao(id, plantao);
     }
 }

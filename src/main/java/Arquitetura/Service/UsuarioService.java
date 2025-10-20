@@ -2,14 +2,11 @@ package Arquitetura.Service;
 
 import Arquitetura.Dao.*;
 import Arquitetura.Exception.CpfInvalidoException;
-import Arquitetura.Exception.IdInexistenteException;
-import Arquitetura.Model.Administrador;
-import Arquitetura.Model.Paciente;
+import Arquitetura.Exception.IdInvalidoException;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.Validator.TipoUsuarioValidator;
 import Arquitetura.Service.Validator.UsuarioValidator;
 
-import java.util.AbstractMap;
 import java.util.ArrayList;
 
 public class UsuarioService {
@@ -95,13 +92,13 @@ public class UsuarioService {
         }
     }
 
-    public void idExistenteValidator(long id) throws IdInexistenteException {
+    public void idExistenteValidator(long id) {
         if(!isIdExistente(id)) {
-        throw new IdInexistenteException("ERRO! ID INVÁLIDO");
+            throw new IdInvalidoException("ERRO! ID NÃO ENCONTRADO");
         }
     }
 
-    public void updateCpf(Usuario usuario, long id, String cpf) throws IdInexistenteException{
+    public void updateCpf(Usuario usuario, long id, String cpf) {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         usuarioValidator.verificaIntegridadeCpf(cpf);
         usuarioValidator.verificarRegrasCpf(cpf);
@@ -114,7 +111,7 @@ public class UsuarioService {
         }
     }
 
-    public void updateNomeUsuario(Usuario usuario, long id, String nome) throws IdInexistenteException{
+    public void updateNomeUsuario(Usuario usuario, long id, String nome) {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         usuarioValidator.verificaIntegridadeNome(nome);
         usuarioValidator.verificarRegrasNome(nome);
@@ -126,7 +123,7 @@ public class UsuarioService {
         }
     }
 
-    public void updateSenhaUsuario(Usuario usuario, long id, String senha) throws IdInexistenteException{
+    public void updateSenhaUsuario(Usuario usuario, long id, String senha) {
         tipoUsuarioValidator.temAcessoBaixo(usuario);
         usuarioValidator.verificaIntegridadeSenha(senha);
         usuarioValidator.verificaIntegridadeSenha(senha);

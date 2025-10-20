@@ -3,7 +3,8 @@ package Arquitetura.Service;
 import Arquitetura.Dao.PacienteDAO;
 import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Exception.CpfInvalidoException;
-import Arquitetura.Model.Administrador;
+import Arquitetura.Exception.IdInvalidoException;
+import Arquitetura.Model.Enums.StatusPaciente;
 import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.Validator.PacienteValidator;
@@ -29,9 +30,14 @@ public class PacienteService {
 
     // -- Métodos -- //
 
-    // Verifica a veracidade dos atributos específicos de Paciente
-    private boolean verificarDadosPac(Paciente paciente) {
-        return (paciente.getStatusPaciente() != null && paciente.getContatoEmergencia() != null && paciente.getNumeroCarterinha() != null);
+    public boolean isIdPaciente(long id) {
+        return pacienteDAO.isIdPaciente(id);
+    }
+
+    public void idPacienteValidator(long id) {
+        if(!isIdPaciente(id)) {
+            throw new IdInvalidoException("ERRO! O ID INFORMADO NÃO É DE UM PACIENTE");
+        }
     }
 
     /**<p>Este método realiza as seguintes ações: </p>
@@ -98,5 +104,43 @@ public class PacienteService {
 
         return pacienteDAO.isCpfPaciente(cpf);
 
+    }
+
+    public void updateContatoEmergencia(Usuario usuario, long id, String contatoEmergencia) {
+        // Verificações de dados
+        tipoUsuarioValidator.temAcessoBaixo(usuario);
+        pacienteValidator.verificaIntegridadeContatoEmerg(contatoEmergencia);
+        pacienteValidator.verificaRegrasContatoEmergencia(contatoEmergencia);
+        usuarioService.idExistenteValidator(id);
+        idPacienteValidator(id);
+
+        // Updates
+        pacienteDAO.updateContatoEmergencia(id, contatoEmergencia);
+        if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
+            ((Paciente) usuario).setContatoEmergencia(contatoEmergencia);
+        }
+    }
+
+    public void updateStatusPaciente(Usuario usuario, long id, StatusPaciente statusPaciente) {
+        // Verificações de dados
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        pacienteValidator.verificaRegrasStatusPaciente(statusPaciente);
+        usuarioService.idExistenteValidator(id);
+        idPacienteValidator(id);
+
+        // Updates
+        pacienteDAO.updateStatusPaciente(id, statusPaciente);
+    }
+
+    public void updateNumeroCarteirinha(Usuario usuario, long id, String numeroCarteirinha) {
+        // Verificações de dados
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        pacienteValidator.verificaIntegridadeNumeroCarterinha(numeroCarteirinha);
+        pacienteValidator.verificaRegrasNumeroCarterinha(numeroCarteirinha);
+        usuarioService.idExistenteValidator(id);
+        idPacienteValidator(id);
+
+        // Updates
+        pacienteDAO.updateNumeroCarteirinha(id, numeroCarteirinha);
     }
 }
