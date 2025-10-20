@@ -95,7 +95,7 @@ public class PacienteService {
     public void updateContatoEmergencia(Usuario usuario, long id, String contatoEmergencia) {
         // Verificações de dados
         tipoUsuarioValidator.temAcessoBaixo(usuario);
-        pacienteValidator.verificaIntegridadeContatoEmerg(contatoEmergencia);
+        PacienteValidator.verificaIntegridadeContatoEmerg(contatoEmergencia);
         pacienteValidator.verificaRegrasContatoEmergencia(contatoEmergencia);
         usuarioValidator.idExistenteValidator(id);
         pacienteValidator.idPacienteValidator(id);
@@ -121,7 +121,7 @@ public class PacienteService {
     public void updateNumeroCarteirinha(Usuario usuario, long id, String numeroCarteirinha) {
         // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
-        pacienteValidator.verificaIntegridadeNumeroCarterinha(numeroCarteirinha);
+        PacienteValidator.verificaIntegridadeNumeroCarterinha(numeroCarteirinha);
         pacienteValidator.verificaRegrasNumeroCarterinha(numeroCarteirinha);
         usuarioValidator.idExistenteValidator(id);
         pacienteValidator.idPacienteValidator(id);

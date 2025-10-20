@@ -136,7 +136,7 @@ public class MedicoService {
 
     public void updateSubEspecialidadeMedico(Usuario usuario, long id, String subEspecialidade) {
         tipoUsuarioValidator.temAcessoTotal(usuario);
-        medicoValidator.verificaIntegridadeSubespecialidade(subEspecialidade);
+        MedicoValidator.verificaIntegridadeSubespecialidade(subEspecialidade);
         usuarioValidator.idExistenteValidator(id);
         medicoValidator.idMedicoValidator(id);
 
@@ -145,7 +145,7 @@ public class MedicoService {
 
     public void updateFormacaoMedico(Usuario usuario, long id, String formacao) {
         tipoUsuarioValidator.temAcessoTotal(usuario);
-        medicoValidator.verificaIntegridadeFormacao(formacao);
+        MedicoValidator.verificaIntegridadeFormacao(formacao);
         medicoValidator.verificaRegrasFormacao(formacao);
         usuarioValidator.idExistenteValidator(id);
         medicoValidator.idMedicoValidator(id);

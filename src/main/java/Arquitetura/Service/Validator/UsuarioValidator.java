@@ -117,7 +117,7 @@ public class UsuarioValidator {
     }
 
     // -- Métodos verificadores de integridade de dados -- //
-    public void verificaIntegridadeCpf(String cpf) {
+    public static void verificaIntegridadeCpf(String cpf) {
         if(cpf.isBlank()) {
             throw new DadosInvalidosException("ERRO! O CPF NÃO PODE SER VAZIO");
         }
@@ -127,7 +127,7 @@ public class UsuarioValidator {
         }
     }
 
-    public void verificaIntegridadeTelefone(String telefone) {
+    public static void verificaIntegridadeTelefone(String telefone) {
         if(telefone.isBlank()) {
             throw new DadosInvalidosException("ERRO! O TELEFONE NÃO PODE SER VAZIO");
         }
@@ -137,19 +137,19 @@ public class UsuarioValidator {
         }
     }
 
-    public void verificaIntegridadeNome(String nome) {
+    public static void verificaIntegridadeNome(String nome) {
         if(nome.isBlank()) {
             throw new DadosInvalidosException("ERRO! O NOME NÃO PODE SER VAZIO");
         }
     }
 
-    public void verificaIntegridadeSenha(String senha) {
+    public static void verificaIntegridadeSenha(String senha) {
         if(senha.isBlank()) {
             throw new DadosInvalidosException("ERRO! A SENHA NÃO PODE SER VAZIA");
         }
     }
 
-    public void verificaIntegridadeEmail(String email) {
+    public static void verificaIntegridadeEmail(String email) {
         if(email.isBlank()) {
             throw new DadosInvalidosException("ERRO! O EMAIL NÃO PODE SER VAZIO");
         }
@@ -159,7 +159,7 @@ public class UsuarioValidator {
         }
     }
 
-    public void verificaIntegridadeId(long id) {
+    public static void verificaIntegridadeId(long id) {
         if(id < 0) {
             throw new DadosInvalidosException("ERRO! O ID NÃO PODE SER MENOR QUE 0");
         }

@@ -22,7 +22,7 @@ public abstract class Funcionario extends Usuario{
 
     // -- Setters e Getters -- //
     public void setCargaHorariaSemanal(int cargaHorariaSemanal) {
-        funcionarioValidator.verificaIntegridadeCargaHoraria(cargaHorariaSemanal);
+        FuncionarioValidator.verificaIntegridadeCargaHoraria(cargaHorariaSemanal);
 
         this.cargaHorariaSemanal = cargaHorariaSemanal;
     }
@@ -32,7 +32,7 @@ public abstract class Funcionario extends Usuario{
     }
 
     public void setSalario(double salario) {
-        funcionarioValidator.verificaIntegridadeSalario(salario);
+        FuncionarioValidator.verificaIntegridadeSalario(salario);
 
         this.salario = salario;
     }

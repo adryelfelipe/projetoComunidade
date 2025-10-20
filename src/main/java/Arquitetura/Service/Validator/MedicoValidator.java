@@ -70,13 +70,13 @@ public class MedicoValidator {
     }
 
     // -- Métodos verificadores de integridade de dados -- //
-    public void verificaIntegridadeSubespecialidade(String subEspecialidade) {
+    public static void verificaIntegridadeSubespecialidade(String subEspecialidade) {
         if(subEspecialidade.isBlank()) {
             throw new DadosInvalidosException("ERRO! SUBESPECIALIDADE NÃO PODE SER VAZIA");
         }
     }
 
-    public void verificaIntegridadeFormacao(String formacao) {
+    public static void verificaIntegridadeFormacao(String formacao) {
         if(formacao.isBlank()) {
             throw new DadosInvalidosException("ERRO! FORMAÇÃO NÃO PODE SER VAZIA");
         }

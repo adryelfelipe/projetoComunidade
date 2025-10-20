@@ -46,7 +46,7 @@ public abstract class Usuario {
     }
 
     public void setNome(String nome) {
-        usuarioValidator.verificaIntegridadeNome(nome);
+        UsuarioValidator.verificaIntegridadeNome(nome);
 
         this.nome = nome;
     }
@@ -64,7 +64,7 @@ public abstract class Usuario {
     }
 
     public void setTelefone(String telefone) {
-        usuarioValidator.verificaIntegridadeTelefone(telefone);
+        UsuarioValidator.verificaIntegridadeTelefone(telefone);
 
         this.telefone = telefone;
     }
@@ -74,7 +74,7 @@ public abstract class Usuario {
     }
 
     public void setEmail(String email) {
-        usuarioValidator.verificaIntegridadeEmail(email);
+        UsuarioValidator.verificaIntegridadeEmail(email);
 
         this.email = email;
     }
@@ -92,7 +92,7 @@ public abstract class Usuario {
     }
 
     public void setId(long id) {
-        usuarioValidator.verificaIntegridadeId(id);
+        UsuarioValidator.verificaIntegridadeId(id);
 
         this.id = id;
     }
@@ -102,7 +102,7 @@ public abstract class Usuario {
     }
 
     public void setSenha(String senha) {
-        usuarioValidator.verificaIntegridadeSenha(senha);
+        UsuarioValidator.verificaIntegridadeSenha(senha);
 
         this.senha = senha;
     }
@@ -112,7 +112,7 @@ public abstract class Usuario {
     }
 
     public void setCpf(String cpf) {
-       usuarioValidator.verificaIntegridadeCpf(cpf);
+        UsuarioValidator.verificaIntegridadeCpf(cpf);
 
         this.cpf = cpf;
     }

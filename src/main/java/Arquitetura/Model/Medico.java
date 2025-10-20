@@ -55,7 +55,7 @@ public class Medico extends Funcionario{
     }
 
     public void setFormacao(String formacao) {
-        medicoValidator.verificaIntegridadeFormacao(formacao);
+        MedicoValidator.verificaIntegridadeFormacao(formacao);
 
         this.formacao = formacao;
     }
@@ -73,7 +73,7 @@ public class Medico extends Funcionario{
     }
 
     public void setSubEspecialidade(String subEspecialidade) {
-        medicoValidator.verificaIntegridadeSubespecialidade(subEspecialidade);
+        MedicoValidator.verificaIntegridadeSubespecialidade(subEspecialidade);
 
         this.subEspecialidade = subEspecialidade;
     }

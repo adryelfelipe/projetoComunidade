@@ -40,7 +40,7 @@ public class Paciente extends Usuario {
     }
 
     public void setContatoEmergencia(String contatoEmergencia) {
-        pacienteValidator.verificaIntegridadeContatoEmerg(contatoEmergencia);
+        PacienteValidator.verificaIntegridadeContatoEmerg(contatoEmergencia);
 
         this.contatoEmergencia = contatoEmergencia;
     }
@@ -58,7 +58,7 @@ public class Paciente extends Usuario {
     }
 
     public void setNumeroCarterinha(String numeroCarterinha) {
-        pacienteValidator.verificaIntegridadeNumeroCarterinha(numeroCarterinha);
+        PacienteValidator.verificaIntegridadeNumeroCarterinha(numeroCarterinha);
 
         this.numeroCarterinha = numeroCarterinha;
     }
