@@ -527,4 +527,26 @@ public class UsuarioDAO {
             System.err.println("Erro ao tentar atualizar o Cpf do usuário.");
         }
     }
+
+    public String cpfByID(long id) {
+        String querySql = "SELECT cpf FROM Usuario WHERE idUsuario = ?";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(querySql)) {
+
+            stmt.setLong(1, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("cpf");
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar o CPF: " + e.getMessage());
+        }
+
+        return null;
+    }
+
 }
