@@ -409,7 +409,7 @@ public class MedicoDAO {
                 return false;
             }
 
-            stmt.setString(2, cpf);
+            stmt.setString(1, cpf);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
