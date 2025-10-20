@@ -8,6 +8,7 @@ import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Consulta;
 import Arquitetura.Model.Enums.Especialidade;
+import Arquitetura.Model.Enums.Plantao;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.Validator.MedicoValidator;
@@ -155,5 +156,15 @@ public class MedicoService {
         // ADICIONAR VERIFICAÇÃO DE SE O ID RECEBIDO É O DE UM MÉDICO
 
         medicoDAO.updateFormacao(id, formacao);
+    }
+
+    public void updatePlantaoMedico(Usuario usuario, long id, Plantao plantao) {
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        medicoValidator.verificaRegrasPlantao(plantao);
+        usuarioService.idExistenteValidator(id);
+
+        // ADICIONAR VERIFICAÇÃO DE SE O ID RECEBIDO É O DE UM MÉDICO
+
+        medicoDAO.updatePlantao(id, plantao);
     }
 }
