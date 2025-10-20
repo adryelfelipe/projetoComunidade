@@ -126,4 +126,15 @@ public class PacienteService {
 
         pacienteDAO.updateStatusPaciente(id, statusPaciente);
     }
+
+    public void updateNumeroCarteirinha(Usuario usuario, long id, String numeroCarteirinha) throws IdInvalidoException {
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        pacienteValidator.verificaIntegridadeNumeroCarterinha(numeroCarteirinha);
+        pacienteValidator.verificaRegrasNumeroCarterinha(numeroCarteirinha);
+        usuarioService.idExistenteValidator(id);
+
+        // ADICIONAR VERIFICAÇÃO DE SE O ID RECEBIDO É O DE UM PACIENTE
+
+        pacienteDAO.updateNumeroCarteirinha(id, numeroCarteirinha);
+    }
 }
