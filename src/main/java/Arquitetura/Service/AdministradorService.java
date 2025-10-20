@@ -3,17 +3,13 @@ package Arquitetura.Service;
 import Arquitetura.Dao.AdministradorDAO;
 import Arquitetura.Dao.FuncionarioDAO;
 import Arquitetura.Dao.UsuarioDAO;
-import Arquitetura.Exception.CpfInvalidoException;
-import Arquitetura.Exception.TipoUsuarioException;
-import Arquitetura.Exception.UltimoAdminException;
+import Arquitetura.Exception.*;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.Validator.AdministradorValidator;
 import Arquitetura.Service.Validator.FuncionarioValidator;
 import Arquitetura.Service.Validator.TipoUsuarioValidator;
 import Arquitetura.Service.Validator.UsuarioValidator;
-import Arquitetura.Exception.DadosInvalidosException;
-import Arquitetura.Exception.AutoDeleteException;
 
 public class AdministradorService {
 
@@ -34,6 +30,16 @@ public class AdministradorService {
     }
 
     // -- Métodos -- //
+
+    public boolean isIdAdministrador(long id) {
+        return administradorDao.isIdAdministrador(id);
+    }
+
+    public void idAdministradorValidator(long id) {
+        if (!isIdAdministrador(id)) {
+            throw new IdInvalidoException("ERRO! O ID INFORMADO NÃO É DE UM ADMINISTRADOR");
+        }
+    }
 
     // Verifica se é o último administrador do banco de dados
     private boolean isUltimoAdmin(){
