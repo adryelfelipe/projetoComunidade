@@ -1,14 +1,20 @@
 package Arquitetura.Service.Validator;
 
+import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Exception.DadosInvalidosException;
+import Arquitetura.Exception.IdInvalidoException;
 import Arquitetura.Exception.UsuarioInvalidoException;
 import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.TipoUsuario;
 import Arquitetura.Model.Usuario;
+import Arquitetura.Service.UsuarioService;
 
 import java.util.Date;
 
 public class UsuarioValidator {
+
+    // -- Atributos -- //
+    private final UsuarioService usuarioService = new UsuarioService();
 
     // -- Métodos de análise -- //
     public boolean isUsuarioExistente(Usuario usuario) {
@@ -17,6 +23,18 @@ public class UsuarioValidator {
 
     public boolean isAutoUpdate(long idUsuario, long idAtualizado) {
         return idUsuario == idAtualizado;
+    }
+
+    public void cpfUtilizadoValidator(String cpf) {
+        if(usuarioService.isCpfExistente(cpf)) {
+            throw new CpfInvalidoException("ERRO! CPF JÁ UTILIZADO");
+        }
+    }
+
+    public void idExistenteValidator(long id) {
+        if(!usuarioService.isIdExistente(id)) {
+            throw new IdInvalidoException("ERRO! ID NÃO ENCONTRADO");
+        }
     }
 
     // -- Métodos verificadores de regras de negócio -- //

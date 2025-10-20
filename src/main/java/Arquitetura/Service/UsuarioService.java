@@ -28,7 +28,7 @@ public class UsuarioService {
     // -- Métodos -- //
 
     // Verifica se existe um usuario com o id igual ao parâmetro
-    private boolean isIdExistente(long id) {
+    public boolean isIdExistente(long id) {
         return !(usuarioDao.findById(id) == null);
     }
 
@@ -86,24 +86,12 @@ public class UsuarioService {
         return 1;
     }
 
-    public void cpfUtilizadoValidator(String cpf) {
-        if(isCpfExistente(cpf)) {
-            throw new CpfInvalidoException("ERRO! CPF JÁ UTILIZADO");
-        }
-    }
-
-    public void idExistenteValidator(long id) {
-        if(!isIdExistente(id)) {
-            throw new IdInvalidoException("ERRO! ID NÃO ENCONTRADO");
-        }
-    }
-
     public void updateCpf(Usuario usuario, long id, String cpf) {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         usuarioValidator.verificaIntegridadeCpf(cpf);
         usuarioValidator.verificarRegrasCpf(cpf);
-        idExistenteValidator(id);
-        cpfUtilizadoValidator(cpf);
+        usuarioValidator.idExistenteValidator(id);
+        usuarioValidator.cpfUtilizadoValidator(cpf);
         usuarioDao.updateCpf(id, cpf);
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
@@ -115,7 +103,7 @@ public class UsuarioService {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         usuarioValidator.verificaIntegridadeNome(nome);
         usuarioValidator.verificarRegrasNome(nome);
-        idExistenteValidator(id);
+        usuarioValidator.idExistenteValidator(id);
         usuarioDao.updateNomeUsuario(id, nome);
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
@@ -127,7 +115,7 @@ public class UsuarioService {
         tipoUsuarioValidator.temAcessoBaixo(usuario);
         usuarioValidator.verificaIntegridadeSenha(senha);
         usuarioValidator.verificaIntegridadeSenha(senha);
-        idExistenteValidator(id);
+        usuarioValidator.idExistenteValidator(id);
         usuarioDao.updateSenhaUsuario(id, senha);
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {

@@ -97,7 +97,7 @@ public class PacienteService {
         tipoUsuarioValidator.temAcessoBaixo(usuario);
         pacienteValidator.verificaIntegridadeContatoEmerg(contatoEmergencia);
         pacienteValidator.verificaRegrasContatoEmergencia(contatoEmergencia);
-        usuarioService.idExistenteValidator(id);
+        usuarioValidator.idExistenteValidator(id);
         pacienteValidator.idPacienteValidator(id);
 
         // Updates
@@ -111,7 +111,7 @@ public class PacienteService {
         // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
         pacienteValidator.verificaRegrasStatusPaciente(statusPaciente);
-        usuarioService.idExistenteValidator(id);
+        usuarioValidator.idExistenteValidator(id);
         pacienteValidator.idPacienteValidator(id);
 
         // Updates
@@ -123,7 +123,7 @@ public class PacienteService {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         pacienteValidator.verificaIntegridadeNumeroCarterinha(numeroCarteirinha);
         pacienteValidator.verificaRegrasNumeroCarterinha(numeroCarteirinha);
-        usuarioService.idExistenteValidator(id);
+        usuarioValidator.idExistenteValidator(id);
         pacienteValidator.idPacienteValidator(id);
 
         // Updates
