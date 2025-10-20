@@ -5,6 +5,7 @@ import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Exception.IdInvalidoException;
 import Arquitetura.Model.Administrador;
+import Arquitetura.Model.Enums.StatusPaciente;
 import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.Validator.PacienteValidator;
@@ -106,12 +107,23 @@ public class PacienteService {
         pacienteValidator.verificaIntegridadeContatoEmerg(contatoEmergencia);
         pacienteValidator.verificaRegrasContatoEmergencia(contatoEmergencia);
         usuarioService.idExistenteValidator(id);
-        pacienteDAO.updateContatoEmergencia(id, contatoEmergencia);
 
         // ADICIONAR VERIFICAÇÃO DE SE O ID RECEBIDO É O DE UM PACIENTE
+
+        pacienteDAO.updateContatoEmergencia(id, contatoEmergencia);
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
             ((Paciente) usuario).setContatoEmergencia(contatoEmergencia);
         }
+    }
+
+    public void updateStatusPaciente(Usuario usuario, long id, StatusPaciente statusPaciente) throws IdInvalidoException {
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        pacienteValidator.verificaRegrasStatusPaciente(statusPaciente);
+        usuarioService.idExistenteValidator(id);
+
+        // ADICIONAR VERIFICAÇÃO DE SE O ID RECEBIDO É O DE UM PACIENTE
+
+        pacienteDAO.updateStatusPaciente(id, statusPaciente);
     }
 }
