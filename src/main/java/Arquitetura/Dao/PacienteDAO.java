@@ -168,9 +168,9 @@ public class PacienteDAO {
 
     public void updateNumeroCarteirinha(long id, String numCarteirinha )
     {
-        String querySql = "UPDATE Paciente p "+
+        String querySql = "UPDATE Paciente "+
                 "SET numeroCarteirinha = ? "+
-                "WHERE  = ? ";
+                "WHERE idPaciente = ? ";
         try(
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(querySql))
@@ -186,25 +186,24 @@ public class PacienteDAO {
         }
     }
 
-    public void updateContatoEmergencia(String cpf, String contatoEmergencia)
+    public void updateContatoEmergencia(long id, String contatoEmergencia)
     {
-        String querySql = "UPDATE Paciente p "+
-                "INNER JOIN Usuario u ON p.idPaciente = u.idUsuario "+
+        String querySql = "UPDATE Paciente "+
                 "SET contatoCarteirinha = ? "+
-                "WHERE cpf = ? ";
+                "WHERE idPaciente = ? ";
 
         try (
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(querySql))
         {
             stmt.setString(1, contatoEmergencia);
-            stmt.setString(2, cpf);
+            stmt.setLong(2, id);
 
             stmt.executeUpdate();
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao atualizar o contato de emergência do paciente com o Cpf: "+cpf);
+            System.err.println("Erro ao atualizar o contato de emergência do paciente com o ID:" + id + e);
         }
     }
     public void updateStatusPaciente(String cpf, StatusPaciente statusPaciente)
