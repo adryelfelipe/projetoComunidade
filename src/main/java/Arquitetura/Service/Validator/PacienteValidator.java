@@ -1,14 +1,33 @@
 package Arquitetura.Service.Validator;
 
+import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Exception.DadosInvalidosException;
+import Arquitetura.Exception.IdInvalidoException;
 import Arquitetura.Model.Enums.StatusPaciente;
 import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
+import Arquitetura.Service.PacienteService;
 
 public class PacienteValidator {
 
     // -- Atributos -- //
     UsuarioValidator usuarioValidator = new UsuarioValidator();
+    PacienteService pacienteService = new PacienteService();
+
+    // -- Métodos de análise -- //
+    public void idPacienteValidator(long id) {
+        if(!pacienteService.isIdPaciente(id)) {
+            throw new IdInvalidoException("ERRO! O ID INFORMADO NÃO É DE UM PACIENTE");
+        }
+    }
+
+    public void cpfPacienteValidator (String cpf)
+    {
+        if(!pacienteService.isCpfPaciente(cpf))
+        {
+            throw new CpfInvalidoException("ERRO ! CPF NÃO PERTENCE A UM PACIENTE");
+        }
+    }
 
     // -- Métodos verificadores de regras de negócio -- //
     public void verificaRegrasInsercaoPaciente(Paciente paciente) {
