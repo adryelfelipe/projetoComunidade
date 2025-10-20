@@ -12,6 +12,7 @@ import java.sql.*;
 public class MedicoDAO {
 
     // -- CRUD -- //
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     // Inserção
     public void inserirMedico(Medico medico) {
@@ -394,6 +395,34 @@ public class MedicoDAO {
             System.err.println("Erro ao atualizar plantão do médico com CPF: "+cpf);
         }
 
+    }
+
+    public boolean isIdPaciente(long id) {
+        String querySql = "SELECT tipoUsuario FROM Usuario WHERE cpf = ?";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(querySql)) {
+
+            String cpf = usuarioDAO.cpfByID(id);
+
+            if (cpf == null) {
+                return false;
+            }
+
+            stmt.setString(2, cpf);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    int tipo = rs.getInt("tipoUsuario");
+                    return tipo == 2;
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar o ID do Medico.");
+        }
+
+        return false;
     }
 
 }
