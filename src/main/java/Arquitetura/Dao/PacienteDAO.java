@@ -58,7 +58,6 @@ public class PacienteDAO {
             {
                 while (resultSet.next())
                 {
-                    //long id, String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCarterinha, StatusPaciente statusPaciente
                     long idPaciente = resultSet.getInt("idUsuario");
                     String nome = resultSet.getString("nomeUsuario");
                     String cpf = resultSet.getString("cpf");

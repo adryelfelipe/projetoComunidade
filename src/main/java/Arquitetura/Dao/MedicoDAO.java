@@ -1,13 +1,11 @@
 package Arquitetura.Dao;
 
 import Arquitetura.Config.ConnectionFactory;
-import Arquitetura.Model.Enums.Departamento;
-import Arquitetura.Model.Enums.Especialidade;
-import Arquitetura.Model.Enums.Genero;
-import Arquitetura.Model.Enums.Plantao;
+import Arquitetura.Model.Enums.*;
 import Arquitetura.Model.Medico;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class MedicoDAO {
 
@@ -16,7 +14,7 @@ public class MedicoDAO {
 
     // Inserção
     public void inserirMedico(Medico medico) {
-        String querySQL = "INSERT INTO Medico (idMedico, idPlantao, especialidade, subEspecialidade, formacao) values (?, ?, ?, ?, ?)";
+        String querySQL = "INSERT INTO Medico (idMedico, idPlantao, idEspecialidade, subEspecialidade, formacao) values (?, ?, ?, ?, ?)";
 
         try (
                 Connection connection = ConnectionFactory.getConnection();
@@ -33,6 +31,83 @@ public class MedicoDAO {
         }
     }
 
+    //Pesquisa todos os Médicos
+    public ArrayList<Medico> findAllMedicos()
+    {
+        ArrayList<Medico> listaMedicos = new ArrayList<>();
+
+        String querySql = "SELECT "+
+                "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, "+
+                "M.idPlantao, M.idEspecialidade, M.subEspecialidade, M.formacao, "+
+                "F.idFuncionario, F.salario, F.cargaHorariaSemanal "+
+                "FROM Usuario U "+
+                "INNER JOIN Medico M ON U.idUsuario = M.idMedico "+
+                "INNER JOIN Funcionario F ON M.idMedico = F.idFuncionario ";
+        try(
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            try(ResultSet resultSet = stmt.executeQuery())
+            {
+                while(resultSet.next())
+                {
+                    //Atributos Usuário
+                    long idMedico = resultSet.getInt("idUsuario");
+                    String nome = resultSet.getString("nomeUsuario");
+                    String cpf = resultSet.getString("cpf");
+                    String senha = resultSet.getString("senha");
+                    int idGenero = resultSet.getInt("sexo");
+                    Genero genero = switch (idGenero)
+                    {
+                        case 1 -> Genero.MASCULINO;
+                        default -> Genero.FEMININO;
+                    };
+                    String telefone = resultSet.getString("telefone");
+                    String email = resultSet.getString("email");
+                    Date datanascimento = resultSet.getDate("dataNascimento");
+                    TipoUsuario tipoUsuario = TipoUsuario.MEDICO;
+
+                    //Atributos Funcionario
+                    double salario = resultSet.getDouble("salario");
+                    int cargaHorariaSemanal = resultSet.getInt("cargaHorariaSemanal");
+
+                    //Atributos Medico
+                    String subEspecialidade = resultSet.getString("subEspecialidade");
+                    String formacao = resultSet.getString("formacao");
+                    int idEspecialidade = resultSet.getInt("idEspecialidade");
+                    Especialidade especialidade = switch (idEspecialidade)
+                    {
+                        case 1 -> Especialidade.CLINICO_GERAL;
+                        case 2 -> Especialidade.CARDIOLOGISTA;
+                        case 3 -> Especialidade.RADIOLOGISTA;
+                        case 4 -> Especialidade.OTORRINOLARINGOLOGISTA;
+                        case 5 -> Especialidade.OFTALMOLOGISTA;
+                        case 6 -> Especialidade.ENDOCRINOLOGISTA;
+                        default -> Especialidade.HEMATOLOGISTA;
+                    };
+                    int idPlantao = resultSet.getInt("idPlantao");
+                    Plantao plantao = switch (idPlantao)
+                    {
+                        case 1 -> Plantao.MATUTINO;
+                        case 2 -> Plantao.VERPERTINO;
+                        default -> Plantao.NOTURNO;
+                    };
+
+                    Medico medico = new Medico(idMedico, nome, cpf, senha, genero, telefone, email, datanascimento, cargaHorariaSemanal, salario, plantao, especialidade,formacao, subEspecialidade);
+
+                    if(medico != null && !listaMedicos.contains(medico))
+                    {
+                        listaMedicos.add(medico);
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Não foi possível buscar todos os médicos: "+e);
+        }
+        return listaMedicos;
+    }
     // Remoção
     public void deletarMedico(String cpf) {
         String querySql =
