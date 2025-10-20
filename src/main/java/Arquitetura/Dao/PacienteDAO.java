@@ -160,7 +160,7 @@ public class PacienteDAO {
             }
 
         } catch (SQLException e) {
-            System.err.println("Erro ao verificar o ID do Paciente: " + e.getMessage());
+            System.err.println("Erro ao verificar o ID do Paciente.");
         }
 
         return false;
