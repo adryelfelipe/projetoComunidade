@@ -397,7 +397,7 @@ public class MedicoDAO {
 
     }
 
-    public boolean isIdPaciente(long id) {
+    public boolean isIdMedico(long id) {
         String querySql = "SELECT tipoUsuario FROM Usuario WHERE cpf = ?";
 
         try (Connection conn = ConnectionFactory.getConnection();
