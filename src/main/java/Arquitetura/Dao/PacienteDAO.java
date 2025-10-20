@@ -166,23 +166,23 @@ public class PacienteDAO {
     }
 
 
-    public void updateNumeroCarteirinha(String cpf, String numCarteirinha )
+    public void updateNumeroCarteirinha(long id, String numCarteirinha )
     {
         String querySql = "UPDATE Paciente p "+
-                "INNER JOIN Usuario u ON p.idPaciente = u.idUsuario "+
                 "SET numeroCarteirinha = ? "+
-                "WHERE cpf = ? ";
+                "WHERE  = ? ";
         try(
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(querySql))
         {
             stmt.setString(1, numCarteirinha);
-            stmt.setString(2, cpf);
+            stmt.setLong(2, id);
 
             stmt.executeUpdate();
         }
-        catch (SQLException e) {
-            System.err.println("Erro ao atualizar número da carteirinha do paciente com Cpf: "+cpf);
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar número da carteirinha do paciente com ID:" +id+ e);
         }
     }
 
