@@ -30,6 +30,18 @@ public class UsuarioService {
         }
     }
 
+    public void idExistenteValidator(long id) {
+        if(!isIdExistente(id)) {
+            throw new IdInvalidoException("ERRO! ID NÃO ENCONTRADO");
+        }
+    }
+
+    public void cpfUtilizadoValidator(String cpf) {
+        if(usuarioDao.verificarCpf(cpf)) {
+            throw new CpfInvalidoException("ERRO! CPF JÁ UTILIZADO");
+        }
+    }
+
     // Verifica se existe um usuario com o id igual ao parâmetro
     public boolean isIdExistente(long id) {
         return !(usuarioDao.findById(id) == null);
@@ -98,8 +110,8 @@ public class UsuarioService {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         UsuarioValidator.verificaIntegridadeCpf(cpf);
         usuarioValidator.verificarRegrasCpf(cpf);
-        usuarioValidator.idExistenteValidator(id);
-        usuarioValidator.cpfUtilizadoValidator(cpf);
+        idExistenteValidator(id);
+        cpfUtilizadoValidator(cpf);
         usuarioDao.updateCpf(id, cpf);
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
@@ -111,7 +123,7 @@ public class UsuarioService {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         UsuarioValidator.verificaIntegridadeNome(nome);
         usuarioValidator.verificarRegrasNome(nome);
-        usuarioValidator.idExistenteValidator(id);
+        idExistenteValidator(id);
         usuarioDao.updateNomeUsuario(id, nome);
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
@@ -123,7 +135,7 @@ public class UsuarioService {
         tipoUsuarioValidator.temAcessoBaixo(usuario);
         UsuarioValidator.verificaIntegridadeSenha(senha);
         UsuarioValidator.verificaIntegridadeSenha(senha);
-        usuarioValidator.idExistenteValidator(id);
+        idExistenteValidator(id);
         usuarioDao.updateSenhaUsuario(id, senha);
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {

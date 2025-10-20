@@ -30,18 +30,6 @@ public class UsuarioValidator {
         return idUsuario == idAtualizado;
     }
 
-    public void cpfUtilizadoValidator(String cpf) {
-        if(usuarioService.isCpfExistente(cpf)) {
-            throw new CpfInvalidoException("ERRO! CPF JÁ UTILIZADO");
-        }
-    }
-
-    public void idExistenteValidator(long id) {
-        if(!usuarioService.isIdExistente(id)) {
-            throw new IdInvalidoException("ERRO! ID NÃO ENCONTRADO");
-        }
-    }
-
     // -- Métodos verificadores de regras de negócio -- //
     public void verificaRegrasInsercaoUsuario(Usuario usuario) {
         verificarRegrasObjeto(usuario);

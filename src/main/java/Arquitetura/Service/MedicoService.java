@@ -128,7 +128,7 @@ public class MedicoService {
     public void updateEspecialidadeMedico(Usuario usuario, long id, Especialidade especialidade) {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         medicoValidator.verificaRegrasEspecialidade(especialidade);
-        usuarioValidator.idExistenteValidator(id);
+        usuarioService.idExistenteValidator(id);
         medicoValidator.idMedicoValidator(id);;
 
         medicoDAO.updateEspecialidade(id, especialidade);
@@ -137,7 +137,7 @@ public class MedicoService {
     public void updateSubEspecialidadeMedico(Usuario usuario, long id, String subEspecialidade) {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         MedicoValidator.verificaIntegridadeSubespecialidade(subEspecialidade);
-        usuarioValidator.idExistenteValidator(id);
+        usuarioService.idExistenteValidator(id);
         medicoValidator.idMedicoValidator(id);
 
         medicoDAO.updateSubEspecialidade(id, subEspecialidade);
@@ -147,7 +147,7 @@ public class MedicoService {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         MedicoValidator.verificaIntegridadeFormacao(formacao);
         medicoValidator.verificaRegrasFormacao(formacao);
-        usuarioValidator.idExistenteValidator(id);
+        usuarioService.idExistenteValidator(id);
         medicoValidator.idMedicoValidator(id);
 
         medicoDAO.updateFormacao(id, formacao);
@@ -156,7 +156,7 @@ public class MedicoService {
     public void updatePlantaoMedico(Usuario usuario, long id, Plantao plantao) {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         medicoValidator.verificaRegrasPlantao(plantao);
-        usuarioValidator.idExistenteValidator(id);
+        usuarioService.idExistenteValidator(id);
         medicoValidator.idMedicoValidator(id);
 
         medicoDAO.updatePlantao(id, plantao);
