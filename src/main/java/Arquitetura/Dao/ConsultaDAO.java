@@ -44,7 +44,7 @@ public class ConsultaDAO
         }
         catch (SQLException e)
         {
-            System.err.println("Não foi possível marcar uma Consulta: "+e.getMessage());
+            System.err.println("Não foi possível marcar uma Consulta.");
         }
     }
 
@@ -64,7 +64,7 @@ public class ConsultaDAO
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao deletar Consulta com ID " + id + ": " + e.getMessage());
+            System.err.println("Erro ao deletar Consulta com ID: " + id);
         }
     }
 
@@ -84,7 +84,7 @@ public class ConsultaDAO
         }
         catch (SQLException e)
         {
-            System.err.println("Não foi possível deletar Consulta onde CPF do Paciente é igual: "+cpfPaciente+ e);
+            System.err.println("Não foi possível deletar Consulta onde CPF do Paciente é igual: "+cpfPaciente);
         }
     }
 
@@ -104,7 +104,7 @@ public class ConsultaDAO
         }
         catch (SQLException e)
         {
-            System.err.println("Não foi possível deletar Consulta onde CPF do Médico é igual: "+cpfMedico + e);
+            System.err.println("Não foi possível deletar Consulta onde CPF do Médico é igual: "+cpfMedico);
         }
     }
 
@@ -167,7 +167,7 @@ public class ConsultaDAO
         }
         catch (SQLException e)
         {
-            System.err.println("Não foi possível buscar Consulta: "+ e.getMessage());
+            System.err.println("Não foi possível buscar Consulta. ");
         }
 
         return consulta;
@@ -197,7 +197,7 @@ public class ConsultaDAO
         }
         catch (SQLException e)
         {
-            System.err.println("Não foi possível buscar todas as consultas: "+e.getMessage());
+            System.err.println("Não foi possível buscar todas as consultas.");
         }
         return listaConsultas;
     }
@@ -231,7 +231,7 @@ public class ConsultaDAO
         }
         catch (SQLException e)
         {
-            System.err.println("Não possível buscar lista de Consultas: "+e.getMessage());
+            System.err.println("Não foi possível buscar as listas de Consultas.");
         }
 
         return listaConsultasPaciente;
@@ -265,7 +265,7 @@ public class ConsultaDAO
         }
         catch (SQLException e)
         {
-            System.out.println("Não foi possível buscar lista de Consultas: "+e.getMessage());
+            System.out.println("Não foi possível buscar a lista de Consultas.");
         }
         return listaConsultasMedico;
     }
@@ -342,7 +342,7 @@ public class ConsultaDAO
         }
         catch (SQLException e)
         {
-            System.err.println("Não foi possível buscar consultas na data: "+date+ e);
+            System.err.println("Não foi possível buscar consultas na data: "+date);
         }
         return listaConsultas;
     }
