@@ -3,6 +3,7 @@ package Arquitetura.Service;
 import Arquitetura.Dao.*;
 import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Exception.IdInvalidoException;
+import Arquitetura.Exception.SenhaInvalidaException;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.Validator.TipoUsuarioValidator;
 import Arquitetura.Service.Validator.UsuarioValidator;
@@ -49,6 +50,12 @@ public class UsuarioService {
         return null;
     }
 
+    private void senhaUsuarioValidator(String cpf, String senha) {
+        if(!usuarioDao.verificarSenha(cpf, senha)) {
+            throw new SenhaInvalidaException("ERRO! SENHA INCORRETA");
+        }
+    }
+
     // Retorna uma ArrayList contendo todos os usuários do banco de dados
     public ArrayList<Usuario> findAllUsers(Usuario usuario) {
         if(usuario.getTipoUsuario().getNivelAcesso().temAcessoTotal()) {
@@ -62,6 +69,8 @@ public class UsuarioService {
         if(!isCpfExistente(cpf)) {
             throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
         }
+
+        senhaUsuarioValidator(cpf, senha);
 
         return usuarioDao.loginUsuario(cpf,senha);
     }

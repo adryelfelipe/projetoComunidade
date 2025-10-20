@@ -34,13 +34,7 @@ public class MenuLogin {
 
             System.out.println("-------------------------");
             System.out.print("- Digite seu CPF: " );
-            try {
-                cpf = Ferramentas.lString();
-            } catch (CpfInvalidoException e) {
-                System.err.print(e.getMessage());
-                Ferramentas.Delay(1500);
-                return;
-            }
+            cpf = Ferramentas.lString();
             System.out.println("-------------------------");
 
             boolean cpfexiste = usuarioService.isCpfExistente(cpf);
