@@ -36,6 +36,12 @@ public class UsuarioService {
         }
     }
 
+    public void cpfUtilizadoValidator(String cpf) {
+        if(usuarioDao.verificarCpf(cpf)) {
+            throw new CpfInvalidoException("ERRO! CPF JÁ UTILIZADO");
+        }
+    }
+
     // Verifica se existe um usuario com o id igual ao parâmetro
     public boolean isIdExistente(long id) {
         return !(usuarioDao.findById(id) == null);
@@ -105,7 +111,7 @@ public class UsuarioService {
         UsuarioValidator.verificaIntegridadeCpf(cpf);
         usuarioValidator.verificarRegrasCpf(cpf);
         idExistenteValidator(id);
-        usuarioValidator.cpfUtilizadoValidator(cpf);
+        cpfUtilizadoValidator(cpf);
         usuarioDao.updateCpf(id, cpf);
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
