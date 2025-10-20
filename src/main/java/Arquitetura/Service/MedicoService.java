@@ -7,6 +7,7 @@ import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Consulta;
+import Arquitetura.Model.Enums.Especialidade;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.Validator.MedicoValidator;
@@ -123,5 +124,15 @@ public class MedicoService {
 
         return medicoDAO.isCpfMedico(cpf);
 
+    }
+
+    public void updateEspecialidadeMedico(Usuario usuario, long id, Especialidade especialidade) {
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        medicoValidator.verificaRegrasEspecialidade(especialidade);
+        usuarioService.idExistenteValidator(id);
+
+        // ADICIONAR VERIFICAÇÃO DE SE O ID RECEBIDO É O DE UM MÉDICO
+
+        medicoDAO.updateEspecialidade(id, especialidade);
     }
 }
