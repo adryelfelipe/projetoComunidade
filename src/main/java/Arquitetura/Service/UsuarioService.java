@@ -24,6 +24,11 @@ public class UsuarioService {
     }
 
     // -- Métodos -- //
+    private void cpfExistenteValidator(String cpf) {
+        if(!usuarioDao.verificarCpf(cpf)) {
+            throw new CpfInvalidoException("ERRO! O CPF NÃO FOI ENCONTRADO");
+        }
+    }
 
     // Verifica se existe um usuario com o id igual ao parâmetro
     public boolean isIdExistente(long id) {
@@ -66,10 +71,7 @@ public class UsuarioService {
     }
 
     public Usuario loginUsuario(String cpf, String senha) {
-        if(!isCpfExistente(cpf)) {
-            throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
-        }
-
+        cpfExistenteValidator(cpf);
         senhaUsuarioValidator(cpf, senha);
 
         return usuarioDao.loginUsuario(cpf,senha);

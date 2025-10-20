@@ -1,6 +1,7 @@
 package Arquitetura.View;
 
 import Arquitetura.Exception.CpfInvalidoException;
+import Arquitetura.Exception.SenhaInvalidaException;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Paciente;
@@ -37,62 +38,41 @@ public class MenuLogin {
             cpf = Ferramentas.lString();
             System.out.println("-------------------------");
 
-            boolean cpfexiste = usuarioService.isCpfExistente(cpf);
 
-            if(!cpfexiste) {
+            System.out.println("-------------------------");
+            System.out.print("- Digite sua senha: ");
 
-                System.out.println("\n\nCPF incorreto/invalido");
+            senha = Ferramentas.lString();
 
-                Ferramentas.Delay(1500);
+            System.out.println("-------------------------");
 
-                continuar = false;
+            try{
+                Usuario usuario = usuarioService.loginUsuario(cpf, senha);
+            } catch(SenhaInvalidaException | CpfInvalidoException e) {
+                System.err.print("ERRO! SENHA OU CPF INVÁLIDOS");
+            }
+
+            if(usuario instanceof Administrador)
+            {
+
+                Administrador adm = (Administrador) usuario;
+
+                MenuAdministrador.Menu(adm);
 
             }
-            else {
+            else if(usuario instanceof Medico)
+            {
 
-                System.out.println("-------------------------");
-                System.out.print("- Digite sua senha: ");
+                Medico medico = (Medico) usuario;
 
-                senha = Ferramentas.lString();
+                MenuMedico.Menu(medico);
+            }
+            else
+            {
 
-                System.out.println("-------------------------");
+                Paciente paciente = (Paciente) usuario;
 
-                Usuario usuario = usuarioService.loginUsuario(cpf, senha);
-
-                if (usuario == null) {
-
-                    System.out.println("Senha incorreta!");
-
-                    Ferramentas.Delay(1500);
-
-                    continuar = false;
-
-                }
-                else {
-
-                    if(usuario instanceof Administrador)
-                    {
-
-                        Administrador adm = (Administrador) usuario;
-
-                        MenuAdministrador.Menu(adm);
-
-                    }
-                    else if(usuario instanceof Medico)
-                    {
-
-                        Medico medico = (Medico) usuario;
-
-                        MenuMedico.Menu(medico);
-                    }
-                    else
-                    {
-
-                        Paciente paciente = (Paciente) usuario;
-
-                        MenuPaciente.Menu(paciente);
-                    }
-                }
+                MenuPaciente.Menu(paciente);
             }
         }
     }
