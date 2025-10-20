@@ -32,7 +32,7 @@ public class PacienteDAO {
         }
         catch (SQLException e)
         {
-            System.out.println("Erro ao inserir Paciente : "+e.getMessage());
+            System.out.println("Erro ao inserir o Paciente.");
         }
     }
 
@@ -91,7 +91,7 @@ public class PacienteDAO {
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao listar todos os pacientes!"+ e);
+            System.err.println("Erro ao listar todos os pacientes!");
         }
         return listaPacientes;
     }
@@ -110,7 +110,7 @@ public class PacienteDAO {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("Erro ao deletar Paciente com CPF " + cpf + ": " + e.getMessage());
+            System.err.println("Erro ao deletar Paciente com o CPF: " + cpf);
         }
     }
 
@@ -129,7 +129,7 @@ public class PacienteDAO {
             }
 
         } catch (SQLException e) {
-            System.err.println("Erro ao verificar o CPF do Paciente. ");
+            System.err.println("Erro ao verificar o CPF do Paciente.");
         }
         return false;
     }
@@ -150,7 +150,7 @@ public class PacienteDAO {
             stmt.executeUpdate();
         }
         catch (SQLException e) {
-            System.err.println("Erro ao atualizar número da carteirinha do paciente com Cpf: "+cpf+ e);
+            System.err.println("Erro ao atualizar número da carteirinha do paciente com Cpf: "+cpf);
         }
     }
 
@@ -172,7 +172,7 @@ public class PacienteDAO {
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao atualizar o contato de emergência do paciente com o Cpf: "+cpf+ e);
+            System.err.println("Erro ao atualizar o contato de emergência do paciente com o Cpf: "+cpf);
         }
     }
     public void updateStatusPaciente(String cpf, StatusPaciente statusPaciente)
@@ -192,7 +192,7 @@ public class PacienteDAO {
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao atualizar o status do paciente com o Cpf: "+cpf + e);
+            System.err.println("Erro ao atualizar o status do paciente com o Cpf: "+cpf);
         }
     }
 }
