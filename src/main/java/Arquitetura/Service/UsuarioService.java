@@ -85,7 +85,7 @@ public class UsuarioService {
 
     public void updateCpf(Usuario usuario, long id, String cpf) {
         tipoUsuarioValidator.temAcessoTotal(usuario);
-        usuarioValidator.verificaIntegridadeCpf(cpf);
+        UsuarioValidator.verificaIntegridadeCpf(cpf);
         usuarioValidator.verificarRegrasCpf(cpf);
         usuarioValidator.idExistenteValidator(id);
         usuarioValidator.cpfUtilizadoValidator(cpf);
@@ -98,7 +98,7 @@ public class UsuarioService {
 
     public void updateNomeUsuario(Usuario usuario, long id, String nome) {
         tipoUsuarioValidator.temAcessoTotal(usuario);
-        usuarioValidator.verificaIntegridadeNome(nome);
+        UsuarioValidator.verificaIntegridadeNome(nome);
         usuarioValidator.verificarRegrasNome(nome);
         usuarioValidator.idExistenteValidator(id);
         usuarioDao.updateNomeUsuario(id, nome);
@@ -110,8 +110,8 @@ public class UsuarioService {
 
     public void updateSenhaUsuario(Usuario usuario, long id, String senha) {
         tipoUsuarioValidator.temAcessoBaixo(usuario);
-        usuarioValidator.verificaIntegridadeSenha(senha);
-        usuarioValidator.verificaIntegridadeSenha(senha);
+        UsuarioValidator.verificaIntegridadeSenha(senha);
+        UsuarioValidator.verificaIntegridadeSenha(senha);
         usuarioValidator.idExistenteValidator(id);
         usuarioDao.updateSenhaUsuario(id, senha);
 

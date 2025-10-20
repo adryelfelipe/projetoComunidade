@@ -95,13 +95,13 @@ public class PacienteService {
     public void updateContatoEmergencia(Usuario usuario, long id, String contatoEmergencia) {
         // Verificações de dados
         tipoUsuarioValidator.temAcessoBaixo(usuario);
-        pacienteValidator.verificaIntegridadeContatoEmerg(contatoEmergencia);
+        PacienteValidator.verificaIntegridadeContatoEmerg(contatoEmergencia);
         pacienteValidator.verificaRegrasContatoEmergencia(contatoEmergencia);
         usuarioValidator.idExistenteValidator(id);
         pacienteValidator.idPacienteValidator(id);
 
         // Updates
-        //pacienteDAO.updateContatoEmergencia(id, contatoEmergencia);
+        pacienteDAO.updateContatoEmergencia(id, contatoEmergencia);
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
             ((Paciente) usuario).setContatoEmergencia(contatoEmergencia);
         }
@@ -115,18 +115,18 @@ public class PacienteService {
         pacienteValidator.idPacienteValidator(id);
 
         // Updates
-        //pacienteDAO.updateStatusPaciente(id, statusPaciente);
+        pacienteDAO.updateStatusPaciente(id, statusPaciente);
     }
 
     public void updateNumeroCarteirinha(Usuario usuario, long id, String numeroCarteirinha) {
         // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
-        pacienteValidator.verificaIntegridadeNumeroCarterinha(numeroCarteirinha);
+        PacienteValidator.verificaIntegridadeNumeroCarterinha(numeroCarteirinha);
         pacienteValidator.verificaRegrasNumeroCarterinha(numeroCarteirinha);
         usuarioValidator.idExistenteValidator(id);
         pacienteValidator.idPacienteValidator(id);
 
         // Updates
-        //pacienteDAO.updateNumeroCarteirinha(id, numeroCarteirinha);
+        pacienteDAO.updateNumeroCarteirinha(id, numeroCarteirinha);
     }
 }
