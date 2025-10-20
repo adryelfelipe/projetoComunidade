@@ -150,8 +150,8 @@ public class UsuarioDAO {
                     };
                 }
             }
-        } catch (Exception e) {
-            System.err.println("Erro ao buscar Usuário por ID: " + e.getMessage());
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar Usuário pelo ID.");
         }
 
         return usuario;
@@ -254,8 +254,8 @@ public class UsuarioDAO {
                     };
                 }
             }
-        } catch (Exception e) {
-            System.err.println("Erro ao buscar Usuário com o CPF: "+cpf);
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar Usuário pelo CPF. ");
         }
 
         return usuario;
@@ -273,7 +273,7 @@ public class UsuarioDAO {
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao deletar usuário com CPF " + cpf + ": " + e.getMessage());
+            System.err.println("Erro ao deletar usuário com o CPF: "+cpf);
         }
     }
 
@@ -338,7 +338,7 @@ public class UsuarioDAO {
             }
 
         } catch (SQLException e) {
-            System.err.println("Erro ao verificar CPF: " + e.getMessage());
+            System.err.println("Erro ao verificar o CPF: "+ cpf);
             return false;
         }
     }
@@ -368,7 +368,7 @@ public class UsuarioDAO {
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao verificar senha: "+ e.getMessage());
+            System.err.println("Erro ao tentar verificar senha.");
             return false;
         }
     }
@@ -396,7 +396,7 @@ public class UsuarioDAO {
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao verificar email: "+ e.getMessage());
+            System.err.println("Erro ao tentar verificar email. ");
             return false;
         }
     }
@@ -429,7 +429,7 @@ public class UsuarioDAO {
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao verificar existência de email: "+ e.getMessage());
+            System.err.println("Erro ao verificar existência do email. ");
             return false;
         }
     }
@@ -457,7 +457,7 @@ public class UsuarioDAO {
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao iniciar login com o usuário: "+ e.getMessage());
+            System.err.println("Erro ao tentar logar na conta.");
             return null;
         }
         return null;
@@ -481,7 +481,7 @@ public class UsuarioDAO {
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao atualizar o nome do usuário com ID: " + id+ e);
+            System.err.println("Erro ao tentar atualizar o nome do usuário. ");
         }
     }
 
@@ -502,7 +502,7 @@ public class UsuarioDAO {
 
         } catch (SQLException e)
         {
-            System.err.println("Erro ao atualizar a senha do usuário com ID: " + id+ e);
+            System.err.println("Erro ao tentar atualizar a senha do usuário. ");
         }
     }
 
@@ -524,7 +524,29 @@ public class UsuarioDAO {
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao atualizar o Cpf do usuário com ID: " + id+ e);
+            System.err.println("Erro ao tentar atualizar o Cpf do usuário.");
         }
     }
+
+    public String cpfByID(long id) {
+        String querySql = "SELECT cpf FROM Usuario WHERE idUsuario = ?";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(querySql)) {
+
+            stmt.setLong(1, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("cpf");
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar o CPF: " + e.getMessage());
+        }
+
+        return null;
+    }
+
 }

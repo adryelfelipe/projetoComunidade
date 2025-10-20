@@ -27,7 +27,7 @@ public class AdministradorDAO {
         }
         catch (SQLException e)
         {
-            System.out.println("Erro ao inserir Administrador : "+e.getMessage());
+            System.out.println("Erro ao inserir Administrador.");
         }
 
 
@@ -48,7 +48,7 @@ public class AdministradorDAO {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("Erro ao deletar Administrador com o CPF " + cpf + ": " + e.getMessage());
+            System.err.println("Erro ao deletar Administrador com o CPF: " + cpf);
         }
     }
 
@@ -73,7 +73,7 @@ public class AdministradorDAO {
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao verificar Último Admin: "+ e.getMessage());
+            System.err.println("Erro ao verificar se é Último Admin. ");
             return false;
         }
     }

@@ -28,7 +28,7 @@ public class FuncionarioDAO {
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao inserir Funcionário : " +e.getMessage());
+            System.err.println("Erro ao inserir o Funcionário. ");
         }
 
     }
@@ -47,7 +47,7 @@ public class FuncionarioDAO {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("Erro ao deletar Funcionário com o CPF " + cpf + ": " + e.getMessage());
+            System.err.println("Erro ao deletar Funcionário com o CPF: " + cpf);
         }
     }
 
@@ -67,7 +67,7 @@ public class FuncionarioDAO {
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao atualizar salário do funcionario com CPF: "+cpf+ e);
+            System.err.println("Erro ao atualizar salário do funcionario com CPF: "+cpf);
         }
     }
 
