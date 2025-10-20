@@ -16,12 +16,12 @@ import Arquitetura.Exception.DadosInvalidosException;
 public class PacienteService {
 
     // -- Atributos -- //
+    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
     private final PacienteDAO pacienteDAO = new PacienteDAO();
     private final UsuarioService usuarioService = new UsuarioService();
-    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
     private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
-    private final PacienteValidator pacienteValidator = new PacienteValidator();
-    private final UsuarioValidator usuarioValidator = new UsuarioValidator();
+    private final UsuarioValidator usuarioValidator = new UsuarioValidator(usuarioService);
+    private final PacienteValidator pacienteValidator = new PacienteValidator(usuarioValidator, this);
 
     // -- Construtor -- //
     public PacienteService() {

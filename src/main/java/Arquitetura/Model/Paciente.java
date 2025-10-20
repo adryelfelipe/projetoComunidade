@@ -4,7 +4,9 @@ import Arquitetura.Exception.DadosInvalidosException;
 import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.StatusPaciente;
 import Arquitetura.Model.Enums.TipoUsuario;
+import Arquitetura.Service.UsuarioService;
 import Arquitetura.Service.Validator.PacienteValidator;
+import Arquitetura.Service.Validator.UsuarioValidator;
 
 import java.sql.Date;
 
@@ -14,7 +16,6 @@ public class Paciente extends Usuario {
     private String contatoEmergencia;
     private String numeroCarterinha;
     private StatusPaciente statusPaciente;
-    PacienteValidator pacienteValidator = new PacienteValidator();
 
     // -- Construtores -- //
 

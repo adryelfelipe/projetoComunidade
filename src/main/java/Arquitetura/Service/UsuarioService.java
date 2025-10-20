@@ -13,16 +13,13 @@ public class UsuarioService {
 
     // -- Atributos -- //
     private final UsuarioDAO usuarioDao = new UsuarioDAO();
-    private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-    private final PacienteDAO pacienteDAO = new PacienteDAO();
     private final MedicoDAO medicoDAO = new MedicoDAO();
     private final AdministradorDAO administradorDAO = new AdministradorDAO();
     TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
-    UsuarioValidator usuarioValidator = new UsuarioValidator();
+    UsuarioValidator usuarioValidator = new UsuarioValidator(this);
 
     // -- Construtor -- //
     public UsuarioService() {
-
     }
 
     // -- Métodos -- //

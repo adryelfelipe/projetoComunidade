@@ -13,8 +13,13 @@ import java.util.Date;
 
 public class UsuarioValidator {
 
+    // -- Construtor -- //
+    public UsuarioValidator(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
+
     // -- Atributos -- //
-    private final UsuarioService usuarioService = new UsuarioService();
+    private final UsuarioService usuarioService;
 
     // -- Métodos de análise -- //
     public boolean isUsuarioExistente(Usuario usuario) {

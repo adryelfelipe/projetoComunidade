@@ -14,7 +14,7 @@ import Arquitetura.View.MenuUsuarios.MenuPaciente;
 
 public class MenuLogin {
 
-    private static UsuarioService usuarioService = new UsuarioService();
+    private static final UsuarioService usuarioService = new UsuarioService();
 
     public static void Menu() {
 

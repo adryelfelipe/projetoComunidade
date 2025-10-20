@@ -14,15 +14,15 @@ import Arquitetura.Service.Validator.UsuarioValidator;
 public class AdministradorService {
 
     // -- Atributos -- //
-    private final AdministradorDAO administradorDao = new AdministradorDAO();
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
-    private final FuncionarioService funcionarioService = new FuncionarioService();
     private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-    private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
-    private final AdministradorValidator administradorValidator = new AdministradorValidator();
-    private final FuncionarioValidator funcionarioValidator = new FuncionarioValidator();
-    private final UsuarioValidator usuarioValidator = new UsuarioValidator();
+    private final AdministradorDAO administradorDao = new AdministradorDAO();
     private final UsuarioService usuarioService = new UsuarioService();
+    private final FuncionarioService funcionarioService = new FuncionarioService();
+    private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
+    private final UsuarioValidator usuarioValidator = new UsuarioValidator(this.usuarioService);
+    private final FuncionarioValidator funcionarioValidator = new FuncionarioValidator(usuarioValidator);
+    private final AdministradorValidator administradorValidator = new AdministradorValidator(funcionarioValidator);
 
     // -- Construtor -- //
     public AdministradorService() {

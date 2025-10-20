@@ -8,8 +8,13 @@ import Arquitetura.Model.Usuario;
 
 public class AdministradorValidator {
 
+    // -- Construtor -- //
+    public AdministradorValidator(FuncionarioValidator funcionarioValidator) {
+        this.funcionarioValidator = funcionarioValidator;
+    }
+
     // -- Atributos -- //
-    private final FuncionarioValidator funcionarioValidator = new FuncionarioValidator();
+    private final FuncionarioValidator funcionarioValidator;
 
     // -- Métodos verificadores de regras de negócio -- //
     public void verificaRegrasInsercaoAdm(Administrador administrador) {

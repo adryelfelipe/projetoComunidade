@@ -12,7 +12,6 @@ public abstract class Funcionario extends Usuario{
     // -- Atributos -- //
     private double salario;
     private int cargaHorariaSemanal;
-    FuncionarioValidator funcionarioValidator = new FuncionarioValidator();
 
     // -- Construtor -- //
     public Funcionario(TipoUsuario tipoUsuario, String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento, double salario, int cargaHorariaSemanal) {

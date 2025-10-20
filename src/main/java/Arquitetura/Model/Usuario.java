@@ -19,7 +19,6 @@ public abstract class Usuario {
     private Date dataNascimento;
     private long id;
     private final TipoUsuario tipoUsuario;
-    private final UsuarioValidator usuarioValidator = new UsuarioValidator();
 
     // -- Construtor -- //
     public Usuario(TipoUsuario tipoUsuario, String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento) {

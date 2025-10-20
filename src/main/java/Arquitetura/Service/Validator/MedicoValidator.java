@@ -12,9 +12,15 @@ import Arquitetura.Service.MedicoService;
 
 public class MedicoValidator {
 
+    // -- Construtor -- //
+    public MedicoValidator(FuncionarioValidator funcionarioValidator, MedicoService medicoService) {
+        this.funcionarioValidator = funcionarioValidator;
+        this.medicoService = medicoService;
+    }
+
     // -- Atributos -- //
-    FuncionarioValidator funcionarioValidator = new FuncionarioValidator();
-    MedicoService medicoService = new MedicoService();
+    private final FuncionarioValidator funcionarioValidator;
+    private final MedicoService medicoService;
 
     // -- Métodos de análise -- //
     public void idMedicoValidator(long id) {

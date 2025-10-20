@@ -16,7 +16,6 @@ public class Medico extends Funcionario{
     private Especialidade especialidade;
     private String subEspecialidade;
     private String formacao;
-    MedicoValidator medicoValidator = new MedicoValidator();
 
     // -- Construtores -- //
 

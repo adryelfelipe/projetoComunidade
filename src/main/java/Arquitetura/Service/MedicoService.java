@@ -12,6 +12,7 @@ import Arquitetura.Model.Enums.Especialidade;
 import Arquitetura.Model.Enums.Plantao;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Usuario;
+import Arquitetura.Service.Validator.FuncionarioValidator;
 import Arquitetura.Service.Validator.MedicoValidator;
 import Arquitetura.Service.Validator.TipoUsuarioValidator;
 import Arquitetura.Service.Validator.UsuarioValidator;
@@ -25,14 +26,15 @@ public class MedicoService {
 
     // -- Atributos -- //
     private final MedicoDAO medicoDAO = new MedicoDAO();
-    private final FuncionarioService funcionarioService = new FuncionarioService();
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
-    private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-    private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
-    private final UsuarioValidator usuarioValidator = new UsuarioValidator();
-    private final MedicoValidator medicoValidator = new MedicoValidator();
-    private final UsuarioService usuarioService = new UsuarioService();
     private final ConsultaDAO consultaDAO = new ConsultaDAO();
+    private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+    private final UsuarioService usuarioService = new UsuarioService();
+    private final FuncionarioService funcionarioService = new FuncionarioService();
+    private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
+    private final UsuarioValidator usuarioValidator = new UsuarioValidator(this.usuarioService);
+    private final FuncionarioValidator funcionarioValidator = new FuncionarioValidator(usuarioValidator);
+    private final MedicoValidator medicoValidator = new MedicoValidator(funcionarioValidator, this);
 
     // Construtor -- //
     public MedicoService() {
