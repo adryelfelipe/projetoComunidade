@@ -36,12 +36,6 @@ public class UsuarioValidator {
         }
     }
 
-    public void idExistenteValidator(long id) {
-        if(!usuarioService.isIdExistente(id)) {
-            throw new IdInvalidoException("ERRO! ID NÃO ENCONTRADO");
-        }
-    }
-
     // -- Métodos verificadores de regras de negócio -- //
     public void verificaRegrasInsercaoUsuario(Usuario usuario) {
         verificarRegrasObjeto(usuario);
