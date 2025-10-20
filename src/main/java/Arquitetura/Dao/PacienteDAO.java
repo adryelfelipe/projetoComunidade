@@ -5,12 +5,16 @@ import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.StatusPaciente;
 import Arquitetura.Model.Enums.TipoUsuario;
 import Arquitetura.Model.Paciente;
+import Arquitetura.Dao.UsuarioDAO.*;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 
 public class PacienteDAO {
+
+    private UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     // -- CRUD -- //
 
@@ -133,6 +137,35 @@ public class PacienteDAO {
         }
         return false;
     }
+
+    public boolean isIdPaciente(long id) {
+        String querySql = "SELECT tipoUsuario FROM Usuario WHERE cpf = ?";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(querySql)) {
+
+            String cpf = usuarioDAO.cpfByID(id);
+
+            if (cpf == null) {
+                return false;
+            }
+
+            stmt.setString(1, cpf);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    int tipo = rs.getInt("tipoUsuario");
+                    return tipo == 1;
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar o ID do Paciente: " + e.getMessage());
+        }
+
+        return false;
+    }
+
 
     public void updateNumeroCarteirinha(String cpf, String numCarteirinha )
     {
