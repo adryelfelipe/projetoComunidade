@@ -463,6 +463,8 @@ public class UsuarioDAO {
         return null;
     }
 
+    // -- UPDATES -- //
+
     public void updateNomeUsuario (long id, String novoNome)
     {
         String queySql = "UPDATE Usuario " +
