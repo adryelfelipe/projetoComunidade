@@ -15,7 +15,7 @@ public class AdministradorDAO {
     // Inserção
     public void inserirAdmin(Administrador administrador)
     {
-        String querySQL = "insert into Administrador (idAdministrador, departamento) values (?, ?)";
+        String querySQL = "insert into Administrador (idAdministrador, idDepartamento) values (?, ?)";
 
         try(Connection conexao = ConnectionFactory.getConnection();
             PreparedStatement stmt = conexao.prepareStatement(querySQL))
