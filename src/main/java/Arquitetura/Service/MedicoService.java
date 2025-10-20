@@ -44,12 +44,6 @@ public class MedicoService {
         return medicoDAO.isIdMedico(id);
     }
 
-    public void idMedicoValidator(long id) {
-        if (!isIdMedico(id)) {
-            throw new IdInvalidoException("ERRO! O ID INFORMADO NÃO É DE UM MEDICO");
-        }
-    }
-
     /**
      * <p>Este método realiza as seguintes ações: </p>
      *
@@ -99,7 +93,7 @@ public class MedicoService {
             throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
         }
 
-        cpfMedicoValidator(cpfMedicoDeletado);
+        medicoValidator.cpfMedicoValidator(cpfMedicoDeletado);
 
         // Deleta nessa ordem para respeitar as chaves estrangeiras
         medicoDAO.deletarMedico(cpfMedicoDeletado);
@@ -123,14 +117,6 @@ public class MedicoService {
         return consultaDAO.findAllConsultasOfMedico(medico);
     }
 
-    public void cpfMedicoValidator (String cpf)
-    {
-        if(!isCpfMedico(cpf))
-        {
-            throw new CpfInvalidoException("ERRO ! CPF NÃO PERTENCE A UM MÉDICO");
-        }
-    }
-
     public boolean isCpfMedico(String cpf) {
 
         return medicoDAO.isCpfMedico(cpf);
@@ -141,7 +127,7 @@ public class MedicoService {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         medicoValidator.verificaRegrasEspecialidade(especialidade);
         usuarioService.idExistenteValidator(id);
-        idMedicoValidator(id);
+        medicoValidator.idMedicoValidator(id);;
 
         medicoDAO.updateEspecialidade(id, especialidade);
     }
@@ -150,7 +136,7 @@ public class MedicoService {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         medicoValidator.verificaIntegridadeSubespecialidade(subEspecialidade);
         usuarioService.idExistenteValidator(id);
-        idMedicoValidator(id);
+        medicoValidator.idMedicoValidator(id);
 
         medicoDAO.updateSubEspecialidade(id, subEspecialidade);
     }
@@ -160,7 +146,7 @@ public class MedicoService {
         medicoValidator.verificaIntegridadeFormacao(formacao);
         medicoValidator.verificaRegrasFormacao(formacao);
         usuarioService.idExistenteValidator(id);
-        idMedicoValidator(id);
+        medicoValidator.idMedicoValidator(id);
 
         medicoDAO.updateFormacao(id, formacao);
     }
@@ -169,7 +155,7 @@ public class MedicoService {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         medicoValidator.verificaRegrasPlantao(plantao);
         usuarioService.idExistenteValidator(id);
-        idMedicoValidator(id);
+        medicoValidator.idMedicoValidator(id);
 
         medicoDAO.updatePlantao(id, plantao);
     }

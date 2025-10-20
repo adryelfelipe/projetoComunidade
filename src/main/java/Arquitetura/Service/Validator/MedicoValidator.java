@@ -1,17 +1,35 @@
 package Arquitetura.Service.Validator;
 
+import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Exception.DadosInvalidosException;
+import Arquitetura.Exception.IdInvalidoException;
 import Arquitetura.Exception.MedicoNaoHabilitadoException;
-import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Enums.Especialidade;
 import Arquitetura.Model.Enums.Exame;
 import Arquitetura.Model.Enums.Plantao;
 import Arquitetura.Model.Medico;
+import Arquitetura.Service.MedicoService;
 
 public class MedicoValidator {
 
     // -- Atributos -- //
     FuncionarioValidator funcionarioValidator = new FuncionarioValidator();
+    MedicoService medicoService = new MedicoService();
+
+    // -- Métodos de análise -- //
+    public void idMedicoValidator(long id) {
+        if (!medicoService.isIdMedico(id)) {
+            throw new IdInvalidoException("ERRO! O ID INFORMADO NÃO É DE UM MEDICO");
+        }
+    }
+
+    public void cpfMedicoValidator (String cpf)
+    {
+        if(!medicoService.isCpfMedico(cpf))
+        {
+            throw new CpfInvalidoException("ERRO ! CPF NÃO PERTENCE A UM MÉDICO");
+        }
+    }
 
     // -- Métodos verificadores de regras de negócio -- //
     public void verificaRegrasInsercaoMedico(Medico medico) {
