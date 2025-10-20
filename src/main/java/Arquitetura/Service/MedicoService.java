@@ -5,6 +5,7 @@ import Arquitetura.Dao.FuncionarioDAO;
 import Arquitetura.Dao.MedicoDAO;
 import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Exception.CpfInvalidoException;
+import Arquitetura.Exception.IdInvalidoException;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Consulta;
 import Arquitetura.Model.Enums.Especialidade;
@@ -39,6 +40,15 @@ public class MedicoService {
     }
 
     // -- Métodos -- //
+    public boolean isIdMedico(long id) {
+        return medicoDAO.isIdMedico(id);
+    }
+
+    public void idMedicoValidator(long id) {
+        if (!isIdMedico(id)) {
+            throw new IdInvalidoException("ERRO! O ID INFORMADO NÃO É DE UM MEDICO");
+        }
+    }
 
     /**
      * <p>Este método realiza as seguintes ações: </p>
@@ -131,8 +141,7 @@ public class MedicoService {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         medicoValidator.verificaRegrasEspecialidade(especialidade);
         usuarioService.idExistenteValidator(id);
-
-        // ADICIONAR VERIFICAÇÃO DE SE O ID RECEBIDO É O DE UM MÉDICO
+        idMedicoValidator(id);
 
         medicoDAO.updateEspecialidade(id, especialidade);
     }
@@ -141,8 +150,7 @@ public class MedicoService {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         medicoValidator.verificaIntegridadeSubespecialidade(subEspecialidade);
         usuarioService.idExistenteValidator(id);
-
-        // ADICIONAR VERIFICAÇÃO DE SE O ID RECEBIDO É O DE UM MÉDICO
+        idMedicoValidator(id);
 
         medicoDAO.updateSubEspecialidade(id, subEspecialidade);
     }
@@ -152,8 +160,7 @@ public class MedicoService {
         medicoValidator.verificaIntegridadeFormacao(formacao);
         medicoValidator.verificaRegrasFormacao(formacao);
         usuarioService.idExistenteValidator(id);
-
-        // ADICIONAR VERIFICAÇÃO DE SE O ID RECEBIDO É O DE UM MÉDICO
+        idMedicoValidator(id);
 
         medicoDAO.updateFormacao(id, formacao);
     }
@@ -162,8 +169,7 @@ public class MedicoService {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         medicoValidator.verificaRegrasPlantao(plantao);
         usuarioService.idExistenteValidator(id);
-
-        // ADICIONAR VERIFICAÇÃO DE SE O ID RECEBIDO É O DE UM MÉDICO
+        idMedicoValidator(id);
 
         medicoDAO.updatePlantao(id, plantao);
     }
