@@ -433,6 +433,35 @@ public class UsuarioDAO {
             return false;
         }
     }
+    public boolean containsTelefone(String telefone)
+    {
+        //Verifica se existe aquele telefone no Banco de Dados
+        String querySql = "SELECT "+
+                "COUNT(*) "+
+                "FROM Usuario "+
+                "WHERE telefone = ? ";
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setString(1, telefone);
+
+            try (ResultSet resultSet = stmt.executeQuery();)
+            {
+                if(resultSet.next())
+                {
+                    return resultSet.getInt(1) > 0;
+                }
+
+                return false;
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao verificar telefone: "+telefone + e);
+            return false;
+        }
+    }
     public Usuario loginUsuario(String cpf, String senha)
     {
         String querySQL = "SELECT idUsuario, senha FROM Usuario WHERE cpf = ? LIMIT 1";
