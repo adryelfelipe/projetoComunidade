@@ -56,8 +56,12 @@ public class PacienteValidator {
     }
 
     public void verificaRegrasContatoEmergencia(String contatoEmergencia) {
-        if(contatoEmergencia == null) {
-            throw new DadosInvalidosException("ERRO! O CONTATO DE EMERGÊNCIA NÃO PODE SER NULO");
+        if(contatoEmergencia.isBlank()) {
+            throw new DadosInvalidosException("ERRO! O TELEFONE NÃO PODE SER VAZIO");
+        }
+
+        if(contatoEmergencia.length() != 11) {
+            throw new DadosInvalidosException("ERRO! O TELEFONE DEVE TER 11 DÍGITOS");
         }
     }
 
