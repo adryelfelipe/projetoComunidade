@@ -616,6 +616,28 @@ public class UsuarioDAO {
         }
     }
 
+    public void updateTSexo (long id, int sexo)
+    {
+        String qurySql = "UPDATE Usuario " +
+                "SET sexo = ? " +
+                "WHERE idUsuario = ?";
+
+        try(Connection conn = ConnectionFactory.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(qurySql))
+        {
+
+            stmt.setInt(1, sexo);
+            stmt.setLong(2, id);
+
+            stmt.executeUpdate();
+
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao tentar atualizar o sexo do Usuário.");
+        }
+    }
+
     public String cpfByID(long id) {
         String querySql = "SELECT cpf FROM Usuario WHERE idUsuario = ?";
 
