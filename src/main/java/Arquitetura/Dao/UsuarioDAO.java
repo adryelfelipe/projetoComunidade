@@ -594,7 +594,7 @@ public class UsuarioDAO {
         }
     }
 
-    public void updatetipoUsuario (long id, int tipoUsuario)
+    public void updateTipoUsuario (long id, int tipoUsuario)
     {
         String qurySql = "UPDATE Usuario " +
                 "SET tipoUsuario = ? " +
