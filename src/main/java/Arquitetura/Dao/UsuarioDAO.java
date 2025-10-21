@@ -572,6 +572,28 @@ public class UsuarioDAO {
         }
     }
 
+    public void updateDataNascimento (long id, Date dataNascimento)
+    {
+        String qurySql = "UPDATE Usuario " +
+                "SET dataNascimento = ? " +
+                "WHERE idUsuario = ?";
+
+        try(Connection conn = ConnectionFactory.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(qurySql))
+        {
+
+            stmt.setDate(1, dataNascimento);
+            stmt.setLong(2, id);
+
+            stmt.executeUpdate();
+
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao tentar atualizar a Data de Nascimento do usuário.");
+        }
+    }
+
     public String cpfByID(long id) {
         String querySql = "SELECT cpf FROM Usuario WHERE idUsuario = ?";
 
