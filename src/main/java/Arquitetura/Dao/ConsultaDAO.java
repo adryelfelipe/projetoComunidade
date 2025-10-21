@@ -347,4 +347,26 @@ public class ConsultaDAO
         return listaConsultas;
     }
 
+    // -- UPDATES -- //
+
+    public void updateMedico(long id, long idMedico)
+    {
+        String querySql = "UPDATE Consulta "+
+                "SET idPaciente = ? "+
+                "WHERE idConsulta = ? ";
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1,idMedico);
+            stmt.setLong(2, id);
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar o médico da Consulta com ID: "+id +e);
+        }
+
+    }
 }
