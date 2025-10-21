@@ -28,6 +28,7 @@ public class MenuExcluir
 
         System.out.println("     EXCLUIR");
         System.out.println("\n\nDigite o cpf do usuario: ");
+        System.out.println(); // pula linha
 
         try{
 
@@ -38,37 +39,30 @@ public class MenuExcluir
             if(i == 1) {
                 pacienteService.deletarPaciente(adm,cpf);
 
-                System.out.println("Usuário deletado");
+                System.out.println("Paciente deletado");
 
                 Ferramentas.Delay(1500);
             }
             else if(i == 2) {
                 medicoService.deletarMedico(adm,cpf);
 
-                System.out.println("Usuário deletado");
+                System.out.println("Médico deletado");
 
                 Ferramentas.Delay(1500);
             }else {
                 administradorService.deletarAdministrador(adm,cpf);
 
-                System.out.println("Usuário deletado");
+                System.out.println("Administrador deletado");
 
                 Ferramentas.Delay(1500);
             }
         } catch(TipoUsuarioException | AutoDeleteException | CpfInvalidoException e )
         {
-            System.err.print(e.getMessage());
-
-            Ferramentas.Delay(1500);
+            Ferramentas.mensagemErro(e.getMessage());
         }
         catch (UltimoAdminException e)
         {
-            Ferramentas.limpaTerminal();
-            System.err.print("Não foi possivel deletar ADM");
-
-            Ferramentas.Delay(1500);
+            Ferramentas.mensagemErro("NÃO FOI POSSÍVEL DELETAR O ADM");
         }
-
-        String tempo = Ferramentas.lString();
     }
 }
