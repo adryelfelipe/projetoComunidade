@@ -407,25 +407,24 @@ public class MedicoDAO {
         }
     }
 
-    public void updateSubEspecialidade(String cpf, String subEspecialidade)
+    public void updateSubEspecialidade(long id, String subEspecialidade)
     {
         String querySql = "UPDATE Medico m "+
-                "INNER JOIN Usuario u ON m.idMedico = u.idUsuario "+
                 "SET subEspecialidade = ? "+
-                "WHERE cpf = ? ";
+                "WHERE idMedico = ? ";
 
         try(
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(querySql))
         {
             stmt.setString(1, subEspecialidade);
-            stmt.setString(2, cpf);
+            stmt.setLong(2, id);
 
             stmt.executeUpdate();
         }
         catch(SQLException e)
         {
-            System.out.println("Erro ao atualizar subespecialidade do médico com CPF: "+cpf);
+            System.out.println("Erro ao atualizar subespecialidade do médico com ID: "+id);
         }
     }
 
