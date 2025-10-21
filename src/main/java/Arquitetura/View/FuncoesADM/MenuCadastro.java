@@ -18,6 +18,7 @@ import Arquitetura.Service.UsuarioService;
 import Arquitetura.Service.Validator.AdministradorValidator;
 import Arquitetura.Service.Validator.DataValidator;
 import Arquitetura.Service.Validator.FuncionarioValidator;
+import Arquitetura.Service.Validator.PacienteValidator;
 import Arquitetura.Service.Validator.UsuarioValidator;
 import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.MenuDefault;
@@ -286,139 +287,231 @@ public class MenuCadastro
 
     public static void CriarPaciente(Administrador adm)
     {
-        boolean continuar = true;
+        // Validadores de regras de negócio
+        UsuarioService usuarioService = new UsuarioService();
+        PacienteService pacienteService = new PacienteService();
+        UsuarioValidator usuarioValidator = new UsuarioValidator(usuarioService);
+        PacienteValidator pacienteValidator = new PacienteValidator(usuarioValidator, pacienteService);
 
-        do {
+        boolean verifica = false;
 
-            Ferramentas.limpaTerminal();
-
-            System.out.println("     -----------------------------");
-            System.out.println("     ----  Cadastro Paciente  ----");
-            System.out.println("     -----------------------------");
-
-            // Entrada do nome
-            System.out.println("\n\n\nDigite o nome: ");
-            String nome = Ferramentas.lString();
-
-
-            // Entrada do CPF
-            System.out.println("Digite o CPF: ");
-            String cpf = Ferramentas.lString();
+        // Garantia de inicialização
+        String nome = null;
+        String cpf = null;
+        String senha = null;
+        String telefone = null;
+        String email = null;
+        String contatoEmer = null;
+        String numeroCar = null;
 
 
-            // Entrada da senha
-            System.out.println("Digite a senha: ");
-            String senha = Ferramentas.lString();
-
-
-            // Entrada do sexo
-            int opsex = 0;
-            boolean verifica;
-
-            do {
-
-                System.out.println("Digite o seu sexo:");
-                System.out.println("1-Masculino");
-                System.out.println("2-Feminino");
-
-                try {
-                    opsex = Ferramentas.lInteiro();
-                    verifica = false;
-
-                } catch (InputMismatchException e) {
-                    Ferramentas.limpaTerminal();
-
+        Ferramentas.limpaTerminal();
+        System.out.println("     -----------------------------");
+        System.out.println("     ----  Cadastro Paciente  ----");
+        System.out.println("     -----------------------------");
+        // Entrada do nome
+        while(!verifica) {
+        System.out.print("\n\n\nDigite o nome: ");
+        nome = Ferramentas.lString();
+        try{
+            UsuarioValidator.verificaIntegridadeNome(nome);
+            verifica = true;
+        } catch(DadosInvalidosException e) {
+            Ferramentas.mensagemErro(e.getMessage());
+        }
+        }
+        System.out.println(); // pula uma linha
+        // RESETA A VERIFICAÇÃO
+        verifica = false;
+        // Entrada do CPF
+        while(!verifica) {
+        System.out.print("Digite o CPF: ");
+        cpf = Ferramentas.lString();
+        try{
+            UsuarioValidator.verificaIntegridadeCpf(cpf);
+            usuarioValidator.verificarRegrasCpf(cpf);
+            usuarioService.cpfUtilizadoValidator(cpf);
+            verifica = true;
+            } catch(DadosInvalidosException | CpfInvalidoException e) {
+                Ferramentas.mensagemErro(e.getMessage());
+            }
+        }
+        System.out.println(); // pula uma linha
+        // RESETA A VERIFICAÇÃO
+        verifica = false;
+        // Entrada da senha
+        while (!verifica) {
+            System.out.print("Digite a senha: ");
+            senha = Ferramentas.lString();
+            try{
+                UsuarioValidator.verificaIntegridadeSenha(senha);
+                usuarioValidator.verificarRegrasSenha(senha);
+                verifica = true;
+            } catch (DadosInvalidosException e) {
+                Ferramentas.mensagemErro(e.getMessage());
+            }
+        }
+        System.out.println(); // pula uma linha
+        // RESETA A VERIFICAÇÃO
+        verifica = false;
+        // Entrada do sexo
+        int opsex = 0;
+        while(!verifica) {
+            System.out.println("Digite o seu sexo:");
+            System.out.println("1-Masculino");
+            System.out.println("2-Feminino");
+            System.out.print("OPÇÃO: ");
+            try {
+                opsex = Ferramentas.lInteiro();
+                if(opsex < 1 || opsex > 2) {
+                    MenuDefault.menuDefault();
+                } else {
                     verifica = true;
-
-                    System.err.println("ERRO.  OPÇÂO INVALIDA");
-                    Ferramentas.Delay(1500);
                 }
-
-            } while (!verifica);
-
-            // Converte a entrada de genero usando switch expression
-            Genero genero = switch (opsex) {
-                case 1 -> Genero.MASCULINO;
-                default -> Genero.FEMININO;
-            };
-
-
-            // Entrada do telefone
-            System.out.println("Digite o número de telefone: ");
-            String telefone = Ferramentas.lString();
-
-
-            // Entrada do email
-            System.out.println("Digite o email: ");
-            String email = Ferramentas.lString();
-
-
-            // Entrada da data de nascimento
-            System.out.println("Data de nascimento");
-
-            int ano = 0;
-            System.out.println("Digite o Ano: ");
+            } catch (InputMismatchException e) {
+                MenuDefault.menuDefault();
+            }
+        }
+        // Converte a entrada de genero usando switch expression
+        Genero genero = switch (opsex) {
+            case 1 -> Genero.MASCULINO;
+            default -> Genero.FEMININO;
+        };
+        try{
+            usuarioValidator.verificarRegrasSexo(genero);
+        } catch (DadosInvalidosException e) {
+            Ferramentas.mensagemErro(e.getMessage());
+        }
+        System.out.println(); // pula uma linha
+        // RESETA A VERIFICAÇÃO
+        verifica = false;
+        // Entrada do telefone
+        while(!verifica) {
+            System.out.print("Digite o número de telefone: ");
+            telefone = Ferramentas.lString();
+            try{
+                UsuarioValidator.verificaIntegridadeTelefone(telefone);
+                usuarioValidator.verificarRegrasTelefone(telefone);
+                verifica = true;
+            } catch (DadosInvalidosException e) {
+                Ferramentas.mensagemErro(e.getMessage());
+            }
+        }
+        System.out.println(); // pula uma linha
+        // RESETA A VERIFICAÇÃO
+        verifica = false;
+        // Entrada do email
+        while(!verifica) {
+            System.out.print("Digite o email: ");
+            email = Ferramentas.lString();
+            try{
+                UsuarioValidator.verificaIntegridadeEmail(email);
+                usuarioValidator.verificarRegrasEmail(email);
+                verifica = true;
+            } catch (DadosInvalidosException e) {
+                Ferramentas.mensagemErro(e.getMessage());
+            }
+        }
+        System.out.println(); // pula uma linha
+        // RESETA A VERIFICAÇÃO
+        verifica = false;
+        // Entrada da data de nascimento
+        System.out.println("Data de nascimento");
+        // Ano
+        int ano = 0;
+        while(!verifica) {
+            System.out.print("Digite o Ano: ");
             try {
                 ano = Ferramentas.lInteiro();
+                verifica = true;
             } catch (InputMismatchException e) {
-                Ferramentas.limpaTerminal();
-                System.err.print(e.getMessage());
-                Ferramentas.Delay(1500);
-                continuar = false;
+                MenuDefault.menuDefault();
             }
-
-            int mes = 0;
-            System.out.println("Digite o Mês: ");
+        }
+        // RESETA A VERIFICAÇÃO
+        verifica = false;
+        // MÊS
+        int mes = 0;
+        while(!verifica) {
+            System.out.print("Digite o Mês: ");
             try {
                 mes = Ferramentas.lInteiro();
+                DataValidator.verificaMes(mes);
+                verifica = true;
             } catch (InputMismatchException e) {
-                Ferramentas.limpaTerminal();
-                System.err.print(e.getMessage());
-                Ferramentas.Delay(1500);
-                continuar = false;
+                MenuDefault.menuDefault();
+            } catch(DataInvalidaException e) {
+                Ferramentas.mensagemErro(e.getMessage());
             }
-
-
-            int dia = 0;
-            System.out.println("Digite Dia: ");
+        }
+        // RESETA A VERIFICAÇÃO
+        verifica = false;
+        // DIA
+        int dia = 0;
+        while(!verifica) {
+            System.out.print("Digite Dia: ");
             try {
                 dia = Ferramentas.lInteiro();
+                DataValidator.verificaDia(ano,mes,dia);
+                verifica = true;
             } catch (InputMismatchException e) {
-                Ferramentas.limpaTerminal();
-                System.err.print(e.getMessage());
-                Ferramentas.Delay(1500);
-                continuar = false;
+                MenuDefault.menuDefault();
+            } catch(DataInvalidaException e) {
+                Ferramentas.mensagemErro(e.getMessage());
             }
-
-            // Entrada do contato de emergência
-            System.out.println("Digite o número do contato de emergência: ");
-            String contatoEmer = Ferramentas.lString();
-
-            // Entrada do número da carteirinha
-            System.out.println("Digite o número da carteirinha: ");
-            String numeroCar = Ferramentas.lString();
-
-            LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
-
-            Date sqlDate = Date.valueOf(dataNascimento);
-
-            try {
-                Paciente paciente = new Paciente(nome, cpf, senha, genero, telefone, email, sqlDate, contatoEmer, contatoEmer);
-
-                PacienteService pacienteService = new PacienteService();
-
-                pacienteService.inserirPaciente(adm, paciente);
-
-                System.out.println("Paciente criado");
-
-                Ferramentas.Delay(1500);
-            } catch (IllegalArgumentException e) {
-                Ferramentas.limpaTerminal();
-                System.err.print(e.getMessage());
-                Ferramentas.Delay(1500);
+        }
+        // Transforma ano, mês e dia em uma sqlDate
+        LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
+        Date sqlDate = Date.valueOf(dataNascimento);
+    
+        try{
+            usuarioValidator.verificarRegrasDataNascimento(sqlDate);
+        } catch (DadosInvalidosException e) {
+            Ferramentas.mensagemErro(e.getMessage());
+        }
+    
+        System.out.println(); // pula uma linha
+    
+        // RESETA A VERIFICAÇÃO
+        verifica = false;
+    
+        while (!verifica) {
+            System.out.print("Digite o número do contato de emergência: ");
+            try{
+            contatoEmer = Ferramentas.lString();
+            PacienteValidator.verificaIntegridadeContatoEmerg(contatoEmer);
+            pacienteValidator.verificaRegrasContatoEmergencia(contatoEmer);
+            verifica = true;
+            }catch(DadosInvalidosException e){
+                Ferramentas.mensagemErro(e.getMessage());
             }
-
-        }while (!continuar);
+        }
+        System.out.println(); // pula uma linha
+        // RESETA A VERIFICAÇÃO
+        verifica = false;
+        while (!verifica) {
+            System.out.print("Digite o número da carteirinha: ");
+            try{
+                numeroCar = Ferramentas.lString();
+                PacienteValidator.verificaIntegridadeNumeroCarterinha(numeroCar);
+                pacienteValidator.verificaRegrasNumeroCarterinha(numeroCar);
+                verifica = true;
+            }catch(DadosInvalidosException e){
+                Ferramentas.mensagemErro(e.getMessage());
+            }
+        }
+        System.out.println(); // pula uma linha
+        try {
+            Paciente paciente = new Paciente(nome, cpf, senha, genero, telefone, email, sqlDate, contatoEmer, contatoEmer);
+            pacienteService.inserirPaciente(adm, paciente);
+            System.out.println("Paciente criado");
+            Ferramentas.Delay(1500);
+        } catch (DadosInvalidosException e) {
+            Ferramentas.limpaTerminal();
+            System.err.print(e.getMessage());
+            Ferramentas.Delay(1500);
+        }
+        
     }
 
     public static void CriarADM(Administrador adm) {
