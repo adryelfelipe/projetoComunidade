@@ -19,7 +19,6 @@ public class MenuExcluir
     private static AdministradorService administradorService = new AdministradorService();
     private static MedicoService medicoService = new MedicoService();
     private static PacienteService pacienteService = new PacienteService();
-    private static UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     public static void ExcluirUsuario(Administrador adm)
     {
