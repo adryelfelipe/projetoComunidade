@@ -14,7 +14,7 @@ public class MenuUpdateSenha {
         boolean verifica = false;
 
         while(!verifica) {
-            System.out.println("Digite sua nova Senha: ");
+            System.out.println("Digite a nova Senha: ");
             String senha = Ferramentas.lString();
 
             try {

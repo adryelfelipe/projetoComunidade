@@ -7,7 +7,7 @@ import Arquitetura.Utilidades.Ferramentas;
 public class MenuUpdateTelefone {
 
     public static void menuUpdateTelefone(UsuarioValidator usuarioValidator) {
-        System.out.println("Digite seu novo Telefone: ");
+        System.out.println("Digite o novo Telefone: ");
         String telefone = Ferramentas.lString();
 
         try {

@@ -7,7 +7,7 @@ import Arquitetura.Utilidades.Ferramentas;
 public class MenuUpdateEmail {
 
     public static void menuUpdateEmail(UsuarioValidator usuarioValidator) {
-        System.out.println("Digite seu novo Email: ");
+        System.out.println("Digite o novo Email: ");
         String email = Ferramentas.lString();
 
         try {
