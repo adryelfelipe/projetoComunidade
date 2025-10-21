@@ -463,6 +463,8 @@ public class UsuarioDAO {
         return null;
     }
 
+    // -- UPDATES -- //
+
     public void updateNomeUsuario (long id, String novoNome)
     {
         String queySql = "UPDATE Usuario " +
@@ -528,6 +530,25 @@ public class UsuarioDAO {
         }
     }
 
+    public void updateEmail (long id, String email)
+    {
+        String querySql = "UPDATE Usuario"+
+                "SET email = ? "+
+                "WHERE idusuario = ? ";
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setString(1, email);
+            stmt.setLong(2, id);
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar o email do usuário com ID: "+id + e);
+        }
+    }
     public String cpfByID(long id) {
         String querySql = "SELECT cpf FROM Usuario WHERE idUsuario = ?";
 
