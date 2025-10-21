@@ -165,6 +165,7 @@ public class PacienteDAO {
         return false;
     }
 
+    // -- UPDATES -- //
 
     public void updateNumeroCarteirinha(long id, String numCarteirinha )
     {
