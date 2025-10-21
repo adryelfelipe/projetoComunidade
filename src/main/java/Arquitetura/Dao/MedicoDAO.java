@@ -385,6 +385,8 @@ public class MedicoDAO {
         return false;
     }
 
+    // -- UPDATES -- //
+
     public void updateEspecialidade(String cpf, Especialidade especialidade)
     {
         String querySql = "UPDATE Medico m "+
