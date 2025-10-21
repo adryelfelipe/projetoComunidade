@@ -528,6 +528,116 @@ public class UsuarioDAO {
         }
     }
 
+    public void updateTelefone (long id, String telefone)
+    {
+        String qurySql = "UPDATE Usuario " +
+                "SET telefone = ? " +
+                "WHERE idUsuario = ?";
+
+        try(Connection conn = ConnectionFactory.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(qurySql))
+        {
+
+            stmt.setString(1, telefone);
+            stmt.setLong(2, id);
+
+            stmt.executeUpdate();
+
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao tentar atualizar o Telefone do usuário.");
+        }
+    }
+
+    public void updateEmail (long id, String email)
+    {
+        String qurySql = "UPDATE Usuario " +
+                "SET email = ? " +
+                "WHERE idUsuario = ?";
+
+        try(Connection conn = ConnectionFactory.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(qurySql))
+        {
+
+            stmt.setString(1, email);
+            stmt.setLong(2, id);
+
+            stmt.executeUpdate();
+
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao tentar atualizar o Email do usuário.");
+        }
+    }
+
+    public void updateDataNascimento (long id, Date dataNascimento)
+    {
+        String qurySql = "UPDATE Usuario " +
+                "SET dataNascimento = ? " +
+                "WHERE idUsuario = ?";
+
+        try(Connection conn = ConnectionFactory.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(qurySql))
+        {
+
+            stmt.setDate(1, dataNascimento);
+            stmt.setLong(2, id);
+
+            stmt.executeUpdate();
+
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao tentar atualizar a Data de Nascimento do usuário.");
+        }
+    }
+
+    public void updateTipoUsuario (long id, int tipoUsuario)
+    {
+        String qurySql = "UPDATE Usuario " +
+                "SET tipoUsuario = ? " +
+                "WHERE idUsuario = ?";
+
+        try(Connection conn = ConnectionFactory.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(qurySql))
+        {
+
+            stmt.setInt(1, tipoUsuario);
+            stmt.setLong(2, id);
+
+            stmt.executeUpdate();
+
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao tentar atualizar o tipo do Usuário.");
+        }
+    }
+
+    public void updateSexo (long id, int sexo)
+    {
+        String qurySql = "UPDATE Usuario " +
+                "SET sexo = ? " +
+                "WHERE idUsuario = ?";
+
+        try(Connection conn = ConnectionFactory.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(qurySql))
+        {
+
+            stmt.setInt(1, sexo);
+            stmt.setLong(2, id);
+
+            stmt.executeUpdate();
+
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao tentar atualizar o sexo do Usuário.");
+        }
+    }
+
     public String cpfByID(long id) {
         String querySql = "SELECT cpf FROM Usuario WHERE idUsuario = ?";
 
