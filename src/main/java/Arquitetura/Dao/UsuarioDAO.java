@@ -550,6 +550,28 @@ public class UsuarioDAO {
         }
     }
 
+    public void updateEmail (long id, String email)
+    {
+        String qurySql = "UPDATE Usuario " +
+                "SET email = ? " +
+                "WHERE idUsuario = ?";
+
+        try(Connection conn = ConnectionFactory.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(qurySql))
+        {
+
+            stmt.setString(1, email);
+            stmt.setLong(2, id);
+
+            stmt.executeUpdate();
+
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao tentar atualizar o Email do usuário.");
+        }
+    }
+
     public String cpfByID(long id) {
         String querySql = "SELECT cpf FROM Usuario WHERE idUsuario = ?";
 
