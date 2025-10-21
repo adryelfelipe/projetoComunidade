@@ -1,6 +1,9 @@
 package Arquitetura.View;
 
+import java.util.zip.DataFormatException;
+
 import Arquitetura.Exception.CpfInvalidoException;
+import Arquitetura.Exception.DadosInvalidosException;
 import Arquitetura.Exception.SenhaInvalidaException;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Medico;
@@ -8,6 +11,7 @@ import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.AdministradorService;
 import Arquitetura.Service.UsuarioService;
+import Arquitetura.Service.Validator.UsuarioValidator;
 import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.MenuUsuarios.MenuAdministrador;
 import Arquitetura.View.MenuUsuarios.MenuMedico;
@@ -16,6 +20,7 @@ import Arquitetura.View.MenuUsuarios.MenuPaciente;
 public class MenuLogin {
 
     private static final UsuarioService usuarioService = new UsuarioService();
+    static UsuarioValidator usuarioValidator = new UsuarioValidator(usuarioService);
 
     public static void Menu() {
 
@@ -24,6 +29,7 @@ public class MenuLogin {
         String cpf = "1";
         String senha = "1";
         Usuario usuario = null;
+        boolean verifica = false;
 
         while (continuar) {
 
@@ -35,12 +41,24 @@ public class MenuLogin {
             System.out.println("                ===============");
 
             System.out.println("-------------------------");
+
+            do{
+
             System.out.print("- Digite seu CPF: " );
+            try{
             cpf = Ferramentas.lString();
+            usuarioValidator.verificarRegrasCpf(cpf);
+            UsuarioValidator.verificaIntegridadeCpf(cpf);
+            }catch(DadosInvalidosException e){
+                Ferramentas.mensagemErro(e.getMessage());
+            }
+
+            }while(!verifica);
+
             System.out.println("-------------------------");
 
 
-            System.out.println("-------------------------");
+            System.out.println("\n-------------------------");
             System.out.print("- Digite sua senha: ");
 
             senha = Ferramentas.lString();
