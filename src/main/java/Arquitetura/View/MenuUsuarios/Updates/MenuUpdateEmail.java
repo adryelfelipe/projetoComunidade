@@ -1,5 +1,20 @@
 package Arquitetura.View.MenuUsuarios.Updates;
 
-public class MenuAutoUpdateEmail {
+import Arquitetura.Exception.DadosInvalidosException;
+import Arquitetura.Service.Validator.UsuarioValidator;
+import Arquitetura.Utilidades.Ferramentas;
 
+public class MenuUpdateEmail {
+
+    public static void menuUpdateEmail(UsuarioValidator usuarioValidator) {
+        System.out.println("Digite seu novo Email: ");
+        String email = Ferramentas.lString();
+
+        try {
+            usuarioValidator.verificarRegrasEmail(email);
+            usuarioValidator.verificarRegrasEmail(email);
+        }catch (DadosInvalidosException e){
+            Ferramentas.mensagemErro(e.getMessage());
+        }
+    }
 }
