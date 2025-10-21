@@ -132,6 +132,18 @@ public class UsuarioService {
         }
     }
 
+    public void updateTelefoneUsuario(Usuario usuario, long id, String telefone) {
+        tipoUsuarioValidator.temAcessoBaixo(usuario);
+        UsuarioValidator.verificaIntegridadeTelefone(telefone);
+        usuarioValidator.verificarRegrasTelefone(telefone);
+        idExistenteValidator(id);
+        usuarioDao.updateTelefone(id, telefone);
+
+        if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
+            usuario.setTelefone(telefone);
+        }
+    }
+
     public void updateEmailUsuario(Usuario usuario, long id, String email) {
         tipoUsuarioValidator.temAcessoBaixo(usuario);
         UsuarioValidator.verificaIntegridadeEmail(email);
