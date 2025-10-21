@@ -430,11 +430,6 @@ public class MenuCadastro
         UsuarioValidator usuarioValidator = new UsuarioValidator(usuarioService);
         FuncionarioValidator funcionarioValidator = new FuncionarioValidator(usuarioValidator);
         AdministradorValidator administradorValidator = new AdministradorValidator(funcionarioValidator);
-
-        // Molde para verificar integridade de dados
-        LocalDate nascimentoMolde = LocalDate.of(2026, 10, 21);
-        Date dataMolde = Date.valueOf(nascimentoMolde);
-        Administrador administradorMolde = new Administrador("Molde", "12345678999", "123", Genero.MASCULINO, "12345678999", "model@gmail.com", dataMolde, 1500, 41, Departamento.FINANCEIRO);
         boolean verifica = false;
 
         // Garantia de inicialização
@@ -457,7 +452,7 @@ public class MenuCadastro
             nome = Ferramentas.lString();
 
             try{
-                administradorMolde.setNome(nome);
+                UsuarioValidator.verificaIntegridadeNome(nome);
                 verifica = true;
             } catch(DadosInvalidosException e) {
                 Ferramentas.mensagemErro(e.getMessage());
@@ -475,7 +470,7 @@ public class MenuCadastro
             cpf = Ferramentas.lString();
 
             try{
-                administradorMolde.setCpf(cpf);
+                UsuarioValidator.verificaIntegridadeCpf(cpf);
                 usuarioValidator.verificarRegrasCpf(cpf);
                 usuarioService.cpfUtilizadoValidator(cpf);
                 verifica = true;
@@ -495,7 +490,7 @@ public class MenuCadastro
             senha = Ferramentas.lString();
 
             try{
-                administradorMolde.setSenha(senha);
+                UsuarioValidator.verificaIntegridadeSenha(senha);
                 usuarioValidator.verificarRegrasSenha(senha);
                 verifica = true;
             } catch (DadosInvalidosException e) {
@@ -552,7 +547,7 @@ public class MenuCadastro
             telefone = Ferramentas.lString();
 
             try{
-                administradorMolde.setTelefone(telefone);
+                UsuarioValidator.verificaIntegridadeTelefone(telefone);
                 usuarioValidator.verificarRegrasTelefone(telefone);
                 verifica = true;
             } catch (DadosInvalidosException e) {
@@ -571,7 +566,7 @@ public class MenuCadastro
             email = Ferramentas.lString();
 
             try{
-                administradorMolde.setEmail(email);
+                UsuarioValidator.verificaIntegridadeEmail(email);
                 usuarioValidator.verificarRegrasEmail(email);
                 verifica = true;
             } catch (DadosInvalidosException e) {
@@ -656,7 +651,7 @@ public class MenuCadastro
             System.out.print("Digite a carga horária semanal: ");
             try {
                 cargaHoraria = Ferramentas.lInteiro();
-                administradorMolde.setCargaHorariaSemanal(cargaHoraria);
+                FuncionarioValidator.verificaIntegridadeSalario(cargaHoraria);
                 funcionarioValidator.verificaRegrasCargaHoraria(cargaHoraria);
                 verifica = true;
             } catch (InputMismatchException e) {
@@ -676,7 +671,7 @@ public class MenuCadastro
             System.out.print("Digite o salário: ");
             try {
                 salario = Ferramentas.lDouble();
-                administradorMolde.setSalario(salario);
+                FuncionarioValidator.verificaIntegridadeSalario(salario);
                 funcionarioValidator.verificaRegrasSalario(salario);
                 verifica = true;
             } catch (InputMismatchException e) {
@@ -736,10 +731,10 @@ public class MenuCadastro
             Administrador administrador = new Administrador(nome, cpf, senha, genero, telefone, email, sqlDate, salario, cargaHoraria, departamento);
             administradorService.inserirAdmin(adm, administrador);
             System.out.println("ADMINISTRADOR CADASTRADO COM SUCESSO!");
-            Ferramentas.Delay(500);
+            Ferramentas.Delay(1000);
         } catch (DadosInvalidosException | TipoUsuarioException e) {
             System.err.println("FALHA NO CADASTRO!");
-            Ferramentas.Delay(500);
+            Ferramentas.Delay(1000);
             Ferramentas.mensagemErro(e.getMessage());
         }
     }

@@ -64,7 +64,11 @@ public class Ferramentas {
 
     // ------ APLICA DELAY EM MILISEGUNDOS ------ //
     public static void Delay(int ms) {
-        try{Thread.sleep(ms);}catch(InterruptedException e){}
+        try {
+            Thread.sleep(ms);
+        } catch(InterruptedException e){
+
+        }
     }
 
     // ------ FAZ INPUT DE DOUBLE E RETORNA ------ //
@@ -113,18 +117,16 @@ public class Ferramentas {
 
     // ------ PULA MUITAS LINHAS DO TERMINAL ------ //
     public static void limpaTerminal() {
-        for(int i = 0; i < 50; i ++) {
+        for(int i = 0; i < 35; i ++) {
             System.out.println();
         }
     }
 
     // ------- RECEBE MENSAGEM DE ERRO E EXIBE ------- //
     public static void mensagemErro(String mensagem) {
-        Ferramentas.Delay(10);
         Ferramentas.limpaTerminal();
         System.err.println(mensagem);
-        Ferramentas.Delay(10);
-        Ferramentas.Delay(1500);
+        Ferramentas.Delay(1700);
         Ferramentas.limpaTerminal();
     }
 }
