@@ -594,6 +594,28 @@ public class UsuarioDAO {
         }
     }
 
+    public void updatetipoUsuario (long id, int tipoUsuario)
+    {
+        String qurySql = "UPDATE Usuario " +
+                "SET tipoUsuario = ? " +
+                "WHERE idUsuario = ?";
+
+        try(Connection conn = ConnectionFactory.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(qurySql))
+        {
+
+            stmt.setInt(1, tipoUsuario);
+            stmt.setLong(2, id);
+
+            stmt.executeUpdate();
+
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao tentar atualizar o tipo do Usuário.");
+        }
+    }
+
     public String cpfByID(long id) {
         String querySql = "SELECT cpf FROM Usuario WHERE idUsuario = ?";
 
