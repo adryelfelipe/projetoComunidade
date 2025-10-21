@@ -461,4 +461,23 @@ public class ConsultaDAO
             System.err.println("Erro ao atualizar horario em consula com ID: "+id + e);
         }
     }
+    public void updateRelatorio(long id, String relatorio)
+    {
+        String querySql = "UPDATE Consulta "+
+                "SET relatorio = ? "+
+                "WHERE idConsulta = ? ";
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setString(1, relatorio);
+            stmt.setLong(2, id);
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar relatorio da consulta com ID: "+id + e);
+        }
+    }
 }
