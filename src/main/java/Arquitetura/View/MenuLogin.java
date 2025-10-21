@@ -23,6 +23,7 @@ public class MenuLogin {
 
         String cpf = "1";
         String senha = "1";
+        Usuario usuario = null;
 
         while (continuar) {
 
@@ -47,9 +48,12 @@ public class MenuLogin {
             System.out.println("-------------------------");
 
             try{
-                Usuario usuario = usuarioService.loginUsuario(cpf, senha);
+                usuario = usuarioService.loginUsuario(cpf, senha);
             } catch(SenhaInvalidaException | CpfInvalidoException e) {
+                Ferramentas.limpaTerminal();
                 System.err.print("ERRO! SENHA OU CPF INVÁLIDOS");
+                Ferramentas.Delay(500);
+                return;
             }
 
             if(usuario instanceof Administrador)
