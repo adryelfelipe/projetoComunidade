@@ -117,4 +117,14 @@ public class Ferramentas {
             System.out.println();
         }
     }
+
+    // ------- RECEBE MENSAGEM DE ERRO E EXIBE ------- //
+    public static void mensagemErro(String mensagem) {
+        Ferramentas.Delay(10);
+        Ferramentas.limpaTerminal();
+        System.err.println(mensagem);
+        Ferramentas.Delay(10);
+        Ferramentas.Delay(1500);
+        Ferramentas.limpaTerminal();
+    }
 }

@@ -28,6 +28,7 @@ public abstract class Usuario {
 
         this.tipoUsuario = tipoUsuario;
 
+        setDataNascimento(dataNascimento);
         setSenha(senha);
         setNome(nome);
         setCpf(cpf);

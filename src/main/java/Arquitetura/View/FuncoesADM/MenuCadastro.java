@@ -1,5 +1,9 @@
 package Arquitetura.View.FuncoesADM;
 
+import Arquitetura.Exception.CpfInvalidoException;
+import Arquitetura.Exception.DadosInvalidosException;
+import Arquitetura.Exception.DataInvalidaException;
+import Arquitetura.Exception.TipoUsuarioException;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Enums.Departamento;
 import Arquitetura.Model.Enums.Especialidade;
@@ -10,9 +14,15 @@ import Arquitetura.Model.Paciente;
 import Arquitetura.Service.AdministradorService;
 import Arquitetura.Service.MedicoService;
 import Arquitetura.Service.PacienteService;
+import Arquitetura.Service.UsuarioService;
+import Arquitetura.Service.Validator.AdministradorValidator;
+import Arquitetura.Service.Validator.DataValidator;
+import Arquitetura.Service.Validator.FuncionarioValidator;
+import Arquitetura.Service.Validator.UsuarioValidator;
 import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.MenuDefault;
 
+import java.awt.*;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.InputMismatchException;
@@ -412,189 +422,325 @@ public class MenuCadastro
     }
 
     public static void CriarADM(Administrador adm) {
-        boolean continuar = true;
+        Ferramentas.limpaTerminal();
 
-        do {
+        // Validadores de regras de negócio
+        UsuarioService usuarioService = new UsuarioService();
+        AdministradorService administradorService = new AdministradorService();
+        UsuarioValidator usuarioValidator = new UsuarioValidator(usuarioService);
+        FuncionarioValidator funcionarioValidator = new FuncionarioValidator(usuarioValidator);
+        AdministradorValidator administradorValidator = new AdministradorValidator(funcionarioValidator);
 
-            Ferramentas.limpaTerminal();
+        // Molde para verificar integridade de dados
+        LocalDate nascimentoMolde = LocalDate.of(2026, 10, 21);
+        Date dataMolde = Date.valueOf(nascimentoMolde);
+        Administrador administradorMolde = new Administrador("Molde", "12345678999", "123", Genero.MASCULINO, "12345678999", "model@gmail.com", dataMolde, 1500, 41, Departamento.FINANCEIRO);
+        boolean verifica = false;
 
-            System.out.println("     -----------------------");
-            System.out.println("     ----    Criar ADM  ----");
-            System.out.println("     -----------------------");
+        // Garantia de inicialização
+        String nome = null;
+        String cpf = null;
+        String senha = null;
+        String telefone = null;
+        String email = null;
+        int cargaHoraria = 0;
+        double salario = 0;
 
-            // Entrada do nome
-            System.out.println("\n\n\nDigite o nome: ");
-            String nome = Ferramentas.lString();
+        // Menu
+        System.out.println("     -----------------------");
+        System.out.println("     ----    Criar ADM  ----");
+        System.out.println("     -----------------------");
 
+        // Entrada do nome
+        while(!verifica) {
+            System.out.print("\n\n\nDigite o nome: ");
+            nome = Ferramentas.lString();
 
-            // Entrada do CPF
-            System.out.println("Digite o CPF: ");
-            String cpf = Ferramentas.lString();
+            try{
+                administradorMolde.setNome(nome);
+                verifica = true;
+            } catch(DadosInvalidosException e) {
+                Ferramentas.mensagemErro(e.getMessage());
+            }
+        }
 
+        System.out.println(); // pula uma linha
 
-            // Entrada da senha
-            System.out.println("Digite a senha: ");
-            String senha = Ferramentas.lString();
+        // RESETA A VERIFICAÇÃO
+        verifica = false;
 
+        // Entrada do CPF
+        while(!verifica) {
+            System.out.print("Digite o CPF: ");
+            cpf = Ferramentas.lString();
 
-            // Entrada do sexo
-            int opsex = 0;
-            boolean verifica;
+            try{
+                administradorMolde.setCpf(cpf);
+                usuarioValidator.verificarRegrasCpf(cpf);
+                usuarioService.cpfUtilizadoValidator(cpf);
+                verifica = true;
+            } catch(DadosInvalidosException | CpfInvalidoException e) {
+                Ferramentas.mensagemErro(e.getMessage());
+            }
+        }
 
-            do {
+        System.out.println(); // pula uma linha
 
-                System.out.println("Digite o seu sexo:");
-                System.out.println("1-Masculino");
-                System.out.println("2-Feminino");
+        // RESETA A VERIFICAÇÃO
+        verifica = false;
 
-                try {
-                    opsex = Ferramentas.lInteiro();
-                    verifica = false;
+        // Entrada da senha
+        while (!verifica) {
+            System.out.print("Digite a senha: ");
+            senha = Ferramentas.lString();
 
-                } catch (InputMismatchException e) {
-                    Ferramentas.limpaTerminal();
+            try{
+                administradorMolde.setSenha(senha);
+                usuarioValidator.verificarRegrasSenha(senha);
+                verifica = true;
+            } catch (DadosInvalidosException e) {
+                Ferramentas.mensagemErro(e.getMessage());
+            }
+        }
 
+        System.out.println(); // pula uma linha
+
+        // RESETA A VERIFICAÇÃO
+        verifica = false;
+
+        // Entrada do sexo
+        int opsex = 0;
+
+        while(!verifica) {
+            System.out.println("Digite o seu sexo:");
+            System.out.println("1-Masculino");
+            System.out.println("2-Feminino");
+            System.out.print("OPÇÃO: ");
+
+            try {
+                opsex = Ferramentas.lInteiro();
+                if(opsex < 1 || opsex > 2) {
+                    MenuDefault.menuDefault();
+                } else {
                     verifica = true;
-
-                    System.err.println("ERRO.  OPÇÂO INVALIDA");
-                    Ferramentas.Delay(1500);
                 }
+            } catch (InputMismatchException e) {
+                MenuDefault.menuDefault();
+            }
+        }
 
-            } while (!verifica);
+        // Converte a entrada de genero usando switch expression
+        Genero genero = switch (opsex) {
+            case 1 -> Genero.MASCULINO;
+            default -> Genero.FEMININO;
+        };
 
-            // Converte a entrada de genero usando switch expression
-            Genero genero = switch (opsex) {
-                case 1 -> Genero.MASCULINO;
-                default -> Genero.FEMININO;
-            };
+        try{
+            usuarioValidator.verificarRegrasSexo(genero);
+        } catch (DadosInvalidosException e) {
+            Ferramentas.mensagemErro(e.getMessage());
+        }
 
+        System.out.println(); // pula uma linha
 
-            // Entrada do telefone
-            System.out.println("Digite o número de telefone: ");
-            String telefone = Ferramentas.lString();
+        // RESETA A VERIFICAÇÃO
+        verifica = false;
 
+        // Entrada do telefone
+        while(!verifica) {
+            System.out.print("Digite o número de telefone: ");
+            telefone = Ferramentas.lString();
 
-            // Entrada do email
-            System.out.println("Digite o email: ");
-            String email = Ferramentas.lString();
+            try{
+                administradorMolde.setTelefone(telefone);
+                usuarioValidator.verificarRegrasTelefone(telefone);
+                verifica = true;
+            } catch (DadosInvalidosException e) {
+                Ferramentas.mensagemErro(e.getMessage());
+            }
+        }
 
+        System.out.println(); // pula uma linha
 
-            // Entrada da data de nascimento
-            System.out.println("Data de nascimento");
+        // RESETA A VERIFICAÇÃO
+        verifica = false;
 
-            int ano = 0;
-            System.out.println("Digite o Ano: ");
+        // Entrada do email
+        while(!verifica) {
+            System.out.print("Digite o email: ");
+            email = Ferramentas.lString();
+
+            try{
+                administradorMolde.setEmail(email);
+                usuarioValidator.verificarRegrasEmail(email);
+                verifica = true;
+            } catch (DadosInvalidosException e) {
+                Ferramentas.mensagemErro(e.getMessage());
+            }
+        }
+
+        System.out.println(); // pula uma linha
+
+        // RESETA A VERIFICAÇÃO
+        verifica = false;
+
+        // Entrada da data de nascimento
+        System.out.println("Data de nascimento");
+
+        // Ano
+        int ano = 0;
+        while(!verifica) {
+            System.out.print("Digite o Ano: ");
             try {
                 ano = Ferramentas.lInteiro();
+                verifica = true;
             } catch (InputMismatchException e) {
-                Ferramentas.limpaTerminal();
-                System.err.print(e.getMessage());
-                Ferramentas.Delay(1500);
-                continuar = false;
+                MenuDefault.menuDefault();
             }
+        }
 
-            int mes = 0;
-            System.out.println("Digite o Mês: ");
+        // RESETA A VERIFICAÇÃO
+        verifica = false;
+
+        // MÊS
+        int mes = 0;
+        while(!verifica) {
+            System.out.print("Digite o Mês: ");
             try {
                 mes = Ferramentas.lInteiro();
+                DataValidator.verificaMes(mes);
+                verifica = true;
             } catch (InputMismatchException e) {
-                Ferramentas.limpaTerminal();
-                System.err.print(e.getMessage());
-                Ferramentas.Delay(1500);
-                continuar = false;
+                MenuDefault.menuDefault();
+            } catch(DataInvalidaException e) {
+                Ferramentas.mensagemErro(e.getMessage());
             }
+        }
 
+        // RESETA A VERIFICAÇÃO
+        verifica = false;
 
-            int dia = 0;
-            System.out.println("Digite Dia: ");
+        // DIA
+        int dia = 0;
+        while(!verifica) {
+            System.out.print("Digite Dia: ");
             try {
                 dia = Ferramentas.lInteiro();
+                DataValidator.verificaDia(ano,mes,dia);
+                verifica = true;
             } catch (InputMismatchException e) {
-                Ferramentas.limpaTerminal();
-                System.err.print(e.getMessage());
-                Ferramentas.Delay(1500);
-                continuar = false;
+                MenuDefault.menuDefault();
+            } catch(DataInvalidaException e) {
+                Ferramentas.mensagemErro(e.getMessage());
             }
+        }
 
-            int cargaHoraria = 0;
+        // Transforma ano, mês e dia em uma sqlDate
+        LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
+        Date sqlDate = Date.valueOf(dataNascimento);
 
-            // Entrada da carga horária semanal
-            System.out.println("Digite a carga horária semanal: ");
+        try{
+            usuarioValidator.verificarRegrasDataNascimento(sqlDate);
+        } catch (DadosInvalidosException e) {
+            Ferramentas.mensagemErro(e.getMessage());
+        }
+
+        System.out.println(); // pula uma linha
+
+        // RESETA A VERIFICAÇÃO
+        verifica = false;
+
+        // Entrada da carga horária semanal
+        while (!verifica) {
+
+            System.out.print("Digite a carga horária semanal: ");
             try {
                 cargaHoraria = Ferramentas.lInteiro();
-            }catch (InputMismatchException e) {
-                Ferramentas.limpaTerminal();
-                System.err.print(e.getMessage());
-                Ferramentas.Delay(1500);
+                administradorMolde.setCargaHorariaSemanal(cargaHoraria);
+                funcionarioValidator.verificaRegrasCargaHoraria(cargaHoraria);
+                verifica = true;
+            } catch (InputMismatchException e) {
+                MenuDefault.menuDefault();
+            } catch(DadosInvalidosException e) {
+                Ferramentas.mensagemErro(e.getMessage());
             }
-            double salario = 0;
+        }
 
-            // Entrada do salário
-            System.out.println("Digite o salário: ");
+        System.out.println(); // pula uma linha
+
+        // RESETA A VERIFICAÇÃO
+        verifica = false;
+
+        // Entrada do salário
+        while(!verifica) {
+            System.out.print("Digite o salário: ");
             try {
                 salario = Ferramentas.lDouble();
+                administradorMolde.setSalario(salario);
+                funcionarioValidator.verificaRegrasSalario(salario);
+                verifica = true;
             } catch (InputMismatchException e) {
-                Ferramentas.limpaTerminal();
-                System.err.print(e.getMessage());
-                Ferramentas.Delay(1500);
-                continuar = false;
+                MenuDefault.menuDefault();
+            } catch (DadosInvalidosException e) {
+                Ferramentas.mensagemErro(e.getMessage());
             }
+        }
 
+        System.out.println(); // pula uma linha
 
-            // Entrada do departamento
-            boolean verificOp = true;
-            int opDepartamento = 0;
+        // RESETA A VERIFICAÇÃO
+        verifica = false;
 
-            do{
-                System.out.println("Qual é o seu departamento? ");
-                System.out.println("1 - FINANCEIRO ");
-                System.out.println("2 - INFRAESTRUTURA ");
-                System.out.println("3 - MARKETING");
-                System.out.println("4 - RH");
-
-                try {
-                    opDepartamento = Ferramentas.lInteiro();
-
-                    verificOp = false;
-
-                    MenuDefault.menuDefault();
-
-                }catch (InputMismatchException e) {
-                    Ferramentas.limpaTerminal();
-                    verificOp = true;
-
-                    System.err.println("ERRO.  OPÇÂO INVALIDA");
-                    Ferramentas.Delay(1500);
-                }
-
-            } while (!verificOp);
-
-            // Converte a entrada de departamento usando switch expression
-            Departamento departamento = switch (opDepartamento) {
-                case 1 -> Departamento.FINANCEIRO;
-                case 2 -> Departamento.INFRAESTRUTURA;
-                case 3 -> Departamento.MARKETING;
-                default -> Departamento.RH;
-            };
+        // Entrada do departamento
+        int opDepartamento = 0;
+        do{
+            System.out.println("Qual é o seu departamento? ");
+            System.out.println("1 - FINANCEIRO ");
+            System.out.println("2 - INFRAESTRUTURA ");
+            System.out.println("3 - MARKETING");
+            System.out.println("4 - RH");
+            System.out.print("OPÇÃO: ");
 
             try {
-
-                LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
-
-                Date sqlDate = Date.valueOf(dataNascimento);
-
-                Administrador administrador = new Administrador(nome, cpf, senha, genero, telefone, email, sqlDate, salario, cargaHoraria, departamento);
-
-                AdministradorService administradorService = new AdministradorService();
-
-                administradorService.inserirAdmin(adm, administrador);
-
-                Ferramentas.Delay(1500);
-            } catch (IllegalArgumentException e) {
-                Ferramentas.limpaTerminal();
-                System.err.print(e.getMessage());
-                Ferramentas.Delay(1500);
+                opDepartamento = Ferramentas.lInteiro();
+                if(opDepartamento < 0 || opDepartamento > 4) {
+                    MenuDefault.menuDefault();
+                } else {
+                    verifica = true;
+                }
+            }catch (InputMismatchException e) {
+                MenuDefault.menuDefault();
             }
-        }while (!continuar);
+        } while (!verifica);
+
+        // Converte a entrada de departamento usando switch expression
+        Departamento departamento = switch (opDepartamento) {
+            case 1 -> Departamento.FINANCEIRO;
+            case 2 -> Departamento.INFRAESTRUTURA;
+            case 3 -> Departamento.MARKETING;
+            default -> Departamento.RH;
+        };
+
+        try{
+            administradorValidator.verificaRegrasDepartamento(departamento);
+        } catch (DadosInvalidosException e) {
+            Ferramentas.mensagemErro(e.getMessage());
+        }
+
+        Ferramentas.limpaTerminal();
+        System.out.println("PROCESSANDO...");
+        System.out.println(); // pula uma linha
+
+        // CRIAÇÃO DO OBJETO
+        try {
+            Administrador administrador = new Administrador(nome, cpf, senha, genero, telefone, email, sqlDate, salario, cargaHoraria, departamento);
+            administradorService.inserirAdmin(adm, administrador);
+            System.out.println("ADMINISTRADOR CADASTRADO COM SUCESSO!");
+            Ferramentas.Delay(500);
+        } catch (DadosInvalidosException | TipoUsuarioException e) {
+            System.err.println("FALHA NO CADASTRO!");
+            Ferramentas.Delay(500);
+            Ferramentas.mensagemErro(e.getMessage());
+        }
     }
 }
