@@ -144,6 +144,28 @@ public class AdministradorDAO {
         }
     }
 
+    // -- UPDATES -- //
+
+    public void updateDepartamento(long id, Departamento departamento)
+    {
+        String querySql = "UPDATE Administrador "+
+                "SET idDepartamento = ? "+
+                "WHERE idAdministrador = ? ";
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1, departamento.getIdDepartamento());
+            stmt.setLong(2, id);
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar  departamento do administrador com ID: "+ id + e);
+        }
+    }
+
     public boolean isCpfAdministrador(String cpf) {
         String querySql = "SELECT tipoUsuario FROM Usuario WHERE cpf = ?";
 
