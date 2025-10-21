@@ -528,6 +528,28 @@ public class UsuarioDAO {
         }
     }
 
+    public void updateTelefone (long id, String telefone)
+    {
+        String qurySql = "UPDATE Usuario " +
+                "SET telefone = ? " +
+                "WHERE idUsuario = ?";
+
+        try(Connection conn = ConnectionFactory.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(qurySql))
+        {
+
+            stmt.setString(1, telefone);
+            stmt.setLong(2, id);
+
+            stmt.executeUpdate();
+
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao tentar atualizar o Telefone do usuário.");
+        }
+    }
+
     public String cpfByID(long id) {
         String querySql = "SELECT cpf FROM Usuario WHERE idUsuario = ?";
 
