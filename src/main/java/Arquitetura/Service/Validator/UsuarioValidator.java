@@ -42,6 +42,7 @@ public class UsuarioValidator {
         verificarRegrasSenha(usuario.getSenha());
         verificarRegrasDataNascimento(usuario.getDataNascimento());
         verificaExistenciaUsuario(usuario);
+        usuarioService.cpfUtilizadoValidator(usuario.getCpf());
     }
 
     public void verificaExistenciaUsuario(Usuario usuario) {
@@ -143,7 +144,7 @@ public class UsuarioValidator {
         }
 
         if(!email.contains("@")) {
-            throw new DadosInvalidosException("ERRO! EMAIL INVÁLIDO");
+            throw new DadosInvalidosException("ERRO! O EMAIL DEVE CONTER '@'");
         }
     }
 
