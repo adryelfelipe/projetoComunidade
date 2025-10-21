@@ -425,4 +425,23 @@ public class ConsultaDAO
             System.err.println("Erro ao atualizar status na consulta com ID: "+id + e);
         }
     }
+    public void updateDate(long id, Date dataConsulta)
+    {
+        String querySql = "UPDATE Consulta "+
+                "SET dataConsulta = ? "+
+                "WHERE idConsulta = ? ";
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setDate(1, dataConsulta);
+            stmt.setLong(2, id);
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar a data da consuta com ID: "+id + e);
+        }
+    }
 }
