@@ -449,25 +449,24 @@ public class MedicoDAO {
         }
     }
 
-    public void updatePlantao(String cpf, Plantao plantao)
+    public void updatePlantao(long id, Plantao plantao)
     {
         String querySql = "UPDATE Medico m "+
-                "INNER JOIN Usuario u ON m.idMedico = u.idUsuario "+
                 "SET idPlantao = ? "+
-                "WHERE cpf = ? ";
+                "WHERE idMedico = ? ";
 
         try(
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(querySql))
         {
             stmt.setLong(1, plantao.getIdPlantao());
-            stmt.setString(2, cpf);
+            stmt.setLong(2, id);
 
             stmt.executeUpdate();
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao atualizar plantão do médico com CPF: "+cpf);
+            System.err.println("Erro ao atualizar plantão do médico com ID: "+id + e);
         }
 
     }
