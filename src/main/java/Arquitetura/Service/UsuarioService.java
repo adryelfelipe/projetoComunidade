@@ -9,6 +9,7 @@ import Arquitetura.Service.Validator.TipoUsuarioValidator;
 import Arquitetura.Service.Validator.UsuarioValidator;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 
 public class UsuarioService {
 
@@ -128,6 +129,18 @@ public class UsuarioService {
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
             usuario.setNome(nome);
+        }
+    }
+
+    public void updateEmailUsuario(Usuario usuario, long id, String email) {
+        tipoUsuarioValidator.temAcessoBaixo(usuario);
+        UsuarioValidator.verificaIntegridadeEmail(email);
+        usuarioValidator.verificarRegrasEmail(email);
+        idExistenteValidator(id);
+        usuarioDao.updateEmail(id, email);
+
+        if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
+            usuario.setEmail(email);
         }
     }
 
