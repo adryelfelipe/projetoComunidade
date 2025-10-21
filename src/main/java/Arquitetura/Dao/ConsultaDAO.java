@@ -387,4 +387,23 @@ public class ConsultaDAO
             System.err.println("Erro ao atualizar paciente em consulta com ID: "+id + e);
         }
     }
+    public void updateExame(long id, Exame exame)
+    {
+        String querySql = "UPDATE Consulta "+
+                "SET idExame = ? "+
+                "WHERE idConsulta = ? ";
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1, exame.getIdExame());
+            stmt.setLong(2, id);
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar exame na consulta com ID: "+id + e);
+        }
+    }
 }
