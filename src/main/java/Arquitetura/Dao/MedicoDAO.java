@@ -385,89 +385,88 @@ public class MedicoDAO {
         return false;
     }
 
-    public void updateEspecialidade(String cpf, Especialidade especialidade)
+    // -- UPDATES -- //
+
+    public void updateEspecialidade(long id, Especialidade especialidade)
     {
         String querySql = "UPDATE Medico m "+
-                "INNER JOIN Usuario u ON m.idMedico = u.idUsuario "+
                 "SET idEspecialidade = ?"+
-                "WHERE cpf = ?";
+                "WHERE idMedico = ?";
         try(
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(querySql))
         {
             stmt.setLong(1, especialidade.getIdEspecialidade());
-            stmt.setString(2, cpf);
+            stmt.setLong(2, id);
 
             stmt.executeUpdate();
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao atualizar a especialidade do médico com CPF: "+cpf);
+            System.err.println("Erro ao atualizar a especialidade do médico com ID: "+id+ e);
         }
     }
 
-    public void updateSubEspecialidade(String cpf, String subEspecialidade)
+    public void updateSubEspecialidade(long id, String subEspecialidade)
     {
         String querySql = "UPDATE Medico m "+
-                "INNER JOIN Usuario u ON m.idMedico = u.idUsuario "+
                 "SET subEspecialidade = ? "+
-                "WHERE cpf = ? ";
+                "WHERE idMedico = ? ";
 
         try(
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(querySql))
         {
             stmt.setString(1, subEspecialidade);
-            stmt.setString(2, cpf);
+            stmt.setLong(2, id);
 
             stmt.executeUpdate();
         }
         catch(SQLException e)
         {
-            System.out.println("Erro ao atualizar subespecialidade do médico com CPF: "+cpf);
+            System.out.println("Erro ao atualizar subespecialidade do médico com ID: "+id+ e);
         }
     }
 
-    public void updateFormacao(String cpf, String formacao)
+    public void updateFormacao(long id, String formacao)
     {
         String querySql = "UPDATE Medico m "+
                 "INNER JOIN Usuario u ON m.idMedico = u.idUsuario "+
                 "SET formacao = ? "+
-                "WHERE cpf = ?";
+                "WHERE idMedico = ?";
         try(
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(querySql))
         {
             stmt.setString(1, formacao);
-            stmt.setString(2, cpf);
+            stmt.setLong(2, id);
 
             stmt.executeUpdate();
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao atualizar formação do médico com CPF: "+cpf);
+            System.err.println("Erro ao atualizar formação do médico com ID: "+id + e);
         }
     }
 
-    public void updatePlantao(String cpf, Plantao plantao)
+    public void updatePlantao(long id, Plantao plantao)
     {
         String querySql = "UPDATE Medico m "+
-                "INNER JOIN Usuario u ON m.idMedico = u.idUsuario "+
                 "SET idPlantao = ? "+
-                "WHERE cpf = ? ";
+                "WHERE idMedico = ? ";
 
         try(
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(querySql))
         {
             stmt.setLong(1, plantao.getIdPlantao());
-            stmt.setString(2, cpf);
+            stmt.setLong(2, id);
 
             stmt.executeUpdate();
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao atualizar plantão do médico com CPF: "+cpf);
+            System.err.println("Erro ao atualizar plantão do médico com ID: "+id + e);
         }
 
     }
