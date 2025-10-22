@@ -7,6 +7,8 @@ import Arquitetura.View.MenuDefault;
 import Arquitetura.View.MenuEditarConta;
 import Arquitetura.View.MenuInicial;
 
+import java.util.InputMismatchException;
+
 public class MenuPaciente
 {
 
@@ -33,7 +35,7 @@ public class MenuPaciente
 
             try {
                 op = Ferramentas.lInteiro();
-            }catch (IllegalArgumentException e) {
+            }catch (InputMismatchException e) {
                 MenuDefault.menuDefault();
             }
 

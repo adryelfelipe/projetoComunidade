@@ -21,7 +21,7 @@ public class PacienteDAO {
     // Inserção
     public void inserirPaciente (Paciente paciente)
     {
-        String querySql = "insert into Paciente (idPaciente, numeroCarteirinha, contatoEmergencia, statusPaciente) values (?, ?, ?, ?)";
+        String querySql = "insert into Paciente (idPaciente, numeroCarteirinha, contatoEmergencia, idStatusPaciente) values (?, ?, ?, ?)";
 
         try(Connection conexao = ConnectionFactory.getConnection();
             PreparedStatement stmt = conexao.prepareStatement(querySql))
@@ -36,7 +36,7 @@ public class PacienteDAO {
         }
         catch (SQLException e)
         {
-            System.out.println("Erro ao inserir o Paciente.");
+            System.out.println("Erro ao inserir o Paciente." + e);
         }
     }
 
@@ -165,66 +165,65 @@ public class PacienteDAO {
         return false;
     }
 
+    // -- UPDATES -- //
 
-    public void updateNumeroCarteirinha(String cpf, String numCarteirinha )
+    public void updateNumeroCarteirinha(long id, String numCarteirinha )
     {
-        String querySql = "UPDATE Paciente p "+
-                "INNER JOIN Usuario u ON p.idPaciente = u.idUsuario "+
+        String querySql = "UPDATE Paciente "+
                 "SET numeroCarteirinha = ? "+
-                "WHERE cpf = ? ";
+                "WHERE idPaciente = ? ";
         try(
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(querySql))
         {
             stmt.setString(1, numCarteirinha);
-            stmt.setString(2, cpf);
+            stmt.setLong(2, id);
 
             stmt.executeUpdate();
         }
-        catch (SQLException e) {
-            System.err.println("Erro ao atualizar número da carteirinha do paciente com Cpf: "+cpf);
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar número da carteirinha do paciente com ID:" +id+ e);
         }
     }
 
-    public void updateContatoEmergencia(String cpf, String contatoEmergencia)
+    public void updateContatoEmergencia(long id, String contatoEmergencia)
     {
-        String querySql = "UPDATE Paciente p "+
-                "INNER JOIN Usuario u ON p.idPaciente = u.idUsuario "+
+        String querySql = "UPDATE Paciente "+
                 "SET contatoCarteirinha = ? "+
-                "WHERE cpf = ? ";
+                "WHERE idPaciente = ? ";
 
         try (
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(querySql))
         {
             stmt.setString(1, contatoEmergencia);
-            stmt.setString(2, cpf);
+            stmt.setLong(2, id);
 
             stmt.executeUpdate();
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao atualizar o contato de emergência do paciente com o Cpf: "+cpf);
+            System.err.println("Erro ao atualizar o contato de emergência do paciente com o ID:" + id + e);
         }
     }
-    public void updateStatusPaciente(String cpf, StatusPaciente statusPaciente)
+    public void updateStatusPaciente(long id, StatusPaciente statusPaciente)
     {
         String querySql = "UPDATE Paciente p "+
-                "INNER JOIN Usuario u ON p.idPaciente = u.idUsuario "+
                 "SET idStatusPaciente = ? "+
-                "WHERE cpf = ? ";
+                "WHERE idPaciente = ? ";
         try (
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(querySql))
         {
             stmt.setLong(1, statusPaciente.getIdPaciente());
-            stmt.setString(2, cpf);
+            stmt.setLong(2, id);
 
             stmt.executeUpdate();
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao atualizar o status do paciente com o Cpf: "+cpf);
+            System.err.println("Erro ao atualizar o status do paciente com o ID: "+id + e);
         }
     }
 }

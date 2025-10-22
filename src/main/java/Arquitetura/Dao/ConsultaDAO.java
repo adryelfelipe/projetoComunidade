@@ -347,4 +347,137 @@ public class ConsultaDAO
         return listaConsultas;
     }
 
+    // -- UPDATES -- //
+
+    public void updateMedico(long id, long idMedico)
+    {
+        String querySql = "UPDATE Consulta "+
+                "SET idPaciente = ? "+
+                "WHERE idConsulta = ? ";
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1,idMedico);
+            stmt.setLong(2, id);
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar o médico da Consulta com ID: "+id +e);
+        }
+    }
+    public void updatePaciente(long id, long idPaciente)
+    {
+        String querySql = "UPDATE Consulta "+
+                "SET idPaciente = ? "+
+                "WHERE idConsulta = ?";
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement statement = connection.prepareStatement(querySql))
+        {
+            statement.setLong(1, idPaciente);
+            statement.setLong(2, id);
+
+            statement.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar paciente em consulta com ID: "+id + e);
+        }
+    }
+    public void updateExame(long id, Exame exame)
+    {
+        String querySql = "UPDATE Consulta "+
+                "SET idExame = ? "+
+                "WHERE idConsulta = ? ";
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1, exame.getIdExame());
+            stmt.setLong(2, id);
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar exame na consulta com ID: "+id + e);
+        }
+    }
+    public void updateStatus(long id, StatusConsulta statusConsulta)
+    {
+        String querySql = "UPDATE Consulta "+
+            "SET idStatus = ? "+
+            "WHERE idConsulta = ? ";
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1, statusConsulta.getIdStatus());
+            stmt.setLong(2, id);
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar status na consulta com ID: "+id + e);
+        }
+    }
+    public void updateDate(long id, Date dataConsulta)
+    {
+        String querySql = "UPDATE Consulta "+
+                "SET dataConsulta = ? "+
+                "WHERE idConsulta = ? ";
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setDate(1, dataConsulta);
+            stmt.setLong(2, id);
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar a data da consuta com ID: "+id + e);
+        }
+    }
+    public void updateHorario(long id, Time hora)
+    {
+        String querySql = "UPTADE Consulta "+
+                "SET horarioConsulta = ? "+
+                "WHERE idConsulta = ? ";
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setTime(1, hora);
+            stmt.setLong(2, id);
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar horario em consula com ID: "+id + e);
+        }
+    }
+    public void updateRelatorio(long id, String relatorio)
+    {
+        String querySql = "UPDATE Consulta "+
+                "SET relatorio = ? "+
+                "WHERE idConsulta = ? ";
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setString(1, relatorio);
+            stmt.setLong(2, id);
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar relatorio da consulta com ID: "+id + e);
+        }
+    }
 }

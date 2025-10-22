@@ -8,6 +8,8 @@ import Arquitetura.View.FuncoesMedico.MenuProntuario;
 import Arquitetura.View.MenuDefault;
 import Arquitetura.View.MenuInicial;
 
+import java.util.InputMismatchException;
+
 public class MenuMedico
 {
 
@@ -32,7 +34,7 @@ public class MenuMedico
 
             try {
                 op = Ferramentas.lInteiro();
-            }catch (IllegalArgumentException e){
+            }catch (InputMismatchException e){
                 MenuDefault.menuDefault();
             }
             switch (op) {
