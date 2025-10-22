@@ -160,7 +160,7 @@ public class UsuarioService {
     public void updateSenhaUsuario(Usuario usuario, long id, String senha) {
         tipoUsuarioValidator.temAcessoBaixo(usuario);
         UsuarioValidator.verificaIntegridadeSenha(senha);
-        UsuarioValidator.verificaIntegridadeSenha(senha);
+        usuarioValidator.verificarRegrasSenha(senha);
         idExistenteValidator(id);
         usuarioDao.updateSenhaUsuario(id, senha);
 
