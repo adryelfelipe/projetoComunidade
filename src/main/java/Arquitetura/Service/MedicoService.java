@@ -131,7 +131,7 @@ public class MedicoService {
         usuarioService.idExistenteValidator(id);
         medicoValidator.idMedicoValidator(id);;
 
-        //medicoDAO.updateEspecialidade(id, especialidade);
+        medicoDAO.updateEspecialidade(id, especialidade);
     }
 
     public void updateSubEspecialidadeMedico(Usuario usuario, long id, String subEspecialidade) {
@@ -140,7 +140,7 @@ public class MedicoService {
         usuarioService.idExistenteValidator(id);
         medicoValidator.idMedicoValidator(id);
 
-        //medicoDAO.updateSubEspecialidade(id, subEspecialidade);
+        medicoDAO.updateSubEspecialidade(id, subEspecialidade);
     }
 
     public void updateFormacaoMedico(Usuario usuario, long id, String formacao) {
@@ -150,7 +150,7 @@ public class MedicoService {
         usuarioService.idExistenteValidator(id);
         medicoValidator.idMedicoValidator(id);
 
-        //medicoDAO.updateFormacao(id, formacao);
+        medicoDAO.updateFormacao(id, formacao);
     }
 
     public void updatePlantaoMedico(Usuario usuario, long id, Plantao plantao) {
@@ -159,6 +159,6 @@ public class MedicoService {
         usuarioService.idExistenteValidator(id);
         medicoValidator.idMedicoValidator(id);
 
-        //medicoDAO.updatePlantao(id, plantao);
+        medicoDAO.updatePlantao(id, plantao);
     }
 }
