@@ -11,7 +11,7 @@ public class MenuUpdateEmail {
         String email = Ferramentas.lString();
 
         try {
-            usuarioValidator.verificarRegrasEmail(email);
+            UsuarioValidator.verificaIntegridadeEmail(email);
             usuarioValidator.verificarRegrasEmail(email);
         }catch (DadosInvalidosException e){
             Ferramentas.mensagemErro(e.getMessage());
