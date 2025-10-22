@@ -36,7 +36,7 @@ public class PacienteDAO {
         }
         catch (SQLException e)
         {
-            System.out.println("Erro ao inserir o Paciente.");
+            System.out.println("Erro ao inserir o Paciente." + e);
         }
     }
 

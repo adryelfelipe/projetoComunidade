@@ -9,6 +9,8 @@ import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.*;
 import Arquitetura.View.FuncoesADM.*;
 
+import java.util.InputMismatchException;
+
 public class MenuAdministrador
 {
 
@@ -45,7 +47,7 @@ public class MenuAdministrador
 
             try {
                 op = Ferramentas.lInteiro();
-            }catch (IllegalArgumentException e){
+            }catch (InputMismatchException e){
                 MenuDefault.menuDefault();
             }
             switch (op) {

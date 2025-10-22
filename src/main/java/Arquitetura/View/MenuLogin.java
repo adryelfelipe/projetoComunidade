@@ -24,14 +24,12 @@ public class MenuLogin {
 
     public static void Menu() {
 
-        boolean continuar = true;
+        boolean continuar = false;
 
         String cpf = "1";
         String senha = "1";
         Usuario usuario = null;
         boolean verifica = false;
-
-        while (continuar) {
 
 
             Ferramentas.limpaTerminal();
@@ -44,19 +42,19 @@ public class MenuLogin {
 
             do{
 
-            System.out.print("- Digite seu CPF: " );
-            try{
-            cpf = Ferramentas.lString();
-            usuarioValidator.verificarRegrasCpf(cpf);
-            UsuarioValidator.verificaIntegridadeCpf(cpf);
-            }catch(DadosInvalidosException e){
-                Ferramentas.mensagemErro(e.getMessage());
-            }
+                System.out.print("- Digite seu CPF: " );
+                try{
+                    cpf = Ferramentas.lString();
+                    usuarioValidator.verificarRegrasCpf(cpf);
+                    UsuarioValidator.verificaIntegridadeCpf(cpf);
+                    verifica = true;
+                }catch(DadosInvalidosException e){
+                    Ferramentas.mensagemErro(e.getMessage());
+                }
 
             }while(!verifica);
 
             System.out.println("-------------------------");
-
 
             System.out.println("\n-------------------------");
             System.out.print("- Digite sua senha: ");
@@ -96,6 +94,6 @@ public class MenuLogin {
 
                 MenuPaciente.Menu(paciente);
             }
-        }
+
     }
 }
