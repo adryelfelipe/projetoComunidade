@@ -8,6 +8,7 @@ import Arquitetura.Model.Usuario;
 import Arquitetura.Service.Validator.TipoUsuarioValidator;
 import Arquitetura.Service.Validator.UsuarioValidator;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.EnumMap;
 
@@ -165,6 +166,17 @@ public class UsuarioService {
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
             usuario.setSenha(senha);
+        }
+    }
+
+    public void updateDataNascimentoUsuario(Usuario usuario, long id, Date dataNascimento) {
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        usuarioValidator.verificarRegrasDataNascimento(dataNascimento);
+        idExistenteValidator(id);
+        usuarioDao.updateDataNascimento(id, dataNascimento);
+
+        if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
+            usuario.setDataNascimento(dataNascimento);
         }
     }
 }
