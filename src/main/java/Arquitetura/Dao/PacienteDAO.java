@@ -21,7 +21,7 @@ public class PacienteDAO {
     // Inserção
     public void inserirPaciente (Paciente paciente)
     {
-        String querySql = "insert into Paciente (idPaciente, numeroCarteirinha, contatoEmergencia, statusPaciente) values (?, ?, ?, ?)";
+        String querySql = "insert into Paciente (idPaciente, numeroCarteirinha, contatoEmergencia, idStatusPaciente) values (?, ?, ?, ?)";
 
         try(Connection conexao = ConnectionFactory.getConnection();
             PreparedStatement stmt = conexao.prepareStatement(querySql))
@@ -36,7 +36,7 @@ public class PacienteDAO {
         }
         catch (SQLException e)
         {
-            System.out.println("Erro ao inserir o Paciente.");
+            System.out.println("Erro ao inserir o Paciente." + e);
         }
     }
 
