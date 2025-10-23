@@ -45,8 +45,8 @@ public class MenuLogin {
                 System.out.print("- Digite seu CPF: " );
                 try{
                     cpf = Ferramentas.lString();
-                    usuarioValidator.verificarRegrasCpf(cpf);
                     UsuarioValidator.verificaIntegridadeCpf(cpf);
+                    usuarioValidator.verificarRegrasCpf(cpf);
                     verifica = true;
                 }catch(DadosInvalidosException e){
                     Ferramentas.mensagemErro(e.getMessage());
