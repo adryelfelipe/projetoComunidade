@@ -682,7 +682,7 @@ public class MenuCadastro
         System.out.println(); // pula uma linha
 
         try {
-            Paciente paciente = new Paciente(nome, cpf, senha, genero, telefone, email, sqlDate, contatoEmer, contatoEmer);
+            Paciente paciente = new Paciente(nome, cpf, senha, genero, telefone, email, sqlDate, contatoEmer, numeroCar);
             pacienteService.inserirPaciente(adm, paciente);
             System.out.println("Paciente criado");
             Ferramentas.Delay(1500);
