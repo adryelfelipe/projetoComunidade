@@ -59,6 +59,7 @@ public class MenuCadastro
             nome = Ferramentas.lString();
             try{
                 UsuarioValidator.verificaIntegridadeNome(nome);
+                usuarioValidator.verificarRegrasNome(nome);
                 verifica = true;
             } catch(DadosInvalidosException e) {
                 Ferramentas.mensagemErro(e.getMessage());
@@ -252,6 +253,8 @@ public class MenuCadastro
                 verifica = true;
             } catch (DadosInvalidosException e) {
                 Ferramentas.mensagemErro(e.getMessage());
+            } catch(InputMismatchException e) {
+                MenuDefault.menuDefault();
             }
         }
         System.out.println(); // pula uma linha
@@ -269,6 +272,8 @@ public class MenuCadastro
                 verifica = true;
             } catch (DadosInvalidosException e) {
                 Ferramentas.mensagemErro(e.getMessage());
+            } catch(InputMismatchException e) {
+                MenuDefault.menuDefault();
             }
         }
 
@@ -291,8 +296,10 @@ public class MenuCadastro
                 else {
                     verifica = true;
                 }
-            } catch (DadosInvalidosException | InputMismatchException e) {
+            } catch (DadosInvalidosException e) {
                 Ferramentas.mensagemErro(e.getMessage());
+            } catch(InputMismatchException e) {
+                MenuDefault.menuDefault();
             }
         }
         // Converte a entrada de Especialidade usando switch expression
@@ -318,8 +325,8 @@ public class MenuCadastro
 
             try {
                 formacao = Ferramentas.lString();
-                medicoValidator.verificaRegrasFormacao(formacao);
                 MedicoValidator.verificaIntegridadeFormacao(formacao);
+                medicoValidator.verificaRegrasFormacao(formacao);
                 verifica = true;
             }catch (DadosInvalidosException e){
                 Ferramentas.mensagemErro(e.getMessage());
@@ -333,13 +340,32 @@ public class MenuCadastro
 
         // Entrada da sub especialidade (caso houver)
         while (!verifica){
-            System.out.print("Digite a Sub Especialidade: (Caso houver) ");
+            System.out.println("Possui Sub Especialidade? ");
+            System.out.println("1 - SIM ");
+            System.out.println("2 - NÃO ");
+            System.out.print("ESCOLHA UMA OPÇÃO: ");
+
+            System.out.println(); // pula uma linha
+
             try {
-                subE = Ferramentas.lString();
-                MedicoValidator.verificaIntegridadeSubespecialidade(subE);
-                verifica = true;
+                int opSubEsp = Ferramentas.lInteiro();
+
+                if(opSubEsp != 1 && opSubEsp != 2) {
+                    MenuDefault.menuDefault();
+                }
+
+                if(opSubEsp == 1) {
+                    System.out.println("Digite o nome da sua subEspecialidade: ");
+                    subE = Ferramentas.lString();
+                    MedicoValidator.verificaIntegridadeSubespecialidade(subE);
+                    verifica = true;
+                } else if(opSubEsp == 2){
+                    verifica = true;
+                }
             }catch (DadosInvalidosException e){
                 Ferramentas.mensagemErro(e.getMessage());
+            } catch (InputMismatchException e) {
+                MenuDefault.menuDefault();
             }
         }
 
@@ -366,8 +392,10 @@ public class MenuCadastro
                 else {
                     verifica = true;
                 }
-            } catch (DadosInvalidosException  | InputMismatchException  e) {
+            } catch (DadosInvalidosException e) {
                 Ferramentas.mensagemErro(e.getMessage());
+            } catch (InputMismatchException e) {
+                MenuDefault.menuDefault();
             }
         }
 
@@ -377,32 +405,27 @@ public class MenuCadastro
             default -> Plantao.NOTURNO;
         };
 
+        Ferramentas.limpaTerminal();
+        System.out.println("PROCESSANDO...");
+        System.out.println(); // pula uma linha
 
         // Cria médico com subespecialidade
-        if (subE.isEmpty()) {
-            try {
+        try {
+            if (subE.isEmpty()) {
                 Medico medico = new Medico(nome, cpf, senha, genero, telefone, email, sqlDate, cargaHoraria, salario, plantao, especialidade, formacao);
-                medicoService.inserirMedico(adm, medico);
-                System.out.println("Medico criado");
-                Ferramentas.Delay(1500);
-            } catch (IllegalArgumentException e) {
-                Ferramentas.limpaTerminal();
-                System.err.print(e.getMessage());
-                Ferramentas.Delay(1500);
-            }
-        } else {
-            try {
+                medicoService.inserirMedico(adm, medico);;
+            } else {
                 Medico medico = new Medico(nome, cpf, senha, genero, telefone, email, sqlDate, cargaHoraria, salario, plantao, especialidade, formacao, subE);
                 medicoService.inserirMedico(adm, medico);
-                System.out.println("Medico criado");
-                Ferramentas.Delay(1500);
-            } catch (IllegalArgumentException e) {
-                Ferramentas.limpaTerminal();
-                System.err.print(e.getMessage());
-                Ferramentas.Delay(1500);
             }
-        }
 
+            System.out.println("Medico criado");
+            Ferramentas.Delay(1500);
+        } catch (DadosInvalidosException | TipoUsuarioException | CpfInvalidoException | EmailInvalidoException e) {
+            System.err.println("FALHA NO CADASTRO!");
+            Ferramentas.Delay(1000);
+            Ferramentas.mensagemErro(e.getMessage());
+        }
     }
 
     public static void CriarPaciente(Administrador adm)
@@ -435,6 +458,7 @@ public class MenuCadastro
         nome = Ferramentas.lString();
         try{
             UsuarioValidator.verificaIntegridadeNome(nome);
+            usuarioValidator.verificarRegrasNome(nome);
             verifica = true;
         } catch(DadosInvalidosException e) {
             Ferramentas.mensagemErro(e.getMessage());
@@ -661,7 +685,7 @@ public class MenuCadastro
             pacienteService.inserirPaciente(adm, paciente);
             System.out.println("Paciente criado");
             Ferramentas.Delay(1500);
-        } catch (DadosInvalidosException e ) {
+        } catch (DadosInvalidosException | TipoUsuarioException | CpfInvalidoException | EmailInvalidoException e) {
             System.err.println("FALHA NO CADASTRO!");
             Ferramentas.Delay(1000);
             Ferramentas.mensagemErro(e.getMessage());
@@ -701,6 +725,7 @@ public class MenuCadastro
 
             try{
                 UsuarioValidator.verificaIntegridadeNome(nome);
+                usuarioValidator.verificarRegrasNome(nome);
                 verifica = true;
             } catch(DadosInvalidosException e) {
                 Ferramentas.mensagemErro(e.getMessage());
@@ -980,7 +1005,7 @@ public class MenuCadastro
             administradorService.inserirAdmin(adm, administrador);
             System.out.println("ADMINISTRADOR CADASTRADO COM SUCESSO!");
             Ferramentas.Delay(1000);
-        } catch (DadosInvalidosException | TipoUsuarioException e) {
+        } catch (DadosInvalidosException | TipoUsuarioException | CpfInvalidoException | EmailInvalidoException e) {
             System.err.println("FALHA NO CADASTRO!");
             Ferramentas.Delay(1000);
             Ferramentas.mensagemErro(e.getMessage());
