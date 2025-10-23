@@ -54,11 +54,6 @@ public class UsuarioService {
         return usuarioDao.containsEmail(email); // alterar para retornar a duplicidade
     }
 
-    // Verifica se já existe um cpf igual ao parâmetro
-    public boolean isCpfExistente(String cpf) {
-        return usuarioDao.verificarCpf(cpf);
-    }
-
     // Faz procura no banco de dados por Id
     public Usuario findById(Usuario usuario, long id) {
         if(usuario.getTipoUsuario().getNivelAcesso().temAcessoTotal()) {
@@ -92,7 +87,7 @@ public class UsuarioService {
     }
 
     public int cpfParaTipoUsuario(String cpf) {
-        if(!isCpfExistente(cpf)) {
+        if(!usuarioDao.verificarCpf(cpf)) {
             throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
         }
 

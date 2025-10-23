@@ -75,7 +75,7 @@ public class PacienteService {
        // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
 
-        if(!usuarioService.isCpfExistente(cpfPacienteDeletado)) {
+        if(!usuarioDAO.verificarCpf(cpfPacienteDeletado)) {
             throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
         }
 

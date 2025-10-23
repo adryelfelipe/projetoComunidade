@@ -97,7 +97,7 @@ public class AdministradorService {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         administradorValidator.verificaAutoDelete(usuario.getCpf(), cpfAdministradorDeletado);
 
-        if(!usuarioService.isCpfExistente(cpfAdministradorDeletado)) {
+        if(!usuarioDAO.verificarCpf(cpfAdministradorDeletado)) {
             throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
         }
 

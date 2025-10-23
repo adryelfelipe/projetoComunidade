@@ -91,7 +91,7 @@ public class MedicoService {
         // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
 
-        if(!usuarioService.isCpfExistente(cpfMedicoDeletado)) {
+        if(!usuarioDAO.verificarCpf(cpfMedicoDeletado)) {
             throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
         }
 
@@ -108,7 +108,7 @@ public class MedicoService {
         // Verificação de dados
         tipoUsuarioValidator.temAcessoModerado(usuario);
 
-        if(!usuarioService.isCpfExistente(cpfmedico)){
+        if(!usuarioDAO.verificarCpf(cpfmedico)){
             throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
         }
 
