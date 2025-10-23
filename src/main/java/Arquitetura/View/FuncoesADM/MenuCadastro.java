@@ -165,6 +165,7 @@ public class MenuCadastro
             try{
                 UsuarioValidator.verificaIntegridadeEmail(email);
                 usuarioValidator.verificarRegrasEmail(email);
+                usuarioService.emailUtilizadoValidator(email);
                 verifica = true;
             } catch (DadosInvalidosException | EmailInvalidoException e) {
                 Ferramentas.mensagemErro(e.getMessage());
@@ -563,6 +564,7 @@ public class MenuCadastro
             try{
                 UsuarioValidator.verificaIntegridadeEmail(email);
                 usuarioValidator.verificarRegrasEmail(email);
+                usuarioService.emailUtilizadoValidator(email);
                 verifica = true;
             } catch (DadosInvalidosException | EmailInvalidoException e) {
                 Ferramentas.mensagemErro(e.getMessage());
@@ -842,6 +844,7 @@ public class MenuCadastro
             try{
                 UsuarioValidator.verificaIntegridadeEmail(email);
                 usuarioValidator.verificarRegrasEmail(email);
+                usuarioService.emailUtilizadoValidator(email);
                 verifica = true;
             } catch (DadosInvalidosException | EmailInvalidoException e) {
                 Ferramentas.mensagemErro(e.getMessage());

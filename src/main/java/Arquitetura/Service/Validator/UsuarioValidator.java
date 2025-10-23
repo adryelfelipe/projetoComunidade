@@ -103,8 +103,6 @@ public class UsuarioValidator {
         if(!email.contains(".")) {
             throw new DadosInvalidosException("ERRO! O EMAIL DEVE CONTER UM DOMÍNIO");
         }
-
-        usuarioService.emailUtilizadoValidator(email);
     }
 
     public void verificarRegrasSenha(String senha) {
