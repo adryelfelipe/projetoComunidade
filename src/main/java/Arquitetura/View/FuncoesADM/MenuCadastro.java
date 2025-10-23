@@ -358,6 +358,7 @@ public class MenuCadastro
                     System.out.println("Digite o nome da sua subEspecialidade: ");
                     subE = Ferramentas.lString();
                     MedicoValidator.verificaIntegridadeSubespecialidade(subE);
+                    medicoValidator.verificaRegrasSubEspecialidade(subE);
                     verifica = true;
                 } else if(opSubEsp == 2){
                     verifica = true;
@@ -411,7 +412,7 @@ public class MenuCadastro
 
         // Cria médico com subespecialidade
         try {
-            if (subE.isEmpty()) {
+            if (subE == null || subE.isBlank()) {
                 Medico medico = new Medico(nome, cpf, senha, genero, telefone, email, sqlDate, cargaHoraria, salario, plantao, especialidade, formacao);
                 medicoService.inserirMedico(adm, medico);;
             } else {

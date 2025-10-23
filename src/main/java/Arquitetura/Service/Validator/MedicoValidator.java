@@ -45,6 +45,16 @@ public class MedicoValidator {
         verificaRegrasPlantao(medico.getPlantao());
     }
 
+    public void verificaRegrasSubEspecialidade(String subEspecialidade) {
+        if(subEspecialidade == null) {
+            return;
+        }
+
+        if(subEspecialidade.length() < 6) {
+            throw new DadosInvalidosException("ERRO! SUBESPECIALIDADE DEVE CONTER MAIS DE 5 CARACTERES");
+        }
+    }
+
     public void verificaRegrasFormacao(String formacao) {
         if(formacao == null) {
             throw new DadosInvalidosException("ERRO! A FORMAÇÃO NÃO PODE SER NULA");
