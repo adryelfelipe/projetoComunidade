@@ -49,6 +49,10 @@ public class MedicoValidator {
         if(formacao == null) {
             throw new DadosInvalidosException("ERRO! A FORMAÇÃO NÃO PODE SER NULA");
         }
+
+        if(formacao.length() < 6) {
+            throw new DadosInvalidosException("ERRO! A FORMAÇÃO DEVE CONTER MAIS DE 5 DÍGITOS");
+        }
     }
 
     public void verificaRegrasPlantao(Plantao plantao) {

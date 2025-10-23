@@ -85,11 +85,23 @@ public class UsuarioValidator {
         if(nome == null) {
             throw new DadosInvalidosException("ERRO! O NOME NÃO PODE SER NULO");
         }
+
+        if(nome.length() < 2) {
+            throw new DadosInvalidosException("ERRO! O NOME DEVE CONTER MAIS DE 1 CARACTER");
+        }
     }
 
     public void verificarRegrasEmail(String email) {
         if(email == null) {
             throw new DadosInvalidosException("ERRO! O EMAIL NÃO PODE SER NULO");
+        }
+
+        if(email.length() < 6) {
+            throw new DadosInvalidosException("ERRO! O EMAIL DEVE CONTER MAIS DE 5 CARACTERES");
+        }
+
+        if(!email.contains(".")) {
+            throw new DadosInvalidosException("ERRO! O EMAIL DEVE CONTER UM DOMÍNIO");
         }
 
         usuarioService.emailUtilizadoValidator(email);
@@ -98,6 +110,10 @@ public class UsuarioValidator {
     public void verificarRegrasSenha(String senha) {
         if(senha == null) {
             throw new DadosInvalidosException("ERRO! A SENHA NÃO PODE SER NULA");
+        }
+
+        if(senha.length() < 6) {
+            throw new DadosInvalidosException("ERRO! A SENHA DEVE CONTER MAIS DE 5 CARACTERES");
         }
     }
 
