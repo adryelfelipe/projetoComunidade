@@ -91,6 +91,8 @@ public class UsuarioValidator {
         if(email == null) {
             throw new DadosInvalidosException("ERRO! O EMAIL NÃO PODE SER NULO");
         }
+
+        usuarioService.emailUtilizadoValidator(email);
     }
 
     public void verificarRegrasSenha(String senha) {

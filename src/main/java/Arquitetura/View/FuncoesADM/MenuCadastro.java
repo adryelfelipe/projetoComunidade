@@ -1,9 +1,6 @@
 package Arquitetura.View.FuncoesADM;
 
-import Arquitetura.Exception.CpfInvalidoException;
-import Arquitetura.Exception.DadosInvalidosException;
-import Arquitetura.Exception.DataInvalidaException;
-import Arquitetura.Exception.TipoUsuarioException;
+import Arquitetura.Exception.*;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Enums.Departamento;
 import Arquitetura.Model.Enums.Especialidade;
@@ -168,7 +165,7 @@ public class MenuCadastro
                 UsuarioValidator.verificaIntegridadeEmail(email);
                 usuarioValidator.verificarRegrasEmail(email);
                 verifica = true;
-            } catch (DadosInvalidosException e) {
+            } catch (DadosInvalidosException | EmailInvalidoException e) {
                 Ferramentas.mensagemErro(e.getMessage());
             }
         }
@@ -542,7 +539,7 @@ public class MenuCadastro
                 UsuarioValidator.verificaIntegridadeEmail(email);
                 usuarioValidator.verificarRegrasEmail(email);
                 verifica = true;
-            } catch (DadosInvalidosException e) {
+            } catch (DadosInvalidosException | EmailInvalidoException e) {
                 Ferramentas.mensagemErro(e.getMessage());
             }
         }
@@ -820,7 +817,7 @@ public class MenuCadastro
                 UsuarioValidator.verificaIntegridadeEmail(email);
                 usuarioValidator.verificarRegrasEmail(email);
                 verifica = true;
-            } catch (DadosInvalidosException e) {
+            } catch (DadosInvalidosException | EmailInvalidoException e) {
                 Ferramentas.mensagemErro(e.getMessage());
             }
         }

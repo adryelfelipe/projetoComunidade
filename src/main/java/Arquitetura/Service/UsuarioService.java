@@ -2,6 +2,7 @@ package Arquitetura.Service;
 
 import Arquitetura.Dao.*;
 import Arquitetura.Exception.CpfInvalidoException;
+import Arquitetura.Exception.EmailInvalidoException;
 import Arquitetura.Exception.IdInvalidoException;
 import Arquitetura.Exception.SenhaInvalidaException;
 import Arquitetura.Model.Usuario;
@@ -49,9 +50,11 @@ public class UsuarioService {
         return !(usuarioDao.findById(id) == null);
     }
 
-    // Verifica se já existe um email igual ao parâmetro
-    private boolean isEmailExistente(String email) {
-        return usuarioDao.containsEmail(email); // alterar para retornar a duplicidade
+
+    public void emailUtilizadoValidator(String email) {
+        if(usuarioDao.containsEmail(email)) {
+            throw new EmailInvalidoException("ERRO! EMAIL JÁ UTILIZADO");
+        }
     }
 
     // Faz procura no banco de dados por Id
