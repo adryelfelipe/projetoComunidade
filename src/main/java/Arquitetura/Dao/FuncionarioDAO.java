@@ -69,8 +69,28 @@ public class FuncionarioDAO {
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao atualizar salário do funcionario com ID: "+id);
+            System.err.println("Erro ao atualizar salário do funcionario com ID: "+id + e);
         }
     }
+    public void updateCargaHorariaSemanal(long id, int cargaHorariaSemanal)
+    {
+        String querySql = "UPDATE Funcionario f"+
+                "INNER JOIN Usuario u ON f.idFuncionario = u.idUsuario "+
+                "SET cargaHorariaSemanal = ? "+
+                "WHERE idUsuario = ? ";
 
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setInt(1, cargaHorariaSemanal);
+            stmt.setLong(2, id);
+
+            stmt.executeQuery();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao atualizar carga horária semanal do funcionario com ID: "+id + e);
+        }
+    }
 }
