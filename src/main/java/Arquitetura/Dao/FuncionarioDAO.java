@@ -51,23 +51,25 @@ public class FuncionarioDAO {
         }
     }
 
-    public void updateSalario(String cpf, double salario)
+    public void updateSalario(long id, double salario)
     {
         String querySql = "UPDATE Funcionario f"+
                 "INNER JOIN Usuario u ON f.idFuncionario = u.idUsuario "+
                 "SET salario = ? "+
-                "WHERE cpf = ? ";
+                "WHERE idUsuario = ? ";
 
         try (
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(querySql))
         {
             stmt.setDouble(1, salario);
-            stmt.setString(2, cpf);
+            stmt.setLong(2, id);
+
+            stmt.executeQuery();
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao atualizar salário do funcionario com CPF: "+cpf);
+            System.err.println("Erro ao atualizar salário do funcionario com ID: "+id);
         }
     }
 
