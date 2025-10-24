@@ -798,4 +798,31 @@ public class UsuarioDAO {
         }
         return  false;
     }
+    public boolean isSameEmail(long id, String email)
+    {
+        String querySql = "SELECT email FROM Usuario WHERE idUsuario = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1, id);
+
+            try (ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    if(email.equals(resultSet.getString(1)))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao verificar email do usuario com ID: "+ id + e);
+        }
+        return false;
+    }
 }
