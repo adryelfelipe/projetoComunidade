@@ -11,7 +11,7 @@ import Arquitetura.Service.PacienteService;
 public class PacienteValidator {
 
     // -- Construtor -- //
-    public PacienteValidator(UsuarioValidator usuarioValidator, PacienteService pacienteService) {
+    public PacienteValidator(UsuarioValidator usuarioValidator) {
         this.usuarioValidator = usuarioValidator;
     }
 

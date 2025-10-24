@@ -11,7 +11,7 @@ public class FuncionarioValidator {
     }
 
     // -- Atributos -- //
-    private UsuarioValidator usuarioValidator;
+    private final UsuarioValidator usuarioValidator;
 
     // -- Métodos verificadores de regras de negócio -- //
     public void verificaRegrasInsercaoFuncionario(Funcionario funcionario) {

@@ -13,29 +13,13 @@ import Arquitetura.Service.MedicoService;
 public class MedicoValidator {
 
     // -- Construtor -- //
-    public MedicoValidator(FuncionarioValidator funcionarioValidator, MedicoService medicoService) {
+    public MedicoValidator(FuncionarioValidator funcionarioValidator) {
         this.funcionarioValidator = funcionarioValidator;
-        this.medicoService = medicoService;
     }
 
     // -- Atributos -- //
     private final FuncionarioValidator funcionarioValidator;
-    private final MedicoService medicoService;
 
-    // -- Métodos de análise -- //
-    public void idMedicoValidator(long id) {
-        if (!medicoService.isIdMedico(id)) {
-            throw new IdInvalidoException("ERRO! O ID INFORMADO NÃO É DE UM MEDICO");
-        }
-    }
-
-    public void cpfMedicoValidator (String cpf)
-    {
-        if(!medicoService.isCpfMedico(cpf))
-        {
-            throw new CpfInvalidoException("ERRO ! CPF NÃO PERTENCE A UM MÉDICO");
-        }
-    }
 
     // -- Métodos verificadores de regras de negócio -- //
     public void verificaRegrasInsercaoMedico(Medico medico) {
