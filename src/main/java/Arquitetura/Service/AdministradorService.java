@@ -18,11 +18,8 @@ public class AdministradorService {
     private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
     private final AdministradorDAO administradorDao = new AdministradorDAO();
     private final UsuarioService usuarioService = new UsuarioService();
-    private final FuncionarioService funcionarioService = new FuncionarioService();
     private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
-    private final UsuarioValidator usuarioValidator = new UsuarioValidator();
-    private final FuncionarioValidator funcionarioValidator = new FuncionarioValidator(usuarioValidator);
-    private final AdministradorValidator administradorValidator = new AdministradorValidator(funcionarioValidator);
+    private final AdministradorValidator administradorValidator = new AdministradorValidator();
 
     // -- Construtor -- //
     public AdministradorService() {

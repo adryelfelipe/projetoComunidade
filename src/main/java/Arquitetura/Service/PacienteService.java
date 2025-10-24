@@ -21,7 +21,7 @@ public class PacienteService {
     private final UsuarioService usuarioService = new UsuarioService();
     private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
     private final UsuarioValidator usuarioValidator = new UsuarioValidator();
-    private final PacienteValidator pacienteValidator = new PacienteValidator(usuarioValidator);
+    private final PacienteValidator pacienteValidator = new PacienteValidator();
 
     // -- Construtor -- //
     public PacienteService() {

@@ -12,13 +12,8 @@ import Arquitetura.Service.MedicoService;
 
 public class MedicoValidator {
 
-    // -- Construtor -- //
-    public MedicoValidator(FuncionarioValidator funcionarioValidator) {
-        this.funcionarioValidator = funcionarioValidator;
-    }
-
     // -- Atributos -- //
-    private final FuncionarioValidator funcionarioValidator;
+    private final FuncionarioValidator funcionarioValidator = new FuncionarioValidator();
 
 
     // -- Métodos verificadores de regras de negócio -- //

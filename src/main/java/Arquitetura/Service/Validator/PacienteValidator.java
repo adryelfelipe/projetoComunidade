@@ -10,13 +10,8 @@ import Arquitetura.Service.PacienteService;
 
 public class PacienteValidator {
 
-    // -- Construtor -- //
-    public PacienteValidator(UsuarioValidator usuarioValidator) {
-        this.usuarioValidator = usuarioValidator;
-    }
-
     // -- Atributos -- //
-    private final UsuarioValidator usuarioValidator;
+    private final UsuarioValidator usuarioValidator = new UsuarioValidator();
 
     // -- Métodos verificadores de regras de negócio -- //
     public void verificaRegrasInsercaoPaciente(Paciente paciente) {

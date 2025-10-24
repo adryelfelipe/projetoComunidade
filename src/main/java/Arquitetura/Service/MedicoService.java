@@ -30,11 +30,8 @@ public class MedicoService {
     private final ConsultaDAO consultaDAO = new ConsultaDAO();
     private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
     private final UsuarioService usuarioService = new UsuarioService();
-    private final FuncionarioService funcionarioService = new FuncionarioService();
     private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
-    private final UsuarioValidator usuarioValidator = new UsuarioValidator();
-    private final FuncionarioValidator funcionarioValidator = new FuncionarioValidator(usuarioValidator);
-    private final MedicoValidator medicoValidator = new MedicoValidator(funcionarioValidator);
+    private final MedicoValidator medicoValidator = new MedicoValidator();
 
     // Construtor -- //
     public MedicoService() {
