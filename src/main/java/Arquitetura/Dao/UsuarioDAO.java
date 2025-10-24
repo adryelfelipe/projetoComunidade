@@ -852,4 +852,31 @@ public class UsuarioDAO {
         }
         return false;
     }
+    public boolean isSameDataNascimento(long id, Date dataNascimento)
+    {
+        String querySql = "SELECT dataNascimento FROM Usuario WHERE idUsuario = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1,id);
+
+            try (ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    if(dataNascimento.equals(resultSet.getDate(1)))
+                    {
+                        return  true;
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao verificar telefone do usuário com ID: "+ id + e);
+        }
+        return false;
+    }
 }
