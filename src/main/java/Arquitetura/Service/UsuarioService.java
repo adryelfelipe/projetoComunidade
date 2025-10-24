@@ -24,7 +24,7 @@ public class UsuarioService {
     }
 
     // -- Métodos -- //
-    private void telefoneUtilizadoValidator(String telefone) {
+    public void telefoneUtilizadoValidator(String telefone) {
         if(usuarioDao.containsTelefone(telefone)) {
             throw new TelefoneInvalidoException("ERRO! TELEFONE JÁ UTILIZADO");
         }

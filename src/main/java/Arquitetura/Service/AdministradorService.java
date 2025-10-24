@@ -65,6 +65,7 @@ public class AdministradorService {
         // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
         administradorValidator.verificaRegrasInsercaoAdm(administradorCriado);
+        usuarioService.telefoneUtilizadoValidator(administradorCriado.getTelefone());
 
         // Insere nessa ordem para respeitar as chaves estrangeiras
         usuarioDAO.inserirUsuario(administradorCriado);
