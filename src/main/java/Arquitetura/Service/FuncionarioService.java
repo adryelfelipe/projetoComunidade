@@ -51,4 +51,18 @@ public class FuncionarioService {
 
         funcionarioDAO.updateSalario(id, salario);
     }
+
+    public void updateCargaHoraria(Usuario usuario, long id, int cargaHoraria) {
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        FuncionarioValidator.verificaIntegridadeCargaHoraria(cargaHoraria);
+        funcionarioValidator.verificaRegrasCargaHoraria(cargaHoraria);
+        usuarioService.idExistenteValidator(id);
+        idFuncionarioValidator(id);;
+
+        if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
+            ((Administrador) usuario).setCargaHorariaSemanal(cargaHoraria);
+        }
+
+        funcionarioDAO.updateCargaHorariaSemanal(id, cargaHoraria);
+    }
 }
