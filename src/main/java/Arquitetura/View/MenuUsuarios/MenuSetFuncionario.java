@@ -1,10 +1,8 @@
 package Arquitetura.View.MenuUsuarios;
-
 import Arquitetura.Exception.DadosInvalidosException;
 import Arquitetura.Service.Validator.FuncionarioValidator;
 import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.MenuDefault;
-
 import java.util.InputMismatchException;
 
 public class MenuSetFuncionario {

@@ -1,5 +1,4 @@
 package Arquitetura.View.MenuUsuarios;
-
 import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Exception.DadosInvalidosException;
 import Arquitetura.Exception.DataInvalidaException;
@@ -11,7 +10,6 @@ import Arquitetura.Service.Validator.FuncionarioValidator;
 import Arquitetura.Service.Validator.UsuarioValidator;
 import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.MenuDefault;
-
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.InputMismatchException;
@@ -76,7 +74,7 @@ public class MenuSetUsuario {
 
     public static Genero SetSexo(){
 
-        int opsex = 0;
+        int opsex;
 
         while(true) {
             System.out.println("Digite o seu sexo:");

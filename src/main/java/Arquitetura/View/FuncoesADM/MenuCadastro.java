@@ -1,5 +1,4 @@
 package Arquitetura.View.FuncoesADM;
-
 import Arquitetura.Exception.*;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Enums.Departamento;
@@ -16,13 +15,8 @@ import Arquitetura.Service.Validator.*;
 import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.FuncoesMedico.MenuSetMedico;
 import Arquitetura.View.FuncoesPACIENTE.MenuSetPaciente;
-import Arquitetura.View.MenuDefault;
 import Arquitetura.View.MenuUsuarios.MenuSetFuncionario;
 import Arquitetura.View.MenuUsuarios.MenuSetUsuario;
-
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.InputMismatchException;
 
 public class MenuCadastro
 {
@@ -36,8 +30,6 @@ public class MenuCadastro
         UsuarioValidator usuarioValidator = new UsuarioValidator(usuarioService);
         FuncionarioValidator funcionarioValidator = new FuncionarioValidator(usuarioValidator);
         MedicoValidator medicoValidator = new MedicoValidator(funcionarioValidator,medicoService);
-
-        boolean verifica = false;
 
         // Variaveis Gerais
         String nome;
@@ -169,8 +161,6 @@ public class MenuCadastro
         PacienteService pacienteService = new PacienteService();
         UsuarioValidator usuarioValidator = new UsuarioValidator(usuarioService);
         PacienteValidator pacienteValidator = new PacienteValidator(usuarioValidator, pacienteService);
-
-        boolean verifica = false;
 
         // Variaveis Gerais
         String nome;

@@ -101,9 +101,10 @@ public class MenuSetMedico {
         }
     }
 
-    public static Plantao SetPlantao(){
+    public static Plantao SetPlantao(MedicoValidator medicoValidator){
 
         int opPlantao;
+
         while (true){
             System.out.println("Qual é o seu plantão? ");
             System.out.println("1 - MATUTINO ");
@@ -123,6 +124,12 @@ public class MenuSetMedico {
                         case 2 -> Plantao.VERPERTINO;
                         default -> Plantao.NOTURNO;
                     };
+
+                    try{
+                        medicoValidator.verificaRegrasPlantao(plantao);
+                    } catch (DadosInvalidosException e) {
+                        Ferramentas.mensagemErro(e.getMessage());
+                    }
                     return plantao;
                 }
             } catch (DadosInvalidosException e) {

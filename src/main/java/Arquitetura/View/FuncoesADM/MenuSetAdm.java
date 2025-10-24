@@ -15,8 +15,7 @@ public class MenuSetAdm {
 
     public static Departamento SetDepartamento(AdministradorValidator administradorValidator){
 
-        int opDepartamento = 0;
-
+        int opDepartamento;
 
         do{
             System.out.println("Qual é o seu departamento? ");

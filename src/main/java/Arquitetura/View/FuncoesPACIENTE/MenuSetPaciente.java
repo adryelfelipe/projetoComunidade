@@ -1,11 +1,6 @@
 package Arquitetura.View.FuncoesPACIENTE;
-
 import Arquitetura.Exception.DadosInvalidosException;
-import Arquitetura.Service.UsuarioService;
-import Arquitetura.Service.Validator.AdministradorValidator;
-import Arquitetura.Service.Validator.FuncionarioValidator;
 import Arquitetura.Service.Validator.PacienteValidator;
-import Arquitetura.Service.Validator.UsuarioValidator;
 import Arquitetura.Utilidades.Ferramentas;
 
 public class MenuSetPaciente {
