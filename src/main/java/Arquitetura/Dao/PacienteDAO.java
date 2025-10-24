@@ -256,4 +256,32 @@ public class PacienteDAO {
         }
         return false;
     }
+
+    public boolean isSameContatoEmergencia(long id, String ContatoEmergencia)
+    {
+        String querySql = "SELECT contatoEmergencia FROM Paciente WHERE idPaciente = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1, id);
+
+            try (ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    if(ContatoEmergencia.equals(resultSet.getString(1)))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao verificar o contato de emergência do paciente com ID: "+ id + e);
+        }
+        return false;
+    }
 }
