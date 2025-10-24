@@ -1,11 +1,21 @@
 package Arquitetura.Utilidades;
 
 import java.rmi.server.ExportException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Ferramentas {
-
     // Atributos Estáticos
+    public static final List<String> listaMaiusculos = new ArrayList<>(Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O",
+            "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"));
+
+    public static final List<String> listaEspeciais = new ArrayList<>(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
+            "!", "@", "#", "$", "%", "&", "*", "(", ")", "-", "_",
+            "=", "+", "[", "]", "´", "`", "^", "~", ":", ";", "/",
+            "?", "|", "{", "}", "<", ">", ",", ".", ":", "'", "\"",
+            "\\", "$", "€", "£", "¥"));
 
     // Cores padrão
     public static final String RESET = "\u001B[0m";
