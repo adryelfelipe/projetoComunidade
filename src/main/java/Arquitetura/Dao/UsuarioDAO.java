@@ -712,9 +712,36 @@ public class UsuarioDAO {
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao verificar nome do usuário com ID  ");
+            System.err.println("Erro ao verificar nome do usuário com ID: "+ id + e);
         }
         return false;
     }
 
+    public boolean isSameCpf(long id, String cpf)
+    {
+        String querySql = "SELECT cpf FROM Usuario WHERE idUsuario = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareCall(querySql))
+        {
+            stmt.setLong(1, id);
+
+            try (ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    if(cpf.equals(resultSet.getString(1)))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao verificar cpf de usuário com ID: "+ id + e);
+        }
+        return  false;
+    }
 }
