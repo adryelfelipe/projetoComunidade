@@ -80,18 +80,26 @@ public class PacienteService {
             throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
         }
 
-        pacienteValidator.cpfPacienteValidator(cpfPacienteDeletado);
+        cpfPacienteValidator(cpfPacienteDeletado);
 
         // Deleta nessa ordem para respeitar as chaves estrangeiras
         pacienteDAO.deletarPaciente(cpfPacienteDeletado);
         usuarioDAO.deletarUsuario(cpfPacienteDeletado);
     }
 
-    public boolean isCpfPaciente(String cpf) {
-
-        return pacienteDAO.isCpfPaciente(cpf);
-
+    public void cpfPacienteValidator (String cpf)
+    {
+        if(!pacienteDAO.isCpfPaciente(cpf)) {
+            throw new CpfInvalidoException("ERRO ! CPF NÃO PERTENCE A UM PACIENTE");
+        }
     }
+
+    public void idPacienteValidator(long id) {
+        if(!pacienteDAO.isIdPaciente(id)) {
+            throw new IdInvalidoException("ERRO! O ID INFORMADO NÃO É DE UM PACIENTE");
+        }
+    }
+
 
     public void updateContatoEmergencia(Usuario usuario, long id, String contatoEmergencia) {
         // Verificações de dados
@@ -99,7 +107,7 @@ public class PacienteService {
         PacienteValidator.verificaIntegridadeContatoEmerg(contatoEmergencia);
         pacienteValidator.verificaRegrasContatoEmergencia(contatoEmergencia);
         usuarioService.idExistenteValidator(id);
-        pacienteValidator.idPacienteValidator(id);
+        idPacienteValidator(id);
 
         // Updates
         pacienteDAO.updateContatoEmergencia(id, contatoEmergencia);
@@ -113,7 +121,7 @@ public class PacienteService {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         pacienteValidator.verificaRegrasStatusPaciente(statusPaciente);
         usuarioService.idExistenteValidator(id);
-        pacienteValidator.idPacienteValidator(id);
+        idPacienteValidator(id);
 
         // Updates
         pacienteDAO.updateStatusPaciente(id, statusPaciente);
@@ -125,7 +133,7 @@ public class PacienteService {
         PacienteValidator.verificaIntegridadeNumeroCarterinha(numeroCarteirinha);
         pacienteValidator.verificaRegrasNumeroCarterinha(numeroCarteirinha);
         usuarioService.idExistenteValidator(id);
-        pacienteValidator.idPacienteValidator(id);
+        idPacienteValidator(id);
 
         // Updates
         pacienteDAO.updateNumeroCarteirinha(id, numeroCarteirinha);

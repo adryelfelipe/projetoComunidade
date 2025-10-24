@@ -13,27 +13,10 @@ public class PacienteValidator {
     // -- Construtor -- //
     public PacienteValidator(UsuarioValidator usuarioValidator, PacienteService pacienteService) {
         this.usuarioValidator = usuarioValidator;
-        this.pacienteService = pacienteService;
     }
 
     // -- Atributos -- //
     private final UsuarioValidator usuarioValidator;
-    private final PacienteService pacienteService;
-
-    // -- Métodos de análise -- //
-    public void idPacienteValidator(long id) {
-        if(!pacienteService.isIdPaciente(id)) {
-            throw new IdInvalidoException("ERRO! O ID INFORMADO NÃO É DE UM PACIENTE");
-        }
-    }
-
-    public void cpfPacienteValidator (String cpf)
-    {
-        if(!pacienteService.isCpfPaciente(cpf))
-        {
-            throw new CpfInvalidoException("ERRO ! CPF NÃO PERTENCE A UM PACIENTE");
-        }
-    }
 
     // -- Métodos verificadores de regras de negócio -- //
     public void verificaRegrasInsercaoPaciente(Paciente paciente) {
