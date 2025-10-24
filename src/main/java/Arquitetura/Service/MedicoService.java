@@ -107,8 +107,7 @@ public class MedicoService {
         usuarioService.cpfExistenteValidator(cpfmedico);
         cpfMedicoValidator(cpfmedico);
 
-        Medico medico = medicoDAO.findByCpf(cpfmedico);
-        return consultaDAO.findAllConsultasOfMedico(medico);
+        return consultaDAO.findAllConsultasOfMedico(usuarioDAO.getIdOfCpf(cpfmedico));
     }
 
 
