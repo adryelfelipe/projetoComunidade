@@ -33,14 +33,17 @@ public class MedicoService {
     private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
     private final MedicoValidator medicoValidator = new MedicoValidator();
 
-    // Construtor -- //
-    public MedicoService() {
-
+    // -- Métodos -- //
+    public void idMedicoValidator(long id) {
+        if (!medicoDAO.isIdMedico(id)) {
+            throw new IdInvalidoException("ERRO! O ID INFORMADO NÃO É DE UM MEDICO");
+        }
     }
 
-    // -- Métodos -- //
-    public boolean isIdMedico(long id) {
-        return medicoDAO.isIdMedico(id);
+    public void cpfMedicoValidator (String cpf) {
+        if(!medicoDAO.isCpfMedico(cpf)) {
+            throw new CpfInvalidoException("ERRO ! CPF NÃO PERTENCE A UM MÉDICO");
+        }
     }
 
     /**
@@ -69,19 +72,6 @@ public class MedicoService {
         medicoDAO.inserirMedico(medicoInserido);
     }
 
-    public void idMedicoValidator(long id) {
-        if (!medicoDAO.isIdMedico(id)) {
-            throw new IdInvalidoException("ERRO! O ID INFORMADO NÃO É DE UM MEDICO");
-        }
-    }
-
-    public void cpfMedicoValidator (String cpf) {
-        if(!medicoDAO.isCpfMedico(cpf))
-        {
-            throw new CpfInvalidoException("ERRO ! CPF NÃO PERTENCE A UM MÉDICO");
-        }
-    }
-
     /**
      * <p>Este método realiza as seguintes ações: </p>
      *
@@ -101,11 +91,7 @@ public class MedicoService {
     public void deletarMedico(Usuario usuario, String cpfMedicoDeletado) {
         // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
-
-        if(!usuarioDAO.verificarCpf(cpfMedicoDeletado)) {
-            throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
-        }
-
+        usuarioService.cpfExistenteValidator(cpfMedicoDeletado);
         cpfMedicoValidator(cpfMedicoDeletado);
 
         // Deleta nessa ordem para respeitar as chaves estrangeiras
@@ -118,23 +104,12 @@ public class MedicoService {
     {
         // Verificação de dados
         tipoUsuarioValidator.temAcessoModerado(usuario);
+        usuarioService.cpfExistenteValidator(cpfmedico);
+        cpfMedicoValidator(cpfmedico);
 
-        if(!usuarioDAO.verificarCpf(cpfmedico)){
-            throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
-        }
-
-        // ADICIONAR VERFIFICAÇÃO DE SE O CPF CONDIZ COM UM MÉDICO
-
-        Medico medico = medicoDAO.findByCpf(cpfmedico);
-
-        return consultaDAO.findAllConsultasOfMedico(medico);
+        return consultaDAO.findAllConsultasOfMedico(usuarioDAO.getIdOfCpf(cpfmedico));
     }
 
-    public boolean isCpfMedico(String cpf) {
-
-        return medicoDAO.isCpfMedico(cpf);
-
-    }
 
     public void updateEspecialidadeMedico(Usuario usuario, long id, Especialidade especialidade) {
         tipoUsuarioValidator.temAcessoTotal(usuario);

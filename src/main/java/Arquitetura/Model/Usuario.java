@@ -18,7 +18,7 @@ public abstract class Usuario {
     private String email;
     private Date dataNascimento;
     private long id;
-    private final TipoUsuario tipoUsuario;
+    private TipoUsuario tipoUsuario;
 
     // -- Construtor -- //
     public Usuario(TipoUsuario tipoUsuario, String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento) {
@@ -40,6 +40,10 @@ public abstract class Usuario {
     // -- Setters e Getters -- //
     public TipoUsuario getTipoUsuario() {
         return this.tipoUsuario;
+    }
+
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 
     public String getNome() {

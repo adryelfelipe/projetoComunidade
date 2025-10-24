@@ -2,6 +2,8 @@ package Arquitetura.Service;
 
 import Arquitetura.Dao.*;
 import Arquitetura.Exception.*;
+import Arquitetura.Model.Enums.Genero;
+import Arquitetura.Model.Enums.TipoUsuario;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.Validator.TipoUsuarioValidator;
 import Arquitetura.Service.Validator.UsuarioValidator;
@@ -30,7 +32,7 @@ public class UsuarioService {
         }
     }
 
-    private void cpfExistenteValidator(String cpf) {
+    public void cpfExistenteValidator(String cpf) {
         if(!usuarioDao.verificarCpf(cpf)) {
             throw new CpfInvalidoException("ERRO! O CPF NÃO FOI ENCONTRADO");
         }
@@ -175,14 +177,26 @@ public class UsuarioService {
         }
     }
 
-    public void updateDataNascimentoUsuario(Usuario usuario, long id, Date dataNascimento) {
+
+    public void updateTipoUsuario(Usuario usuario,long id, TipoUsuario tipoUsuario) {
         tipoUsuarioValidator.temAcessoTotal(usuario);
-        usuarioValidator.verificarRegrasDataNascimento(dataNascimento);
+        usuarioValidator.verificarRegrasTipoUsuario(tipoUsuario);
         idExistenteValidator(id);
-        usuarioDao.updateDataNascimento(id, dataNascimento);
+        usuarioDao.updateTipoUsuario(id, tipoUsuario.getIdTipoUsuario());
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
-            usuario.setDataNascimento(dataNascimento);
+            usuario.setTipoUsuario(tipoUsuario);
+        }
+    }
+
+    public void updateSexo(Usuario usuario,long id, Genero sexo) {
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        usuarioValidator.verificarRegrasSexo(sexo);
+        idExistenteValidator(id);
+        usuarioDao.updateSexo(id, sexo.getIdGenero());
+
+        if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
+            usuario.setSexo(sexo);
         }
     }
 }

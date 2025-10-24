@@ -22,7 +22,7 @@ public class UsuarioValidator {
         return idUsuario == idAtualizado;
     }
 
-    // -- Métodos verificadores de regras de negócio -- //
+    // -------------- Métodos verificadores de regras de negócio -------------- //
     public void verificaRegrasInsercaoUsuario(Usuario usuario) {
         verificarRegrasObjeto(usuario);
         verificarRegrasCpf(usuario.getCpf());
@@ -64,11 +64,19 @@ public class UsuarioValidator {
         if(tipoUsuario == null) {
             throw new DadosInvalidosException("ERRO! O TIPO USUÁRIO NÃO PODE SER NULO");
         }
+
+        if(tipoUsuario.getIdTipoUsuario() > 3) {
+            throw new DadosInvalidosException("ERRO! TIPO USUÁRIO INVÁLIDO");
+        }
     }
 
     public void verificarRegrasSexo(Genero sexo) {
         if(sexo == null) {
             throw new DadosInvalidosException("ERRO! O SEXO NÃO PODE SER NULO");
+        }
+
+        if(sexo.getIdGenero() > 2) {
+            throw new DadosInvalidosException("ERRO! GÊNERO INVÁLIDO");
         }
     }
 
@@ -112,7 +120,7 @@ public class UsuarioValidator {
         }
     }
 
-    // -- Métodos verificadores de integridade de dados -- //
+    // -------------- Métodos verificadores de integridade de dados -------------- //
     public static void verificaIntegridadeCpf(String cpf) {
         if(cpf.isBlank()) {
             throw new DadosInvalidosException("ERRO! O CPF NÃO PODE SER VAZIO");

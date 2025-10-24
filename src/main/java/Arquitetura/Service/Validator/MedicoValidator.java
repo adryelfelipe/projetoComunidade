@@ -56,12 +56,6 @@ public class MedicoValidator {
         }
     }
 
-    public void podeRealizarExame(Medico medico, Exame exame) {
-        if(!medico.getEspecialidade().podeRealizar(exame)) {
-            throw new MedicoNaoHabilitadoException("ERRO! O MÉDICO NÃO É HABILITADO PARA REALIZAR ESTE EXAME");
-        }
-    }
-
     // -- Métodos verificadores de integridade de dados -- //
     public static void verificaIntegridadeSubespecialidade(String subEspecialidade) {
         if(subEspecialidade.isBlank()) {
