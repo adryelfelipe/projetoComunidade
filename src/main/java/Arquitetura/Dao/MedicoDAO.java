@@ -499,4 +499,27 @@ public class MedicoDAO {
         return false;
     }
 
+    // -- Verificadores isSame -- //
+
+    public boolean isSameEspecialidade(long id, Especialidade especialidade)
+    {
+        String querySql = "SELECT idEspecialidade FROM Medico WHERE idMedico = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql)) {
+            stmt.setLong(1, id);
+
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    if (especialidade.getIdEspecialidade() == resultSet.getInt(1)) {
+                        return true;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar o contato de emergência do paciente com ID: " + id + e);
+        }
+        return false;
+    }
 }
