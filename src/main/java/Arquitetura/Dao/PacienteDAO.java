@@ -284,4 +284,31 @@ public class PacienteDAO {
         }
         return false;
     }
+    public boolean isSameStatuspaciente(long id, StatusPaciente statusPaciente)
+    {
+        String querySql = "SELECT idStatusPaciente FROM Paciente WHERE idPaciente = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1, id);
+
+            try (ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    if(statusPaciente.getIdPaciente() == resultSet.getInt(1))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao verificar o contato de emergência do paciente com ID: "+ id + e);
+        }
+        return false;
+    }
 }
