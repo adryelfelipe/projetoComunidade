@@ -665,7 +665,7 @@ public class UsuarioDAO {
         }
     }
 
-    public void updateSexo (long id, int sexo)
+    public void updateSexo (long id, long sexo)
     {
         String qurySql = "UPDATE Usuario " +
                 "SET sexo = ? " +
@@ -675,7 +675,7 @@ public class UsuarioDAO {
             PreparedStatement stmt = conn.prepareStatement(qurySql))
         {
 
-            stmt.setInt(1, sexo);
+            stmt.setLong(1, sexo);
             stmt.setLong(2, id);
 
             stmt.executeUpdate();
@@ -686,4 +686,35 @@ public class UsuarioDAO {
             System.err.println("Erro ao tentar atualizar o sexo do Usuário.");
         }
     }
+
+    // -- Verificadores de Igualidade -- //
+
+    public boolean isSameNome(long id, String nome)
+    {
+        String querySql = "SELECT nome FROM Usuario WHERE idusuario = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareCall(querySql))
+        {
+            stmt.setLong(1, id);
+
+            try (ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    if(nome.equals(resultSet.getString(1)))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao verificar nome do usuário com ID  ");
+        }
+        return false;
+    }
+
 }
