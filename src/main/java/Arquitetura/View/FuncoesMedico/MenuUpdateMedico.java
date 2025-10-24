@@ -1,11 +1,10 @@
-package Arquitetura.View.FuncoesMedico.Updates;
+package Arquitetura.View.FuncoesMedico;
 
 import Arquitetura.Exception.DadosInvalidosException;
 import Arquitetura.Service.Validator.MedicoValidator;
-import Arquitetura.Service.Validator.UsuarioValidator;
 import Arquitetura.Utilidades.Ferramentas;
 
-public class MenuUpdateFormacao {
+public class MenuUpdateMedico {
 
     public static void menuUpdateFormacao(MedicoValidator medicoValidator) {
         System.out.println("Digite sua nova Formação: ");
