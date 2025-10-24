@@ -24,20 +24,22 @@ public class AdministradorService {
     private final AdministradorValidator administradorValidator = new AdministradorValidator();
 
     // -- Métodos -- //
-
-    public boolean isIdAdministrador(long id) {
-        return administradorDao.isIdAdministrador(id);
+    public void cpfDeAdmValidator (String cpf) {
+        if(!administradorDao.isCpfAdministrador(cpf)) {
+            throw new CpfInvalidoException("ERRO ! CPF NÃO PERTENCE A UM ADMINISTRADOR");
+        }
     }
 
     public void idAdministradorValidator(long id) {
-        if (!isIdAdministrador(id)) {
+        if (!administradorDao.isIdAdministrador(id)) {
             throw new IdInvalidoException("ERRO! O ID INFORMADO NÃO É DE UM ADMINISTRADOR");
         }
     }
 
-    // Verifica se é o último administrador do banco de dados
-    private boolean isUltimoAdmin(){
-        return administradorDao.isUltimoAdmin();
+    public void ultimoAdminValidator() {
+        if(administradorDao.isUltimoAdmin()) {
+            throw new UltimoAdminException("ERRO! NÃO É PERMITIDO DELETAR O ÚLTIMO ADMINISTRADOR");
+        }
     }
 
     /**
@@ -91,34 +93,13 @@ public class AdministradorService {
         // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
         administradorValidator.verificaAutoDelete(usuario.getCpf(), cpfAdministradorDeletado);
-
-        if(!usuarioDAO.verificarCpf(cpfAdministradorDeletado)) {
-            throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
-        }
-
+        usuarioService.cpfExistenteValidator(cpfAdministradorDeletado);
         cpfDeAdmValidator(cpfAdministradorDeletado);
-
-        if(isUltimoAdmin()) {
-            throw new UltimoAdminException("ERRO! NÃO É PERMITIDO DELETAR ESTE ADMINISTRADOR");
-        }
+        ultimoAdminValidator();
 
         // Deleta nessa ordem para respeitar as chaves estrangeiras
         administradorDao.deletarAdministrador(cpfAdministradorDeletado);
         funcionarioDAO.deletarFuncionario(cpfAdministradorDeletado);
         usuarioDAO.deletarUsuario(cpfAdministradorDeletado);
-    }
-
-    public void cpfDeAdmValidator (String cpf)
-    {
-        if(!isCpfAdmin(cpf))
-        {
-            throw new CpfInvalidoException("ERRO ! CPF NÃO PERTENCE A UM ADMINISTRADOR");
-        }
-    }
-
-    public boolean isCpfAdmin(String cpf) {
-
-        return administradorDao.isCpfAdministrador(cpf);
-
     }
 }

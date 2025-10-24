@@ -23,15 +23,19 @@ public class PacienteService {
     private final UsuarioValidator usuarioValidator = new UsuarioValidator();
     private final PacienteValidator pacienteValidator = new PacienteValidator();
 
-    // -- Construtor -- //
-    public PacienteService() {
-
-    }
 
     // -- Métodos -- //
+    public void cpfPacienteValidator (String cpf)
+    {
+        if(!pacienteDAO.isCpfPaciente(cpf)) {
+            throw new CpfInvalidoException("ERRO ! CPF NÃO PERTENCE A UM PACIENTE");
+        }
+    }
 
-    public boolean isIdPaciente(long id) {
-        return pacienteDAO.isIdPaciente(id);
+    public void idPacienteValidator(long id) {
+        if(!pacienteDAO.isIdPaciente(id)) {
+            throw new IdInvalidoException("ERRO! O ID INFORMADO NÃO É DE UM PACIENTE");
+        }
     }
 
     /**<p>Este método realiza as seguintes ações: </p>
@@ -75,29 +79,12 @@ public class PacienteService {
     public void deletarPaciente(Usuario usuario, String cpfPacienteDeletado) {
        // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
-
-        if(!usuarioDAO.verificarCpf(cpfPacienteDeletado)) {
-            throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
-        }
-
+        usuarioService.cpfExistenteValidator(cpfPacienteDeletado);
         cpfPacienteValidator(cpfPacienteDeletado);
 
         // Deleta nessa ordem para respeitar as chaves estrangeiras
         pacienteDAO.deletarPaciente(cpfPacienteDeletado);
         usuarioDAO.deletarUsuario(cpfPacienteDeletado);
-    }
-
-    public void cpfPacienteValidator (String cpf)
-    {
-        if(!pacienteDAO.isCpfPaciente(cpf)) {
-            throw new CpfInvalidoException("ERRO ! CPF NÃO PERTENCE A UM PACIENTE");
-        }
-    }
-
-    public void idPacienteValidator(long id) {
-        if(!pacienteDAO.isIdPaciente(id)) {
-            throw new IdInvalidoException("ERRO! O ID INFORMADO NÃO É DE UM PACIENTE");
-        }
     }
 
 
