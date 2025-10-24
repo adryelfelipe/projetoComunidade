@@ -1,4 +1,4 @@
 package Arquitetura.View.FuncoesPACIENTE;
 
-public class MenuUpdate {
+public class MenuUpdatePaciente {
 }

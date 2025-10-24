@@ -4,7 +4,7 @@ import Arquitetura.Exception.DadosInvalidosException;
 import Arquitetura.Service.Validator.MedicoValidator;
 import Arquitetura.Utilidades.Ferramentas;
 
-public class MenuUpdate {
+public class MenuUpdateMedico {
 
     public static void menuUpdateFormacao(MedicoValidator medicoValidator) {
         System.out.println("Digite sua nova Formação: ");
