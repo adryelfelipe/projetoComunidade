@@ -343,6 +343,33 @@ public class UsuarioDAO {
         }
     }
 
+    public long getIdOfCpf(String cpf)
+    {
+        long id = 0;
+
+        String querySql = "SELECT idUsuario FROM Usuario WHERE cpf = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareCall(querySql))
+        {
+            stmt.setString(1, cpf);
+
+            try(ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    id = resultSet.getInt(1);
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao converter para ID o cpf: "+ cpf + e);
+        }
+        return id;
+    }
+
     // Leitura - verifica a senha está coerente com o cpf
     public boolean verificarSenha(String cpf, String senha)
     {
@@ -643,7 +670,7 @@ public class UsuarioDAO {
         }
     }
 
-    public void updateTipoUsuario (long id, int tipoUsuario)
+    public void updateTipoUsuario (long id, long tipoUsuario)
     {
         String qurySql = "UPDATE Usuario " +
                 "SET tipoUsuario = ? " +
@@ -653,7 +680,7 @@ public class UsuarioDAO {
             PreparedStatement stmt = conn.prepareStatement(qurySql))
         {
 
-            stmt.setInt(1, tipoUsuario);
+            stmt.setLong(1, tipoUsuario);
             stmt.setLong(2, id);
 
             stmt.executeUpdate();
@@ -712,9 +739,36 @@ public class UsuarioDAO {
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao verificar nome do usuário com ID  ");
+            System.err.println("Erro ao verificar nome do usuário com ID: "+ id + e);
         }
         return false;
     }
 
+    public boolean isSameCpf(long id, String cpf)
+    {
+        String querySql = "SELECT cpf FROM Usuario WHERE idUsuario = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareCall(querySql))
+        {
+            stmt.setLong(1, id);
+
+            try (ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    if(cpf.equals(resultSet.getString(1)))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao verificar cpf de usuário com ID: "+ id + e);
+        }
+        return  false;
+    }
 }
