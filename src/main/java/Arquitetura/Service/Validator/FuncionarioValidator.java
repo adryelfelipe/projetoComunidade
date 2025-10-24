@@ -5,13 +5,8 @@ import Arquitetura.Model.Funcionario;
 
 public class FuncionarioValidator {
 
-    // -- Construtor -- //
-    public FuncionarioValidator(UsuarioValidator usuarioValidator) {
-        this.usuarioValidator = usuarioValidator;
-    }
-
     // -- Atributos -- //
-    private UsuarioValidator usuarioValidator;
+    private final UsuarioValidator usuarioValidator = new UsuarioValidator();
 
     // -- Métodos verificadores de regras de negócio -- //
     public void verificaRegrasInsercaoFuncionario(Funcionario funcionario) {

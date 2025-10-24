@@ -18,11 +18,8 @@ public class AdministradorService {
     private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
     private final AdministradorDAO administradorDao = new AdministradorDAO();
     private final UsuarioService usuarioService = new UsuarioService();
-    private final FuncionarioService funcionarioService = new FuncionarioService();
     private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
-    private final UsuarioValidator usuarioValidator = new UsuarioValidator(this.usuarioService);
-    private final FuncionarioValidator funcionarioValidator = new FuncionarioValidator(usuarioValidator);
-    private final AdministradorValidator administradorValidator = new AdministradorValidator(funcionarioValidator);
+    private final AdministradorValidator administradorValidator = new AdministradorValidator();
 
     // -- Construtor -- //
     public AdministradorService() {
@@ -65,7 +62,7 @@ public class AdministradorService {
         // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
         administradorValidator.verificaRegrasInsercaoAdm(administradorCriado);
-        usuarioService.telefoneUtilizadoValidator(administradorCriado.getTelefone());
+        usuarioService.validaUsuarioInserido(administradorCriado);
 
         // Insere nessa ordem para respeitar as chaves estrangeiras
         usuarioDAO.inserirUsuario(administradorCriado);
