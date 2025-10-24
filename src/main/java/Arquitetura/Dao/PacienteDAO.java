@@ -226,4 +226,34 @@ public class PacienteDAO {
             System.err.println("Erro ao atualizar o status do paciente com o ID: "+id + e);
         }
     }
+
+    // -- Verificadores isSame -- //
+
+    public boolean isSameNumeroCarterinha(long id, String NumCarteirinha)
+    {
+        String querySql = "SELECT numeroCarteirnha FROM Paciente WHERE idPaciente = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1, id);
+
+            try (ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    if(NumCarteirinha.equals(resultSet.getString(1)))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao verificar numero da carterinha do paciente com ID: "+ id + e);
+        }
+        return false;
+    }
 }
