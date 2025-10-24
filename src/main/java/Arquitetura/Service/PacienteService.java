@@ -20,7 +20,7 @@ public class PacienteService {
     private final PacienteDAO pacienteDAO = new PacienteDAO();
     private final UsuarioService usuarioService = new UsuarioService();
     private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
-    private final UsuarioValidator usuarioValidator = new UsuarioValidator(usuarioService);
+    private final UsuarioValidator usuarioValidator = new UsuarioValidator();
     private final PacienteValidator pacienteValidator = new PacienteValidator(usuarioValidator, this);
 
     // -- Construtor -- //
@@ -50,7 +50,7 @@ public class PacienteService {
         // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
         pacienteValidator.verificaRegrasInsercaoPaciente(pacienteInserido);
-        usuarioService.telefoneUtilizadoValidator(pacienteInserido.getTelefone());
+        usuarioService.validaUsuarioInserido(pacienteInserido);
 
         // Insere nessa ordem para respeitar as chaves estrangeiras
         usuarioDAO.inserirUsuario(pacienteInserido);

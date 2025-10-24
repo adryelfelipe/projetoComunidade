@@ -17,7 +17,7 @@ public class UsuarioService {
     private final MedicoDAO medicoDAO = new MedicoDAO();
     private final AdministradorDAO administradorDAO = new AdministradorDAO();
     TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
-    UsuarioValidator usuarioValidator = new UsuarioValidator(this);
+    UsuarioValidator usuarioValidator = new UsuarioValidator();
 
     // -- Construtor -- //
     public UsuarioService() {
@@ -68,6 +68,11 @@ public class UsuarioService {
         }
 
         return null;
+    }
+
+    public void validaUsuarioInserido(Usuario usuario) {
+        cpfUtilizadoValidator(usuario.getCpf());
+        telefoneUtilizadoValidator(usuario.getTelefone());
     }
 
     private void senhaUsuarioValidator(String cpf, String senha) {

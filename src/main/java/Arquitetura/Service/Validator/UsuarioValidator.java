@@ -13,14 +13,6 @@ import java.util.Date;
 
 public class UsuarioValidator {
 
-    // -- Construtor -- //
-    public UsuarioValidator(UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
-    }
-
-    // -- Atributos -- //
-    private final UsuarioService usuarioService;
-
     // -- Métodos de análise -- //
     public boolean isUsuarioExistente(Usuario usuario) {
         return usuario.getId() != 0;
@@ -42,7 +34,6 @@ public class UsuarioValidator {
         verificarRegrasSenha(usuario.getSenha());
         verificarRegrasDataNascimento(usuario.getDataNascimento());
         verificaExistenciaUsuario(usuario);
-        usuarioService.cpfUtilizadoValidator(usuario.getCpf());
     }
 
     public void verificaExistenciaUsuario(Usuario usuario) {
