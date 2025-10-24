@@ -665,7 +665,7 @@ public class UsuarioDAO {
         }
     }
 
-    public void updateSexo (long id, int sexo)
+    public void updateSexo (long id, long sexo)
     {
         String qurySql = "UPDATE Usuario " +
                 "SET sexo = ? " +
@@ -675,7 +675,7 @@ public class UsuarioDAO {
             PreparedStatement stmt = conn.prepareStatement(qurySql))
         {
 
-            stmt.setInt(1, sexo);
+            stmt.setLong(1, sexo);
             stmt.setLong(2, id);
 
             stmt.executeUpdate();
