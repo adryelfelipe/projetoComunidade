@@ -343,6 +343,33 @@ public class UsuarioDAO {
         }
     }
 
+    public long getIdOfCpf(String cpf)
+    {
+        long id = 0;
+
+        String querySql = "SELECT idUsuario FROM Usuario WHERE cpf = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareCall(querySql))
+        {
+            stmt.setString(1, cpf);
+
+            try(ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    id = resultSet.getInt(1);
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao converter para ID o cpf: "+ cpf + e);
+        }
+        return id;
+    }
+
     // Leitura - verifica a senha está coerente com o cpf
     public boolean verificarSenha(String cpf, String senha)
     {

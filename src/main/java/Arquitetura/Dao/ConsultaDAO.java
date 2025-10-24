@@ -236,7 +236,7 @@ public class ConsultaDAO
 
         return listaConsultasPaciente;
     }
-    public ArrayList<Consulta> findAllConsultasOfMedico(Medico medico)
+    public ArrayList<Consulta> findAllConsultasOfMedico(long idMedico)
     {
         ArrayList<Consulta> listaConsultasMedico = new ArrayList<>();
 
@@ -248,7 +248,7 @@ public class ConsultaDAO
                 Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(querySql))
         {
-            stmt.setLong(1, medico.getId());
+            stmt.setLong(1, idMedico);
 
             try(ResultSet resultSet = stmt.executeQuery())
             {
