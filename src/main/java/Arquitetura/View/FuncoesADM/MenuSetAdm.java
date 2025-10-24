@@ -13,11 +13,13 @@ import java.util.InputMismatchException;
 
 public class MenuSetAdm {
 
-    public static Departamento SetDepartamento(AdministradorValidator administradorValidator){
+    public static final AdministradorValidator administradorValidator = new AdministradorValidator();
+
+    public static Departamento SetDepartamento(){
 
         int opDepartamento;
 
-        do{
+        while (true) {
             System.out.println("Qual é o seu departamento? ");
             System.out.println("1 - FINANCEIRO ");
             System.out.println("2 - INFRAESTRUTURA ");
@@ -41,6 +43,7 @@ public class MenuSetAdm {
 
                     try{
                         administradorValidator.verificaRegrasDepartamento(departamento);
+                        return departamento;
                     } catch (DadosInvalidosException e) {
                         Ferramentas.mensagemErro(e.getMessage());
                     }
@@ -48,6 +51,6 @@ public class MenuSetAdm {
             }catch (InputMismatchException e) {
                 MenuDefault.menuDefault();
             }
-        } while (true);
+        }
     }
 }

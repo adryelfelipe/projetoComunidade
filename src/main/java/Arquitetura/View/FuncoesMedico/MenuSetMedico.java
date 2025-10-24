@@ -11,6 +11,7 @@ import java.util.InputMismatchException;
 
 public class MenuSetMedico {
 
+    private static final MedicoValidator medicoValidator = new MedicoValidator();
 
     public static Especialidade SetEspecialidade(){
 
@@ -48,7 +49,7 @@ public class MenuSetMedico {
         }
     }
 
-    public static String SetFormacao(MedicoValidator medicoValidator){
+    public static String SetFormacao(){
 
         String formacao;
         while (true){
@@ -66,7 +67,7 @@ public class MenuSetMedico {
         }
     }
 
-    public static String SetSubEspecialidade(MedicoValidator medicoValidator){
+    public static String SetSubEspecialidade(){
 
         String subE;
         while (true){
@@ -101,7 +102,7 @@ public class MenuSetMedico {
         }
     }
 
-    public static Plantao SetPlantao(MedicoValidator medicoValidator){
+    public static Plantao SetPlantao(){
 
         int opPlantao;
 

@@ -7,7 +7,9 @@ import java.util.InputMismatchException;
 
 public class MenuSetFuncionario {
 
-    public static int SetCargahoraria(FuncionarioValidator funcionarioValidator){
+    private static final FuncionarioValidator funcionarioValidator = new FuncionarioValidator();
+
+    public static int SetCargahoraria(){
 
         int cargaHoraria;
         while (true) {
@@ -26,7 +28,7 @@ public class MenuSetFuncionario {
         }
     }
 
-    public static double SetSalario(FuncionarioValidator funcionarioValidator){
+    public static double SetSalario(){
 
         double salario;
         while(true) {

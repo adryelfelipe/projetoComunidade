@@ -5,7 +5,8 @@ import Arquitetura.Utilidades.Ferramentas;
 
 public class MenuSetPaciente {
 
-    public static String SetContatoEmergencia(PacienteValidator pacienteValidator) {
+    private static final PacienteValidator pacienteValidator = new PacienteValidator();
+    public static String SetContatoEmergencia() {
 
         String contatoEmer;
         while (true) {
@@ -21,7 +22,7 @@ public class MenuSetPaciente {
         }
     }
 
-    public static String SetNumeroCarteirinha(PacienteValidator pacienteValidator){
+    public static String SetNumeroCarteirinha(){
 
         String numeroCar;
         while (true) {

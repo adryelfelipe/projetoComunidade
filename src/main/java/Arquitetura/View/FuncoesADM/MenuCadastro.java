@@ -10,8 +10,6 @@ import Arquitetura.Model.Paciente;
 import Arquitetura.Service.AdministradorService;
 import Arquitetura.Service.MedicoService;
 import Arquitetura.Service.PacienteService;
-import Arquitetura.Service.UsuarioService;
-import Arquitetura.Service.Validator.*;
 import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.FuncoesMedico.MenuSetMedico;
 import Arquitetura.View.FuncoesPACIENTE.MenuSetPaciente;
@@ -25,11 +23,7 @@ public class MenuCadastro
     {
 
         // Validadores de regras de negócio
-        UsuarioService usuarioService = new UsuarioService();
         MedicoService medicoService = new MedicoService();
-        UsuarioValidator usuarioValidator = new UsuarioValidator(usuarioService);
-        FuncionarioValidator funcionarioValidator = new FuncionarioValidator(usuarioValidator);
-        MedicoValidator medicoValidator = new MedicoValidator(funcionarioValidator,medicoService);
 
         // Variaveis Gerais
         String nome;
@@ -99,13 +93,13 @@ public class MenuCadastro
 
         // Entrada da carga horária semanal
 
-        cargaHoraria = MenuSetFuncionario.SetCargahoraria(funcionarioValidator);
+        cargaHoraria = MenuSetFuncionario.SetCargahoraria();
 
         System.out.println(); // pula uma linha
 
         // Entrada do salário
 
-        salario = MenuSetFuncionario.SetSalario(funcionarioValidator);
+        salario = MenuSetFuncionario.SetSalario();
 
         System.out.println(); // pula uma linha
 
@@ -117,13 +111,13 @@ public class MenuCadastro
 
         // Entrada da formação acadêmica
 
-        formacao = MenuSetMedico.SetFormacao(medicoValidator);
+        formacao = MenuSetMedico.SetFormacao();
 
         System.out.println(); // pula uma linha
 
         // Entrada da sub especialidade (caso houver)
 
-        subE = MenuSetMedico.SetSubEspecialidade(medicoValidator);
+        subE = MenuSetMedico.SetSubEspecialidade();
 
         System.out.println(); // pula uma linha
 
@@ -157,10 +151,7 @@ public class MenuCadastro
     public static void CriarPaciente(Administrador adm)
     {
         // Validadores de regras de negócio
-        UsuarioService usuarioService = new UsuarioService();
         PacienteService pacienteService = new PacienteService();
-        UsuarioValidator usuarioValidator = new UsuarioValidator(usuarioService);
-        PacienteValidator pacienteValidator = new PacienteValidator(usuarioValidator, pacienteService);
 
         // Variaveis Gerais
         String nome;
@@ -225,13 +216,13 @@ public class MenuCadastro
 
         //Contato de emergência
 
-        contatoEmer = MenuSetPaciente.SetContatoEmergencia(pacienteValidator);
+        contatoEmer = MenuSetPaciente.SetContatoEmergencia();
 
         System.out.println(); // pula uma linha
 
         //Numero carteirinha
 
-        numeroCar = MenuSetPaciente.SetNumeroCarteirinha(pacienteValidator);
+        numeroCar = MenuSetPaciente.SetNumeroCarteirinha();
 
         System.out.println(); // pula uma linha
 
@@ -256,11 +247,7 @@ public class MenuCadastro
         Ferramentas.limpaTerminal();
 
         // Validadores de regras de negócio
-        UsuarioService usuarioService = new UsuarioService();
         AdministradorService administradorService = new AdministradorService();
-        UsuarioValidator usuarioValidator = new UsuarioValidator(usuarioService);
-        FuncionarioValidator funcionarioValidator = new FuncionarioValidator(usuarioValidator);
-        AdministradorValidator administradorValidator = new AdministradorValidator(funcionarioValidator);
 
         // Variaveis Gerais
         String nome;
@@ -325,19 +312,19 @@ public class MenuCadastro
 
         // Entrada da carga horária semanal
 
-        cargaHoraria = MenuSetFuncionario.SetCargahoraria(funcionarioValidator);
+        cargaHoraria = MenuSetFuncionario.SetCargahoraria();
 
         System.out.println(); // pula uma linha
 
         // Entrada do salário
 
-        salario = MenuSetFuncionario.SetSalario(funcionarioValidator);
+        salario = MenuSetFuncionario.SetSalario();
 
         System.out.println(); // pula uma linha
 
         // Entrada do departamento
 
-        departamento = MenuSetAdm.SetDepartamento(administradorValidator);
+        departamento = MenuSetAdm.SetDepartamento();
 
         Ferramentas.limpaTerminal();
         System.out.println("PROCESSANDO...");

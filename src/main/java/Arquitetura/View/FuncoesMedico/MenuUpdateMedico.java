@@ -6,7 +6,9 @@ import Arquitetura.Utilidades.Ferramentas;
 
 public class MenuUpdateMedico {
 
-    public static void menuUpdateFormacao(MedicoValidator medicoValidator) {
+    private static final MedicoValidator medicoValidator = new MedicoValidator();
+
+    public static void menuUpdateFormacao() {
         System.out.println("Digite sua nova Formação: ");
         String formacao = Ferramentas.lString();
 

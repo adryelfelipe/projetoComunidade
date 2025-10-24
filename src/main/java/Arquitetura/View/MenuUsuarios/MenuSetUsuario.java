@@ -17,8 +17,7 @@ import java.util.InputMismatchException;
 public class MenuSetUsuario {
 
     static UsuarioService usuarioService = new UsuarioService();
-    static UsuarioValidator usuarioValidator = new UsuarioValidator(usuarioService);
-    static FuncionarioValidator funcionarioValidator = new FuncionarioValidator(usuarioValidator);
+    static UsuarioValidator usuarioValidator = new UsuarioValidator();
 
     public static String SetNome(){
 
