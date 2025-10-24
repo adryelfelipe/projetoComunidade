@@ -5,6 +5,7 @@ import Arquitetura.Dao.FuncionarioDAO;
 import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Exception.*;
 import Arquitetura.Model.Administrador;
+import Arquitetura.Model.Enums.TipoUsuario;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.Validator.AdministradorValidator;
 import Arquitetura.Service.Validator.FuncionarioValidator;
@@ -19,12 +20,8 @@ public class AdministradorService {
     private final AdministradorDAO administradorDao = new AdministradorDAO();
     private final UsuarioService usuarioService = new UsuarioService();
     private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
+    private final UsuarioValidator usuarioValidator = new UsuarioValidator();
     private final AdministradorValidator administradorValidator = new AdministradorValidator();
-
-    // -- Construtor -- //
-    public AdministradorService() {
-
-    }
 
     // -- Métodos -- //
 
