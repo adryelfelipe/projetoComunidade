@@ -1,10 +1,7 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.*;
-import Arquitetura.Exception.CpfInvalidoException;
-import Arquitetura.Exception.EmailInvalidoException;
-import Arquitetura.Exception.IdInvalidoException;
-import Arquitetura.Exception.SenhaInvalidaException;
+import Arquitetura.Exception.*;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.Validator.TipoUsuarioValidator;
 import Arquitetura.Service.Validator.UsuarioValidator;
@@ -27,6 +24,12 @@ public class UsuarioService {
     }
 
     // -- Métodos -- //
+    private void telefoneUtilizadoValidator(String telefone) {
+        if(usuarioDao.containsTelefone(telefone)) {
+            throw new TelefoneInvalidoException("ERRO! TELEFONE JÁ UTILIZADO");
+        }
+    }
+
     private void cpfExistenteValidator(String cpf) {
         if(!usuarioDao.verificarCpf(cpf)) {
             throw new CpfInvalidoException("ERRO! O CPF NÃO FOI ENCONTRADO");
