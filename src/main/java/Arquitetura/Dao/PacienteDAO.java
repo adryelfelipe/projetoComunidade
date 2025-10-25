@@ -5,11 +5,8 @@ import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.StatusPaciente;
 import Arquitetura.Model.Enums.TipoUsuario;
 import Arquitetura.Model.Paciente;
-import Arquitetura.Dao.UsuarioDAO.*;
 
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 
 public class PacienteDAO {
@@ -27,7 +24,7 @@ public class PacienteDAO {
             PreparedStatement stmt = conexao.prepareStatement(querySql))
         {
             stmt.setLong(1, paciente.getId());
-            stmt.setString(2, paciente.getNumeroCarterinha() );
+            stmt.setString(2, paciente.getNumeroCadastro() );
             stmt.setString(3, paciente.getContatoEmergencia());
             stmt.setLong(4, paciente.getStatusPaciente().getIdPaciente());
 

@@ -1,12 +1,9 @@
 package Arquitetura.Model;
 
-import Arquitetura.Exception.DadosInvalidosException;
 import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.StatusPaciente;
 import Arquitetura.Model.Enums.TipoUsuario;
-import Arquitetura.Service.UsuarioService;
 import Arquitetura.Service.Validator.PacienteValidator;
-import Arquitetura.Service.Validator.UsuarioValidator;
 
 import java.sql.Date;
 
@@ -14,24 +11,24 @@ public class Paciente extends Usuario {
 
     // -- Atributos -- //
     private String contatoEmergencia;
-    private String numeroCarterinha;
+    private String numeroCadastro;
     private StatusPaciente statusPaciente;
 
     // -- Construtores -- //
 
     // Possui ID
-    public Paciente(long id, String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCarterinha, StatusPaciente statusPaciente) {
+    public Paciente(long id, String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCadastro, StatusPaciente statusPaciente) {
         super(TipoUsuario.PACIENTE,nome, cpf, senha, sexo, telefone, email,dataNascimento);
         this.setId(id);
         this.statusPaciente = statusPaciente;
         setContatoEmergencia(contatoEmergencia);
-        setNumeroCarterinha(numeroCarterinha);
+        setNumeroCadastro(numeroCadastro);
     }
 
     // Não possui ID
-    public Paciente(String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCarterinha)
+    public Paciente(String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento, String contatoEmergencia, String numeroCadastro)
     {
-        this(0, nome, cpf, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numeroCarterinha, StatusPaciente.ATIVO);
+        this(0, nome, cpf, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numeroCadastro, StatusPaciente.ATIVO);
     }
 
     // -- Setters e Getters -- //
@@ -53,14 +50,14 @@ public class Paciente extends Usuario {
         this.statusPaciente = statusPaciente;
     }
 
-    public String getNumeroCarterinha() {
-        return numeroCarterinha;
+    public String getNumeroCadastro() {
+        return numeroCadastro;
     }
 
-    public void setNumeroCarterinha(String numeroCarterinha) {
-        PacienteValidator.verificaIntegridadeNumeroCarterinha(numeroCarterinha);
+    public void setNumeroCadastro(String numeroCadastro) {
+        PacienteValidator.verificaIntegridadeNumeroCarterinha(numeroCadastro);
 
-        this.numeroCarterinha = numeroCarterinha;
+        this.numeroCadastro = numeroCadastro;
     }
 
     @Override
@@ -68,6 +65,6 @@ public class Paciente extends Usuario {
         super.dadosPessoais();
         System.out.println("CONTATO EMERGÊNCIA: " + contatoEmergencia);
         System.out.println("STATUS: " + statusPaciente);
-        System.out.println("NÚMERO CARTEIRINHA: " + numeroCarterinha);
+        System.out.println("NÚMERO CARTEIRINHA: " + numeroCadastro);
     }
 }

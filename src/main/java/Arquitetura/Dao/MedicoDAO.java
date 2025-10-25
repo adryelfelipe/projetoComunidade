@@ -499,4 +499,90 @@ public class MedicoDAO {
         return false;
     }
 
+    // -- Verificadores isSame -- //
+
+    public boolean isSameEspecialidade(long id, Especialidade especialidade)
+    {
+        String querySql = "SELECT idEspecialidade FROM Medico WHERE idMedico = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql)) {
+            stmt.setLong(1, id);
+
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    if (especialidade.getIdEspecialidade() == resultSet.getInt(1)) {
+                        return true;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar a Especialidade do médico com ID: " + id + e);
+        }
+        return false;
+    }
+    public boolean isSameSubEspecialidade(long id, String subEspecialidade)
+    {
+        String querySql = "SELECT subEspecialidade FROM Medico WHERE idMedico = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql)) {
+            stmt.setLong(1, id);
+
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    if (subEspecialidade.equals(resultSet.getString(1))) {
+                        return true;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar a Sub-Especialidade do médico com ID: " + id + e);
+        }
+        return false;
+    }
+    public boolean isSameFormacao(long id, String formacao)
+    {
+        String querySql = "SELECT formacao FROM Medico WHERE idMedico = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql)) {
+            stmt.setLong(1, id);
+
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    if (formacao.equals(resultSet.getString(1))) {
+                        return true;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar a formação do médico com ID: " + id + e);
+        }
+        return false;
+    }
+    public boolean isSamePlantao(long id, Plantao plantao)
+    {
+        String querySql = "SELECT idPlantao FROM Medico WHERE idMedico = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql)) {
+            stmt.setLong(1, id);
+
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    if (plantao.getIdPlantao() == resultSet.getInt(1)) {
+                        return true;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar o plantão  do médico com ID: " + id + e);
+        }
+        return false;
+    }
 }
