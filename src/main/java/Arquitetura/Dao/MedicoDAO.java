@@ -518,7 +518,7 @@ public class MedicoDAO {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Erro ao verificar a Especialidade do paciente com ID: " + id + e);
+            System.err.println("Erro ao verificar a Especialidade do médico com ID: " + id + e);
         }
         return false;
     }
@@ -539,7 +539,7 @@ public class MedicoDAO {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Erro ao verificar a Sub-Especialidade do paciente com ID: " + id + e);
+            System.err.println("Erro ao verificar a Sub-Especialidade do médico com ID: " + id + e);
         }
         return false;
     }
@@ -560,7 +560,7 @@ public class MedicoDAO {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Erro ao verificar a formação do paciente com ID: " + id + e);
+            System.err.println("Erro ao verificar a formação do médico com ID: " + id + e);
         }
         return false;
     }
@@ -581,7 +581,7 @@ public class MedicoDAO {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Erro ao verificar o plantão  do paciente com ID: " + id + e);
+            System.err.println("Erro ao verificar o plantão  do médico com ID: " + id + e);
         }
         return false;
     }

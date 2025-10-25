@@ -4,6 +4,7 @@ import Arquitetura.Config.ConnectionFactory;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Enums.Departamento;
 import Arquitetura.Model.Enums.Genero;
+import Arquitetura.Model.Enums.Plantao;
 import Arquitetura.Model.Enums.TipoUsuario;
 
 import java.sql.*;
@@ -214,6 +215,30 @@ public class AdministradorDAO {
             System.err.println("Erro ao verificar o ID do Administrador.");
         }
 
+        return false;
+    }
+
+    // -- Verificadores isSame -- //
+
+    public boolean isSameDepartamento(long id, Departamento departamento)
+    {
+        String querySql = "SELECT idDepartamento FROM Administrador WHERE idAdministrador = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql)) {
+            stmt.setLong(1, id);
+
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    if (departamento.getIdDepartamento() == resultSet.getInt(1)) {
+                        return true;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar o departamento  do administrador com ID: " + id + e);
+        }
         return false;
     }
 }
