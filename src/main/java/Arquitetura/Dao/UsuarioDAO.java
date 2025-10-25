@@ -57,7 +57,7 @@ public class UsuarioDAO {
         String querySQL = "SELECT " +
                 "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, " +
                 "A.idDepartamento, " +
-                "P.numeroCarteirinha, P.contatoEmergencia, P.idStatusPaciente, " +
+                "P.numeroCadastro, P.contatoEmergencia, P.idStatusPaciente, " +
                 "M.idPlantao, M.idEspecialidade, M.subEspecialidade, M.formacao, " +
                 "F.salario, F.cargaHorariaSemanal " +
                 "FROM Usuario U " +
@@ -104,7 +104,7 @@ public class UsuarioDAO {
                     };
 
                     // Dados Paciente
-                    String numCarteirinha = resultSet.getString("numeroCarteirinha");
+                    String numCarteirinha = resultSet.getString("numeroCadastro");
                     String contatoEmergencia = resultSet.getString("contatoEmergencia");
                     int statusPaciente = resultSet.getInt("idStatusPaciente");
 
@@ -161,7 +161,7 @@ public class UsuarioDAO {
         String querySQL = "SELECT " +
                 "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, " +
                 "A.idDepartamento, " +
-                "P.numeroCarteirinha, P.contatoEmergencia, P.idStatusPaciente, " +
+                "P.numeroCadastro, P.contatoEmergencia, P.idStatusPaciente, " +
                 "M.idPlantao, M.idEspecialidade, M.subEspecialidade, M.formacao, " +
                 "F.salario, F.cargaHorariaSemanal " +
                 "FROM Usuario U " +
@@ -208,7 +208,7 @@ public class UsuarioDAO {
                     };
 
                     // Dados Paciente
-                    String numCarteirinha = resultSet.getString("numeroCarteirinha");
+                    String numCarteirinha = resultSet.getString("numeroCadastro");
                     String contatoEmergencia = resultSet.getString("contatoEmergencia");
                     int statusPaciente = resultSet.getInt("idStatusPaciente");
 
@@ -285,7 +285,7 @@ public class UsuarioDAO {
         String querySql = "SELECT " +
                 "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, " +
                 "A.idDepartamento, " +
-                "P.numeroCarteirinha, P.contatoEmergencia, P.idStatusPaciente, " +
+                "P.numeroCadastro, P.contatoEmergencia, P.idStatusPaciente, " +
                 "M.idPlantao, M.idEspecialidade, M.subEspecialidade, M.formacao, " +
                 "F.salario, F.cargaHorariaSemanal "+
                 "FROM Usuario U " +
@@ -770,5 +770,167 @@ public class UsuarioDAO {
             System.err.println("Erro ao verificar cpf de usuário com ID: "+ id + e);
         }
         return  false;
+    }
+    public boolean isSameSenha(long id, String senhaUsuario)
+    {
+        String querySql = "SELECT senha FROM Usuario WHERE idUsuario = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareCall(querySql))
+        {
+            stmt.setLong(1, id);
+
+            try (ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    if(senhaUsuario.equals(resultSet.getString(1)))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao verificar senha de usuário com ID: "+ id + e);
+        }
+        return  false;
+    }
+    public boolean isSameEmail(long id, String email)
+    {
+        String querySql = "SELECT email FROM Usuario WHERE idUsuario = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1, id);
+
+            try (ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    if(email.equals(resultSet.getString(1)))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao verificar email do usuario com ID: "+ id + e);
+        }
+        return false;
+    }
+    public boolean isSameTelefone(long id, String telefone)
+    {
+        String querySql = "SELECT telefone FROM Usuario WHERE idUsuario = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1,id);
+
+            try (ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    if(telefone.equals(resultSet.getString(1)))
+                    {
+                        return  true;
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao verificar telefone do usuário com ID: "+ id + e);
+        }
+        return false;
+    }
+    public boolean isSameDataNascimento(long id, Date dataNascimento)
+    {
+        String querySql = "SELECT dataNascimento FROM Usuario WHERE idUsuario = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1,id);
+
+            try (ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    if(dataNascimento.equals(resultSet.getDate(1)))
+                    {
+                        return  true;
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao verificar telefone do usuário com ID: "+ id + e);
+        }
+        return false;
+    }
+    public boolean isSameTipoUsuario(long id, TipoUsuario tipoUsuario)
+    {
+        String querySql = "SELECT tipoUsuario FROM Usuario WHERE idUsuario = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1,id);
+
+            try (ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    if(tipoUsuario.getIdTipoUsuario() == resultSet.getInt(1))
+                    {
+                        return  true;
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao verificar telefone do usuário com ID: "+ id + e);
+        }
+        return false;
+    }
+    public boolean isSameSexo(long id, Genero genero)
+    {
+        String querySql = "SELECT sexo FROM Usuario WHERE idUsuario = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1,id);
+
+            try (ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    if(genero.getIdGenero() == resultSet.getInt(1))
+                    {
+                        return  true;
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao verificar telefone do usuário com ID: "+ id + e);
+        }
+        return false;
     }
 }

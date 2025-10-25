@@ -20,7 +20,7 @@ import Arquitetura.View.MenuUsuarios.MenuPaciente;
 public class MenuLogin {
 
     private static final UsuarioService usuarioService = new UsuarioService();
-    static UsuarioValidator usuarioValidator = new UsuarioValidator(usuarioService);
+    static UsuarioValidator usuarioValidator = new UsuarioValidator();
 
     public static void Menu() {
 
@@ -85,7 +85,7 @@ public class MenuLogin {
 
                 Medico medico = (Medico) usuario;
 
-                MenuMedico.Menu(medico);
+               // MenuMedico.Menu(medico);
             }
             else
             {
