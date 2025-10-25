@@ -5,11 +5,8 @@ import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.StatusPaciente;
 import Arquitetura.Model.Enums.TipoUsuario;
 import Arquitetura.Model.Paciente;
-import Arquitetura.Dao.UsuarioDAO.*;
 
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 
 public class PacienteDAO {
@@ -27,7 +24,7 @@ public class PacienteDAO {
             PreparedStatement stmt = conexao.prepareStatement(querySql))
         {
             stmt.setLong(1, paciente.getId());
-            stmt.setString(2, paciente.getNumeroCarterinha() );
+            stmt.setString(2, paciente.getNumeroCadastro() );
             stmt.setString(3, paciente.getContatoEmergencia());
             stmt.setLong(4, paciente.getStatusPaciente().getIdPaciente());
 
@@ -225,90 +222,5 @@ public class PacienteDAO {
         {
             System.err.println("Erro ao atualizar o status do paciente com o ID: "+id + e);
         }
-    }
-
-    // -- Verificadores isSame -- //
-
-    public boolean isSameNumeroCarterinha(long id, String NumCarteirinha)
-    {
-        String querySql = "SELECT numeroCarteirnha FROM Paciente WHERE idPaciente = ? ";
-
-        try (
-                Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement stmt = connection.prepareStatement(querySql))
-        {
-            stmt.setLong(1, id);
-
-            try (ResultSet resultSet = stmt.executeQuery())
-            {
-                if(resultSet.next())
-                {
-                    if(NumCarteirinha.equals(resultSet.getString(1)))
-                    {
-                        return true;
-                    }
-                }
-            }
-        }
-        catch (SQLException e)
-        {
-            System.err.println("Erro ao verificar numero da carterinha do paciente com ID: "+ id + e);
-        }
-        return false;
-    }
-
-    public boolean isSameContatoEmergencia(long id, String ContatoEmergencia)
-    {
-        String querySql = "SELECT contatoEmergencia FROM Paciente WHERE idPaciente = ? ";
-
-        try (
-                Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement stmt = connection.prepareStatement(querySql))
-        {
-            stmt.setLong(1, id);
-
-            try (ResultSet resultSet = stmt.executeQuery())
-            {
-                if(resultSet.next())
-                {
-                    if(ContatoEmergencia.equals(resultSet.getString(1)))
-                    {
-                        return true;
-                    }
-                }
-            }
-        }
-        catch (SQLException e)
-        {
-            System.err.println("Erro ao verificar o contato de emergência do paciente com ID: "+ id + e);
-        }
-        return false;
-    }
-    public boolean isSameStatuspaciente(long id, StatusPaciente statusPaciente)
-    {
-        String querySql = "SELECT idStatusPaciente FROM Paciente WHERE idPaciente = ? ";
-
-        try (
-                Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement stmt = connection.prepareStatement(querySql))
-        {
-            stmt.setLong(1, id);
-
-            try (ResultSet resultSet = stmt.executeQuery())
-            {
-                if(resultSet.next())
-                {
-                    if(statusPaciente.getIdPaciente() == resultSet.getInt(1))
-                    {
-                        return true;
-                    }
-                }
-            }
-        }
-        catch (SQLException e)
-        {
-            System.err.println("Erro ao verificar o contato de emergência do paciente com ID: "+ id + e);
-        }
-        return false;
     }
 }

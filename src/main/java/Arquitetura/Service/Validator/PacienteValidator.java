@@ -1,12 +1,8 @@
 package Arquitetura.Service.Validator;
 
-import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Exception.DadosInvalidosException;
-import Arquitetura.Exception.IdInvalidoException;
 import Arquitetura.Model.Enums.StatusPaciente;
 import Arquitetura.Model.Paciente;
-import Arquitetura.Model.Usuario;
-import Arquitetura.Service.PacienteService;
 
 public class PacienteValidator {
 
@@ -16,7 +12,7 @@ public class PacienteValidator {
     // -- Métodos verificadores de regras de negócio -- //
     public void verificaRegrasInsercaoPaciente(Paciente paciente) {
         usuarioValidator.verificaRegrasInsercaoUsuario(paciente);
-        verificaRegrasNumeroCarterinha(paciente.getNumeroCarterinha());
+        verificaRegrasNumeroCarterinha(paciente.getNumeroCadastro());
         verificaRegrasContatoEmergencia(paciente.getContatoEmergencia());
         verificaRegrasStatusPaciente(paciente.getStatusPaciente());
     }
