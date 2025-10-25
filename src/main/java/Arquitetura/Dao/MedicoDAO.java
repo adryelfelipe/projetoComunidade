@@ -564,4 +564,25 @@ public class MedicoDAO {
         }
         return false;
     }
+    public boolean isSamePlantao(long id, Plantao plantao)
+    {
+        String querySql = "SELECT idPlantao FROM Medico WHERE idMedico = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql)) {
+            stmt.setLong(1, id);
+
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    if (plantao.getIdPlantao() == resultSet.getInt(1)) {
+                        return true;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar o plantão  do paciente com ID: " + id + e);
+        }
+        return false;
+    }
 }
