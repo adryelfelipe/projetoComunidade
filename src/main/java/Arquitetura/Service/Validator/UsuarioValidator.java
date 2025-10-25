@@ -187,12 +187,17 @@ public class UsuarioValidator {
     }
 
     public static void verificaIntegridadeEmail(String email) {
-        if(email.isBlank()) {
-            throw new DadosInvalidosException("ERRO! O EMAIL NÃO PODE SER VAZIO");
+        // -- Verifica se o email é nulo ou se apenas contem espaços
+        if (email == null || email.isBlank()) {
+            throw new DadosInvalidosException("ERRO! O EMAIL NÃO PODE SER VAZIO!");
         }
 
-        if(!email.contains("@")) {
-            throw new DadosInvalidosException("ERRO! O EMAIL DEVE CONTER '@'");
+        // Comando regex para verificar email
+        String regex = "(?i)^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$";
+
+        // Verifica se as informações do email condiz com padrão do regex
+        if (!email.matches(regex)) {
+            throw new DadosInvalidosException("ERRO! O FORMATO DO EMAIL ESTÁ INCORRETO!");
         }
     }
 
