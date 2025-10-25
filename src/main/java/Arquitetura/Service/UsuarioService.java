@@ -65,6 +65,7 @@ public class UsuarioService {
     // Faz procura no banco de dados por Id
     public Usuario findById(Usuario usuario, long id) {
         if(usuario.getTipoUsuario().getNivelAcesso().temAcessoTotal()) {
+        idExistenteValidator(id);
 
             return usuarioDao.findById(id);
         }
