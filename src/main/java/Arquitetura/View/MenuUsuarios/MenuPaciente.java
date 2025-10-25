@@ -4,7 +4,6 @@ import Arquitetura.Model.Paciente;
 import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.FuncoesPACIENTE.*;
 import Arquitetura.View.MenuDefault;
-import Arquitetura.View.MenuEditarConta;
 import Arquitetura.View.MenuInicial;
 
 import java.util.InputMismatchException;
@@ -54,7 +53,7 @@ public class MenuPaciente
                 }
                 case 3: {
 
-                    Arquitetura.View.MenuEditarConta.EditarPaciente(paciente);
+                    MenuUpdatePaciente.EditarPaciente(paciente);
 
                     break;
                 }

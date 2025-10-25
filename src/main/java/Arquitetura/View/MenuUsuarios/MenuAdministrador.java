@@ -59,7 +59,7 @@ public class MenuAdministrador
                 }
                 case 2: {
 
-                    Arquitetura.View.MenuEditarConta.Editar(adm);
+                    MenuUpdateADM.menuUpdateInicial(Administrador administrador);
 
                     break;
                 }
