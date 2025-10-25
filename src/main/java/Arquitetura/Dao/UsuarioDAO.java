@@ -57,7 +57,7 @@ public class UsuarioDAO {
         String querySQL = "SELECT " +
                 "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, " +
                 "A.idDepartamento, " +
-                "P.numeroCarteirinha, P.contatoEmergencia, P.idStatusPaciente, " +
+                "P.numeroCadastro, P.contatoEmergencia, P.idStatusPaciente, " +
                 "M.idPlantao, M.idEspecialidade, M.subEspecialidade, M.formacao, " +
                 "F.salario, F.cargaHorariaSemanal " +
                 "FROM Usuario U " +
@@ -104,7 +104,7 @@ public class UsuarioDAO {
                     };
 
                     // Dados Paciente
-                    String numCarteirinha = resultSet.getString("numeroCarteirinha");
+                    String numCarteirinha = resultSet.getString("numeroCadastro");
                     String contatoEmergencia = resultSet.getString("contatoEmergencia");
                     int statusPaciente = resultSet.getInt("idStatusPaciente");
 
@@ -161,7 +161,7 @@ public class UsuarioDAO {
         String querySQL = "SELECT " +
                 "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, " +
                 "A.idDepartamento, " +
-                "P.numeroCarteirinha, P.contatoEmergencia, P.idStatusPaciente, " +
+                "P.numeroCadastro, P.contatoEmergencia, P.idStatusPaciente, " +
                 "M.idPlantao, M.idEspecialidade, M.subEspecialidade, M.formacao, " +
                 "F.salario, F.cargaHorariaSemanal " +
                 "FROM Usuario U " +
@@ -208,7 +208,7 @@ public class UsuarioDAO {
                     };
 
                     // Dados Paciente
-                    String numCarteirinha = resultSet.getString("numeroCarteirinha");
+                    String numCarteirinha = resultSet.getString("numeroCadastro");
                     String contatoEmergencia = resultSet.getString("contatoEmergencia");
                     int statusPaciente = resultSet.getInt("idStatusPaciente");
 
@@ -285,7 +285,7 @@ public class UsuarioDAO {
         String querySql = "SELECT " +
                 "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, " +
                 "A.idDepartamento, " +
-                "P.numeroCarteirinha, P.contatoEmergencia, P.idStatusPaciente, " +
+                "P.numeroCadastro, P.contatoEmergencia, P.idStatusPaciente, " +
                 "M.idPlantao, M.idEspecialidade, M.subEspecialidade, M.formacao, " +
                 "F.salario, F.cargaHorariaSemanal "+
                 "FROM Usuario U " +
