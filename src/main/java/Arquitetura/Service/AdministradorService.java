@@ -5,6 +5,7 @@ import Arquitetura.Dao.FuncionarioDAO;
 import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Exception.*;
 import Arquitetura.Model.Administrador;
+import Arquitetura.Model.Enums.Departamento;
 import Arquitetura.Model.Enums.TipoUsuario;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.Validator.AdministradorValidator;
@@ -101,5 +102,19 @@ public class AdministradorService {
         administradorDao.deletarAdministrador(cpfAdministradorDeletado);
         funcionarioDAO.deletarFuncionario(cpfAdministradorDeletado);
         usuarioDAO.deletarUsuario(cpfAdministradorDeletado);
+    }
+
+    public void updateDepartamento(Usuario usuario, long id, Departamento departamento) {
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        administradorValidator.verificaRegrasDepartamento(departamento);
+        usuarioService.idExistenteValidator(id);
+        idAdministradorValidator(id);;
+
+        administradorDao.updateDepartamento(id, departamento);
+
+        if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
+            ((Administrador) usuario).setDepartamento(departamento);
+        }
+
     }
 }
