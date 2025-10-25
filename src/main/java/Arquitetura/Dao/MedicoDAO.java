@@ -518,7 +518,7 @@ public class MedicoDAO {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Erro ao verificar o contato de emergência do paciente com ID: " + id + e);
+            System.err.println("Erro ao verificar a Especialidade do paciente com ID: " + id + e);
         }
         return false;
     }
@@ -539,7 +539,28 @@ public class MedicoDAO {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Erro ao verificar o contato de emergência do paciente com ID: " + id + e);
+            System.err.println("Erro ao verificar a Sub-Especialidade do paciente com ID: " + id + e);
+        }
+        return false;
+    }
+    public boolean isSameFormacao(long id, String formacao)
+    {
+        String querySql = "SELECT formacao FROM Medico WHERE idMedico = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql)) {
+            stmt.setLong(1, id);
+
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    if (formacao.equals(resultSet.getString(1))) {
+                        return true;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar a formação do paciente com ID: " + id + e);
         }
         return false;
     }
