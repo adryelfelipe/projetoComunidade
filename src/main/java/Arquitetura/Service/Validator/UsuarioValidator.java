@@ -8,6 +8,7 @@ import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.TipoUsuario;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.UsuarioService;
+import Arquitetura.Utilidades.Ferramentas;
 
 import java.util.Date;
 
@@ -104,15 +105,47 @@ public class UsuarioValidator {
         }
     }
 
-    public void verificarRegrasSenha(String senha) {
-        if(senha == null) {
-            throw new DadosInvalidosException("ERRO! A SENHA NÃO PODE SER NULA");
+        public void verificarRegrasSenha(String senha) {
+            if(senha == null) {
+                throw new IllegalStateException("ERRO! A SENHA NÃO PODE SER NULA");
+            }
+
+            if(senha.contains(" ")) {
+                throw new IllegalStateException("ERRO! A SENHA NÃO PODE CONTER ESPAÇOS");
+            }
+
+            if(senha.length() < 6) {
+                throw new IllegalStateException("ERRO! A SENHA DEVE CONTER MAIS DE 5 CARACTERES");
+            }
+
+
+            // -- VALIDAÇÃO DE MAIUSCULAS E ESPECIAIS -- //
+            boolean verificaMaiuscula = false;
+            boolean verificaEspecial = false;
+
+            for(String maiuscula : Ferramentas.listaMaiusculos) {
+                if (senha.contains(maiuscula)) {
+                    verificaMaiuscula = true;
+                    break;
+                }
+            }
+
+            for(String caractereEspecial : Ferramentas.listaEspeciais) {
+                if(senha.contains(caractereEspecial)) {
+                    verificaEspecial = true;
+                    break;
+                }
+            }
+
+            if(!verificaMaiuscula) {
+                throw new IllegalStateException("ERRO! A SENHA DEVE CONTER UMA LETRA MAIÚSCULA");
+            }
+
+            if(!verificaEspecial) {
+                throw new IllegalStateException("ERRO! A SENHA DEVE CONTER UM CARACTERE ESPECIAL");
+            }
         }
 
-        if(senha.length() < 6) {
-            throw new DadosInvalidosException("ERRO! A SENHA DEVE CONTER MAIS DE 5 CARACTERES");
-        }
-    }
 
     public void verificarRegrasDataNascimento(Date dataNascimento) {
         if(dataNascimento == null) {
