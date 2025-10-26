@@ -1,8 +1,5 @@
 package Arquitetura.View.MenuUsuarios;
-import Arquitetura.Exception.CpfInvalidoException;
-import Arquitetura.Exception.DadosInvalidosException;
-import Arquitetura.Exception.DataInvalidaException;
-import Arquitetura.Exception.EmailInvalidoException;
+import Arquitetura.Exception.*;
 import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.TipoUsuario;
 import Arquitetura.Service.UsuarioService;
@@ -119,7 +116,7 @@ public class MenuSetUsuario {
                 usuarioValidator.verificarRegrasTelefone(telefone);
                 usuarioService.telefoneUtilizadoValidator(telefone);
                 return telefone;
-            } catch (DadosInvalidosException e) {
+            } catch (DadosInvalidosException | TelefoneInvalidoException e) {
                 Ferramentas.mensagemErro(e.getMessage());
             }
         }
