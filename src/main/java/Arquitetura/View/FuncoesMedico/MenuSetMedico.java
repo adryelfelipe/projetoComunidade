@@ -131,6 +131,7 @@ public class MenuSetMedico {
                     } catch (DadosInvalidosException e) {
                         Ferramentas.mensagemErro(e.getMessage());
                     }
+
                     return plantao;
                 }
             } catch (DadosInvalidosException e) {
