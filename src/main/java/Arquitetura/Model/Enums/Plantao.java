@@ -14,7 +14,7 @@ public enum Plantao {
     NOTURNO(3);
 
     // -- Atributos extras -- //
-    long idPlantao;
+    private final long idPlantao;
 
     // -- Construtor -- //
     Plantao(long idPlantao) {
