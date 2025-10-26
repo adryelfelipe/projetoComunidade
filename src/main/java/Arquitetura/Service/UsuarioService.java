@@ -147,6 +147,7 @@ public class UsuarioService {
         UsuarioValidator.verificaIntegridadeTelefone(telefone);
         usuarioValidator.verificarRegrasTelefone(telefone);
         idExistenteValidator(id);
+        telefoneUtilizadoValidator(telefone);
         usuarioDao.updateTelefone(id, telefone);
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
@@ -159,6 +160,7 @@ public class UsuarioService {
         UsuarioValidator.verificaIntegridadeEmail(email);
         usuarioValidator.verificarRegrasEmail(email);
         idExistenteValidator(id);
+        emailUtilizadoValidator(email);
         usuarioDao.updateEmail(id, email);
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {

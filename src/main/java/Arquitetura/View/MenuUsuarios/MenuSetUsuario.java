@@ -116,6 +116,7 @@ public class MenuSetUsuario {
             try{
                 UsuarioValidator.verificaIntegridadeTelefone(telefone);
                 usuarioValidator.verificarRegrasTelefone(telefone);
+                usuarioService.telefoneUtilizadoValidator(telefone);
                 return telefone;
             } catch (DadosInvalidosException e) {
                 Ferramentas.mensagemErro(e.getMessage());

@@ -1,10 +1,9 @@
 package Arquitetura.Utilidades;
 
+import Arquitetura.View.MenuDefault;
+
 import java.rmi.server.ExportException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Ferramentas {
     // Atributos Estáticos
@@ -138,5 +137,30 @@ public class Ferramentas {
         System.err.println(mensagem);
         Ferramentas.Delay(1700);
         Ferramentas.limpaTerminal();
+    }
+
+    public static void mensagemDefault() {
+        Ferramentas.limpaTerminal();
+        System.err.println("-------------------------\n");
+        System.err.println("Valor digitado incorreto!");
+        System.err.println("-------------------------\n");
+        Ferramentas.Delay(1500);
+        Ferramentas.limpaTerminal();
+    }
+
+    // ------- LÊ, VALIDA E RETORNA OPÇÃO DO SWITCH CASE ------- //
+    public static int lerOpcao() {
+        int opcao;
+
+        while(true) {
+            System.out.print("ESCOLHA: ");
+
+            try {
+                opcao = Ferramentas.lInteiro();
+                return opcao;
+            } catch (InputMismatchException e){
+                MenuDefault.menuDefault();
+            }
+        }
     }
 }
