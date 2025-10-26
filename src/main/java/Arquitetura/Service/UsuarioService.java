@@ -202,4 +202,15 @@ public class UsuarioService {
             usuario.setSexo(sexo);
         }
     }
+
+    public void updateDataNascimento(Usuario usuario, long id, Date dataNascimento) {
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        usuarioValidator.verificarRegrasDataNascimento(dataNascimento);
+        idExistenteValidator(id);
+        usuarioDao.updateDataNascimento(id, dataNascimento);
+
+        if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
+            usuario.setDataNascimento(dataNascimento);
+        }
+    }
 }
