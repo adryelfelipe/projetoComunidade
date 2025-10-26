@@ -155,9 +155,12 @@ public class MenuSetUsuario {
             System.out.print("Digite o Ano: ");
             try {
                 ano = Ferramentas.lInteiro();
+                DataValidator.verificaAno(ano);
                 verifica = true;
             } catch (InputMismatchException e) {
                 MenuDefault.menuDefault();
+            } catch (DataInvalidaException e) {
+                Ferramentas.mensagemErro(e.getMessage());
             }
         }
 
