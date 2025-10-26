@@ -71,35 +71,28 @@ public class MenuSetUsuario {
 
     public static Genero SetSexo(){
 
-        int opsex;
-
         while(true) {
             System.out.println("Digite o seu sexo:");
             System.out.println("1-Masculino");
             System.out.println("2-Feminino");
-            System.out.print("OPÇÃO: ");
+            int op = Ferramentas.lerOpcao();
 
-            try {
-                opsex = Ferramentas.lInteiro();
-                if(opsex < 1 || opsex > 2) {
-                    MenuDefault.menuDefault();
-                } else {
-                    // Converte a entrada de genero usando switch expression
-                    Genero genero = switch (opsex) {
-                        case 1 -> Genero.MASCULINO;
-                        default -> Genero.FEMININO;
-                    };
-
-                    try{
-                        usuarioValidator.verificarRegrasSexo(genero);
-                    } catch (DadosInvalidosException e) {
-                        Ferramentas.mensagemErro(e.getMessage());
-                    }
-
-                    return genero;
-                }
-            } catch (InputMismatchException e) {
+            if(op < 1 || op > 2) {
                 MenuDefault.menuDefault();
+            } else {
+                // Converte a entrada de genero usando switch expression
+                Genero genero = switch (op) {
+                    case 1 -> Genero.MASCULINO;
+                    default -> Genero.FEMININO;
+                };
+
+                try{
+                    usuarioValidator.verificarRegrasSexo(genero);
+                } catch (DadosInvalidosException e) {
+                    Ferramentas.mensagemErro(e.getMessage());
+                }
+
+                return genero;
             }
         }
     }
@@ -218,13 +211,13 @@ public class MenuSetUsuario {
             System.out.println("2-Médico");
             System.out.println("3-Paciente");
             System.out.print("OPÇÃO: ");
-            int opsex = Ferramentas.lerOpcao();
+            int op = Ferramentas.lerOpcao();
 
-            if(opsex < 1 || opsex > 3) {
+            if(op < 1 || op > 3) {
                 MenuDefault.menuDefault();
             } else {
                 // Converte a entrada de genero usando switch expression
-                TipoUsuario tipoUsuario = switch (opsex) {
+                TipoUsuario tipoUsuario = switch (op) {
                     case 1 -> TipoUsuario.ADMIN;
                     case 2 -> TipoUsuario.MEDICO;
                     default -> TipoUsuario.PACIENTE;

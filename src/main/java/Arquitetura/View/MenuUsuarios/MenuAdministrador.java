@@ -21,8 +21,6 @@ public class MenuAdministrador
 
     public static void Menu(Administrador adm)
     {
-
-        int op = 0;
         while (true) {
 
             Ferramentas.limpaTerminal();
@@ -42,12 +40,8 @@ public class MenuAdministrador
             System.out.println("| 8-Cadastro Paciente|");
             System.out.println("| 9-Sair             |");
             System.out.println("----------------------");
+            int op = Ferramentas.lerOpcao();
 
-            try {
-                op = Ferramentas.lInteiro();
-            }catch (InputMismatchException e){
-                MenuDefault.menuDefault();
-            }
             switch (op) {
                 case 1 -> MenuListar.ListarUsuarios(adm);
                 case 2 -> MenuUpdateADM.menuUpdateInicial(adm);
