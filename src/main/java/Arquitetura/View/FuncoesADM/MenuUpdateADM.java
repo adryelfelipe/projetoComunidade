@@ -27,8 +27,6 @@ public class MenuUpdateADM {
     private static final MedicoService medicoService = new MedicoService();
 
     public static void menuUpdateInicial(Administrador administrador) {
-        // Variáveis
-        boolean verifica = false;
         // Menu
 
         while(true) {
@@ -47,7 +45,7 @@ public class MenuUpdateADM {
             switch(opUpdate) {
                 case 1 -> menuAutoUpdate(administrador);
 
-                case 2 -> menuUpdatePaciente(administrador);
+                //case 2 -> menuUpdatePaciente(administrador);
 
                 case 3 -> menuUpdateMedico(administrador);
 
@@ -101,18 +99,19 @@ public class MenuUpdateADM {
             System.out.println("       -----------------             |CPF: " + medico.getCpf());
             System.out.println("                                     |EMAIL: " + medico.getEmail());
             System.out.println("                                     |Telefone: " + medico.getTelefone());
-            System.out.println("1-Email                              |Formação: " + medico.getFormacao());
-            System.out.println("2-Telefone                           |Especialidade: " + medico.getEspecialidade());
-            System.out.println("3-Senha                              |SubEspecialidade: " + medico.getSubEspecialidade());
-            System.out.println("4-Formação                           |Plantão: " + medico.getPlantao());
-            System.out.println("5-Especialidade                      |TipoUsuario " + medico.getTipoUsuario().name());
-            System.out.println("6-SubEspecialidade                   |Data de Nascimento: " + medico.getDataNascimento());
-            System.out.println("7-Plantão                            |Sexo " + medico.getSexo().name());
-            System.out.println("8-CPF                                ------------------------");
-            System.out.println("9-Data de Nascimento                ");
-            System.out.println("10-Tipo de Usuário                   ");
-            System.out.println("11-Sexo                ");
-            System.out.println("12-Sair                               ");
+            System.out.println(" [1] - Email                         |Formação: " + medico.getFormacao());
+            System.out.println(" [2] - Telefone                      |Especialidade: " + medico.getEspecialidade());
+            System.out.println(" [3] - Senha                         |SubEspecialidade: " + medico.getSubEspecialidade());
+            System.out.println(" [4] - Formação                      |Plantão: " + medico.getPlantao());
+            System.out.println(" [5] - Especialidade                 |TipoUsuario " + medico.getTipoUsuario().name());
+            System.out.println(" [6] - SubEspecialidade              |Data de Nascimento: " + medico.getDataNascimento());
+            System.out.println(" [7] - Plantão                       |Sexo " + medico.getSexo().name());
+            System.out.println(" [8] - CPF                           ------------------------");
+            System.out.println(" [9] - Data de Nascimento                ");
+            System.out.println("[10] - Tipo de Usuário                   ");
+            System.out.println("[11] - Sexo                              ");
+            System.out.println("[12] - Nome                              ");
+            System.out.println("[13] - Sair                              ");
 
             // -- Leitura da opção -- //
             try {
@@ -249,6 +248,17 @@ public class MenuUpdateADM {
                 }
 
                 case 12 -> {
+                    String nome = MenuSetUsuario.SetNome();
+
+                    try{
+                        usuarioService.updateNomeUsuario(administrador, idMedico, nome);
+                        medico.setNome(nome);
+                    } catch (TipoUsuarioException | DataInvalidaException | IdInvalidoException e) {
+                        Ferramentas.mensagemErro(e.getMessage());
+                    }
+                }
+
+                case 13 -> {
                     return;
                 }
 

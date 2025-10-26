@@ -3,6 +3,12 @@ package Arquitetura.Service.Validator;
 import Arquitetura.Exception.DataInvalidaException;
 
 public class DataValidator {
+    public static void verificaAno(int ano) {
+        if(ano < 1909) {
+            throw new DataInvalidaException("ERRO! ANOS ABAIXO DE 1909 NÃO SÃO ACEITOS");
+        }
+    }
+
     public static String verificaMes(int mes) {
         if(mes <= 0 || mes > 12) {
             throw new DataInvalidaException("ERRO! O MÊS DEVE ESTAR ENTRE 1 E 12");

@@ -14,9 +14,6 @@ public class MenuUpdatePaciente {
 
     public static void EditarPaciente(Paciente paciente)
     {
-
-        int escolha = 0;
-
         boolean continuar = true;
 
         do {
@@ -33,13 +30,8 @@ public class MenuUpdatePaciente {
             System.out.println("4-Contato Emergência                 |Numero carteirinha: " + paciente.getNumeroCarterinha());
             System.out.println("5-Sair                               |Status: " + paciente.getStatusPaciente());
             System.out.println("                                     ------------------------");
+            int escolha = Ferramentas.lerOpcao();
 
-
-            try {
-                escolha = Ferramentas.lInteiro();
-            } catch (IllegalArgumentException e) {
-                MenuDefault.menuDefault();
-            }
             switch (escolha) {
                 case 1: {
 

@@ -48,81 +48,66 @@ public class MenuCadastro
         System.out.println("     -----------------------------");
 
         // Entrada do nome
-
         nome = MenuSetUsuario.SetNome();
 
         System.out.println(); // pula uma linha
 
         // Entrada do CPF
-
         cpf = MenuSetUsuario.SetCpf();
 
         System.out.println(); // pula uma linha
 
         // Entrada da senha
-
         senha = MenuSetUsuario.SetSenha();
 
         System.out.println(); // pula uma linha
 
         // Entrada do sexo
-
         genero = MenuSetUsuario.SetSexo();
 
         System.out.println(); // pula uma linha
 
         // Entrada do telefone
-
         telefone = MenuSetUsuario.SetTelefone();
 
         System.out.println(); // pula uma linha
 
         // Entrada do email
-
         email = MenuSetUsuario.SetEmail();
 
         System.out.println(); // pula uma linha
 
         // Entrada da data de nascimento
-
         sqlDate = MenuSetUsuario.SetDataNascimento();
 
         System.out.println(); // pula uma linha
 
-        System.out.println(); // pula uma linha
-
         // Entrada da carga horária semanal
-
         cargaHoraria = MenuSetFuncionario.SetCargahoraria();
 
         System.out.println(); // pula uma linha
 
         // Entrada do salário
-
         salario = MenuSetFuncionario.SetSalario();
 
         System.out.println(); // pula uma linha
 
         // Entrada da especialidade
-
         especialidade = MenuSetMedico.SetEspecialidade();
 
         System.out.println(); // pula uma linha
 
         // Entrada da formação acadêmica
-
         formacao = MenuSetMedico.SetFormacao();
 
         System.out.println(); // pula uma linha
 
         // Entrada da sub especialidade (caso houver)
-
         subE = MenuSetMedico.SetSubEspecialidade();
 
         System.out.println(); // pula uma linha
 
         // Entrada do plantão
-
         plantao = MenuSetMedico.SetPlantao();
 
         Ferramentas.limpaTerminal();
@@ -173,55 +158,46 @@ public class MenuCadastro
         System.out.println("     -----------------------------");
 
         // Entrada do nome
-
         nome = MenuSetUsuario.SetNome();
 
         System.out.println(); // pula uma linha
 
         // Entrada do CPF
-
         cpf = MenuSetUsuario.SetCpf();
 
         System.out.println(); // pula uma linha
 
         // Entrada da senha
-
         senha = MenuSetUsuario.SetSenha();
 
         System.out.println(); // pula uma linha
 
         // Entrada do sexo
-
         genero = MenuSetUsuario.SetSexo();
 
         System.out.println(); // pula uma linha
 
         // Entrada do telefone
-
         telefone = MenuSetUsuario.SetTelefone();
 
         System.out.println(); // pula uma linha
 
         // Entrada do email
-
         email = MenuSetUsuario.SetEmail();
 
         System.out.println(); // pula uma linha
 
         // Entrada da data de nascimento
-
         sqlDate = MenuSetUsuario.SetDataNascimento();
 
         System.out.println(); // pula uma linha
 
         //Contato de emergência
-
         contatoEmer = MenuSetPaciente.SetContatoEmergencia();
 
         System.out.println(); // pula uma linha
 
         //Numero carteirinha
-
         numeroCar = MenuSetPaciente.SetNumeroCarteirinha();
 
         System.out.println(); // pula uma linha
@@ -269,61 +245,51 @@ public class MenuCadastro
         System.out.println("     -----------------------");
 
         // Entrada do nome
-
         nome = MenuSetUsuario.SetNome();
 
         System.out.println(); // pula uma linha
 
         // Entrada do CPF
-
         cpf = MenuSetUsuario.SetCpf();
 
         System.out.println(); // pula uma linha
 
         // Entrada da senha
-
         senha = MenuSetUsuario.SetSenha();
 
         System.out.println(); // pula uma linha
 
         // Entrada do sexo
-
         genero = MenuSetUsuario.SetSexo();
 
         System.out.println(); // pula uma linha
 
         // Entrada do telefone
-
         telefone = MenuSetUsuario.SetTelefone();
 
         System.out.println(); // pula uma linha
 
         // Entrada do email
-
         email = MenuSetUsuario.SetEmail();
 
         System.out.println(); // pula uma linha
 
         // Entrada da data de nascimento
-
         sqlDate = MenuSetUsuario.SetDataNascimento();
 
         System.out.println(); // pula uma linha
 
         // Entrada da carga horária semanal
-
         cargaHoraria = MenuSetFuncionario.SetCargahoraria();
 
         System.out.println(); // pula uma linha
 
         // Entrada do salário
-
         salario = MenuSetFuncionario.SetSalario();
 
         System.out.println(); // pula uma linha
 
         // Entrada do departamento
-
         departamento = MenuSetAdm.SetDepartamento();
 
         Ferramentas.limpaTerminal();

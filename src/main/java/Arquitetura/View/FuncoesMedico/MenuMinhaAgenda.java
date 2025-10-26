@@ -40,16 +40,7 @@ public class MenuMinhaAgenda
                 System.out.println("1-Consultas de hoje");
                 System.out.println("2-Buscar Disponibilidade");
                 System.out.println("3-Sair");
-
-                int op = 0;
-
-                try{
-                    op = Ferramentas.lInteiro();
-                }catch (InputMismatchException e)
-                {
-                    System.err.print(e.getMessage());
-                    Ferramentas.Delay(1500);
-                }
+                int op = Ferramentas.lerOpcao();
 
                 switch (op){
                     case 1:
@@ -82,7 +73,7 @@ public class MenuMinhaAgenda
 
             Ferramentas.limpaTerminal();
 
-            ArrayList<Consulta> consultas = consultaDAO.findAllConsultasOfMedico(medico);
+            /* ArrayList<Consulta> consultas = consultaDAO.findAllConsultasOfMedico(medico);
 
             LocalDate dataAtual = LocalDate.now();
 
@@ -100,7 +91,7 @@ public class MenuMinhaAgenda
                     }
                 }
             }
-
+            */
 
         }
 

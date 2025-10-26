@@ -21,8 +21,6 @@ public class MenuUpdateMedico {
     public static void EditarMedico(Medico medico) {
 
         boolean continuar = true;
-        int escolha = 0;
-
 
         do {
             Ferramentas.limpaTerminal();
@@ -37,13 +35,9 @@ public class MenuUpdateMedico {
             System.out.println("3-Senha                              |SubEspecialidade: " + medico.getSubEspecialidade());
             System.out.println("4-Sair                                    |Plantão: " + medico.getPlantao());
             System.out.println("                                     ------------------------");
+            int op = Ferramentas.lerOpcao();
 
-            try {
-                escolha = Ferramentas.lInteiro();
-            }catch (InputMismatchException e){
-                MenuDefault.menuDefault();
-            }
-            switch (escolha) {
+            switch (op) {
                 case 1: {
                     String email = MenuSetUsuario.SetEmail();
                     usuarioService.updateEmailUsuario(medico, medico.getId(), email);

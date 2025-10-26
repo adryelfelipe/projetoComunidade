@@ -24,9 +24,6 @@ public class MenuRelatorio
 
     public static void GerarRelatorios(Administrador adm)
     {
-
-        int escolha = 0;
-
         boolean continuar = true;
 
         do {
@@ -38,13 +35,10 @@ public class MenuRelatorio
             System.out.println("2-Paciente");
             System.out.println("3-Periodo");
             System.out.println("4-Sair");
+            int op = Ferramentas.lerOpcao();
 
-            try {
-                escolha = Ferramentas.lInteiro();
-            } catch (IllegalArgumentException e) {
-                MenuDefault.menuDefault();
-            }
-            switch (escolha) {
+            /*
+            switch (op) {
                 case 1: {
                     System.out.println("Digite o cpf do médico");
                     String cpf = Ferramentas.lString();
@@ -156,6 +150,9 @@ public class MenuRelatorio
                     break;
                 }
             }
+
+             */
         }while (continuar);
     }
+
 }

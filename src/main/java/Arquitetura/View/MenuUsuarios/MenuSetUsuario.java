@@ -1,9 +1,7 @@
 package Arquitetura.View.MenuUsuarios;
-import Arquitetura.Exception.CpfInvalidoException;
-import Arquitetura.Exception.DadosInvalidosException;
-import Arquitetura.Exception.DataInvalidaException;
-import Arquitetura.Exception.EmailInvalidoException;
+import Arquitetura.Exception.*;
 import Arquitetura.Model.Enums.Genero;
+import Arquitetura.Model.Enums.TipoUsuario;
 import Arquitetura.Service.UsuarioService;
 import Arquitetura.Service.Validator.DataValidator;
 import Arquitetura.Service.Validator.FuncionarioValidator;
@@ -73,35 +71,28 @@ public class MenuSetUsuario {
 
     public static Genero SetSexo(){
 
-        int opsex;
-
         while(true) {
             System.out.println("Digite o seu sexo:");
             System.out.println("1-Masculino");
             System.out.println("2-Feminino");
-            System.out.print("OPÇÃO: ");
+            int op = Ferramentas.lerOpcao();
 
-            try {
-                opsex = Ferramentas.lInteiro();
-                if(opsex < 1 || opsex > 2) {
-                    MenuDefault.menuDefault();
-                } else {
-                    // Converte a entrada de genero usando switch expression
-                    Genero genero = switch (opsex) {
-                        case 1 -> Genero.MASCULINO;
-                        default -> Genero.FEMININO;
-                    };
-
-                    try{
-                        usuarioValidator.verificarRegrasSexo(genero);
-                    } catch (DadosInvalidosException e) {
-                        Ferramentas.mensagemErro(e.getMessage());
-                    }
-
-                    return genero;
-                }
-            } catch (InputMismatchException e) {
+            if(op < 1 || op > 2) {
                 MenuDefault.menuDefault();
+            } else {
+                // Converte a entrada de genero usando switch expression
+                Genero genero = switch (op) {
+                    case 1 -> Genero.MASCULINO;
+                    default -> Genero.FEMININO;
+                };
+
+                try{
+                    usuarioValidator.verificarRegrasSexo(genero);
+                } catch (DadosInvalidosException e) {
+                    Ferramentas.mensagemErro(e.getMessage());
+                }
+
+                return genero;
             }
         }
     }
@@ -118,7 +109,7 @@ public class MenuSetUsuario {
                 usuarioValidator.verificarRegrasTelefone(telefone);
                 usuarioService.telefoneUtilizadoValidator(telefone);
                 return telefone;
-            } catch (DadosInvalidosException e) {
+            } catch (DadosInvalidosException | TelefoneInvalidoException e) {
                 Ferramentas.mensagemErro(e.getMessage());
             }
         }
@@ -146,67 +137,99 @@ public class MenuSetUsuario {
 
         boolean verifica = false;
 
-        while (true){
+        System.out.println("Data de nascimento");
 
-            System.out.println("Data de nascimento");
-
-            // Ano
-            int ano = 0;
-            while (!verifica) {
-                System.out.print("Digite o Ano: ");
-                try {
-                    ano = Ferramentas.lInteiro();
-                    verifica = true;
-                } catch (InputMismatchException e) {
-                    MenuDefault.menuDefault();
-                }
-            }
-
-            // RESETA A VERIFICAÇÃO
-            verifica = false;
-
-            // MÊS
-            int mes = 0;
-            while (!verifica) {
-                System.out.print("Digite o Mês: ");
-                try {
-                    mes = Ferramentas.lInteiro();
-                    DataValidator.verificaMes(mes);
-                    verifica = true;
-                } catch (InputMismatchException e) {
-                    MenuDefault.menuDefault();
-                } catch (DataInvalidaException e) {
-                    Ferramentas.mensagemErro(e.getMessage());
-                }
-            }
-
-            // RESETA A VERIFICAÇÃO
-            verifica = false;
-
-            // DIA
-            int dia = 0;
-            while (!verifica) {
-                System.out.print("Digite Dia: ");
-                try {
-                    dia = Ferramentas.lInteiro();
-                    DataValidator.verificaDia(ano, mes, dia);
-                    verifica = true;
-                } catch (InputMismatchException e) {
-                    MenuDefault.menuDefault();
-                } catch (DataInvalidaException e) {
-                    Ferramentas.mensagemErro(e.getMessage());
-                }
-            }
-
-            // Transforma ano, mês e dia em uma sqlDate
-            LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
-            Date sqlDate = Date.valueOf(dataNascimento);
-
+        // Ano
+        int ano = 0;
+        while (!verifica) {
+            System.out.print("Digite o Ano: ");
             try {
-                usuarioValidator.verificarRegrasDataNascimento(sqlDate);
-                return sqlDate;
-            } catch (DadosInvalidosException e) {
+                ano = Ferramentas.lInteiro();
+                DataValidator.verificaAno(ano);
+                verifica = true;
+            } catch (InputMismatchException e) {
+                MenuDefault.menuDefault();
+            } catch (DataInvalidaException e) {
                 Ferramentas.mensagemErro(e.getMessage());
+            }
+        }
+
+        // RESETA A VERIFICAÇÃO
+        verifica = false;
+
+        // MÊS
+        int mes = 0;
+        while (!verifica) {
+            System.out.print("Digite o Mês: ");
+            try {
+                mes = Ferramentas.lInteiro();
+                DataValidator.verificaMes(mes);
+                verifica = true;
+            } catch (InputMismatchException e) {
+                MenuDefault.menuDefault();
+            } catch (DataInvalidaException e) {
+                Ferramentas.mensagemErro(e.getMessage());
+            }
+        }
+
+        // RESETA A VERIFICAÇÃO
+        verifica = false;
+
+        // DIA
+        int dia = 0;
+        while (!verifica) {
+            System.out.print("Digite Dia: ");
+            try {
+                dia = Ferramentas.lInteiro();
+                DataValidator.verificaDia(ano, mes, dia);
+                verifica = true;
+            } catch (InputMismatchException e) {
+                MenuDefault.menuDefault();
+            } catch (DataInvalidaException e) {
+                Ferramentas.mensagemErro(e.getMessage());
+            }
+        }
+
+        // Transforma ano, mês e dia em uma sqlDate
+        LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
+        Date sqlDate = Date.valueOf(dataNascimento);
+
+        try {
+            usuarioValidator.verificarRegrasDataNascimento(sqlDate);
+            return sqlDate;
+        } catch (DadosInvalidosException e) {
+            Ferramentas.mensagemErro(e.getMessage());
+        }
+
+        throw new DataInvalidaException("ERRO AO VERIFICAR A DATA");
+    }
+
+    public static TipoUsuario SetTipoUsuario() {
+        while(true) {
+            System.out.println("Digite o seu sexo:");
+            System.out.println("1-Administrador");
+            System.out.println("2-Médico");
+            System.out.println("3-Paciente");
+            System.out.print("OPÇÃO: ");
+            int op = Ferramentas.lerOpcao();
+
+            if(op < 1 || op > 3) {
+                MenuDefault.menuDefault();
+            } else {
+                // Converte a entrada de genero usando switch expression
+                TipoUsuario tipoUsuario = switch (op) {
+                    case 1 -> TipoUsuario.ADMIN;
+                    case 2 -> TipoUsuario.MEDICO;
+                    default -> TipoUsuario.PACIENTE;
+                };
+
+                try{
+                    usuarioValidator.verificarRegrasTipoUsuario(tipoUsuario);
+                } catch (DadosInvalidosException e) {
+                    Ferramentas.mensagemErro(e.getMessage());
+                }
+
+                return tipoUsuario;
             }
         }
     }
