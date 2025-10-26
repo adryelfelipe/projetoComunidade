@@ -188,7 +188,7 @@ public class UsuarioValidator {
 
     public static void verificaIntegridadeEmail(String email) {
         // -- Verifica se o email é nulo ou se apenas contem espaços
-        if (email == null || email.isBlank()) {
+        if (email.isBlank()) {
             throw new DadosInvalidosException("ERRO! O EMAIL NÃO PODE SER VAZIO!");
         }
 

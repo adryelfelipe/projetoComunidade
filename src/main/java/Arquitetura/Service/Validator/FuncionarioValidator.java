@@ -19,6 +19,10 @@ public class FuncionarioValidator {
         if(cargaHorariaSemanal < 40) {
             throw new DadosInvalidosException("ERRO! A CARGA HORÁRIA NÃO PODE SER MENOR QUE 40");
         }
+
+        if(cargaHorariaSemanal > 310) {
+            throw new DadosInvalidosException("ERRO! A CARGA HORÁRIA NÃO PODE SER MAIOR QUE 310");
+        }
     }
 
     public void verificaRegrasSalario(double salario) {
