@@ -27,8 +27,6 @@ public class MenuUpdateADM {
     private static final MedicoService medicoService = new MedicoService();
 
     public static void menuUpdateInicial(Administrador administrador) {
-        // Variáveis
-        boolean verifica = false;
         // Menu
 
         while(true) {
@@ -47,7 +45,7 @@ public class MenuUpdateADM {
             switch(opUpdate) {
                 case 1 -> menuAutoUpdate(administrador);
 
-                case 2 -> menuUpdatePaciente(administrador);
+                //case 2 -> menuUpdatePaciente(administrador);
 
                 case 3 -> menuUpdateMedico(administrador);
 

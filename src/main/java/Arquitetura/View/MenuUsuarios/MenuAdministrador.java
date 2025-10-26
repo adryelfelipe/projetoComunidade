@@ -59,7 +59,7 @@ public class MenuAdministrador
                 }
                 case 2: {
 
-                    MenuUpdateADM.menuUpdateInicial(Administrador administrador);
+                    MenuUpdateADM.menuUpdateInicial(adm);
 
                     break;
                 }
