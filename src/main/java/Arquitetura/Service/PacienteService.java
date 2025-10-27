@@ -114,15 +114,15 @@ public class PacienteService {
         pacienteDAO.updateStatusPaciente(id, statusPaciente);
     }
 
-    public void updateNumeroCarteirinha(Usuario usuario, long id, String numeroCadastro) {
+    public void updateNumeroCadastro (Usuario usuario, long id, String numeroCadastro) {
         // Verificações de dados
         tipoUsuarioValidator.temAcessoTotal(usuario);
-        PacienteValidator.verificaIntegridadeNumeroCarterinha(numeroCadastro);
+        PacienteValidator.verificaIntegridadeNumeroCadastro(numeroCadastro);
         pacienteValidator.verificaRegrasNumeroCarterinha(numeroCadastro);
         usuarioService.idExistenteValidator(id);
         idPacienteValidator(id);
 
         // Updates
-        pacienteDAO.updateNumeroCarteirinha(id, numeroCadastro);
+        pacienteDAO.updateNumeroCadastro(id, numeroCadastro);
     }
 }

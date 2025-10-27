@@ -2,16 +2,16 @@ package Arquitetura.View.FuncoesADM;
 
 import Arquitetura.Exception.*;
 import Arquitetura.Model.Administrador;
-import Arquitetura.Model.Enums.Especialidade;
-import Arquitetura.Model.Enums.Genero;
-import Arquitetura.Model.Enums.Plantao;
-import Arquitetura.Model.Enums.TipoUsuario;
+import Arquitetura.Model.Enums.*;
 import Arquitetura.Model.Medico;
+import Arquitetura.Model.Paciente;
 import Arquitetura.Service.MedicoService;
+import Arquitetura.Service.PacienteService;
 import Arquitetura.Service.UsuarioService;
 import Arquitetura.Service.Validator.UsuarioValidator;
 import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.FuncoesMedico.MenuSetMedico;
+import Arquitetura.View.FuncoesPACIENTE.MenuSetPaciente;
 import Arquitetura.View.MenuDefault;
 import Arquitetura.View.MenuUsuarios.MenuEscolhaId;
 import Arquitetura.View.MenuUsuarios.MenuSetUsuario;
@@ -25,6 +25,7 @@ public class MenuUpdateADM {
     private static final UsuarioValidator usuarioValidator = new UsuarioValidator();
     private static final UsuarioService usuarioService = new UsuarioService();
     private static final MedicoService medicoService = new MedicoService();
+    private static final PacienteService pacienteService = new PacienteService();
 
     public static void menuUpdateInicial(Administrador administrador) {
         // Menu
@@ -54,7 +55,137 @@ public class MenuUpdateADM {
         }
     }
 
-    private static void menuAutoUpdate(Administrador administrador) {
+    public static void menuUpdatePaciente(Administrador administrador) {
+        // -- Garantia de inicialização -- //
+        long idPaciente;
+
+        // Menu de escolha de ID
+        Ferramentas.limpaTerminal();
+
+        try {
+            idPaciente = MenuEscolhaId.escolhaIdUpdate();
+        } catch (IdInvalidoException e) {
+            Ferramentas.mensagemErro(e.getMessage());
+            return;
+        }
+
+        try {
+            pacienteService.idPacienteValidator(idPaciente);
+        } catch(IdInvalidoException e) {
+            Ferramentas.mensagemErro(e.getMessage());
+            return;
+        }
+
+        Paciente paciente = ((Paciente) usuarioService.findById(administrador, idPaciente));
+
+        // -- Menu de escolha da mudança -- //
+        while(true) {
+            System.out.println("       -------------------           --------- ATUAL --------");
+            System.out.println("       |EDITAR   PACIENTE|           |Nome: " + paciente.getNome());
+            System.out.println("       -------------------           |CPF: " + paciente.getCpf());
+            System.out.println("                                     |Senha: " + paciente.getSenha());
+            System.out.println(" [1] - Nome                          |Email: " + paciente.getEmail());
+            System.out.println(" [2] - CPF                           |Telefone: " + paciente.getTelefone());
+            System.out.println(" [3] - Senha                         |Sexo: " + paciente.getSexo().name());
+            System.out.println(" [4] - Email                         |TipoUsuario: " + paciente.getTipoUsuario().name());
+            System.out.println(" [5] - Telefone                      |Data de Nascimento: " + paciente.getDataNascimento());
+            System.out.println(" [6] - Sexo                          |Cadastro: " + paciente.getNumeroCadastro());
+            System.out.println(" [7] - TipoUsuario                   |ContatoEmergência: " + paciente.getContatoEmergencia());
+            System.out.println(" [8] - Data de Nascimento            |Status: " + paciente.getStatusPaciente().name());
+            System.out.println(" [9] - Número de cadastro            ------------------------");
+            System.out.println("[10] - Contato de Emergência          ");
+            System.out.println("[11] - Status do Paciente             ");
+            System.out.println("[12] - Sair                           ");
+
+            // -- Leitura da opção -- //
+            int op = Ferramentas.lerOpcao();
+
+            Ferramentas.limpaTerminal();
+
+            // -- Lógica de alteração -- //
+
+            try {
+                switch(op) {
+                    case 1 -> {
+                        String nome = MenuSetUsuario.SetNome();
+                        usuarioService.updateNomeUsuario(administrador, idPaciente, nome);
+                        paciente.setNome(nome);
+                    }
+
+                    case 2 -> {
+                        String cpf = MenuSetUsuario.SetCpf();
+                        usuarioService.updateCpf(administrador, idPaciente, cpf);
+                        paciente.setCpf(cpf);
+                    }
+
+                    case 3 -> {
+                        String senha = MenuSetUsuario.SetSenha();
+                        usuarioService.updateSenhaUsuario(administrador, idPaciente, senha);
+                        paciente.setSenha(senha);
+                    }
+
+                    case 4 -> {
+                        String email = MenuSetUsuario.SetEmail();
+                        usuarioService.updateEmailUsuario(administrador, idPaciente, email);
+                        paciente.setEmail(email);
+                    }
+
+                    case 5 -> {
+                        String telefone = MenuSetUsuario.SetTelefone();
+                        usuarioService.updateTelefoneUsuario(administrador, idPaciente, telefone);
+                        paciente.setTelefone(telefone);
+                    }
+
+                    case 6 -> {
+                        Genero sexo = MenuSetUsuario.SetSexo();
+                        usuarioService.updateSexo(administrador, idPaciente, sexo);
+                        paciente.setSexo(sexo);
+                    }
+
+                    case 7 -> {
+                        TipoUsuario tipoUsuario = MenuSetUsuario.SetTipoUsuario();
+                        usuarioService.updateTipoUsuario(administrador, idPaciente, tipoUsuario);
+                        paciente.setTipoUsuario(tipoUsuario);
+                    }
+
+                    case 8 -> {
+                        Date dataNascimento = MenuSetUsuario.SetDataNascimento();
+                        usuarioService.updateDataNascimento(administrador, idPaciente, dataNascimento);
+                        paciente.setDataNascimento(dataNascimento);
+                    }
+
+                    case 9 -> {
+                        String numeroCadastro = MenuSetPaciente.SetNumeroCadastro();
+                        pacienteService.updateNumeroCadastro(administrador, idPaciente, numeroCadastro);
+                        paciente.setNumeroCadastro(numeroCadastro);
+                    }
+
+                    case 10 -> {
+                        String contatoEmergencia = MenuSetPaciente.SetContatoEmergencia();
+                        pacienteService.updateContatoEmergencia(administrador, idPaciente, contatoEmergencia);
+                        paciente.setContatoEmergencia(contatoEmergencia);
+                    }
+
+                    case 11 -> {
+                        StatusPaciente statusPaciente = MenuSetPaciente.SetStatusPaciente();
+                        pacienteService.updateStatusPaciente(administrador, idPaciente, statusPaciente);
+                        paciente.setStatusPaciente(statusPaciente);
+                    }
+
+                    case 12 -> {
+                        return;
+                    }
+
+                    default -> MenuDefault.menuDefault();
+                }
+            } catch(TipoUsuarioException | DadosInvalidosException | IdInvalidoException |
+                    DataInvalidaException | CpfInvalidoException | EmailInvalidoException | TelefoneInvalidoException e) {
+                Ferramentas.mensagemErro(e.getMessage());
+            }
+        }
+    }
+
+    public static void menuAutoUpdate(Administrador administrador) {
         Ferramentas.limpaTerminal();
 
         System.out.println("     -----------------------------");
@@ -64,7 +195,7 @@ public class MenuUpdateADM {
 
     }
 
-    private static void menuUpdateMedico(Administrador administrador) {
+    public static void menuUpdateMedico(Administrador administrador) {
         // -- Garantia de inicialização -- //
         long idMedico;
 

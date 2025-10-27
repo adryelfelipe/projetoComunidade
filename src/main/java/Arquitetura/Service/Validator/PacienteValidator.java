@@ -40,7 +40,7 @@ public class PacienteValidator {
         }
     }
 
-    public static void verificaIntegridadeNumeroCarterinha(String numeroCarterinha) {
+    public static void verificaIntegridadeNumeroCadastro(String numeroCarterinha) {
         if(numeroCarterinha.isBlank()) {
             throw new DadosInvalidosException("ERRO! O NÚMERO DA CARTERINHA NÃO PODE SER VAZIO");
         }

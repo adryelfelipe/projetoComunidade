@@ -164,10 +164,10 @@ public class PacienteDAO {
 
     // -- UPDATES -- //
 
-    public void updateNumeroCarteirinha(long id, String numCarteirinha )
+    public void updateNumeroCadastro(long id, String numCarteirinha )
     {
         String querySql = "UPDATE Paciente "+
-                "SET numeroCarteirinha = ? "+
+                "SET numCadastro = ? "+
                 "WHERE idPaciente = ? ";
         try(
                 Connection connection = ConnectionFactory.getConnection();
@@ -180,7 +180,7 @@ public class PacienteDAO {
         }
         catch (SQLException e)
         {
-            System.err.println("Erro ao atualizar número da carteirinha do paciente com ID:" +id+ e);
+            System.err.println("Erro ao atualizar número de cadastro do paciente com ID:" +id+ e);
         }
     }
 
