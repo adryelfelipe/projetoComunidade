@@ -55,7 +55,7 @@ public class Paciente extends Usuario {
     }
 
     public void setNumeroCadastro(String numeroCadastro) {
-        PacienteValidator.verificaIntegridadeNumeroCarterinha(numeroCadastro);
+        PacienteValidator.verificaIntegridadeNumeroCadastro(numeroCadastro);
 
         this.numeroCadastro = numeroCadastro;
     }

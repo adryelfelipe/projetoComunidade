@@ -198,7 +198,7 @@ public class MenuCadastro
         System.out.println(); // pula uma linha
 
         //Numero carteirinha
-        numeroCar = MenuSetPaciente.SetNumeroCarteirinha();
+        numeroCar = MenuSetPaciente.SetNumeroCadastro();
 
         System.out.println(); // pula uma linha
 

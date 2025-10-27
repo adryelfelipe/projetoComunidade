@@ -22,14 +22,14 @@ public class MenuSetPaciente {
         }
     }
 
-    public static String SetNumeroCarteirinha(){
+    public static String SetNumeroCadastro(){
 
         String numeroCar;
         while (true) {
             System.out.print("Digite o número da carteirinha: ");
             try{
                 numeroCar = Ferramentas.lString();
-                PacienteValidator.verificaIntegridadeNumeroCarterinha(numeroCar);
+                PacienteValidator.verificaIntegridadeNumeroCadastro(numeroCar);
                 pacienteValidator.verificaRegrasNumeroCarterinha(numeroCar);
                 return numeroCar;
             }catch(DadosInvalidosException e){

@@ -104,7 +104,7 @@ public class UsuarioDAO {
                     };
 
                     // Dados Paciente
-                    String numCarteirinha = resultSet.getString("numeroCadastro");
+                    String numCadastro = resultSet.getString("numeroCadastro");
                     String contatoEmergencia = resultSet.getString("contatoEmergencia");
                     int statusPaciente = resultSet.getInt("idStatusPaciente");
 
@@ -144,7 +144,7 @@ public class UsuarioDAO {
                     // Cria o objeto correto de acordo com o tipo de usuário
                     usuario = switch (tipoUsuario)
                     {
-                        case 1 -> new Paciente(id, nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numCarteirinha, status);
+                        case 1 -> new Paciente(id, nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento, contatoEmergencia, numCadastro, status);
                         case 2 -> new Medico(id, nomeUsuario,cpf, senha, sexo, telefone, email, dataNascimento, cargaHorariaSemanal,  salario, plantao, especialidade, formacao, subEspecialidade);
                         default -> new Administrador(nomeUsuario, cpf, senha, sexo, telefone, email, dataNascimento, salario, cargaHorariaSemanal, departamento, id);
                     };

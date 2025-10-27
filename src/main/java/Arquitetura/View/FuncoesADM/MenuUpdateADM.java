@@ -167,9 +167,9 @@ public class MenuUpdateADM {
                     }
 
                     case 11 -> {
-                        StatusPaciente statusPaciente = MenuSetPaciente.SetStatusPaciente();
-                        pacienteService.updateStatusPaciente(administrador, idPaciente, statusPaciente);
-                        paciente.setStatusPaciente(statusPaciente);
+                       StatusPaciente statusPaciente = MenuSetPaciente.SetStatusPaciente();
+                       pacienteService.updateStatusPaciente(administrador, idPaciente, statusPaciente);
+                       paciente.setStatusPaciente(statusPaciente);
                     }
 
                     case 12 -> {

@@ -27,7 +27,7 @@ public class MenuUpdatePaciente {
             System.out.println("1-Email                              |Contato Emergência: " + paciente.getContatoEmergencia());
             System.out.println("2-Telefone                           |Senha: " + paciente.getSenha());
             System.out.println("3-Senha                              |Data nascimento: " + paciente.getDataNascimento());
-            System.out.println("4-Contato Emergência                 |Numero carteirinha: " + paciente.getNumeroCarterinha());
+            System.out.println("4-Contato Emergência                 |Numero carteirinha: " + paciente.getNumeroCadastro());
             System.out.println("5-Sair                               |Status: " + paciente.getStatusPaciente());
             System.out.println("                                     ------------------------");
             int escolha = Ferramentas.lerOpcao();
