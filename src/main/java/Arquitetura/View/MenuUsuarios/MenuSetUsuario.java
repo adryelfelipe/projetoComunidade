@@ -72,7 +72,7 @@ public class MenuSetUsuario {
     public static Genero SetSexo(){
 
         while(true) {
-            System.out.println("Digite o seu sexo:");
+            System.out.println("Digite o sexo:");
             System.out.println("1-Masculino");
             System.out.println("2-Feminino");
             int op = Ferramentas.lerOpcao();
