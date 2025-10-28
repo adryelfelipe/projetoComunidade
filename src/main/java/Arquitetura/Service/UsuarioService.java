@@ -39,7 +39,7 @@ public class UsuarioService {
     }
 
     public void cpfExistenteValidator(String cpf) {
-        if(!readUsuarioDao.verificarCpf(cpf)) {
+        if(!readUsuarioDAO.verificarCpf(cpf)) {
             throw new CpfInvalidoException("ERRO! O CPF NÃO FOI ENCONTRADO");
         }
     }
