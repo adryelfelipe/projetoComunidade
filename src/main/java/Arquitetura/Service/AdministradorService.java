@@ -2,7 +2,7 @@ package Arquitetura.Service;
 
 import Arquitetura.Dao.AdministradorDAO;
 import Arquitetura.Dao.FuncionarioDAO;
-import Arquitetura.Dao.UsuarioDAO.UsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
 import Arquitetura.Exception.*;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Enums.Departamento;
@@ -14,7 +14,7 @@ import Arquitetura.Service.Validator.UsuarioValidator;
 public class AdministradorService {
 
     // -- Atributos -- //
-    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final UpdateUsuarioDAO usuarioDAO = new UpdateUsuarioDAO();
     private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
     private final AdministradorDAO administradorDao = new AdministradorDAO();
     private final UsuarioService usuarioService = new UsuarioService();

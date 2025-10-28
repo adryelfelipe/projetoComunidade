@@ -1,7 +1,7 @@
 package Arquitetura.Dao;
 
 import Arquitetura.Config.ConnectionFactory;
-import Arquitetura.Dao.UsuarioDAO.UsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
 import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.StatusPaciente;
 import Arquitetura.Model.Enums.TipoUsuario;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class PacienteDAO {
 
-    private UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private UpdateUsuarioDAO usuarioDAO = new UpdateUsuarioDAO();
 
     // -- CRUD -- //
 

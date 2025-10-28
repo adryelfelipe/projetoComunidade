@@ -1,6 +1,6 @@
 package Arquitetura.View.FuncoesADM;
 
-import Arquitetura.Dao.UsuarioDAO.UsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Consulta;
 import Arquitetura.Model.Enums.StatusConsulta;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class MenuDisponibilidade
 {
 
-    static UsuarioDAO usuarioDAO = new UsuarioDAO();
+    static UpdateUsuarioDAO usuarioDAO = new UpdateUsuarioDAO();
     static MedicoService medicoService = new MedicoService();
 
     public static void Disponibilidade(Administrador adm)

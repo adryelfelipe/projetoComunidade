@@ -1,19 +1,11 @@
 package Arquitetura.Dao.UsuarioDAO;
 
 import Arquitetura.Config.ConnectionFactory;
-import Arquitetura.Model.Administrador;
-import Arquitetura.Model.Enums.*;
-import Arquitetura.Model.Medico;
-import Arquitetura.Model.Paciente;
-import Arquitetura.Model.Usuario;
 
 import java.sql.*;
-import java.util.ArrayList;
 
-public class UsuarioDAO {
-
-    // -- UPDATES -- //
-
+public class UpdateUsuarioDAO
+{
     public void updateNomeUsuario (long id, String novoNome)
     {
         String queySql = "UPDATE Usuario " +

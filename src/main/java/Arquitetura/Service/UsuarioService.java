@@ -1,7 +1,7 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.*;
-import Arquitetura.Dao.UsuarioDAO.UsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
 import Arquitetura.Exception.*;
 import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.TipoUsuario;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class UsuarioService {
 
     // -- Atributos -- //
-    private final UsuarioDAO usuarioDao = new UsuarioDAO();
+    private final UpdateUsuarioDAO usuarioDao = new UpdateUsuarioDAO();
     private final MedicoDAO medicoDAO = new MedicoDAO();
     private final AdministradorDAO administradorDAO = new AdministradorDAO();
     TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();

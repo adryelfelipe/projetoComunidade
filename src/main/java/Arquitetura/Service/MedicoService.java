@@ -3,7 +3,7 @@ package Arquitetura.Service;
 import Arquitetura.Dao.ConsultaDAO;
 import Arquitetura.Dao.FuncionarioDAO;
 import Arquitetura.Dao.MedicoDAO;
-import Arquitetura.Dao.UsuarioDAO.UsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
 import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Exception.IdInvalidoException;
 import Arquitetura.Model.Consulta;
@@ -22,7 +22,7 @@ public class MedicoService {
 
     // -- Atributos -- //
     private final MedicoDAO medicoDAO = new MedicoDAO();
-    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final UpdateUsuarioDAO usuarioDAO = new UpdateUsuarioDAO();
     private final ConsultaDAO consultaDAO = new ConsultaDAO();
     private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
     private final UsuarioService usuarioService = new UsuarioService();

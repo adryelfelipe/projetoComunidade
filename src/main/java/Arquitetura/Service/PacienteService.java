@@ -1,7 +1,7 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.PacienteDAO;
-import Arquitetura.Dao.UsuarioDAO.UsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
 import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Exception.IdInvalidoException;
 import Arquitetura.Model.Enums.StatusPaciente;
@@ -16,7 +16,7 @@ import Arquitetura.Exception.DadosInvalidosException;
 public class PacienteService {
 
     // -- Atributos -- //
-    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final UpdateUsuarioDAO usuarioDAO = new UpdateUsuarioDAO();
     private final PacienteDAO pacienteDAO = new PacienteDAO();
     private final UsuarioService usuarioService = new UsuarioService();
     private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
