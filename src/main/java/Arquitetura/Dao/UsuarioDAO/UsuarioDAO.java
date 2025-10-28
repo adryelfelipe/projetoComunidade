@@ -30,51 +30,6 @@ public class UsuarioDAO {
         }
     }
 
-    // Leitura de todos os usuários
-    public ArrayList<Usuario> findAllUsers()
-    {
-        ArrayList<Usuario> listaUsuarios = new ArrayList<>();
-
-        String querySql = "SELECT " +
-                "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, " +
-                "A.idDepartamento, " +
-                "P.numeroCadastro, P.contatoEmergencia, P.idStatusPaciente, " +
-                "M.idPlantao, M.idEspecialidade, M.subEspecialidade, M.formacao, " +
-                "F.salario, F.cargaHorariaSemanal "+
-                "FROM Usuario U " +
-                "LEFT JOIN Administrador A ON U.idUsuario = A.idAdministrador " +
-                "LEFT JOIN Medico M ON U.idUsuario = M.idMedico " +
-                "LEFT JOIN Paciente P ON U.idUsuario = P.idPaciente " +
-                "LEFT JOIN Funcionario F ON U.idUsuario = F.idFuncionario";
-
-        try(
-                Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement stmt = connection.prepareStatement(querySql);
-                ResultSet resultSet = stmt.executeQuery())
-        {
-            while (resultSet.next())
-            {
-
-                //Cria um objeto usuário pelo idUsuario recebido da query
-                Usuario usuario = findById(resultSet.getLong("idUsuario"));
-
-                //Verifica se o objeto usuário não é vazio
-                if(usuario != null)
-                {
-                    //Adiciona o objeto usuário na lista de usuários
-                    listaUsuarios.add(usuario);
-                }
-            }
-        }
-        catch (SQLException e)
-        {
-               System.out.println("Erro ao buscar todos os Usuários: ");
-        }
-
-        // Retorna lista de usuários completa
-        return listaUsuarios;
-    }
-
     // Leitura - verifica se existe um cpf igual ao do parâmetro no banco de dados
     public boolean verificarCpf(String cpf) {
         String querySql = "SELECT 1 FROM Usuario WHERE cpf = ? LIMIT 1";
