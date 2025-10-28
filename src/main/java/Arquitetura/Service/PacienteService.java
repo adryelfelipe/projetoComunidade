@@ -90,10 +90,10 @@ public class PacienteService {
 
     public void updateContatoEmergencia(Usuario usuario, long id, String contatoEmergencia) {
         // Verificações de dados
+        usuarioService.validaUpdateUsuario(usuario, id);
         tipoUsuarioValidator.temAcessoBaixo(usuario);
         PacienteValidator.verificaIntegridadeContatoEmerg(contatoEmergencia);
         pacienteValidator.verificaRegrasContatoEmergencia(contatoEmergencia);
-        usuarioService.idExistenteValidator(id);
         idPacienteValidator(id);
 
         // Updates
@@ -105,9 +105,9 @@ public class PacienteService {
 
     public void updateStatusPaciente(Usuario usuario, long id, StatusPaciente statusPaciente) {
         // Verificações de dados
+        usuarioService.validaUpdateUsuario(usuario, id);
         tipoUsuarioValidator.temAcessoTotal(usuario);
         pacienteValidator.verificaRegrasStatusPaciente(statusPaciente);
-        usuarioService.idExistenteValidator(id);
         idPacienteValidator(id);
 
         // Updates
@@ -116,10 +116,10 @@ public class PacienteService {
 
     public void updateNumeroCadastro (Usuario usuario, long id, String numeroCadastro) {
         // Verificações de dados
+        usuarioService.validaUpdateUsuario(usuario, id);
         tipoUsuarioValidator.temAcessoTotal(usuario);
         PacienteValidator.verificaIntegridadeNumeroCadastro(numeroCadastro);
         pacienteValidator.verificaRegrasNumeroCarterinha(numeroCadastro);
-        usuarioService.idExistenteValidator(id);
         idPacienteValidator(id);
 
         // Updates
