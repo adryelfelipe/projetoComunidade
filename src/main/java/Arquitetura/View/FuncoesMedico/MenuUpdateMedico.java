@@ -21,21 +21,32 @@ public class MenuUpdateMedico {
     public static void EditarMedico(Medico medico) {
 
         boolean continuar = true;
+        boolean verifica = false;
+        int op = 0;
 
         do {
             Ferramentas.limpaTerminal();
+            while (!verifica) {
+                System.out.println("       -----------------             ------------------------");
+                System.out.println("       |EDITAR   Medico|             |Nome: " + medico.getNome());
+                System.out.println("       -----------------             |CPF: " + medico.getCpf());
+                System.out.println("                                     |EMAIL: " + medico.getEmail());
+                System.out.println("Digite para alterar:                 |Telefone: " + medico.getTelefone());
+                System.out.println("1-Email                              |Formação: " + medico.getFormacao());
+                System.out.println("2-Telefone                           |Especialidade: " + medico.getEspecialidade());
+                System.out.println("3-Senha                              |SubEspecialidade: " + medico.getSubEspecialidade());
+                System.out.println("4-Sair                                    |Plantão: " + medico.getPlantao());
+                System.out.println("                                     ------------------------");
+                try {
+                    op = Ferramentas.lInteiro();
+                    verifica = true;
+                } catch (InputMismatchException e){
+                    MenuDefault.menuDefault();
+                }
+            }
 
-            System.out.println("       -----------------             ------------------------");
-            System.out.println("       |EDITAR   Medico|             |Nome: " + medico.getNome());
-            System.out.println("       -----------------             |CPF: " + medico.getCpf());
-            System.out.println("                                     |EMAIL: " + medico.getEmail());
-            System.out.println("Digite para alterar:                 |Telefone: " + medico.getTelefone());
-            System.out.println("1-Email                              |Formação: " + medico.getFormacao());
-            System.out.println("2-Telefone                           |Especialidade: " + medico.getEspecialidade());
-            System.out.println("3-Senha                              |SubEspecialidade: " + medico.getSubEspecialidade());
-            System.out.println("4-Sair                                    |Plantão: " + medico.getPlantao());
-            System.out.println("                                     ------------------------");
-            int op = Ferramentas.lerOpcao();
+            // REINICIA A VARIÁVEL DE VERIFICAÇÃO
+            verifica = false;
 
             switch (op) {
                 case 1: {

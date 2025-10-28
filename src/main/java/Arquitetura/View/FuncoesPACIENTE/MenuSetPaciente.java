@@ -6,6 +6,8 @@ import Arquitetura.Service.Validator.PacienteValidator;
 import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.MenuDefault;
 
+import java.util.InputMismatchException;
+
 public class MenuSetPaciente {
 
     private static final PacienteValidator pacienteValidator = new PacienteValidator();
@@ -42,11 +44,24 @@ public class MenuSetPaciente {
     }
 
     public static StatusPaciente SetStatusPaciente() {
+        int op = 0;
+        boolean verifica = false;
+
         while(true) {
-            System.out.println("Digite o Status:");
-            System.out.println("1-ATIVO");
-            System.out.println("2-INATIVO");
-            int op = Ferramentas.lerOpcao();
+            while(!verifica) {
+                System.out.println("Digite o Status:");
+                System.out.println("1-ATIVO");
+                System.out.println("2-INATIVO");
+                try {
+                    op = Ferramentas.lInteiro();
+                    verifica = true;
+                } catch (InputMismatchException e){
+                    MenuDefault.menuDefault();
+                }
+            }
+
+            // REINICIA A VARIÁVEL
+            verifica = false;
 
             if(op < 1 || op > 2) {
                 MenuDefault.menuDefault();

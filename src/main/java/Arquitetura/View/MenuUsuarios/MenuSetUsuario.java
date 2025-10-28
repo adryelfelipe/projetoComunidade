@@ -70,12 +70,24 @@ public class MenuSetUsuario {
     }
 
     public static Genero SetSexo(){
+        boolean verifica = false;
+        int op = 0;
 
         while(true) {
-            System.out.println("Digite o sexo:");
-            System.out.println("1-Masculino");
-            System.out.println("2-Feminino");
-            int op = Ferramentas.lerOpcao();
+            while (!verifica) {
+                System.out.println("Digite o sexo:");
+                System.out.println("1-Masculino");
+                System.out.println("2-Feminino");
+                try {
+                    op = Ferramentas.lInteiro();
+                    verifica = true;
+                } catch (InputMismatchException e){
+                    MenuDefault.menuDefault();
+                }
+            }
+
+            // RESETA A VERIFICAÇÃO
+            verifica = false;
 
             if(op < 1 || op > 2) {
                 MenuDefault.menuDefault();
@@ -205,13 +217,27 @@ public class MenuSetUsuario {
     }
 
     public static TipoUsuario SetTipoUsuario() {
+        boolean verifica = false;
+        int op = 0;
+
         while(true) {
-            System.out.println("Digite o seu sexo:");
-            System.out.println("1-Administrador");
-            System.out.println("2-Médico");
-            System.out.println("3-Paciente");
-            System.out.print("OPÇÃO: ");
-            int op = Ferramentas.lerOpcao();
+
+            while(!verifica) {
+                System.out.println("Digite o seu sexo:");
+                System.out.println("1-Administrador");
+                System.out.println("2-Médico");
+                System.out.println("3-Paciente");
+                System.out.print("OPÇÃO: ");
+                try {
+                    op = Ferramentas.lInteiro();
+                    verifica = true;
+                } catch (InputMismatchException e){
+                    MenuDefault.menuDefault();
+                }
+            }
+
+            // RESETA A VERIFICAÇÃO
+            verifica = false;
 
             if(op < 1 || op > 3) {
                 MenuDefault.menuDefault();

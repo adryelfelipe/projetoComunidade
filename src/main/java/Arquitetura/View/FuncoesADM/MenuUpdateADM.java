@@ -29,19 +29,32 @@ public class MenuUpdateADM {
 
     public static void menuUpdateInicial(Administrador administrador) {
         // Menu
+        boolean verifica = false;
+        int opUpdate = 0;
 
         while(true) {
-            System.out.println("     -----------------------------");
-            System.out.println("     ----      MENU UPDATE    ----");
-            System.out.println("     -----------------------------");
 
-            System.out.print("\n\n"); // pula linhas
+            while(!verifica) {
+                System.out.println("     -----------------------------");
+                System.out.println("     ----      MENU UPDATE    ----");
+                System.out.println("     -----------------------------");
 
-            System.out.println("1 - Alterar a si mesmo");
-            System.out.println("2 - Alterar um paciente");
-            System.out.println("3 - Alterar um médico");
-            System.out.println("4 - SAIR DO MENU");
-            int opUpdate = Ferramentas.lerOpcao();
+                System.out.print("\n\n"); // pula linhas
+
+                System.out.println("1 - Alterar a si mesmo");
+                System.out.println("2 - Alterar um paciente");
+                System.out.println("3 - Alterar um médico");
+                System.out.println("4 - SAIR DO MENU");
+                try {
+                    opUpdate = Ferramentas.lInteiro();
+                    verifica = true;
+                } catch (InputMismatchException e){
+                    MenuDefault.menuDefault();
+                }
+            }
+
+            // Reinicia a veriável de verificação
+            verifica = false;
 
             switch(opUpdate) {
                 case 1 -> menuAutoUpdate(administrador);
@@ -79,26 +92,40 @@ public class MenuUpdateADM {
         Paciente paciente = ((Paciente) usuarioService.findById(administrador, idPaciente));
 
         // -- Menu de escolha da mudança -- //
-        while(true) {
-            System.out.println("       -------------------           --------- ATUAL --------");
-            System.out.println("       |EDITAR   PACIENTE|           |Nome: " + paciente.getNome());
-            System.out.println("       -------------------           |CPF: " + paciente.getCpf());
-            System.out.println("                                     |Senha: " + paciente.getSenha());
-            System.out.println(" [1] - Nome                          |Email: " + paciente.getEmail());
-            System.out.println(" [2] - CPF                           |Telefone: " + paciente.getTelefone());
-            System.out.println(" [3] - Senha                         |Sexo: " + paciente.getSexo().name());
-            System.out.println(" [4] - Email                         |TipoUsuario: " + paciente.getTipoUsuario().name());
-            System.out.println(" [5] - Telefone                      |Data de Nascimento: " + paciente.getDataNascimento());
-            System.out.println(" [6] - Sexo                          |Cadastro: " + paciente.getNumeroCadastro());
-            System.out.println(" [7] - TipoUsuario                   |ContatoEmergência: " + paciente.getContatoEmergencia());
-            System.out.println(" [8] - Data de Nascimento            |Status: " + paciente.getStatusPaciente().name());
-            System.out.println(" [9] - Número de cadastro            ------------------------");
-            System.out.println("[10] - Contato de Emergência          ");
-            System.out.println("[11] - Status do Paciente             ");
-            System.out.println("[12] - Sair                           ");
+        int op = 0;
+        boolean verifica = false;
 
-            // -- Leitura da opção -- //
-            int op = Ferramentas.lerOpcao();
+        while(true) {
+
+            while(!verifica) {
+                System.out.println("       -------------------           --------- ATUAL --------");
+                System.out.println("       |EDITAR   PACIENTE|           |Nome: " + paciente.getNome());
+                System.out.println("       -------------------           |CPF: " + paciente.getCpf());
+                System.out.println("                                     |Senha: " + paciente.getSenha());
+                System.out.println(" [1] - Nome                          |Email: " + paciente.getEmail());
+                System.out.println(" [2] - CPF                           |Telefone: " + paciente.getTelefone());
+                System.out.println(" [3] - Senha                         |Sexo: " + paciente.getSexo().name());
+                System.out.println(" [4] - Email                         |TipoUsuario: " + paciente.getTipoUsuario().name());
+                System.out.println(" [5] - Telefone                      |Data de Nascimento: " + paciente.getDataNascimento());
+                System.out.println(" [6] - Sexo                          |Cadastro: " + paciente.getNumeroCadastro());
+                System.out.println(" [7] - TipoUsuario                   |ContatoEmergência: " + paciente.getContatoEmergencia());
+                System.out.println(" [8] - Data de Nascimento            |Status: " + paciente.getStatusPaciente().name());
+                System.out.println(" [9] - Número de cadastro            ------------------------");
+                System.out.println("[10] - Contato de Emergência          ");
+                System.out.println("[11] - Status do Paciente             ");
+                System.out.println("[12] - Sair                           ");
+
+                // -- Leitura da opção -- //
+                try {
+                    op = Ferramentas.lInteiro();
+                    verifica = true;
+                } catch (InputMismatchException e){
+                    MenuDefault.menuDefault();
+                }
+            }
+
+            // Reinicia a veriável de verificação
+            verifica = false;
 
             Ferramentas.limpaTerminal();
 
@@ -198,6 +225,8 @@ public class MenuUpdateADM {
     public static void menuUpdateMedico(Administrador administrador) {
         // -- Garantia de inicialização -- //
         long idMedico;
+        int op = 0;
+        boolean verifica = false;
 
         // Menu de escolha de ID
         Ferramentas.limpaTerminal();
@@ -220,26 +249,37 @@ public class MenuUpdateADM {
 
         // -- Menu de escolha da mudança -- //
         while(true) {
-            System.out.println("       -----------------             --------- ATUAL --------");
-            System.out.println("       |EDITAR   Medico|             |Nome: " + medico.getNome());
-            System.out.println("       -----------------             |CPF: " + medico.getCpf());
-            System.out.println("                                     |Senha: " + medico.getSenha());
-            System.out.println(" [1] - Nome                          |Email: " + medico.getEmail());
-            System.out.println(" [2] - CPF                           |Telefone: " + medico.getTelefone());
-            System.out.println(" [3] - Senha                         |Sexo: " + medico.getSexo().name());
-            System.out.println(" [4] - Email                         |TipoUsuario: " + medico.getTipoUsuario().name());
-            System.out.println(" [5] - Telefone                      |Data de Nascimento: " + medico.getDataNascimento());
-            System.out.println(" [6] - Sexo                          |Formação: " + medico.getFormacao());
-            System.out.println(" [7] - TipoUsuario                   |Especialidade: " + medico.getEspecialidade());
-            System.out.println(" [8] - Data de Nascimento            |SubEspecialidade: " + medico.getSubEspecialidade());
-            System.out.println(" [9] - Formação                      |Plantão: " + medico.getPlantao().name());
-            System.out.println("[10] - Especialidade                 ------------------------");
-            System.out.println("[11] - SubEspecialidade              ");
-            System.out.println("[12] - Plantão                       ");
-            System.out.println("[13] - Sair                          ");
 
-            // -- Leitura da opção -- //
-            int op = Ferramentas.lerOpcao();
+            while(!verifica) {
+                System.out.println("       -----------------             --------- ATUAL --------");
+                System.out.println("       |EDITAR   Medico|             |Nome: " + medico.getNome());
+                System.out.println("       -----------------             |CPF: " + medico.getCpf());
+                System.out.println("                                     |Senha: " + medico.getSenha());
+                System.out.println(" [1] - Nome                          |Email: " + medico.getEmail());
+                System.out.println(" [2] - CPF                           |Telefone: " + medico.getTelefone());
+                System.out.println(" [3] - Senha                         |Sexo: " + medico.getSexo().name());
+                System.out.println(" [4] - Email                         |TipoUsuario: " + medico.getTipoUsuario().name());
+                System.out.println(" [5] - Telefone                      |Data de Nascimento: " + medico.getDataNascimento());
+                System.out.println(" [6] - Sexo                          |Formação: " + medico.getFormacao());
+                System.out.println(" [7] - TipoUsuario                   |Especialidade: " + medico.getEspecialidade());
+                System.out.println(" [8] - Data de Nascimento            |SubEspecialidade: " + medico.getSubEspecialidade());
+                System.out.println(" [9] - Formação                      |Plantão: " + medico.getPlantao().name());
+                System.out.println("[10] - Especialidade                 ------------------------");
+                System.out.println("[11] - SubEspecialidade              ");
+                System.out.println("[12] - Plantão                       ");
+                System.out.println("[13] - Sair                          ");
+
+                // -- Leitura da opção -- //
+                try {
+                    op = Ferramentas.lInteiro();
+                    verifica = true;
+                } catch (InputMismatchException e){
+                    MenuDefault.menuDefault();
+                }
+            }
+
+            // Reinicia a veriável de verificação
+            verifica = false;
 
             Ferramentas.limpaTerminal();
 

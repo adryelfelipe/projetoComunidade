@@ -147,20 +147,4 @@ public class Ferramentas {
         Ferramentas.Delay(1500);
         Ferramentas.limpaTerminal();
     }
-
-    // ------- LÊ, VALIDA E RETORNA OPÇÃO DO SWITCH CASE ------- //
-    public static int lerOpcao() {
-        int opcao;
-
-        while(true) {
-            System.out.print("ESCOLHA: ");
-
-            try {
-                opcao = Ferramentas.lInteiro();
-                return opcao;
-            } catch (InputMismatchException e){
-                MenuDefault.menuDefault();
-            }
-        }
-    }
 }

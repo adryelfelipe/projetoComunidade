@@ -27,20 +27,32 @@ public class MenuMinhaAgenda
         {
 
             boolean continuar = true;
+            boolean verifica = false;
+            int op = 0;
 
             do {
 
                 Ferramentas.limpaTerminal();
 
-                System.out.println("         --------------------");
-                System.out.println("         -- MINHA  AGENDA --");
-                System.out.println("         --------------------");
+                while(!verifica) {
+                    System.out.println("         --------------------");
+                    System.out.println("         -- MINHA  AGENDA --");
+                    System.out.println("         --------------------");
 
-                System.out.println("\n\n\nDigite");
-                System.out.println("1-Consultas de hoje");
-                System.out.println("2-Buscar Disponibilidade");
-                System.out.println("3-Sair");
-                int op = Ferramentas.lerOpcao();
+                    System.out.println("\n\n\nDigite");
+                    System.out.println("1-Consultas de hoje");
+                    System.out.println("2-Buscar Disponibilidade");
+                    System.out.println("3-Sair");
+                    try {
+                        op = Ferramentas.lInteiro();
+                        verifica = true;
+                    } catch (InputMismatchException e){
+                        MenuDefault.menuDefault();
+                    }
+                }
+
+                // REINICIA A VARIÁVEL
+                verifica = false;
 
                 switch (op){
                     case 1:
