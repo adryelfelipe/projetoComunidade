@@ -10,7 +10,7 @@ import Arquitetura.Model.Usuario;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class EncontrarUsuarioDAO
+public class ReadUsuarioDAO
 {
     // Procurar por ID
     public Usuario findById(long idUsuario) {
