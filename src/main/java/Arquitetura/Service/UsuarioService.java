@@ -1,6 +1,7 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.*;
+import Arquitetura.Dao.UsuarioDAO.ReadUsuarioDAO;
 import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
 import Arquitetura.Exception.*;
 import Arquitetura.Model.Enums.Genero;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 public class UsuarioService {
 
     // -- Atributos -- //
-    private final UpdateUsuarioDAO usuarioDao = new UpdateUsuarioDAO();
+    private final ReadUsuarioDAO readUsuarioDAO = new ReadUsuarioDAO();
     private final MedicoDAO medicoDAO = new MedicoDAO();
     private final AdministradorDAO administradorDAO = new AdministradorDAO();
     TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
@@ -38,7 +39,7 @@ public class UsuarioService {
     }
 
     public void cpfExistenteValidator(String cpf) {
-        if(!usuarioDao.verificarCpf(cpf)) {
+        if(!readUsuarioDao.verificarCpf(cpf)) {
             throw new CpfInvalidoException("ERRO! O CPF NÃO FOI ENCONTRADO");
         }
     }
