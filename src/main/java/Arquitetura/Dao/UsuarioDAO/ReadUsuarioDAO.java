@@ -311,6 +311,28 @@ public class ReadUsuarioDAO
         return id;
     }
 
+    // Converte o ID em CPF
+    public String getCpfByID(long id) {
+        String querySql = "SELECT cpf FROM Usuario WHERE idUsuario = ?";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(querySql)) {
+
+            stmt.setLong(1, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("cpf");
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar o CPF: " + e.getMessage());
+        }
+
+        return null;
+    }
+
     // Leitura - verifica se existe um cpf igual ao do parâmetro no banco de dados
     public boolean verificarCpf(String cpf) {
         String querySql = "SELECT 1 FROM Usuario WHERE cpf = ? LIMIT 1";
