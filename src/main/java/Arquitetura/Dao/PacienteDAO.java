@@ -187,7 +187,7 @@ public class PacienteDAO {
     public void updateContatoEmergencia(long id, String contatoEmergencia)
     {
         String querySql = "UPDATE Paciente "+
-                "SET contatoCarteirinha = ? "+
+                "SET contatoEmergencia = ? "+
                 "WHERE idPaciente = ? ";
 
         try (
