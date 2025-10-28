@@ -26,6 +26,11 @@ public class UsuarioService {
     }
 
     // -- Métodos -- //
+    public void validaUpdateUsuario(Usuario usuarioInsersor, long idUsuario) {
+        usuarioValidator.verificaRegrasUsuarioInsersor(usuarioInsersor);
+        idExistenteValidator(idUsuario);
+    }
+
     public void telefoneUtilizadoValidator(String telefone) {
         if(usuarioDao.containsTelefone(telefone)) {
             throw new TelefoneInvalidoException("ERRO! TELEFONE JÁ UTILIZADO");
@@ -118,10 +123,10 @@ public class UsuarioService {
     }
 
     public void updateCpf(Usuario usuario, long id, String cpf) {
+        validaUpdateUsuario(usuario, id);
         tipoUsuarioValidator.temAcessoTotal(usuario);
         UsuarioValidator.verificaIntegridadeCpf(cpf);
         usuarioValidator.verificarRegrasCpf(cpf);
-        idExistenteValidator(id);
         cpfUtilizadoValidator(cpf);
         usuarioDao.updateCpf(id, cpf);
 
@@ -131,10 +136,10 @@ public class UsuarioService {
     }
 
     public void updateNomeUsuario(Usuario usuario, long id, String nome) {
+        validaUpdateUsuario(usuario, id);
         tipoUsuarioValidator.temAcessoTotal(usuario);
         UsuarioValidator.verificaIntegridadeNome(nome);
         usuarioValidator.verificarRegrasNome(nome);
-        idExistenteValidator(id);
         usuarioDao.updateNomeUsuario(id, nome);
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
@@ -143,10 +148,10 @@ public class UsuarioService {
     }
 
     public void updateTelefoneUsuario(Usuario usuario, long id, String telefone) {
+        validaUpdateUsuario(usuario, id);
         tipoUsuarioValidator.temAcessoBaixo(usuario);
         UsuarioValidator.verificaIntegridadeTelefone(telefone);
         usuarioValidator.verificarRegrasTelefone(telefone);
-        idExistenteValidator(id);
         telefoneUtilizadoValidator(telefone);
         usuarioDao.updateTelefone(id, telefone);
 
@@ -156,10 +161,10 @@ public class UsuarioService {
     }
 
     public void updateEmailUsuario(Usuario usuario, long id, String email) {
+        validaUpdateUsuario(usuario, id);
         tipoUsuarioValidator.temAcessoBaixo(usuario);
         UsuarioValidator.verificaIntegridadeEmail(email);
         usuarioValidator.verificarRegrasEmail(email);
-        idExistenteValidator(id);
         emailUtilizadoValidator(email);
         usuarioDao.updateEmail(id, email);
 
@@ -169,10 +174,10 @@ public class UsuarioService {
     }
 
     public void updateSenhaUsuario(Usuario usuario, long id, String senha) {
+        validaUpdateUsuario(usuario, id);
         tipoUsuarioValidator.temAcessoBaixo(usuario);
         UsuarioValidator.verificaIntegridadeSenha(senha);
         usuarioValidator.verificarRegrasSenha(senha);
-        idExistenteValidator(id);
         usuarioDao.updateSenhaUsuario(id, senha);
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
@@ -182,9 +187,9 @@ public class UsuarioService {
 
 
     public void updateTipoUsuario(Usuario usuario,long id, TipoUsuario tipoUsuario) {
+        validaUpdateUsuario(usuario, id);
         tipoUsuarioValidator.temAcessoTotal(usuario);
         usuarioValidator.verificarRegrasTipoUsuario(tipoUsuario);
-        idExistenteValidator(id);
         usuarioDao.updateTipoUsuario(id, tipoUsuario.getIdTipoUsuario());
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
@@ -193,9 +198,9 @@ public class UsuarioService {
     }
 
     public void updateSexo(Usuario usuario,long id, Genero sexo) {
+        validaUpdateUsuario(usuario, id);
         tipoUsuarioValidator.temAcessoTotal(usuario);
         usuarioValidator.verificarRegrasSexo(sexo);
-        idExistenteValidator(id);
         usuarioDao.updateSexo(id, sexo.getIdGenero());
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
@@ -204,9 +209,9 @@ public class UsuarioService {
     }
 
     public void updateDataNascimento(Usuario usuario, long id, Date dataNascimento) {
+        validaUpdateUsuario(usuario, id);
         tipoUsuarioValidator.temAcessoTotal(usuario);
         usuarioValidator.verificarRegrasDataNascimento(dataNascimento);
-        idExistenteValidator(id);
         usuarioDao.updateDataNascimento(id, dataNascimento);
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
