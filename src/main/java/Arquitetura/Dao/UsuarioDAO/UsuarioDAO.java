@@ -188,36 +188,6 @@ public class UsuarioDAO {
         }
     }
 
-    // -- Verificadores de Igualidade -- //
-
-    public boolean isSameNome(long id, String nome)
-    {
-        String querySql = "SELECT nome FROM Usuario WHERE idusuario = ? ";
-
-        try (
-                Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement stmt = connection.prepareCall(querySql))
-        {
-            stmt.setLong(1, id);
-
-            try (ResultSet resultSet = stmt.executeQuery())
-            {
-                if(resultSet.next())
-                {
-                    if(nome.equals(resultSet.getString(1)))
-                    {
-                        return true;
-                    }
-                }
-            }
-        }
-        catch (SQLException e)
-        {
-            System.err.println("Erro ao verificar nome do usuário com ID: "+ id + e);
-        }
-        return false;
-    }
-
     public boolean isSameCpf(long id, String cpf)
     {
         String querySql = "SELECT cpf FROM Usuario WHERE idUsuario = ? ";
