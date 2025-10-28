@@ -5,9 +5,8 @@ import Arquitetura.Model.Usuario;
 
 import java.sql.*;
 
-public class InserirUsuarioDAO
+public class CreateUsuarioDAO
 {
-
     //Insercao de Usuarios
     public void inserirUsuario(Usuario usuario)
     {
