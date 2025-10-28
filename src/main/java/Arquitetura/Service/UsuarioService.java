@@ -51,7 +51,7 @@ public class UsuarioService {
     }
 
     public void cpfUtilizadoValidator(String cpf) {
-        if(usuarioDao.verificarCpf(cpf)) {
+        if(readUsuarioDAO.verificarCpf(cpf)) {
             throw new CpfInvalidoException("ERRO! CPF JÁ UTILIZADO");
         }
     }
