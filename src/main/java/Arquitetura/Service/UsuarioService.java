@@ -58,7 +58,7 @@ public class UsuarioService {
 
     // Verifica se existe um usuario com o id igual ao parâmetro
     public boolean isIdExistente(long id) {
-        return !(usuarioDao.findById(id) == null);
+        return !(readUsuarioDAO.findById(id) == null);
     }
 
 
