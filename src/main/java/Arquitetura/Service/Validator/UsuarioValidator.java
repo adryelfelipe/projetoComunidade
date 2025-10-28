@@ -24,17 +24,18 @@ public class UsuarioValidator {
     }
 
     // -------------- Métodos verificadores de regras de negócio -------------- //
-    public void verificaRegrasInsercaoUsuario(Usuario usuario) {
-        verificarRegrasObjeto(usuario);
-        verificarRegrasCpf(usuario.getCpf());
-        verificarRegrasEmail(usuario.getEmail());
-        verificarRegrasNome(usuario.getNome());
-        verificarRegrasTelefone(usuario.getTelefone());
-        verificarRegrasTipoUsuario(usuario.getTipoUsuario());
-        verificarRegrasSexo(usuario.getSexo());
-        verificarRegrasSenha(usuario.getSenha());
-        verificarRegrasDataNascimento(usuario.getDataNascimento());
-        verificaExistenciaUsuario(usuario);
+    public void verificaRegrasInsercaoUsuario(Usuario inseror, Usuario usuarioInserido) {
+        verificaRegrasUsuarioInsersor(inseror);
+        verificarRegrasObjeto(usuarioInserido);
+        verificarRegrasCpf(usuarioInserido.getCpf());
+        verificarRegrasEmail(usuarioInserido.getEmail());
+        verificarRegrasNome(usuarioInserido.getNome());
+        verificarRegrasTelefone(usuarioInserido.getTelefone());
+        verificarRegrasTipoUsuario(usuarioInserido.getTipoUsuario());
+        verificarRegrasSexo(usuarioInserido.getSexo());
+        verificarRegrasSenha(usuarioInserido.getSenha());
+        verificarRegrasDataNascimento(usuarioInserido.getDataNascimento());
+        verificaExistenciaUsuario(usuarioInserido);
     }
 
     public void verificaExistenciaUsuario(Usuario usuario) {
@@ -152,6 +153,13 @@ public class UsuarioValidator {
             throw new DadosInvalidosException("ERRO! A DATA DE NASCIMENTO NÃO PODE SER NULA");
         }
     }
+
+    public void verificaRegrasUsuarioInsersor(Usuario usuario) {
+        if(usuario == null) {
+            throw new UsuarioInvalidoException("ERRO! O USUÁRIO INSERSOR NÃO PODE SER NULO");
+        }
+    }
+
 
     // -------------- Métodos verificadores de integridade de dados -------------- //
     public static void verificaIntegridadeCpf(String cpf) {
