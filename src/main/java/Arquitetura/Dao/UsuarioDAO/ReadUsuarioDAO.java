@@ -591,4 +591,33 @@ public class ReadUsuarioDAO
         }
         return false;
     }
+
+    // Leitura - Verifica se o telefone é igual ao já existente no Banco de Dados
+    public boolean isSameTelefone(long id, String telefone)
+    {
+        String querySql = "SELECT telefone FROM Usuario WHERE idUsuario = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1,id);
+
+            try (ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    if(telefone.equals(resultSet.getString(1)))
+                    {
+                        return  true;
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao verificar telefone do usuário com ID: "+ id + e);
+        }
+        return false;
+    }
 }
