@@ -33,8 +33,6 @@ public class AdministradorDAO {
         {
             System.out.println("Erro ao inserir Administrador.");
         }
-
-
     }
 
     //Busca todos os Administradores

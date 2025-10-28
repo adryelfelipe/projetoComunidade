@@ -18,7 +18,7 @@ public class PacienteDAO {
     // Inserção
     public void inserirPaciente (Paciente paciente)
     {
-        String querySql = "insert into Paciente (idPaciente, numeroCarteirinha, contatoEmergencia, idStatusPaciente) values (?, ?, ?, ?)";
+        String querySql = "INSERT INTO Paciente (idPaciente, numeroCadastro, contatoEmergencia, idStatusPaciente) VALUES (?, ?, ?, ?)";
 
         try(Connection conexao = ConnectionFactory.getConnection();
             PreparedStatement stmt = conexao.prepareStatement(querySql))
@@ -43,7 +43,7 @@ public class PacienteDAO {
 
         String querySql = "SELECT "+
                 "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, "+
-                "P.numeroCarteirinha, P.contatoEmergencia, P.idStatusPaciente, "+
+                "P.numeroCadastro, P.contatoEmergencia, P.idStatusPaciente, "+
                 "FROM Usuario U "+
                 "JOIN Paciente P ON U.idUsuario = P.idPaciente ";
 
@@ -72,7 +72,7 @@ public class PacienteDAO {
 
                     //Atributos Paciente
                     String contatoEmergencia = resultSet.getString("contatoEmergencia");
-                    String numCarteirinha = resultSet.getString("numeroCarteirinha");
+                    String numCarteirinha = resultSet.getString("numeroCadastro");
                     int idStatusPaciente = resultSet.getInt("idStatusPaciente");
                     StatusPaciente statusPaciente = switch (idStatusPaciente)
                     {
