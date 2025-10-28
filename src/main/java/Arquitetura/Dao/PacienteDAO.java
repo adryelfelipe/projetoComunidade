@@ -18,7 +18,7 @@ public class PacienteDAO {
     // Inserção
     public void inserirPaciente (Paciente paciente)
     {
-        String querySql = "insert into Paciente (idPaciente, numeroCarteirinha, contatoEmergencia, idStatusPaciente) values (?, ?, ?, ?)";
+        String querySql = "INSERT INTO Paciente (idPaciente, numeroCadastro, contatoEmergencia, idStatusPaciente) VALUES (?, ?, ?, ?)";
 
         try(Connection conexao = ConnectionFactory.getConnection();
             PreparedStatement stmt = conexao.prepareStatement(querySql))
