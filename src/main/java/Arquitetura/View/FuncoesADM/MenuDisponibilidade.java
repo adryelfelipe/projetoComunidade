@@ -1,6 +1,6 @@
 package Arquitetura.View.FuncoesADM;
 
-import Arquitetura.Dao.UsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.UsuarioDAO;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Consulta;
 import Arquitetura.Model.Enums.StatusConsulta;

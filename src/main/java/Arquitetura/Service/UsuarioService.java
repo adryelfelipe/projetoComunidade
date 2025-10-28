@@ -1,6 +1,7 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.*;
+import Arquitetura.Dao.UsuarioDAO.UsuarioDAO;
 import Arquitetura.Exception.*;
 import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.TipoUsuario;
@@ -10,7 +11,6 @@ import Arquitetura.Service.Validator.UsuarioValidator;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.EnumMap;
 
 public class UsuarioService {
 

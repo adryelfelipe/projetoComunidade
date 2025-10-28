@@ -2,14 +2,12 @@ package Arquitetura.Service;
 
 import Arquitetura.Dao.AdministradorDAO;
 import Arquitetura.Dao.FuncionarioDAO;
-import Arquitetura.Dao.UsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.UsuarioDAO;
 import Arquitetura.Exception.*;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Enums.Departamento;
-import Arquitetura.Model.Enums.TipoUsuario;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.Validator.AdministradorValidator;
-import Arquitetura.Service.Validator.FuncionarioValidator;
 import Arquitetura.Service.Validator.TipoUsuarioValidator;
 import Arquitetura.Service.Validator.UsuarioValidator;
 

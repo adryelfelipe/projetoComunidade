@@ -1,6 +1,7 @@
 package Arquitetura.Dao;
 
 import Arquitetura.Config.ConnectionFactory;
+import Arquitetura.Dao.UsuarioDAO.UsuarioDAO;
 import Arquitetura.Model.Enums.*;
 import Arquitetura.Model.Medico;
 

@@ -3,23 +3,19 @@ package Arquitetura.Service;
 import Arquitetura.Dao.ConsultaDAO;
 import Arquitetura.Dao.FuncionarioDAO;
 import Arquitetura.Dao.MedicoDAO;
-import Arquitetura.Dao.UsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.UsuarioDAO;
 import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Exception.IdInvalidoException;
-import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Consulta;
 import Arquitetura.Model.Enums.Especialidade;
 import Arquitetura.Model.Enums.Plantao;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Usuario;
-import Arquitetura.Service.Validator.FuncionarioValidator;
 import Arquitetura.Service.Validator.MedicoValidator;
 import Arquitetura.Service.Validator.TipoUsuarioValidator;
-import Arquitetura.Service.Validator.UsuarioValidator;
 import Arquitetura.Exception.TipoUsuarioException;
 import Arquitetura.Exception.DadosInvalidosException;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MedicoService {

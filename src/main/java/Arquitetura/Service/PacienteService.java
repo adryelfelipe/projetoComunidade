@@ -1,7 +1,7 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.PacienteDAO;
-import Arquitetura.Dao.UsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.UsuarioDAO;
 import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Exception.IdInvalidoException;
 import Arquitetura.Model.Enums.StatusPaciente;
