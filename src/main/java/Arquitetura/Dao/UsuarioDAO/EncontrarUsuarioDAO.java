@@ -8,6 +8,7 @@ import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class EncontrarUsuarioDAO
 {
@@ -216,7 +217,36 @@ public class EncontrarUsuarioDAO
         } catch (SQLException e) {
             System.err.println("Erro ao buscar Usuário pelo CPF. ");
         }
-
         return usuario;
+    }
+    // Buscar todos os Usuarios
+    public ArrayList<Usuario> findAllUsuarios()
+    {
+        ArrayList<Usuario> listaUsuarios = new ArrayList<>();
+
+        String querySql = "SELECT idUsuario FROM Usuario ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            try (ResultSet resultSet = stmt.executeQuery())
+            {
+                while (resultSet.next())
+                {
+                    Usuario usuario = findById(resultSet.getInt("idUsuario"));
+
+                    if(usuario != null)
+                    {
+                        listaUsuarios.add(usuario);
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao buscar todos os usuários " + e);
+        }
+        return listaUsuarios;
     }
 }
