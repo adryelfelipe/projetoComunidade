@@ -678,4 +678,33 @@ public class ReadUsuarioDAO
         }
         return false;
     }
+
+    // Leitura - Verifica se o sexo é igual ao existente no banco de Dados
+    public boolean isSameSexo(long id, Genero genero)
+    {
+        String querySql = "SELECT sexo FROM Usuario WHERE idUsuario = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1,id);
+
+            try (ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    if(genero.getIdGenero() == resultSet.getInt(1))
+                    {
+                        return  true;
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao verificar telefone do usuário com ID: "+ id + e);
+        }
+        return false;
+    }
 }
