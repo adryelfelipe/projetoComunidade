@@ -13,36 +13,6 @@ import java.util.ArrayList;
 public class UsuarioDAO {
 
 
-
-    // Leitura - verifica a senha está coerente com o cpf
-    public boolean verificarSenha(String cpf, String senha)
-    {
-        String querySql = "SELECT senha FROM Usuario WHERE cpf = ? LIMIT 1";
-
-        try (
-                Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement stmt = connection.prepareStatement(querySql))
-        {
-            //Determina o cpf do Usuário para verificação
-            stmt.setString(1, cpf);
-
-            try (ResultSet rs = stmt.executeQuery())
-            {
-                rs.next();
-
-                //Recebe e verifica se a senha inserida é igual à senha do Usuário
-                boolean isCorrect = senha.equals(rs.getString("senha"));
-
-                //Retorna resposta
-                return isCorrect;
-            }
-        }
-        catch (SQLException e)
-        {
-            System.err.println("Erro ao tentar verificar senha.");
-            return false;
-        }
-    }
     // Leitura - verifica o email está coerente com o cpf
     public boolean verificarEmail(String cpf, String email )
     {
