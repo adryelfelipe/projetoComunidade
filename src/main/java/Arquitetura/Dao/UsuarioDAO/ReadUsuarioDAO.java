@@ -282,4 +282,24 @@ public class ReadUsuarioDAO
         }
         return null;
     }
+    // Leitura - verifica se existe um cpf igual ao do parâmetro no banco de dados
+    public boolean verificarCpf(String cpf) {
+        String querySql = "SELECT 1 FROM Usuario WHERE cpf = ? LIMIT 1";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(querySql))
+        {
+            stmt.setString(1, cpf);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+
+                //Retorna a resposta caso o cpf exista ou não
+                return rs.next();
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar o CPF: "+ cpf);
+            return false;
+        }
+    }
 }
