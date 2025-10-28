@@ -3,15 +3,12 @@ package Arquitetura.View.FuncoesADM;
 import Arquitetura.Dao.ConsultaDAO;
 import Arquitetura.Dao.MedicoDAO;
 import Arquitetura.Dao.PacienteDAO;
-import Arquitetura.Dao.UsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.UsuarioDAO;
 import Arquitetura.Model.*;
 import Arquitetura.Service.PacienteService;
 import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.MenuDefault;
 
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 public class MenuRelatorio

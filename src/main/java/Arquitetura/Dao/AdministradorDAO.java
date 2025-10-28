@@ -1,10 +1,10 @@
 package Arquitetura.Dao;
 
 import Arquitetura.Config.ConnectionFactory;
+import Arquitetura.Dao.UsuarioDAO.UsuarioDAO;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Enums.Departamento;
 import Arquitetura.Model.Enums.Genero;
-import Arquitetura.Model.Enums.Plantao;
 import Arquitetura.Model.Enums.TipoUsuario;
 
 import java.sql.*;

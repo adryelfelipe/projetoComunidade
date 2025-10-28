@@ -1,11 +1,7 @@
 package Arquitetura.View.FuncoesADM;
 
-import Arquitetura.Dao.UsuarioDAO;
 import Arquitetura.Exception.*;
 import Arquitetura.Model.Administrador;
-import Arquitetura.Model.Medico;
-import Arquitetura.Model.Paciente;
-import Arquitetura.Model.Usuario;
 import Arquitetura.Service.AdministradorService;
 import Arquitetura.Service.MedicoService;
 import Arquitetura.Service.PacienteService;
