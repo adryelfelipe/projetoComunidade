@@ -63,7 +63,7 @@ public class UsuarioService {
 
 
     public void emailUtilizadoValidator(String email) {
-        if(usuarioDao.containsEmail(email)) {
+        if(readUsuarioDAO.containsEmail(email)) {
             throw new EmailInvalidoException("ERRO! EMAIL JÁ UTILIZADO");
         }
     }
