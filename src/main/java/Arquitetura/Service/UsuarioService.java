@@ -33,7 +33,7 @@ public class UsuarioService {
     }
 
     public void telefoneUtilizadoValidator(String telefone) {
-        if(usuarioDao.containsTelefone(telefone)) {
+        if(readUsuarioDAO.containsTelefone(telefone)) {
             throw new TelefoneInvalidoException("ERRO! TELEFONE JÁ UTILIZADO");
         }
     }
