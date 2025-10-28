@@ -167,7 +167,7 @@ public class PacienteDAO {
     public void updateNumeroCadastro(long id, String numCarteirinha )
     {
         String querySql = "UPDATE Paciente "+
-                "SET numCadastro = ? "+
+                "SET numeroCadastro = ? "+
                 "WHERE idPaciente = ? ";
         try(
                 Connection connection = ConnectionFactory.getConnection();
