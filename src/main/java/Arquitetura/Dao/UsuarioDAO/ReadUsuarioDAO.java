@@ -361,4 +361,33 @@ public class ReadUsuarioDAO
             return false;
         }
     }
+
+    // Leitura - verifica o email está coerente com o cpf
+    public boolean verificarEmail(String cpf, String email )
+    {
+        String querySql = "SELECT email FROM Usuario WHERE cpf = ? LIMIT 1";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setString(1, cpf);
+
+            try( ResultSet resultSet = stmt.executeQuery())
+            {
+                resultSet.next();
+
+                //Verifica se o email inserido é igual ao email do Usuário
+                boolean isCorrect = email.equals(resultSet.getString("email"));
+
+                //Retorna resposta
+                return isCorrect;
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao tentar verificar email. ");
+            return false;
+        }
+    }
 }
