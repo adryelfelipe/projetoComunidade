@@ -533,4 +533,33 @@ public class ReadUsuarioDAO
         }
         return  false;
     }
+
+    // Leitura - Verifica se a senha é igual à já existente no Banco de Dados
+    public boolean isSameSenha(long id, String senhaUsuario)
+    {
+        String querySql = "SELECT senha FROM Usuario WHERE idUsuario = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareCall(querySql))
+        {
+            stmt.setLong(1, id);
+
+            try (ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    if(senhaUsuario.equals(resultSet.getString(1)))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao verificar senha de usuário com ID: "+ id + e);
+        }
+        return  false;
+    }
 }
