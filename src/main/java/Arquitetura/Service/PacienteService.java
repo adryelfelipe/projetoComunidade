@@ -38,6 +38,11 @@ public class PacienteService {
         }
     }
 
+    public void validaUpdatePaciente(Usuario usuarioInsersor, long id) {
+        usuarioService.validaUpdateUsuario(usuarioInsersor, id);
+        idPacienteValidator(id);
+    }
+
     /**<p>Este método realiza as seguintes ações: </p>
      * <ol>
      *     <li>Verifica se o usuario possui acesso total</li>
@@ -52,8 +57,8 @@ public class PacienteService {
      */
     public void inserirPaciente(Usuario usuario, Paciente pacienteInserido) {
         // Verificações de dados
+        pacienteValidator.verificaRegrasInsercaoPaciente(usuario, pacienteInserido);
         tipoUsuarioValidator.temAcessoTotal(usuario);
-        pacienteValidator.verificaRegrasInsercaoPaciente(pacienteInserido);
         usuarioService.validaUsuarioInserido(pacienteInserido);
 
         // Insere nessa ordem para respeitar as chaves estrangeiras
@@ -90,11 +95,10 @@ public class PacienteService {
 
     public void updateContatoEmergencia(Usuario usuario, long id, String contatoEmergencia) {
         // Verificações de dados
+        validaUpdatePaciente(usuario, id);
         tipoUsuarioValidator.temAcessoBaixo(usuario);
         PacienteValidator.verificaIntegridadeContatoEmerg(contatoEmergencia);
         pacienteValidator.verificaRegrasContatoEmergencia(contatoEmergencia);
-        usuarioService.idExistenteValidator(id);
-        idPacienteValidator(id);
 
         // Updates
         pacienteDAO.updateContatoEmergencia(id, contatoEmergencia);
@@ -105,10 +109,9 @@ public class PacienteService {
 
     public void updateStatusPaciente(Usuario usuario, long id, StatusPaciente statusPaciente) {
         // Verificações de dados
+        validaUpdatePaciente(usuario, id);
         tipoUsuarioValidator.temAcessoTotal(usuario);
         pacienteValidator.verificaRegrasStatusPaciente(statusPaciente);
-        usuarioService.idExistenteValidator(id);
-        idPacienteValidator(id);
 
         // Updates
         pacienteDAO.updateStatusPaciente(id, statusPaciente);
@@ -116,11 +119,10 @@ public class PacienteService {
 
     public void updateNumeroCadastro (Usuario usuario, long id, String numeroCadastro) {
         // Verificações de dados
+        validaUpdatePaciente(usuario, id);
         tipoUsuarioValidator.temAcessoTotal(usuario);
         PacienteValidator.verificaIntegridadeNumeroCadastro(numeroCadastro);
         pacienteValidator.verificaRegrasNumeroCarterinha(numeroCadastro);
-        usuarioService.idExistenteValidator(id);
-        idPacienteValidator(id);
 
         // Updates
         pacienteDAO.updateNumeroCadastro(id, numeroCadastro);

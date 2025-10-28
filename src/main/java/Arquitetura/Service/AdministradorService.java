@@ -43,6 +43,11 @@ public class AdministradorService {
         }
     }
 
+    public void validaUpdateAdm(Usuario usuarioInsersor, long id) {
+        usuarioService.validaUpdateUsuario(usuarioInsersor, id);
+        idAdministradorValidator(id);
+    }
+
     /**
      * <p>Este método realiza as seguintes ações: </p>
      *
@@ -60,8 +65,8 @@ public class AdministradorService {
 
     public void inserirAdmin(Usuario usuario, Administrador administradorCriado)  {
         // Verificações de dados
+        administradorValidator.verificaRegrasInsercaoAdm(usuario, administradorCriado);
         tipoUsuarioValidator.temAcessoTotal(usuario);
-        administradorValidator.verificaRegrasInsercaoAdm(administradorCriado);
         usuarioService.validaUsuarioInserido(administradorCriado);
 
         // Insere nessa ordem para respeitar as chaves estrangeiras
@@ -105,16 +110,14 @@ public class AdministradorService {
     }
 
     public void updateDepartamento(Usuario usuario, long id, Departamento departamento) {
+        validaUpdateAdm(usuario, id);
         tipoUsuarioValidator.temAcessoTotal(usuario);
         administradorValidator.verificaRegrasDepartamento(departamento);
-        usuarioService.idExistenteValidator(id);
-        idAdministradorValidator(id);;
 
         administradorDao.updateDepartamento(id, departamento);
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
             ((Administrador) usuario).setDepartamento(departamento);
         }
-
     }
 }

@@ -8,6 +8,7 @@ import Arquitetura.Model.Enums.Especialidade;
 import Arquitetura.Model.Enums.Exame;
 import Arquitetura.Model.Enums.Plantao;
 import Arquitetura.Model.Medico;
+import Arquitetura.Model.Usuario;
 import Arquitetura.Service.MedicoService;
 
 public class MedicoValidator {
@@ -17,7 +18,7 @@ public class MedicoValidator {
 
 
     // -- Métodos verificadores de regras de negócio -- //
-    public void verificaRegrasInsercaoMedico(Medico medico) {
+    public void verificaRegrasInsercaoMedico(Usuario usuarioInsersor, Medico medico) {
         funcionarioValidator.verificaRegrasInsercaoFuncionario(medico);
         verificaRegrasEspecialidade(medico.getEspecialidade());
         verificaRegrasFormacao(medico.getFormacao());

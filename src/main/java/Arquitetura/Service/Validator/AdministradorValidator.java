@@ -12,8 +12,8 @@ public class AdministradorValidator {
     private final FuncionarioValidator funcionarioValidator = new FuncionarioValidator();
 
     // -- Métodos verificadores de regras de negócio -- //
-    public void verificaRegrasInsercaoAdm(Administrador administrador) {
-        funcionarioValidator.verificaRegrasInsercaoFuncionario(administrador);
+    public void verificaRegrasInsercaoAdm(Usuario usuarioInsersor, Administrador administrador) {
+        funcionarioValidator.verificaRegrasInsercaoFuncionario(usuarioInsersor,administrador);
 
         verificaRegrasDepartamento(administrador.getDepartamento());
     }

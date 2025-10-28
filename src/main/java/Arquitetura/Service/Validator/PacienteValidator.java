@@ -3,6 +3,7 @@ package Arquitetura.Service.Validator;
 import Arquitetura.Exception.DadosInvalidosException;
 import Arquitetura.Model.Enums.StatusPaciente;
 import Arquitetura.Model.Paciente;
+import Arquitetura.Model.Usuario;
 
 public class PacienteValidator {
 
@@ -10,8 +11,8 @@ public class PacienteValidator {
     private final UsuarioValidator usuarioValidator = new UsuarioValidator();
 
     // -- Métodos verificadores de regras de negócio -- //
-    public void verificaRegrasInsercaoPaciente(Paciente paciente) {
-        usuarioValidator.verificaRegrasInsercaoUsuario(paciente);
+    public void verificaRegrasInsercaoPaciente(Usuario usuarioInsersor, Paciente paciente) {
+        usuarioValidator.verificaRegrasInsercaoUsuario(usuarioInsersor, paciente);
         verificaRegrasNumeroCarterinha(paciente.getNumeroCadastro());
         verificaRegrasContatoEmergencia(paciente.getContatoEmergencia());
         verificaRegrasStatusPaciente(paciente.getStatusPaciente());

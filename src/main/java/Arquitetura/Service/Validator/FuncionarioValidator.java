@@ -2,6 +2,7 @@ package Arquitetura.Service.Validator;
 
 import Arquitetura.Exception.DadosInvalidosException;
 import Arquitetura.Model.Funcionario;
+import Arquitetura.Model.Usuario;
 
 public class FuncionarioValidator {
 
@@ -9,8 +10,8 @@ public class FuncionarioValidator {
     private final UsuarioValidator usuarioValidator = new UsuarioValidator();
 
     // -- Métodos verificadores de regras de negócio -- //
-    public void verificaRegrasInsercaoFuncionario(Funcionario funcionario) {
-        usuarioValidator.verificaRegrasInsercaoUsuario(funcionario);
+    public void verificaRegrasInsercaoFuncionario(Usuario usuarioInsersor, Funcionario funcionario) {
+        usuarioValidator.verificaRegrasInsercaoUsuario(usuarioInsersor, funcionario);
         verificaRegrasSalario(funcionario.getSalario());
         verificaRegrasCargaHoraria(funcionario.getCargaHorariaSemanal());
     }
