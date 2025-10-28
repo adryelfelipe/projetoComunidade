@@ -1,5 +1,6 @@
 package Arquitetura.View.FuncoesPACIENTE;
 
+import Arquitetura.Exception.*;
 import Arquitetura.Model.Paciente;
 import Arquitetura.Service.PacienteService;
 import Arquitetura.Service.UsuarioService;
@@ -16,16 +17,16 @@ public class MenuUpdatePaciente {
 
     public static void EditarPaciente(Paciente paciente)
     {
-        boolean continuar = true;
+
         boolean verifica = false;
         int op = 0;
 
-        do {
+        while (true){
             Ferramentas.limpaTerminal();
 
             while (!verifica) {
                 System.out.println("       -----------------             ------------------------");
-                System.out.println("       |EDITAR PACIENTE|             |Nome: " + paciente.getNome());
+                System.out.println("       |EDITAR PERFIL  |             |Nome: " + paciente.getNome());
                 System.out.println("       -----------------             |CPF: " + paciente.getCpf());
                 System.out.println("                                     |EMAIL: " + paciente.getEmail());
                 System.out.println("Digite para alterar:                 |Telefone: " + paciente.getTelefone());
@@ -46,45 +47,50 @@ public class MenuUpdatePaciente {
             // REINICIA A VARIÁVEL
             verifica = false;
 
-            switch (op) {
-                case 1: {
+            try {
 
-                    String email = MenuSetUsuario.SetEmail();
-                    usuarioService.updateEmailUsuario(paciente,paciente.getId(),email);
+                switch (op) {
+                    case 1: {
 
-                    break;
+                        String email = MenuSetUsuario.SetEmail();
+                        usuarioService.updateEmailUsuario(paciente, paciente.getId(), email);
+
+                        break;
+                    }
+                    case 2: {
+
+                        String telefone = MenuSetUsuario.SetTelefone();
+                        usuarioService.updateTelefoneUsuario(paciente, paciente.getId(), telefone);
+                        break;
+                    }
+                    case 3: {
+
+                        String senha = MenuSetUsuario.SetSenha();
+                        usuarioService.updateSenhaUsuario(paciente, paciente.getId(), senha);
+                        break;
+                    }
+                    case 4: {
+
+                        String contato = MenuSetPaciente.SetContatoEmergencia();
+                        pacienteService.updateContatoEmergencia(paciente, paciente.getId(), contato);
+                        break;
+                    }
+                    case 5: {
+
+                        return;
+
+                    }
+                    default: {
+
+                        MenuDefault.menuDefault();
+
+                        break;
+                    }
                 }
-                case 2: {
-
-                    String telefone = MenuSetUsuario.SetTelefone();
-                    usuarioService.updateTelefoneUsuario(paciente, paciente.getId(),telefone);
-                    break;
-                }
-                case 3: {
-
-                    String senha = MenuSetUsuario.SetSenha();
-                    usuarioService.updateSenhaUsuario(paciente, paciente.getId(),senha);
-                    break;
-                }
-                case 4: {
-
-                    String contato = MenuSetPaciente.SetContatoEmergencia();
-                    pacienteService.updateContatoEmergencia(paciente, paciente.getId(), contato);
-                    break;
-                }
-                case 5: {
-
-                    continuar = false;
-
-                    break;
-                }
-                default: {
-
-                    MenuDefault.menuDefault();
-
-                    break;
-                }
+            }catch(TipoUsuarioException | DadosInvalidosException | IdInvalidoException
+                   | EmailInvalidoException | TelefoneInvalidoException e) {
+                Ferramentas.mensagemErro(e.getMessage());
             }
-        }while (!continuar);
+        }
     }
 }

@@ -1,6 +1,6 @@
 package Arquitetura.View.FuncoesMedico;
 
-import Arquitetura.Exception.DadosInvalidosException;
+import Arquitetura.Exception.*;
 import Arquitetura.Model.Enums.Especialidade;
 import Arquitetura.Model.Enums.Plantao;
 import Arquitetura.Model.Medico;
@@ -20,22 +20,22 @@ public class MenuUpdateMedico {
 
     public static void EditarMedico(Medico medico) {
 
-        boolean continuar = true;
         boolean verifica = false;
         int op = 0;
 
-        do {
+        while (true){
+
             Ferramentas.limpaTerminal();
             while (!verifica) {
                 System.out.println("       -----------------             ------------------------");
-                System.out.println("       |EDITAR   Medico|             |Nome: " + medico.getNome());
+                System.out.println("       |EDITAR   PERFIL|             |Nome: " + medico.getNome());
                 System.out.println("       -----------------             |CPF: " + medico.getCpf());
                 System.out.println("                                     |EMAIL: " + medico.getEmail());
                 System.out.println("Digite para alterar:                 |Telefone: " + medico.getTelefone());
                 System.out.println("1-Email                              |Formação: " + medico.getFormacao());
                 System.out.println("2-Telefone                           |Especialidade: " + medico.getEspecialidade());
                 System.out.println("3-Senha                              |SubEspecialidade: " + medico.getSubEspecialidade());
-                System.out.println("4-Sair                                    |Plantão: " + medico.getPlantao());
+                System.out.println("4-Sair                               |Plantão: " + medico.getPlantao());
                 System.out.println("                                     ------------------------");
                 try {
                     op = Ferramentas.lInteiro();
@@ -48,33 +48,42 @@ public class MenuUpdateMedico {
             // REINICIA A VARIÁVEL DE VERIFICAÇÃO
             verifica = false;
 
-            switch (op) {
-                case 1: {
-                    String email = MenuSetUsuario.SetEmail();
-                    usuarioService.updateEmailUsuario(medico, medico.getId(), email);
-                    break;
-                }
-                case 2: {
+            try {
 
-                    String telefone = MenuSetUsuario.SetTelefone();
-                    usuarioService.updateTelefoneUsuario(medico, medico.getId(), telefone);
-                    break;
-                }
-                case 3: {
+                switch (op) {
+                    case 1: {
+                        String email = MenuSetUsuario.SetEmail();
+                        usuarioService.updateEmailUsuario(medico, medico.getId(), email);
+                        break;
+                    }
+                    case 2: {
 
-                    String senha = MenuSetUsuario.SetSenha();
-                    usuarioService.updateSenhaUsuario(medico, medico.getId(),senha);
-                    break;
-                }
-                case 4:{
-                    continuar = false;
-                }
-                default: {
+                        String telefone = MenuSetUsuario.SetTelefone();
+                        usuarioService.updateTelefoneUsuario(medico, medico.getId(), telefone);
+                        break;
+                    }
+                    case 3: {
 
-                    MenuDefault.menuDefault();
-                    break;
+                        String senha = MenuSetUsuario.SetSenha();
+                        usuarioService.updateSenhaUsuario(medico, medico.getId(), senha);
+                        break;
+                    }
+                    case 4: {
+
+                         return;
+
+                    }
+                    default: {
+
+                        MenuDefault.menuDefault();
+                        break;
+                    }
                 }
+            }catch(TipoUsuarioException | DadosInvalidosException | IdInvalidoException
+                  | EmailInvalidoException | TelefoneInvalidoException e) {
+            Ferramentas.mensagemErro(e.getMessage());
             }
-        } while (!continuar);
+
+        }
     }
 }
