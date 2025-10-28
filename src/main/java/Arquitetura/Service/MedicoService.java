@@ -40,6 +40,11 @@ public class MedicoService {
         }
     }
 
+    public void validaUpdateMedico(Usuario usuarioInsersor, long id) {
+        usuarioService.validaUpdateUsuario(usuarioInsersor, id);
+        idMedicoValidator(id);
+    }
+
     public void cpfMedicoValidator (String cpf) {
         if(!medicoDAO.isCpfMedico(cpf)) {
             throw new CpfInvalidoException("ERRO ! CPF NÃO PERTENCE A UM MÉDICO");
@@ -112,38 +117,34 @@ public class MedicoService {
 
 
     public void updateEspecialidadeMedico(Usuario usuario, long id, Especialidade especialidade) {
-        usuarioService.validaUpdateUsuario(usuario, id);
+        validaUpdateMedico(usuario, id);
         tipoUsuarioValidator.temAcessoTotal(usuario);
         medicoValidator.verificaRegrasEspecialidade(especialidade);
-        usuarioService.idExistenteValidator(id);
 
         medicoDAO.updateEspecialidade(id, especialidade);
     }
 
     public void updateSubEspecialidadeMedico(Usuario usuario, long id, String subEspecialidade) {
-        usuarioService.validaUpdateUsuario(usuario, id);
+        validaUpdateMedico(usuario, id);
         tipoUsuarioValidator.temAcessoTotal(usuario);
         MedicoValidator.verificaIntegridadeSubespecialidade(subEspecialidade);
-        usuarioService.idExistenteValidator(id);
 
         medicoDAO.updateSubEspecialidade(id, subEspecialidade);
     }
 
     public void updateFormacaoMedico(Usuario usuario, long id, String formacao) {
-        usuarioService.validaUpdateUsuario(usuario, id);
+        validaUpdateMedico(usuario, id);
         tipoUsuarioValidator.temAcessoTotal(usuario);
         MedicoValidator.verificaIntegridadeFormacao(formacao);
         medicoValidator.verificaRegrasFormacao(formacao);
-        usuarioService.idExistenteValidator(id);
 
         medicoDAO.updateFormacao(id, formacao);
     }
 
     public void updatePlantaoMedico(Usuario usuario, long id, Plantao plantao) {
-        usuarioService.validaUpdateUsuario(usuario, id);
+        validaUpdateMedico(usuario, id);
         tipoUsuarioValidator.temAcessoTotal(usuario);
         medicoValidator.verificaRegrasPlantao(plantao);
-        usuarioService.idExistenteValidator(id);
 
         medicoDAO.updatePlantao(id, plantao);
     }
