@@ -16,14 +16,27 @@ public class MenuSetAdm {
     public static final AdministradorValidator administradorValidator = new AdministradorValidator();
 
     public static Departamento SetDepartamento(){
+        boolean verifica = false;
+        int op = 0;
 
         while (true) {
-            System.out.println("Qual é o seu departamento? ");
-            System.out.println("1 - FINANCEIRO ");
-            System.out.println("2 - INFRAESTRUTURA ");
-            System.out.println("3 - MARKETING");
-            System.out.println("4 - RH");
-            int op = Ferramentas.lerOpcao();
+
+            while (!verifica) {
+                System.out.println("Qual é o seu departamento? ");
+                System.out.println("1 - FINANCEIRO ");
+                System.out.println("2 - INFRAESTRUTURA ");
+                System.out.println("3 - MARKETING");
+                System.out.println("4 - RH");
+                try {
+                    op = Ferramentas.lInteiro();
+                    verifica = true;
+                } catch (InputMismatchException e){
+                    MenuDefault.menuDefault();
+                }
+            }
+
+            // REINICIA A VARIÁVEL
+            verifica = false;
 
             if(op < 0 || op > 4) {
                 MenuDefault.menuDefault();

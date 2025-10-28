@@ -3,12 +3,14 @@ package Arquitetura.View;
 import Arquitetura.Utilidades.Ferramentas;
 
 import javax.swing.*;
+import java.util.InputMismatchException;
 
 public class  MenuInicial {
 
     public static void Menu() {
+        int op = 0;
+        boolean checkOpcao = false;
         boolean continuar = true;
-        boolean checkOpcao;
 
         while (continuar) {
 
@@ -18,14 +20,26 @@ public class  MenuInicial {
             System.out.println("               |    CLINI WEG   |");
             System.out.println("               ==================");
 
-            System.out.println("\n\n\n");
-            System.out.println("=============");
-            System.out.println("| Digite:   |");
-            System.out.println("| 1-Login   |");
-            System.out.println("| 2-Sair    |");
-            System.out.println("=============");
-            System.out.println("\n");
-            int op = Ferramentas.lerOpcao();
+            while(!checkOpcao) {
+                System.out.println("\n\n\n");
+                System.out.println("=============");
+                System.out.println("| Digite:   |");
+                System.out.println("| 1-Login   |");
+                System.out.println("| 2-Sair    |");
+                System.out.println("=============");
+                System.out.println();
+                System.out.print("ESCOLHA: ");
+
+                try {
+                    op = Ferramentas.lInteiro();
+                    checkOpcao = true;
+                } catch (InputMismatchException e){
+                    MenuDefault.menuDefault();
+                }
+            }
+
+            // Reinicia a variável
+            checkOpcao = false;
 
             System.out.println("\n\n\n"); // pula 4 linhas
 
@@ -41,9 +55,7 @@ public class  MenuInicial {
                     continuar = false;
                 }
 
-                default -> {
-                    MenuDefault.menuDefault();
-                }
+                default -> MenuDefault.menuDefault();
             }
         }
     }

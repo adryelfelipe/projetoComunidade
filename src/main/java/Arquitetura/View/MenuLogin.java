@@ -66,9 +66,7 @@ public class MenuLogin {
             try{
                 usuario = usuarioService.loginUsuario(cpf, senha);
             } catch(SenhaInvalidaException | CpfInvalidoException e) {
-                Ferramentas.limpaTerminal();
-                System.err.print("ERRO! SENHA OU CPF INVÁLIDOS");
-                Ferramentas.Delay(500);
+                Ferramentas.mensagemErro("ERRO! SENHA OU CPF INVÁLIDOS");
                 return;
             }
 

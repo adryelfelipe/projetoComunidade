@@ -21,26 +21,38 @@ public class MenuAdministrador
 
     public static void Menu(Administrador adm)
     {
-        while (true) {
+        boolean verifica = false;
+        int op = 0;
 
-            Ferramentas.limpaTerminal();
-            System.out.println("           ---------------                         Usuário: " + adm.getId());
-            System.out.println("           |     MENU    |                                      " );
-            System.out.println("           ---------------                                      \n\n");
-            System.out.println("----------------------");
-            System.out.println("|  Digite:           |");
-            System.out.println("|--------------------|");
-            System.out.println("| 1-Listar Usuários  |");
-            System.out.println("| 2-Editar Usuários  |");
-            System.out.println("| 3-Excluir Usuários |");
-            System.out.println("| 4-Gerar Relatórios |");
-            System.out.println("| 5-Disponibilidade  |");
-            System.out.println("| 6-Cadastro ADM     |");
-            System.out.println("| 7-Cadastro Medico  |");
-            System.out.println("| 8-Cadastro Paciente|");
-            System.out.println("| 9-Sair             |");
-            System.out.println("----------------------");
-            int op = Ferramentas.lerOpcao();
+        while (true) {
+            while(!verifica) {
+                Ferramentas.limpaTerminal();
+                System.out.println("           ---------------                         Usuário: " + adm.getId());
+                System.out.println("           |     MENU    |                                      " );
+                System.out.println("           ---------------                                      \n\n");
+                System.out.println("----------------------");
+                System.out.println("|  Digite:           |");
+                System.out.println("|--------------------|");
+                System.out.println("| 1-Listar Usuários  |");
+                System.out.println("| 2-Editar Usuários  |");
+                System.out.println("| 3-Excluir Usuários |");
+                System.out.println("| 4-Gerar Relatórios |");
+                System.out.println("| 5-Disponibilidade  |");
+                System.out.println("| 6-Cadastro ADM     |");
+                System.out.println("| 7-Cadastro Medico  |");
+                System.out.println("| 8-Cadastro Paciente|");
+                System.out.println("| 9-Sair             |");
+                System.out.println("----------------------");
+                try {
+                    op = Ferramentas.lInteiro();
+                    verifica = true;
+                } catch (InputMismatchException e){
+                    MenuDefault.menuDefault();
+                }
+            }
+
+            // Reinicia a variável
+            verifica = false;
 
             switch (op) {
                 case 1 -> MenuListar.ListarUsuarios(adm);

@@ -12,6 +12,7 @@ import Arquitetura.View.MenuDefault;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 public class MenuRelatorio
 {
@@ -25,17 +26,29 @@ public class MenuRelatorio
     public static void GerarRelatorios(Administrador adm)
     {
         boolean continuar = true;
+        boolean verifica = false;
+        int op = 0;
 
         do {
             Ferramentas.limpaTerminal();
 
-            System.out.println("       Relatório");
-            System.out.println("\n\nDigite: ");
-            System.out.println("1-Médico");
-            System.out.println("2-Paciente");
-            System.out.println("3-Periodo");
-            System.out.println("4-Sair");
-            int op = Ferramentas.lerOpcao();
+            while(!verifica) {
+                System.out.println("       Relatório");
+                System.out.println("\n\nDigite: ");
+                System.out.println("1-Médico");
+                System.out.println("2-Paciente");
+                System.out.println("3-Periodo");
+                System.out.println("4-Sair");
+                try {
+                    op = Ferramentas.lInteiro();
+                    verifica = true;
+                } catch (InputMismatchException e){
+                    MenuDefault.menuDefault();
+                }
+            }
+
+            // REINICIA A VARIÁVEL
+            verifica = false;
 
             /*
             switch (op) {
