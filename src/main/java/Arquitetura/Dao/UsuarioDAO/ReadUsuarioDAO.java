@@ -649,4 +649,33 @@ public class ReadUsuarioDAO
         }
         return false;
     }
+
+    // Leitura - Verifica se o tipo Usuario é igual ao existente no Banco de Dados
+    public boolean isSameTipoUsuario(long id, TipoUsuario tipoUsuario)
+    {
+        String querySql = "SELECT tipoUsuario FROM Usuario WHERE idUsuario = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql))
+        {
+            stmt.setLong(1,id);
+
+            try (ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    if(tipoUsuario.getIdTipoUsuario() == resultSet.getInt(1))
+                    {
+                        return  true;
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao verificar telefone do usuário com ID: "+ id + e);
+        }
+        return false;
+    }
 }
