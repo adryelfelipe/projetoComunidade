@@ -1,6 +1,8 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.*;
+import Arquitetura.Dao.AdministradorDAO.ReadAdministradorDAO;
+import Arquitetura.Dao.AdministradorDAO.UpdateAdministradorDAO;
 import Arquitetura.Dao.UsuarioDAO.ReadUsuarioDAO;
 import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
 import Arquitetura.Exception.*;
@@ -19,7 +21,7 @@ public class UsuarioService {
     private UpdateUsuarioDAO updateUsuarioDAO =  new UpdateUsuarioDAO();
     private final ReadUsuarioDAO readUsuarioDAO = new ReadUsuarioDAO();
     private final MedicoDAO medicoDAO = new MedicoDAO();
-    private final AdministradorDAO administradorDAO = new AdministradorDAO();
+    private final ReadAdministradorDAO readAdministradorDAO = new ReadAdministradorDAO();
     TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
     UsuarioValidator usuarioValidator = new UsuarioValidator();
 
@@ -112,7 +114,7 @@ public class UsuarioService {
             throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
         }
 
-        if(administradorDAO.isCpfAdministrador(cpf)) {
+        if(readAdministradorDAO.isCpfAdministrador(cpf)) {
             return 3;
         }
 
