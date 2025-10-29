@@ -83,6 +83,13 @@ public class MenuUpdateADM {
             return;
         }
 
+        try{
+            pacienteService.idPacienteValidator(idPaciente);
+        } catch (IdInvalidoException e) {
+            Ferramentas.mensagemErro(e.getMessage());
+            return;
+        }
+
         Paciente paciente = ((Paciente) usuarioService.findById(administrador, idPaciente));
 
         // -- Menu de escolha da mudança -- //
@@ -90,7 +97,6 @@ public class MenuUpdateADM {
         boolean verifica = false;
 
         while(true) {
-
             while(!verifica) {
                 System.out.println("       -------------------           --------- ATUAL --------");
                 System.out.println("       |EDITAR   PACIENTE|           |Nome: " + paciente.getNome());
@@ -325,6 +331,13 @@ public class MenuUpdateADM {
 
         try {
             idMedico = MenuEscolhaId.escolhaIdUpdate();
+        } catch (IdInvalidoException e) {
+            Ferramentas.mensagemErro(e.getMessage());
+            return;
+        }
+
+        try{
+            medicoService.idMedicoValidator(idMedico);
         } catch (IdInvalidoException e) {
             Ferramentas.mensagemErro(e.getMessage());
             return;

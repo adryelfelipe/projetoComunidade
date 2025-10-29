@@ -108,15 +108,15 @@ public class UsuarioValidator {
 
         public void verificarRegrasSenha(String senha) {
             if(senha == null) {
-                throw new IllegalStateException("ERRO! A SENHA NÃO PODE SER NULA");
+                throw new DadosInvalidosException("ERRO! A SENHA NÃO PODE SER NULA");
             }
 
             if(senha.contains(" ")) {
-                throw new IllegalStateException("ERRO! A SENHA NÃO PODE CONTER ESPAÇOS");
+                throw new DadosInvalidosException("ERRO! A SENHA NÃO PODE CONTER ESPAÇOS");
             }
 
             if(senha.length() < 6) {
-                throw new IllegalStateException("ERRO! A SENHA DEVE CONTER MAIS DE 5 CARACTERES");
+                throw new DadosInvalidosException("ERRO! A SENHA DEVE CONTER MAIS DE 5 CARACTERES");
             }
 
 
@@ -139,11 +139,11 @@ public class UsuarioValidator {
             }
 
             if(!verificaMaiuscula) {
-                throw new IllegalStateException("ERRO! A SENHA DEVE CONTER UMA LETRA MAIÚSCULA");
+                throw new DadosInvalidosException("ERRO! A SENHA DEVE CONTER UMA LETRA MAIÚSCULA");
             }
 
             if(!verificaEspecial) {
-                throw new IllegalStateException("ERRO! A SENHA DEVE CONTER UM CARACTERE ESPECIAL");
+                throw new DadosInvalidosException("ERRO! A SENHA DEVE CONTER UM CARACTERE ESPECIAL");
             }
         }
 
