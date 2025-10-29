@@ -1,4 +1,4 @@
-package Arquitetura.Dao;
+package Arquitetura.Dao.UsuarioDAO;
 
 import Arquitetura.Config.ConnectionFactory;
 import Arquitetura.Model.Administrador;
@@ -10,49 +10,9 @@ import Arquitetura.Model.Usuario;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class UsuarioDAO {
-
-    // -- CRUD -- //
-
-    // Inserção
-    public void inserirUsuario(Usuario usuario) {
-
-        String sql = "INSERT INTO Usuario (senha, nomeUsuario, sexo, cpf, telefone, tipoUsuario, email, dataNascimento) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        int idGerado = -1;
-
-
-        try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-
-            //Configura os parâmetros (usando os getters do objeto)
-            stmt.setString(1, usuario.getSenha());
-            stmt.setString(2, usuario.getNome());
-            stmt.setLong(3, usuario.getSexo().getIdGenero());
-            stmt.setString(4, usuario.getCpf());
-            stmt.setString(5, usuario.getTelefone());
-            stmt.setLong(6, usuario.getTipoUsuario().getIdTipoUsuario());
-            stmt.setString(7, usuario.getEmail());
-            stmt.setDate(8, usuario.getDataNascimento());
-
-            int linhasAfetadas = stmt.executeUpdate();
-
-            if (linhasAfetadas > 0) {
-                //Obtem o ResultSet das chaves geradas
-                try (ResultSet rs = stmt.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        //Pega o ID gerado pelo banco
-                        idGerado = rs.getInt(1);
-                        usuario.setId(idGerado);
-                    }
-                }
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Erro ao inserir o Usuario.");
-        }
-    }
-
-    // Leitura por ID
+public class ReadUsuarioDAO
+{
+    // Procurar por ID
     public Usuario findById(long idUsuario) {
         String querySQL = "SELECT " +
                 "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, " +
@@ -157,6 +117,7 @@ public class UsuarioDAO {
         return usuario;
     }
 
+    // Procurar por CPF
     public Usuario findByCpf(String cpf) {
         String querySQL = "SELECT " +
                 "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, " +
@@ -257,92 +218,72 @@ public class UsuarioDAO {
         } catch (SQLException e) {
             System.err.println("Erro ao buscar Usuário pelo CPF. ");
         }
-
         return usuario;
     }
 
-    // Remoção
-    public void deletarUsuario(String cpf) {
-        String querySql = "DELETE FROM Usuario WHERE cpf = ?";
-
-        try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(querySql))
-        {
-            stmt.setString(1, cpf);
-            stmt.executeUpdate();
-        }
-        catch (SQLException e)
-        {
-            System.err.println("Erro ao deletar usuário com o CPF: "+cpf);
-        }
-    }
-
-    // Leitura de todos os usuários
-    public ArrayList<Usuario> findAllUsers()
+    // Buscar todos os Usuarios
+    public ArrayList<Usuario> findAllUsuarios()
     {
         ArrayList<Usuario> listaUsuarios = new ArrayList<>();
 
-        String querySql = "SELECT " +
-                "U.idUsuario, U.senha, U.nomeUsuario, U.sexo, U.cpf, U.telefone, U.email, U.dataNascimento, U.tipoUsuario, " +
-                "A.idDepartamento, " +
-                "P.numeroCadastro, P.contatoEmergencia, P.idStatusPaciente, " +
-                "M.idPlantao, M.idEspecialidade, M.subEspecialidade, M.formacao, " +
-                "F.salario, F.cargaHorariaSemanal "+
-                "FROM Usuario U " +
-                "LEFT JOIN Administrador A ON U.idUsuario = A.idAdministrador " +
-                "LEFT JOIN Medico M ON U.idUsuario = M.idMedico " +
-                "LEFT JOIN Paciente P ON U.idUsuario = P.idPaciente " +
-                "LEFT JOIN Funcionario F ON U.idUsuario = F.idFuncionario";
+        String querySql = "SELECT idUsuario FROM Usuario ";
 
-        try(
+        try (
                 Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement stmt = connection.prepareStatement(querySql);
-                ResultSet resultSet = stmt.executeQuery())
+                PreparedStatement stmt = connection.prepareStatement(querySql))
         {
-            while (resultSet.next())
+            try (ResultSet resultSet = stmt.executeQuery())
             {
-
-                //Cria um objeto usuário pelo idUsuario recebido da query
-                Usuario usuario = findById(resultSet.getLong("idUsuario"));
-
-                //Verifica se o objeto usuário não é vazio
-                if(usuario != null)
+                while (resultSet.next())
                 {
-                    //Adiciona o objeto usuário na lista de usuários
-                    listaUsuarios.add(usuario);
+                    Usuario usuario = findById(resultSet.getInt("idUsuario"));
+
+                    if(usuario != null)
+                    {
+                        listaUsuarios.add(usuario);
+                    }
                 }
             }
         }
         catch (SQLException e)
         {
-               System.out.println("Erro ao buscar todos os Usuários: ");
+            System.err.println("Erro ao buscar todos os usuários " + e);
         }
-
-        // Retorna lista de usuários completa
         return listaUsuarios;
     }
 
-    // Leitura - verifica se existe um cpf igual ao do parâmetro no banco de dados
-    public boolean verificarCpf(String cpf) {
-        String querySql = "SELECT 1 FROM Usuario WHERE cpf = ? LIMIT 1";
+    // Desenvolve login do Usuario
+    public Usuario loginUsuario(String cpf, String senha)
+    {
+        String querySQL = "SELECT idUsuario, senha FROM Usuario WHERE cpf = ? LIMIT 1";
 
-        try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(querySql))
+        try (Connection connection = ConnectionFactory.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(querySQL))
         {
             stmt.setString(1, cpf);
 
-            try (ResultSet rs = stmt.executeQuery()) {
+            try (ResultSet resultSet = stmt.executeQuery())
+            {
+                if(resultSet.next())
+                {
+                    if(senha.equals(resultSet.getString("senha")))
+                    {
+                        long idUsuario = resultSet.getLong("idUsuario");
 
-                //Retorna a resposta caso o cpf exista ou não
-                return rs.next();
+                        return findById(idUsuario);
+                    }
+                }
             }
-
-        } catch (SQLException e) {
-            System.err.println("Erro ao verificar o CPF: "+ cpf);
-            return false;
         }
+        catch (SQLException e)
+        {
+            System.err.println("Erro ao tentar logar na conta.");
+            return null;
+        }
+        return null;
     }
 
+    // Converte Cpf para ID
     public long getIdOfCpf(String cpf)
     {
         long id = 0;
@@ -368,6 +309,49 @@ public class UsuarioDAO {
             System.err.println("Erro ao converter para ID o cpf: "+ cpf + e);
         }
         return id;
+    }
+
+    // Converte o ID em CPF
+    public String getCpfByID(long id) {
+        String querySql = "SELECT cpf FROM Usuario WHERE idUsuario = ?";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(querySql)) {
+
+            stmt.setLong(1, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("cpf");
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar o CPF: " + e.getMessage());
+        }
+
+        return null;
+    }
+
+    // Leitura - verifica se existe um cpf igual ao do parâmetro no banco de dados
+    public boolean verificarCpf(String cpf) {
+        String querySql = "SELECT 1 FROM Usuario WHERE cpf = ? LIMIT 1";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(querySql))
+        {
+            stmt.setString(1, cpf);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+
+                //Retorna a resposta caso o cpf exista ou não
+                return rs.next();
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar o CPF: "+ cpf);
+            return false;
+        }
     }
 
     // Leitura - verifica a senha está coerente com o cpf
@@ -399,6 +383,7 @@ public class UsuarioDAO {
             return false;
         }
     }
+
     // Leitura - verifica o email está coerente com o cpf
     public boolean verificarEmail(String cpf, String email )
     {
@@ -460,6 +445,7 @@ public class UsuarioDAO {
             return false;
         }
     }
+
     public boolean containsTelefone(String telefone)
     {
         //Verifica se existe aquele telefone no Banco de Dados
@@ -489,233 +475,8 @@ public class UsuarioDAO {
             return false;
         }
     }
-    public Usuario loginUsuario(String cpf, String senha)
-    {
-        String querySQL = "SELECT idUsuario, senha FROM Usuario WHERE cpf = ? LIMIT 1";
 
-        try (Connection connection = ConnectionFactory.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(querySQL))
-        {
-            stmt.setString(1, cpf);
-
-            try (ResultSet resultSet = stmt.executeQuery())
-            {
-                if(resultSet.next())
-                {
-                    if(senha.equals(resultSet.getString("senha")))
-                    {
-                        long idUsuario = resultSet.getLong("idUsuario");
-
-                        return findById(idUsuario);
-                    }
-                }
-            }
-        }
-        catch (SQLException e)
-        {
-            System.err.println("Erro ao tentar logar na conta.");
-            return null;
-        }
-        return null;
-    }
-
-    // -- UPDATES -- //
-
-    public void updateNomeUsuario (long id, String novoNome)
-    {
-        String queySql = "UPDATE Usuario " +
-                "SET nomeUsuario = ? " +
-                "WHERE idUsuario = ?";
-
-        try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(queySql))
-        {
-
-            stmt.setString(1, novoNome);
-            stmt.setLong(2, id);
-
-            stmt.executeUpdate();
-
-        }
-        catch (SQLException e)
-        {
-            System.err.println("Erro ao tentar atualizar o nome do usuário. ");
-        }
-    }
-
-    public void updateSenhaUsuario (long id, String novaSenha)
-    {
-        String queySql = "UPDATE Usuario " +
-                "SET senha = ? " +
-                "WHERE idUsuario = ?";
-
-        try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(queySql))
-        {
-
-            stmt.setString(1, novaSenha);
-            stmt.setLong(2, id);
-
-            stmt.executeUpdate();
-
-        } catch (SQLException e)
-        {
-            System.err.println("Erro ao tentar atualizar a senha do usuário. ");
-        }
-    }
-
-    public void updateCpf (long id, String novoCpf)
-    {
-        String qurySql = "UPDATE Usuario " +
-                "SET cpf = ? " +
-                "WHERE idUsuario = ?";
-
-        try(Connection conn = ConnectionFactory.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(qurySql))
-        {
-
-            stmt.setString(1, novoCpf);
-            stmt.setLong(2, id);
-
-            stmt.executeUpdate();
-
-        }
-        catch (SQLException e)
-        {
-            System.err.println("Erro ao tentar atualizar o Cpf do usuário.");
-        }
-    }
-
-    public void updateEmail (long id, String email)
-    {
-        String querySql = "UPDATE Usuario"+
-                "SET email = ? "+
-                "WHERE idusuario = ? ";
-        try (
-                Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement stmt = connection.prepareStatement(querySql))
-        {
-            stmt.setString(1, email);
-            stmt.setLong(2, id);
-
-            stmt.executeUpdate();
-        }
-        catch (SQLException e)
-        {
-            System.err.println("Erro ao atualizar o email do usuário com ID: "+id + e);
-        }
-    }
-    public String cpfByID(long id) {
-        String querySql = "SELECT cpf FROM Usuario WHERE idUsuario = ?";
-
-        try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(querySql)) {
-
-            stmt.setLong(1, id);
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getString("cpf");
-                }
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Erro ao buscar o CPF: " + e.getMessage());
-        }
-
-        return null;
-    }
-
-    public void updateTelefone (long id, String telefone)
-    {
-        String qurySql = "UPDATE Usuario " +
-                "SET telefone = ? " +
-                "WHERE idUsuario = ?";
-
-        try(Connection conn = ConnectionFactory.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(qurySql))
-        {
-
-            stmt.setString(1, telefone);
-            stmt.setLong(2, id);
-
-            stmt.executeUpdate();
-
-        }
-        catch (SQLException e)
-        {
-            System.err.println("Erro ao tentar atualizar o Telefone do usuário.");
-        }
-    }
-
-    public void updateDataNascimento (long id, Date dataNascimento)
-    {
-        String qurySql = "UPDATE Usuario " +
-                "SET dataNascimento = ? " +
-                "WHERE idUsuario = ?";
-
-        try(Connection conn = ConnectionFactory.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(qurySql))
-        {
-
-            stmt.setDate(1, dataNascimento);
-            stmt.setLong(2, id);
-
-            stmt.executeUpdate();
-
-        }
-        catch (SQLException e)
-        {
-            System.err.println("Erro ao tentar atualizar a Data de Nascimento do usuário.");
-        }
-    }
-
-    public void updateTipoUsuario (long id, long tipoUsuario)
-    {
-        String qurySql = "UPDATE Usuario " +
-                "SET tipoUsuario = ? " +
-                "WHERE idUsuario = ?";
-
-        try(Connection conn = ConnectionFactory.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(qurySql))
-        {
-
-            stmt.setLong(1, tipoUsuario);
-            stmt.setLong(2, id);
-
-            stmt.executeUpdate();
-
-        }
-        catch (SQLException e)
-        {
-            System.err.println("Erro ao tentar atualizar o tipo do Usuário.");
-        }
-    }
-
-    public void updateSexo (long id, long sexo)
-    {
-        String qurySql = "UPDATE Usuario " +
-                "SET sexo = ? " +
-                "WHERE idUsuario = ?";
-
-        try(Connection conn = ConnectionFactory.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(qurySql))
-        {
-
-            stmt.setLong(1, sexo);
-            stmt.setLong(2, id);
-
-            stmt.executeUpdate();
-
-        }
-        catch (SQLException e)
-        {
-            System.err.println("Erro ao tentar atualizar o sexo do Usuário.");
-        }
-    }
-
-    // -- Verificadores de Igualidade -- //
-
+    // Leitura - Verifica se o nome é igual ao existente no Banco de Dados
     public boolean isSameNome(long id, String nome)
     {
         String querySql = "SELECT nome FROM Usuario WHERE idusuario = ? ";
@@ -744,6 +505,7 @@ public class UsuarioDAO {
         return false;
     }
 
+    // Leitura - Verifica se o cpf é igual ao existente no Banco de Dados
     public boolean isSameCpf(long id, String cpf)
     {
         String querySql = "SELECT cpf FROM Usuario WHERE idUsuario = ? ";
@@ -771,6 +533,8 @@ public class UsuarioDAO {
         }
         return  false;
     }
+
+    // Leitura - Verifica se a senha é igual à já existente no Banco de Dados
     public boolean isSameSenha(long id, String senhaUsuario)
     {
         String querySql = "SELECT senha FROM Usuario WHERE idUsuario = ? ";
@@ -798,6 +562,8 @@ public class UsuarioDAO {
         }
         return  false;
     }
+
+    // Leitura - Veriica se o email é igual ao já existente no Banco de Dados
     public boolean isSameEmail(long id, String email)
     {
         String querySql = "SELECT email FROM Usuario WHERE idUsuario = ? ";
@@ -825,6 +591,8 @@ public class UsuarioDAO {
         }
         return false;
     }
+
+    // Leitura - Verifica se o telefone é igual ao já existente no Banco de Dados
     public boolean isSameTelefone(long id, String telefone)
     {
         String querySql = "SELECT telefone FROM Usuario WHERE idUsuario = ? ";
@@ -852,6 +620,8 @@ public class UsuarioDAO {
         }
         return false;
     }
+
+    // Leitura - Verifica se a data de nascimento é igual à existente no Banco de Dados
     public boolean isSameDataNascimento(long id, Date dataNascimento)
     {
         String querySql = "SELECT dataNascimento FROM Usuario WHERE idUsuario = ? ";
@@ -879,6 +649,8 @@ public class UsuarioDAO {
         }
         return false;
     }
+
+    // Leitura - Verifica se o tipo Usuario é igual ao existente no Banco de Dados
     public boolean isSameTipoUsuario(long id, TipoUsuario tipoUsuario)
     {
         String querySql = "SELECT tipoUsuario FROM Usuario WHERE idUsuario = ? ";
@@ -906,6 +678,8 @@ public class UsuarioDAO {
         }
         return false;
     }
+
+    // Leitura - Verifica se o sexo é igual ao existente no banco de Dados
     public boolean isSameSexo(long id, Genero genero)
     {
         String querySql = "SELECT sexo FROM Usuario WHERE idUsuario = ? ";

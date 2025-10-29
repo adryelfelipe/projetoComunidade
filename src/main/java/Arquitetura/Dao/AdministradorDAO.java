@@ -1,10 +1,10 @@
 package Arquitetura.Dao;
 
 import Arquitetura.Config.ConnectionFactory;
+import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Enums.Departamento;
 import Arquitetura.Model.Enums.Genero;
-import Arquitetura.Model.Enums.Plantao;
 import Arquitetura.Model.Enums.TipoUsuario;
 
 import java.sql.*;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class AdministradorDAO {
 
     // -- CRUD -- //
-    UsuarioDAO usuarioDAO = new UsuarioDAO();
+    UpdateUsuarioDAO usuarioDAO = new UpdateUsuarioDAO();
 
     // Inserção
     public void inserirAdmin(Administrador administrador)

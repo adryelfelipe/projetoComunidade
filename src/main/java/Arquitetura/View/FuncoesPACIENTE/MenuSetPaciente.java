@@ -31,7 +31,7 @@ public class MenuSetPaciente {
 
         String numeroCar;
         while (true) {
-            System.out.print("Digite o número da carteirinha: ");
+            System.out.print("Digite o número do cadastro: ");
             try{
                 numeroCar = Ferramentas.lString();
                 PacienteValidator.verificaIntegridadeNumeroCadastro(numeroCar);

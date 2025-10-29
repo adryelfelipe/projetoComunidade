@@ -3,15 +3,12 @@ package Arquitetura.View.FuncoesADM;
 import Arquitetura.Dao.ConsultaDAO;
 import Arquitetura.Dao.MedicoDAO;
 import Arquitetura.Dao.PacienteDAO;
-import Arquitetura.Dao.UsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
 import Arquitetura.Model.*;
 import Arquitetura.Service.PacienteService;
 import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.MenuDefault;
 
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 public class MenuRelatorio
@@ -21,7 +18,7 @@ public class MenuRelatorio
     static MedicoDAO medicoDAO = new MedicoDAO();
     static PacienteDAO pacienteDAO = new PacienteDAO();
     static PacienteService pacienteService = new PacienteService();
-    static UsuarioDAO usuarioDAO = new UsuarioDAO();
+    static UpdateUsuarioDAO usuarioDAO = new UpdateUsuarioDAO();
 
     public static void GerarRelatorios(Administrador adm)
     {

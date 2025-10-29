@@ -2,21 +2,22 @@ package Arquitetura.Service;
 
 import Arquitetura.Dao.AdministradorDAO;
 import Arquitetura.Dao.FuncionarioDAO;
-import Arquitetura.Dao.UsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.CreateUsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.DeleteUsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
 import Arquitetura.Exception.*;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Enums.Departamento;
-import Arquitetura.Model.Enums.TipoUsuario;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.Validator.AdministradorValidator;
-import Arquitetura.Service.Validator.FuncionarioValidator;
 import Arquitetura.Service.Validator.TipoUsuarioValidator;
 import Arquitetura.Service.Validator.UsuarioValidator;
 
 public class AdministradorService {
 
     // -- Atributos -- //
-    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final CreateUsuarioDAO createUsuarioDAO = new CreateUsuarioDAO();
+    private final DeleteUsuarioDAO deleteUsuarioDAO = new DeleteUsuarioDAO();
     private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
     private final AdministradorDAO administradorDao = new AdministradorDAO();
     private final UsuarioService usuarioService = new UsuarioService();
@@ -70,7 +71,7 @@ public class AdministradorService {
         usuarioService.validaUsuarioInserido(administradorCriado);
 
         // Insere nessa ordem para respeitar as chaves estrangeiras
-        usuarioDAO.inserirUsuario(administradorCriado);
+        createUsuarioDAO.inserirUsuario(administradorCriado);
         funcionarioDAO.inserirFuncionario(administradorCriado);
         administradorDao.inserirAdmin(administradorCriado);
     }
@@ -106,7 +107,7 @@ public class AdministradorService {
         // Deleta nessa ordem para respeitar as chaves estrangeiras
         administradorDao.deletarAdministrador(cpfAdministradorDeletado);
         funcionarioDAO.deletarFuncionario(cpfAdministradorDeletado);
-        usuarioDAO.deletarUsuario(cpfAdministradorDeletado);
+        deleteUsuarioDAO.deletarUsuario(cpfAdministradorDeletado);
     }
 
     public void updateDepartamento(Usuario usuario, long id, Departamento departamento) {

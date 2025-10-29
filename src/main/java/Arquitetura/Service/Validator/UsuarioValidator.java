@@ -10,6 +10,7 @@ import Arquitetura.Model.Usuario;
 import Arquitetura.Service.UsuarioService;
 import Arquitetura.Utilidades.Ferramentas;
 
+import javax.swing.*;
 import java.util.Date;
 
 public class UsuarioValidator {
@@ -59,6 +60,10 @@ public class UsuarioValidator {
     public void verificarRegrasTelefone(String telefone) {
         if(telefone == null) {
             throw new DadosInvalidosException("ERRO! O TELEFONE NÃO PODE SER NULO");
+        }
+
+        if(telefone.length() != 11) {
+            throw new DadosInvalidosException("ERRO! O TELEFONE DEVE POSSUIR 11 DÍGITOS");
         }
     }
 
