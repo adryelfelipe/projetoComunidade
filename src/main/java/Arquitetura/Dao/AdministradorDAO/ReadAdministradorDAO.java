@@ -150,4 +150,27 @@ public class ReadAdministradorDAO
         }
         return false;
     }
+
+    // Leitura - Verifica se o departamento é igual ao já existente no banco de dados
+    public boolean isSameDepartamento(long id, Departamento departamento)
+    {
+        String querySql = "SELECT idDepartamento FROM Administrador WHERE idAdministrador = ? ";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(querySql)) {
+            stmt.setLong(1, id);
+
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    if (departamento.getIdDepartamento() == resultSet.getInt(1)) {
+                        return true;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar o departamento  do administrador com ID: " + id + e);
+        }
+        return false;
+    }
 }
