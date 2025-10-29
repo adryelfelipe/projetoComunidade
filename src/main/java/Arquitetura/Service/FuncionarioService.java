@@ -1,16 +1,13 @@
 package Arquitetura.Service;
 
-import Arquitetura.Dao.AdministradorDAO;
+import Arquitetura.Dao.AdministradorDAO.AdministradorDAO;
 import Arquitetura.Dao.FuncionarioDAO;
 import Arquitetura.Dao.MedicoDAO;
 import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Exception.IdInvalidoException;
 import Arquitetura.Model.Administrador;
-import Arquitetura.Model.Enums.Especialidade;
-import Arquitetura.Model.Funcionario;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.Validator.FuncionarioValidator;
-import Arquitetura.Service.Validator.MedicoValidator;
 import Arquitetura.Service.Validator.TipoUsuarioValidator;
 import Arquitetura.Service.Validator.UsuarioValidator;
 

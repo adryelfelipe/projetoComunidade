@@ -1,4 +1,4 @@
-package Arquitetura.Dao;
+package Arquitetura.Dao.AdministradorDAO;
 
 import Arquitetura.Config.ConnectionFactory;
 import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
