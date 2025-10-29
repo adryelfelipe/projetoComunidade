@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class UsuarioService {
 
     // -- Atributos -- //
+    private UpdateUsuarioDAO updateUsuarioDAO =  new UpdateUsuarioDAO();
     private final ReadUsuarioDAO readUsuarioDAO = new ReadUsuarioDAO();
     private final MedicoDAO medicoDAO = new MedicoDAO();
     private final AdministradorDAO administradorDAO = new AdministradorDAO();
@@ -73,7 +74,7 @@ public class UsuarioService {
         if(usuario.getTipoUsuario().getNivelAcesso().temAcessoTotal()) {
         idExistenteValidator(id);
 
-            return usuarioDao.findById(id);
+            return readUsuarioDAO.findById(id);
         }
 
         return null;
@@ -85,7 +86,7 @@ public class UsuarioService {
     }
 
     private void senhaUsuarioValidator(String cpf, String senha) {
-        if(!usuarioDao.verificarSenha(cpf, senha)) {
+        if(!readUsuarioDAO.verificarSenha(cpf, senha)) {
             throw new SenhaInvalidaException("ERRO! SENHA INCORRETA");
         }
     }
@@ -93,7 +94,7 @@ public class UsuarioService {
     // Retorna uma ArrayList contendo todos os usuários do banco de dados
     public ArrayList<Usuario> findAllUsers(Usuario usuario) {
         if(usuario.getTipoUsuario().getNivelAcesso().temAcessoTotal()) {
-            return usuarioDao.findAllUsers();
+            return readUsuarioDAO.findAllUsuarios();
         }
 
         return null;
@@ -103,11 +104,11 @@ public class UsuarioService {
         cpfExistenteValidator(cpf);
         senhaUsuarioValidator(cpf, senha);
 
-        return usuarioDao.loginUsuario(cpf,senha);
+        return readUsuarioDAO.loginUsuario(cpf,senha);
     }
 
     public int cpfParaTipoUsuario(String cpf) {
-        if(!usuarioDao.verificarCpf(cpf)) {
+        if(!readUsuarioDAO.verificarCpf(cpf)) {
             throw new CpfInvalidoException("ERRO! CPF INVÁLIDO");
         }
 
@@ -129,7 +130,7 @@ public class UsuarioService {
         UsuarioValidator.verificaIntegridadeCpf(cpf);
         usuarioValidator.verificarRegrasCpf(cpf);
         cpfUtilizadoValidator(cpf);
-        usuarioDao.updateCpf(id, cpf);
+        updateUsuarioDAO.updateCpf(id, cpf);
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
             usuario.setCpf(cpf);
@@ -141,7 +142,7 @@ public class UsuarioService {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         UsuarioValidator.verificaIntegridadeNome(nome);
         usuarioValidator.verificarRegrasNome(nome);
-        usuarioDao.updateNomeUsuario(id, nome);
+        updateUsuarioDAO.updateNomeUsuario(id, nome);
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
             usuario.setNome(nome);
@@ -154,7 +155,7 @@ public class UsuarioService {
         UsuarioValidator.verificaIntegridadeTelefone(telefone);
         usuarioValidator.verificarRegrasTelefone(telefone);
         telefoneUtilizadoValidator(telefone);
-        usuarioDao.updateTelefone(id, telefone);
+        updateUsuarioDAO.updateTelefone(id, telefone);
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
             usuario.setTelefone(telefone);
@@ -167,7 +168,7 @@ public class UsuarioService {
         UsuarioValidator.verificaIntegridadeEmail(email);
         usuarioValidator.verificarRegrasEmail(email);
         emailUtilizadoValidator(email);
-        usuarioDao.updateEmail(id, email);
+        updateUsuarioDAO.updateEmail(id, email);
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
             usuario.setEmail(email);
@@ -179,7 +180,7 @@ public class UsuarioService {
         tipoUsuarioValidator.temAcessoBaixo(usuario);
         UsuarioValidator.verificaIntegridadeSenha(senha);
         usuarioValidator.verificarRegrasSenha(senha);
-        usuarioDao.updateSenhaUsuario(id, senha);
+        updateUsuarioDAO.updateSenhaUsuario(id, senha);
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
             usuario.setSenha(senha);
@@ -191,7 +192,7 @@ public class UsuarioService {
         validaUpdateUsuario(usuario, id);
         tipoUsuarioValidator.temAcessoTotal(usuario);
         usuarioValidator.verificarRegrasTipoUsuario(tipoUsuario);
-        usuarioDao.updateTipoUsuario(id, tipoUsuario.getIdTipoUsuario());
+        updateUsuarioDAO.updateTipoUsuario(id, tipoUsuario.getIdTipoUsuario());
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
             usuario.setTipoUsuario(tipoUsuario);
@@ -202,7 +203,7 @@ public class UsuarioService {
         validaUpdateUsuario(usuario, id);
         tipoUsuarioValidator.temAcessoTotal(usuario);
         usuarioValidator.verificarRegrasSexo(sexo);
-        usuarioDao.updateSexo(id, sexo.getIdGenero());
+        updateUsuarioDAO.updateSexo(id, sexo.getIdGenero());
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
             usuario.setSexo(sexo);
@@ -213,7 +214,7 @@ public class UsuarioService {
         validaUpdateUsuario(usuario, id);
         tipoUsuarioValidator.temAcessoTotal(usuario);
         usuarioValidator.verificarRegrasDataNascimento(dataNascimento);
-        usuarioDao.updateDataNascimento(id, dataNascimento);
+        updateUsuarioDAO.updateDataNascimento(id, dataNascimento);
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
             usuario.setDataNascimento(dataNascimento);
