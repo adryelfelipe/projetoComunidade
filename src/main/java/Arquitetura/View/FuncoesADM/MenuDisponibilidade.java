@@ -26,7 +26,7 @@ public class MenuDisponibilidade
         System.out.println("\n\nDigite o cpf do medico: ");
         String cpf = Ferramentas.lString();
 
-        Usuario usuario = usuarioDAO.findByCpf(cpf);
+        /* Usuario usuario = usuarioDAO.findByCpf(cpf);
 
         if(usuario instanceof Medico)
         {
@@ -60,5 +60,9 @@ public class MenuDisponibilidade
         System.out.println("\n\nDigite para continuar");
         String tempo = Ferramentas.lString();
 
+
+         */
     }
+
+
 }

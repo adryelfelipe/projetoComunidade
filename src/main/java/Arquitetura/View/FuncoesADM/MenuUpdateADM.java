@@ -108,12 +108,11 @@ public class MenuUpdateADM {
                 System.out.println(" [4] - Email                         |TipoUsuario: " + paciente.getTipoUsuario().name());
                 System.out.println(" [5] - Telefone                      |Data de Nascimento: " + paciente.getDataNascimento());
                 System.out.println(" [6] - Sexo                          |Cadastro: " + paciente.getNumeroCadastro());
-                System.out.println(" [7] - TipoUsuario                   |ContatoEmergência: " + paciente.getContatoEmergencia());
-                System.out.println(" [8] - Data de Nascimento            |Status: " + paciente.getStatusPaciente().name());
-                System.out.println(" [9] - Número de cadastro            ------------------------");
-                System.out.println("[10] - Contato de Emergência          ");
-                System.out.println("[11] - Status do Paciente             ");
-                System.out.println("[12] - Sair                           ");
+                System.out.println(" [7] - Data de Nascimento            |ContatoEmergência: " + paciente.getContatoEmergencia());
+                System.out.println(" [8] - Número de cadastro            |Status: " + paciente.getStatusPaciente().name());
+                System.out.println(" [9] - Contato de Emergência          ------------------------");
+                System.out.println("[10] - Status do Paciente            ");
+                System.out.println("[11] - Sair                          ");
 
                 // -- Leitura da opção -- //
                 try {
@@ -170,36 +169,30 @@ public class MenuUpdateADM {
                     }
 
                     case 7 -> {
-                        TipoUsuario tipoUsuario = MenuSetUsuario.SetTipoUsuario();
-                        usuarioService.updateTipoUsuario(administrador, idPaciente, tipoUsuario);
-                        paciente.setTipoUsuario(tipoUsuario);
-                    }
-
-                    case 8 -> {
                         Date dataNascimento = MenuSetUsuario.SetDataNascimento();
                         usuarioService.updateDataNascimento(administrador, idPaciente, dataNascimento);
                         paciente.setDataNascimento(dataNascimento);
                     }
 
-                    case 9 -> {
+                    case 8 -> {
                         String numeroCadastro = MenuSetPaciente.SetNumeroCadastro();
                         pacienteService.updateNumeroCadastro(administrador, idPaciente, numeroCadastro);
                         paciente.setNumeroCadastro(numeroCadastro);
                     }
 
-                    case 10 -> {
+                    case 9 -> {
                         String contatoEmergencia = MenuSetPaciente.SetContatoEmergencia();
                         pacienteService.updateContatoEmergencia(administrador, idPaciente, contatoEmergencia);
                         paciente.setContatoEmergencia(contatoEmergencia);
                     }
 
-                    case 11 -> {
+                    case 10 -> {
                         StatusPaciente statusPaciente = MenuSetPaciente.SetStatusPaciente();
                         pacienteService.updateStatusPaciente(administrador, idPaciente, statusPaciente);
                         paciente.setStatusPaciente(statusPaciente);
                     }
 
-                    case 12 -> {
+                    case 11 -> {
                         return;
                     }
 
@@ -231,10 +224,9 @@ public class MenuUpdateADM {
                 System.out.println(" [4] - Email                            |TipoUsuario: " + administrador.getTipoUsuario().name());
                 System.out.println(" [5] - Telefone                         |Data de Nascimento: " + administrador.getDataNascimento());
                 System.out.println(" [6] - Sexo                             |Departamento: " + administrador.getDepartamento().name());
-                System.out.println(" [7] - TipoUsuario                      ");
-                System.out.println(" [8] - Data de Nascimento               ");
-                System.out.println(" [9] - Departamento                     ");
-                System.out.println("[10] - Sair                             ");
+                System.out.println(" [7] - Data de Nascimento               ------------------------       ");
+                System.out.println(" [8] - Departamento                  ");
+                System.out.println(" [9] - Sair                    ");
 
                 // -- Leitura da opção -- //
                 try {
@@ -290,24 +282,18 @@ public class MenuUpdateADM {
                     }
 
                     case 7 -> {
-                        TipoUsuario tipoUsuario = MenuSetUsuario.SetTipoUsuario();
-                        usuarioService.updateTipoUsuario(administrador, administrador.getId(), tipoUsuario);
-                        administrador.setTipoUsuario(tipoUsuario);
-                    }
-
-                    case 8 -> {
                         Date dataNascimento = MenuSetUsuario.SetDataNascimento();
                         usuarioService.updateDataNascimento(administrador, administrador.getId(), dataNascimento);
                         administrador.setDataNascimento(dataNascimento);
                     }
 
-                    case 9 -> {
+                    case 8 -> {
                         Departamento departamento = MenuSetAdm.SetDepartamento();
                         administradorService.updateDepartamento(administrador, administrador.getId(), departamento);
                         administrador.setDepartamento(departamento);
                     }
 
-                    case 10 -> {
+                    case 9 -> {
                         return;
                     }
 
@@ -359,13 +345,13 @@ public class MenuUpdateADM {
                 System.out.println(" [4] - Email                         |TipoUsuario: " + medico.getTipoUsuario().name());
                 System.out.println(" [5] - Telefone                      |Data de Nascimento: " + medico.getDataNascimento());
                 System.out.println(" [6] - Sexo                          |Formação: " + medico.getFormacao());
-                System.out.println(" [7] - TipoUsuario                   |Especialidade: " + medico.getEspecialidade());
-                System.out.println(" [8] - Data de Nascimento            |SubEspecialidade: " + medico.getSubEspecialidade());
-                System.out.println(" [9] - Formação                      |Plantão: " + medico.getPlantao().name());
-                System.out.println("[10] - Especialidade                 ------------------------");
-                System.out.println("[11] - SubEspecialidade              ");
-                System.out.println("[12] - Plantão                       ");
-                System.out.println("[13] - Sair                          ");
+                System.out.println(" [7] - Data de Nascimento            |Especialidade: " + medico.getEspecialidade());
+                System.out.println(" [8] - Formação                      |SubEspecialidade: " + medico.getSubEspecialidade());
+                System.out.println(" [9] - Especialidade                 |Plantão: " + medico.getPlantao().name());
+                System.out.println("[10] - SubEspecialidade              ------------------------");
+                System.out.println("[11] - Plantão                       ");
+                System.out.println("[12] - Sair                          ");
+
 
                 // -- Leitura da opção -- //
                 try {
@@ -422,42 +408,36 @@ public class MenuUpdateADM {
                     }
 
                     case 7 -> {
-                        TipoUsuario tipoUsuario = MenuSetUsuario.SetTipoUsuario();
-                        usuarioService.updateTipoUsuario(administrador, idMedico, tipoUsuario);
-                        medico.setTipoUsuario(tipoUsuario);
-                    }
-
-                    case 8 -> {
                         Date dataNascimento = MenuSetUsuario.SetDataNascimento();
                         usuarioService.updateDataNascimento(administrador, idMedico, dataNascimento);
                         medico.setDataNascimento(dataNascimento);
                     }
 
-                    case 9 -> {
+                    case 8 -> {
                         String formacao = MenuSetMedico.SetFormacao();
                         medicoService.updateFormacaoMedico(administrador, idMedico, formacao);
                         medico.setFormacao(formacao);
                     }
 
-                    case 10 -> {
+                    case 9 -> {
                         Especialidade especialidade = MenuSetMedico.SetEspecialidade();
                         medicoService.updateEspecialidadeMedico(administrador, idMedico, especialidade);
                         medico.setEspecialidade(especialidade);
                     }
 
-                    case 11 -> {
+                    case 10 -> {
                         String subEspecialidade = MenuSetMedico.SetSubEspecialidade();
                         medicoService.updateSubEspecialidadeMedico(administrador, idMedico, subEspecialidade);
                         medico.setSubEspecialidade(subEspecialidade);
                     }
 
-                    case 12 -> {
+                    case 11 -> {
                         Plantao plantao = MenuSetMedico.SetPlantao();
                         medicoService.updatePlantaoMedico(administrador, idMedico, plantao);
                         medico.setPlantao(plantao);
                     }
 
-                    case 13 -> {
+                    case 12 -> {
                         return;
                     }
 

@@ -34,6 +34,7 @@ public class MedicoService {
     private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
     private final MedicoValidator medicoValidator = new MedicoValidator();
 
+
     // -- Métodos -- //
     public void idMedicoValidator(long id) {
         if (!medicoDAO.isIdMedico(id)) {

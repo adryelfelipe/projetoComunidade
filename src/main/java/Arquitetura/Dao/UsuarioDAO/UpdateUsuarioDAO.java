@@ -73,7 +73,7 @@ public class UpdateUsuarioDAO
 
     public void updateEmail (long id, String email)
     {
-        String querySql = "UPDATE Usuario"+
+        String querySql = "UPDATE Usuario "+
                 "SET email = ? "+
                 "WHERE idusuario = ? ";
         try (

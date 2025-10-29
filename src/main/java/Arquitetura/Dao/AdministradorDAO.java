@@ -1,6 +1,7 @@
 package Arquitetura.Dao;
 
 import Arquitetura.Config.ConnectionFactory;
+import Arquitetura.Dao.UsuarioDAO.ReadUsuarioDAO;
 import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Enums.Departamento;
@@ -14,6 +15,7 @@ public class AdministradorDAO {
 
     // -- CRUD -- //
     UpdateUsuarioDAO usuarioDAO = new UpdateUsuarioDAO();
+    ReadUsuarioDAO readUsuarioDAO = new ReadUsuarioDAO();
 
     // Inserção
     public void inserirAdmin(Administrador administrador)
@@ -194,7 +196,7 @@ public class AdministradorDAO {
              PreparedStatement stmt = conn.prepareStatement(querySql))
         {
 
-            String cpf = usuarioDAO.cpfByID(id);
+            String cpf = readUsuarioDAO.getCpfByID(id);
 
             if (cpf == null) {
                 return false;

@@ -1,6 +1,7 @@
 package Arquitetura.Dao;
 
 import Arquitetura.Config.ConnectionFactory;
+import Arquitetura.Dao.UsuarioDAO.ReadUsuarioDAO;
 import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
 import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.StatusPaciente;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 public class PacienteDAO {
 
     private UpdateUsuarioDAO usuarioDAO = new UpdateUsuarioDAO();
+    ReadUsuarioDAO readUsuarioDAO = new ReadUsuarioDAO();
 
     // -- CRUD -- //
 
@@ -141,7 +143,7 @@ public class PacienteDAO {
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(querySql)) {
 
-            String cpf = usuarioDAO.cpfByID(id);
+            String cpf = readUsuarioDAO.getCpfByID(id);
 
             if (cpf == null) {
                 return false;
