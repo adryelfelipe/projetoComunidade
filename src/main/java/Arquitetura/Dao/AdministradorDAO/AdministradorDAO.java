@@ -15,25 +15,7 @@ public class AdministradorDAO {
     // -- CRUD -- //
     UpdateUsuarioDAO usuarioDAO = new UpdateUsuarioDAO();
 
-    // Inserção
-    public void inserirAdmin(Administrador administrador)
-    {
-        String querySQL = "insert into Administrador (idAdministrador, idDepartamento) values (?, ?)";
 
-        try(Connection conexao = ConnectionFactory.getConnection();
-            PreparedStatement stmt = conexao.prepareStatement(querySQL))
-        {
-            stmt.setLong(1, administrador.getId());
-            stmt.setLong(2, administrador.getDepartamento().getIdDepartamento());
-
-            stmt.executeUpdate();
-
-        }
-        catch (SQLException e)
-        {
-            System.out.println("Erro ao inserir Administrador.");
-        }
-    }
 
     //Busca todos os Administradores
     public ArrayList<Administrador> findAllAdministradores()
