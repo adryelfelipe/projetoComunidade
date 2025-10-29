@@ -31,7 +31,7 @@ public class FuncionarioService {
     }
 
     public void idFuncionarioValidator(long id) {
-        if(!medicoDAO.isIdMedico(id) && !administradorDAO.isIdAdministrador(id)) {
+        if(!medicoDAO.isIdMedico(id) && !readAdministradorDAO.isIdAdministrador(id)) {
             throw new IdInvalidoException("ERRO! O ID INFORMADO NÃO É DE UM FUNCIONÁRIO");
         }
     }
