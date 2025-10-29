@@ -19,24 +19,7 @@ public class AdministradorDAO {
 
     //Busca todos os Administradores
 
-    // Remoção
-    public void deletarAdministrador(String cpf) {
-        String querySql = "DELETE a " +
-                "FROM Administrador a " +
-                "JOIN Usuario u ON u.idUsuario = a.idAdministrador " +
-                "WHERE u.cpf = ?";
 
-        try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(querySql))
-        {
-
-            stmt.setString(1, cpf);
-            stmt.executeUpdate();
-
-        } catch (SQLException e) {
-            System.err.println("Erro ao deletar Administrador com o CPF: " + cpf);
-        }
-    }
 
     //Leitura - Verifica quantos se existe algum administrador no sistema
     public boolean isUltimoAdmin()
