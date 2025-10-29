@@ -393,7 +393,7 @@ public class MedicoDAO {
     public void updateEspecialidade(long id, Especialidade especialidade)
     {
         String querySql = "UPDATE Medico m "+
-                "SET idEspecialidade = ?"+
+                "SET idEspecialidade = ? "+
                 "WHERE idMedico = ?";
         try(
                 Connection connection = ConnectionFactory.getConnection();
