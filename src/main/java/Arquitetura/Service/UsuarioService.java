@@ -1,7 +1,7 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.*;
-import Arquitetura.Dao.AdministradorDAO.AdministradorDAO;
+import Arquitetura.Dao.AdministradorDAO.UpdateAdministradorDAO;
 import Arquitetura.Dao.UsuarioDAO.ReadUsuarioDAO;
 import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
 import Arquitetura.Exception.*;
@@ -20,7 +20,7 @@ public class UsuarioService {
     private UpdateUsuarioDAO updateUsuarioDAO =  new UpdateUsuarioDAO();
     private final ReadUsuarioDAO readUsuarioDAO = new ReadUsuarioDAO();
     private final MedicoDAO medicoDAO = new MedicoDAO();
-    private final AdministradorDAO administradorDAO = new AdministradorDAO();
+    private final UpdateAdministradorDAO administradorDAO = new UpdateAdministradorDAO();
     TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
     UsuarioValidator usuarioValidator = new UsuarioValidator();
 

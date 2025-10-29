@@ -1,6 +1,6 @@
 package Arquitetura.Service;
 
-import Arquitetura.Dao.AdministradorDAO.AdministradorDAO;
+import Arquitetura.Dao.AdministradorDAO.UpdateAdministradorDAO;
 import Arquitetura.Dao.FuncionarioDAO;
 import Arquitetura.Dao.MedicoDAO;
 import Arquitetura.Exception.CpfInvalidoException;
@@ -16,7 +16,7 @@ public class FuncionarioService {
     // -- Atributos -- //
     private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
     private final MedicoDAO medicoDAO = new MedicoDAO();
-    private final AdministradorDAO administradorDAO = new AdministradorDAO();
+    private final UpdateAdministradorDAO administradorDAO = new UpdateAdministradorDAO();
     private final UsuarioService usuarioService = new UsuarioService();
     private final FuncionarioValidator funcionarioValidator = new FuncionarioValidator();
     private final UsuarioValidator usuarioValidator = new UsuarioValidator();

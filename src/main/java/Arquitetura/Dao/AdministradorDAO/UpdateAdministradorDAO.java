@@ -1,29 +1,11 @@
 package Arquitetura.Dao.AdministradorDAO;
 
 import Arquitetura.Config.ConnectionFactory;
-import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
-import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Enums.Departamento;
-import Arquitetura.Model.Enums.Genero;
-import Arquitetura.Model.Enums.TipoUsuario;
 
 import java.sql.*;
-import java.util.ArrayList;
 
-public class AdministradorDAO {
-
-    // -- CRUD -- //
-    UpdateUsuarioDAO usuarioDAO = new UpdateUsuarioDAO();
-
-
-
-    //Busca todos os Administradores
-
-
-
-
-
-    // -- UPDATES -- //
+public class UpdateAdministradorDAO {
 
     public void updateDepartamento(long id, Departamento departamento)
     {
@@ -44,12 +26,4 @@ public class AdministradorDAO {
             System.err.println("Erro ao atualizar  departamento do administrador com ID: "+ id + e);
         }
     }
-
-
-
-
-
-    // -- Verificadores isSame -- //
-
-
 }

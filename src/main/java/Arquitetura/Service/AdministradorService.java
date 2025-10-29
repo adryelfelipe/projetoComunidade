@@ -1,6 +1,6 @@
 package Arquitetura.Service;
 
-import Arquitetura.Dao.AdministradorDAO.AdministradorDAO;
+import Arquitetura.Dao.AdministradorDAO.UpdateAdministradorDAO;
 import Arquitetura.Dao.FuncionarioDAO;
 import Arquitetura.Dao.UsuarioDAO.CreateUsuarioDAO;
 import Arquitetura.Dao.UsuarioDAO.DeleteUsuarioDAO;
@@ -18,7 +18,7 @@ public class AdministradorService {
     private final CreateUsuarioDAO createUsuarioDAO = new CreateUsuarioDAO();
     private final DeleteUsuarioDAO deleteUsuarioDAO = new DeleteUsuarioDAO();
     private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-    private final AdministradorDAO administradorDao = new AdministradorDAO();
+    private final UpdateAdministradorDAO administradorDao = new UpdateAdministradorDAO();
     private final UsuarioService usuarioService = new UsuarioService();
     private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
     private final UsuarioValidator usuarioValidator = new UsuarioValidator();
