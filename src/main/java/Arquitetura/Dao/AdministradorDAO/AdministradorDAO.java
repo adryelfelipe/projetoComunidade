@@ -21,31 +21,7 @@ public class AdministradorDAO {
 
 
 
-    //Leitura - Verifica quantos se existe algum administrador no sistema
-    public boolean isUltimoAdmin()
-    {
-        String querySQl = "SELECT COUNT(*) FROM Administrador";
 
-        try (
-                Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement stmt = connection.prepareStatement(querySQl))
-        {
-            ResultSet resultSet = stmt.executeQuery();
-
-            if(resultSet.next())
-            {
-                int cont = resultSet.getInt(1);
-
-                return cont == 1;
-            }
-            return false;
-        }
-        catch (SQLException e)
-        {
-            System.err.println("Erro ao verificar se é Último Admin. ");
-            return false;
-        }
-    }
 
     // -- UPDATES -- //
 
