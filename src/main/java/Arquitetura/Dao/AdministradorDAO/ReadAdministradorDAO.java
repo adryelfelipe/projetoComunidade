@@ -75,6 +75,32 @@ public class ReadAdministradorDAO
         return listaAdministradores;
     }
 
+    public boolean isIdAdministrador(long id)
+    {
+        String querySql = "SELECT tipoUsuario FROM Usuario WHERE idUsuario = ? ";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(querySql))
+        {
+
+            stmt.setLong(1, id);
+
+            try (ResultSet rs = stmt.executeQuery())
+            {
+                if (rs.next())
+                {
+                    int tipo = rs.getInt("tipoUsuario");
+                    return tipo == 3;
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar o ID do Administrador.");
+        }
+
+        return false;
+    }
+
     // Leitura - Verifica se o cpf pertence à um Administrador
     public boolean isCpfAdministrador(String cpf) {
         String querySql = "SELECT tipoUsuario FROM Usuario WHERE cpf = ?";

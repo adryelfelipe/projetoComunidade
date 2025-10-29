@@ -88,35 +88,7 @@ public class AdministradorDAO {
 
 
 
-    public boolean isIdAdministrador(long id)
-    {
-        String querySql = "SELECT tipoUsuario FROM Usuario WHERE cpf = ?";
 
-        try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(querySql))
-        {
-
-            String cpf = usuarioDAO.cpfByID(id);
-
-            if (cpf == null) {
-                return false;
-            }
-
-            stmt.setString(1, cpf);
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    int tipo = rs.getInt("tipoUsuario");
-                    return tipo == 3;
-                }
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Erro ao verificar o ID do Administrador.");
-        }
-
-        return false;
-    }
 
     // -- Verificadores isSame -- //
 
