@@ -1,5 +1,6 @@
 package Arquitetura.Service;
 
+import Arquitetura.Dao.AdministradorDAO.ReadAdministradorDAO;
 import Arquitetura.Dao.AdministradorDAO.UpdateAdministradorDAO;
 import Arquitetura.Dao.FuncionarioDAO;
 import Arquitetura.Dao.MedicoDAO;
@@ -16,7 +17,7 @@ public class FuncionarioService {
     // -- Atributos -- //
     private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
     private final MedicoDAO medicoDAO = new MedicoDAO();
-    private final UpdateAdministradorDAO administradorDAO = new UpdateAdministradorDAO();
+    private final ReadAdministradorDAO readAdministradorDAO = new ReadAdministradorDAO();
     private final UsuarioService usuarioService = new UsuarioService();
     private final FuncionarioValidator funcionarioValidator = new FuncionarioValidator();
     private final UsuarioValidator usuarioValidator = new UsuarioValidator();
@@ -24,7 +25,7 @@ public class FuncionarioService {
 
     // -- Métodos -- //
     public void cpfFuncionarioValidator (String cpf) {
-        if(!medicoDAO.isCpfMedico(cpf) && !administradorDAO.isCpfAdministrador(cpf)) {
+        if(!medicoDAO.isCpfMedico(cpf) && !readAdministradorDAO.isCpfAdministrador(cpf)) {
             throw new CpfInvalidoException("ERRO ! CPF NÃO PERTENCE A UM FUNCIONÁRIO");
         }
     }
