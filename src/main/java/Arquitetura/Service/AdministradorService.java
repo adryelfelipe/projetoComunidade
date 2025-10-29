@@ -1,10 +1,12 @@
 package Arquitetura.Service;
 
-import Arquitetura.Dao.AdministradorDAO;
+import Arquitetura.Dao.AdministradorDAO.CreateAdministradorDAO;
+import Arquitetura.Dao.AdministradorDAO.DeleteAdministradorDAO;
+import Arquitetura.Dao.AdministradorDAO.ReadAdministradorDAO;
+import Arquitetura.Dao.AdministradorDAO.UpdateAdministradorDAO;
 import Arquitetura.Dao.FuncionarioDAO;
 import Arquitetura.Dao.UsuarioDAO.CreateUsuarioDAO;
 import Arquitetura.Dao.UsuarioDAO.DeleteUsuarioDAO;
-import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
 import Arquitetura.Exception.*;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Enums.Departamento;
@@ -19,7 +21,10 @@ public class AdministradorService {
     private final CreateUsuarioDAO createUsuarioDAO = new CreateUsuarioDAO();
     private final DeleteUsuarioDAO deleteUsuarioDAO = new DeleteUsuarioDAO();
     private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-    private final AdministradorDAO administradorDao = new AdministradorDAO();
+    private final DeleteAdministradorDAO deleteAdministradorDAO = new DeleteAdministradorDAO();
+    private final UpdateAdministradorDAO updateAdministradorDAO = new UpdateAdministradorDAO();
+    private final CreateAdministradorDAO createAdministradorDAO = new CreateAdministradorDAO();
+    private final ReadAdministradorDAO readAdministradorDAO = new ReadAdministradorDAO();
     private final UsuarioService usuarioService = new UsuarioService();
     private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
     private final UsuarioValidator usuarioValidator = new UsuarioValidator();
@@ -27,19 +32,19 @@ public class AdministradorService {
 
     // -- Métodos -- //
     public void cpfDeAdmValidator (String cpf) {
-        if(!administradorDao.isCpfAdministrador(cpf)) {
+        if(!readAdministradorDAO.isCpfAdministrador(cpf)) {
             throw new CpfInvalidoException("ERRO ! CPF NÃO PERTENCE A UM ADMINISTRADOR");
         }
     }
 
     public void idAdministradorValidator(long id) {
-        if (!administradorDao.isIdAdministrador(id)) {
+        if (!readAdministradorDAO.isIdAdministrador(id)) {
             throw new IdInvalidoException("ERRO! O ID INFORMADO NÃO É DE UM ADMINISTRADOR");
         }
     }
 
     public void ultimoAdminValidator() {
-        if(administradorDao.isUltimoAdmin()) {
+        if(readAdministradorDAO.isUltimoAdmin()) {
             throw new UltimoAdminException("ERRO! NÃO É PERMITIDO DELETAR O ÚLTIMO ADMINISTRADOR");
         }
     }
@@ -73,7 +78,7 @@ public class AdministradorService {
         // Insere nessa ordem para respeitar as chaves estrangeiras
         createUsuarioDAO.inserirUsuario(administradorCriado);
         funcionarioDAO.inserirFuncionario(administradorCriado);
-        administradorDao.inserirAdmin(administradorCriado);
+        createAdministradorDAO.inserirAdmin(administradorCriado);
     }
 
     /**
@@ -105,7 +110,7 @@ public class AdministradorService {
         ultimoAdminValidator();
 
         // Deleta nessa ordem para respeitar as chaves estrangeiras
-        administradorDao.deletarAdministrador(cpfAdministradorDeletado);
+        deleteAdministradorDAO.deletarAdministrador(cpfAdministradorDeletado);
         funcionarioDAO.deletarFuncionario(cpfAdministradorDeletado);
         deleteUsuarioDAO.deletarUsuario(cpfAdministradorDeletado);
     }
@@ -115,7 +120,7 @@ public class AdministradorService {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         administradorValidator.verificaRegrasDepartamento(departamento);
 
-        administradorDao.updateDepartamento(id, departamento);
+        updateAdministradorDAO.updateDepartamento(id, departamento);
 
         if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
             ((Administrador) usuario).setDepartamento(departamento);

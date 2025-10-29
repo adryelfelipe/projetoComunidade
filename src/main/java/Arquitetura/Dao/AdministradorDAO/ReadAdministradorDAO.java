@@ -1,8 +1,6 @@
-package Arquitetura.Dao;
+package Arquitetura.Dao.AdministradorDAO;
 
 import Arquitetura.Config.ConnectionFactory;
-import Arquitetura.Dao.UsuarioDAO.ReadUsuarioDAO;
-import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Enums.Departamento;
 import Arquitetura.Model.Enums.Genero;
@@ -11,33 +9,9 @@ import Arquitetura.Model.Enums.TipoUsuario;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class AdministradorDAO {
-
-    // -- CRUD -- //
-    UpdateUsuarioDAO usuarioDAO = new UpdateUsuarioDAO();
-    ReadUsuarioDAO readUsuarioDAO = new ReadUsuarioDAO();
-
-    // Inserção
-    public void inserirAdmin(Administrador administrador)
-    {
-        String querySQL = "insert into Administrador (idAdministrador, idDepartamento) values (?, ?)";
-
-        try(Connection conexao = ConnectionFactory.getConnection();
-            PreparedStatement stmt = conexao.prepareStatement(querySQL))
-        {
-            stmt.setLong(1, administrador.getId());
-            stmt.setLong(2, administrador.getDepartamento().getIdDepartamento());
-
-            stmt.executeUpdate();
-
-        }
-        catch (SQLException e)
-        {
-            System.out.println("Erro ao inserir Administrador.");
-        }
-    }
-
-    //Busca todos os Administradores
+public class ReadAdministradorDAO
+{
+    // Leitura - Busca todos os Administradores
     public ArrayList<Administrador> findAllAdministradores()
     {
         ArrayList<Administrador> listaAdministradores = new ArrayList<>();
@@ -100,26 +74,9 @@ public class AdministradorDAO {
         }
         return listaAdministradores;
     }
-    // Remoção
-    public void deletarAdministrador(String cpf) {
-        String querySql = "DELETE a " +
-                "FROM Administrador a " +
-                "JOIN Usuario u ON u.idUsuario = a.idAdministrador " +
-                "WHERE u.cpf = ?";
 
-        try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(querySql))
-        {
 
-            stmt.setString(1, cpf);
-            stmt.executeUpdate();
-
-        } catch (SQLException e) {
-            System.err.println("Erro ao deletar Administrador com o CPF: " + cpf);
-        }
-    }
-
-    //Leitura - Verifica quantos se existe algum administrador no sistema
+    // Leitura - Verifica se existe algum administrador no sistema
     public boolean isUltimoAdmin()
     {
         String querySQl = "SELECT COUNT(*) FROM Administrador";
@@ -145,28 +102,34 @@ public class AdministradorDAO {
         }
     }
 
-    // -- UPDATES -- //
-
-    public void updateDepartamento(long id, Departamento departamento)
+    // Leitura - Verifica de o id pertence à um Administrador
+    public boolean isIdAdministrador(long id)
     {
-        String querySql = "UPDATE Administrador "+
-                "SET idDepartamento = ? "+
-                "WHERE idAdministrador = ? ";
-        try (
-                Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement stmt = connection.prepareStatement(querySql))
-        {
-            stmt.setLong(1, departamento.getIdDepartamento());
-            stmt.setLong(2, id);
+        String querySql = "SELECT tipoUsuario FROM Usuario WHERE idUsuario = ? ";
 
-            stmt.executeUpdate();
-        }
-        catch (SQLException e)
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(querySql))
         {
-            System.err.println("Erro ao atualizar  departamento do administrador com ID: "+ id + e);
+
+            stmt.setLong(1, id);
+
+            try (ResultSet rs = stmt.executeQuery())
+            {
+                if (rs.next())
+                {
+                    int tipo = rs.getInt("tipoUsuario");
+                    return tipo == 3;
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar o ID do Administrador.");
         }
+
+        return false;
     }
 
+    // Leitura - Verifica se o cpf pertence à um Administrador
     public boolean isCpfAdministrador(String cpf) {
         String querySql = "SELECT tipoUsuario FROM Usuario WHERE cpf = ?";
 
@@ -188,38 +151,7 @@ public class AdministradorDAO {
         return false;
     }
 
-    public boolean isIdAdministrador(long id)
-    {
-        String querySql = "SELECT tipoUsuario FROM Usuario WHERE cpf = ?";
-
-        try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(querySql))
-        {
-
-            String cpf = readUsuarioDAO.getCpfByID(id);
-
-            if (cpf == null) {
-                return false;
-            }
-
-            stmt.setString(1, cpf);
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    int tipo = rs.getInt("tipoUsuario");
-                    return tipo == 3;
-                }
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Erro ao verificar o ID do Administrador.");
-        }
-
-        return false;
-    }
-
-    // -- Verificadores isSame -- //
-
+    // Leitura - Verifica se o departamento é igual ao já existente no banco de dados
     public boolean isSameDepartamento(long id, Departamento departamento)
     {
         String querySql = "SELECT idDepartamento FROM Administrador WHERE idAdministrador = ? ";

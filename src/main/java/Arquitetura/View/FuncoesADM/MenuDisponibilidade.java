@@ -1,5 +1,6 @@
 package Arquitetura.View.FuncoesADM;
 
+import Arquitetura.Dao.UsuarioDAO.ReadUsuarioDAO;
 import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Consulta;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 public class MenuDisponibilidade
 {
 
-    static UpdateUsuarioDAO usuarioDAO = new UpdateUsuarioDAO();
+    static ReadUsuarioDAO readUsuarioDAO = new ReadUsuarioDAO();
     static MedicoService medicoService = new MedicoService();
 
     public static void Disponibilidade(Administrador adm)
@@ -26,7 +27,7 @@ public class MenuDisponibilidade
         System.out.println("\n\nDigite o cpf do medico: ");
         String cpf = Ferramentas.lString();
 
-        /* Usuario usuario = usuarioDAO.findByCpf(cpf);
+        Usuario usuario = readUsuarioDAO.findByCpf(cpf);
 
         if(usuario instanceof Medico)
         {
@@ -60,9 +61,5 @@ public class MenuDisponibilidade
         System.out.println("\n\nDigite para continuar");
         String tempo = Ferramentas.lString();
 
-
-         */
     }
-
-
 }

@@ -198,6 +198,8 @@ public class MenuUpdateADM {
 
                     default -> MenuDefault.menuDefault();
                 }
+
+                Ferramentas.limpaTerminal();
             } catch(TipoUsuarioException | DadosInvalidosException | IdInvalidoException |
                     DataInvalidaException | CpfInvalidoException | EmailInvalidoException | TelefoneInvalidoException e) {
                 Ferramentas.mensagemErro(e.getMessage());
@@ -299,6 +301,8 @@ public class MenuUpdateADM {
 
                     default -> MenuDefault.menuDefault();
                 }
+
+                Ferramentas.limpaTerminal();
             } catch(TipoUsuarioException | DadosInvalidosException | IdInvalidoException |
                     DataInvalidaException | CpfInvalidoException | EmailInvalidoException | TelefoneInvalidoException e) {
                 Ferramentas.mensagemErro(e.getMessage());
@@ -443,6 +447,8 @@ public class MenuUpdateADM {
 
                     default -> MenuDefault.menuDefault();
                 }
+
+                Ferramentas.limpaTerminal();
             } catch(TipoUsuarioException | DadosInvalidosException | IdInvalidoException |
                     DataInvalidaException | CpfInvalidoException | EmailInvalidoException | TelefoneInvalidoException e) {
                 Ferramentas.mensagemErro(e.getMessage());
