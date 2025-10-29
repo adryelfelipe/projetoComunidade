@@ -1,7 +1,9 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.PacienteDAO;
-import Arquitetura.Dao.UsuarioDAO.UsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.CreateUsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.DeleteUsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
 import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Exception.IdInvalidoException;
 import Arquitetura.Model.Enums.StatusPaciente;
@@ -16,7 +18,8 @@ import Arquitetura.Exception.DadosInvalidosException;
 public class PacienteService {
 
     // -- Atributos -- //
-    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final CreateUsuarioDAO createUsuarioDAO = new CreateUsuarioDAO();
+    private final DeleteUsuarioDAO deleteUsuarioDAO = new DeleteUsuarioDAO();
     private final PacienteDAO pacienteDAO = new PacienteDAO();
     private final UsuarioService usuarioService = new UsuarioService();
     private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
@@ -62,7 +65,7 @@ public class PacienteService {
         usuarioService.validaUsuarioInserido(pacienteInserido);
 
         // Insere nessa ordem para respeitar as chaves estrangeiras
-        usuarioDAO.inserirUsuario(pacienteInserido);
+        createUsuarioDAO.inserirUsuario(pacienteInserido);
         pacienteDAO.inserirPaciente(pacienteInserido);
     }
 
@@ -89,7 +92,7 @@ public class PacienteService {
 
         // Deleta nessa ordem para respeitar as chaves estrangeiras
         pacienteDAO.deletarPaciente(cpfPacienteDeletado);
-        usuarioDAO.deletarUsuario(cpfPacienteDeletado);
+        deleteUsuarioDAO.deletarUsuario(cpfPacienteDeletado);
     }
 
 

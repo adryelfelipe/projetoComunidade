@@ -3,7 +3,10 @@ package Arquitetura.Service;
 import Arquitetura.Dao.ConsultaDAO;
 import Arquitetura.Dao.FuncionarioDAO;
 import Arquitetura.Dao.MedicoDAO;
-import Arquitetura.Dao.UsuarioDAO.UsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.CreateUsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.DeleteUsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.ReadUsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
 import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Exception.IdInvalidoException;
 import Arquitetura.Model.Consulta;
@@ -22,7 +25,9 @@ public class MedicoService {
 
     // -- Atributos -- //
     private final MedicoDAO medicoDAO = new MedicoDAO();
-    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final CreateUsuarioDAO createUsuarioDAO = new CreateUsuarioDAO();
+    private final ReadUsuarioDAO readUsuarioDAO = new ReadUsuarioDAO();
+    private final DeleteUsuarioDAO deleteUsuarioDAO = new DeleteUsuarioDAO();
     private final ConsultaDAO consultaDAO = new ConsultaDAO();
     private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
     private final UsuarioService usuarioService = new UsuarioService();
@@ -68,7 +73,7 @@ public class MedicoService {
         usuarioService.validaUsuarioInserido(medicoInserido);
 
         // Insere nessa ordem para respeitar as chaves estrangeiras
-        usuarioDAO.inserirUsuario(medicoInserido);
+        createUsuarioDAO.inserirUsuario(medicoInserido);
         funcionarioDAO.inserirFuncionario(medicoInserido);
         medicoDAO.inserirMedico(medicoInserido);
     }
@@ -98,7 +103,7 @@ public class MedicoService {
         // Deleta nessa ordem para respeitar as chaves estrangeiras
         medicoDAO.deletarMedico(cpfMedicoDeletado);
         funcionarioDAO.deletarFuncionario(cpfMedicoDeletado);
-        usuarioDAO.deletarUsuario(cpfMedicoDeletado);
+        deleteUsuarioDAO.deletarUsuario(cpfMedicoDeletado);
     }
 
     public ArrayList<Consulta> ConsultasMedico(Usuario usuario, String cpfmedico)
@@ -108,7 +113,7 @@ public class MedicoService {
         usuarioService.cpfExistenteValidator(cpfmedico);
         cpfMedicoValidator(cpfmedico);
 
-        return consultaDAO.findAllConsultasOfMedico(usuarioDAO.getIdOfCpf(cpfmedico));
+        return consultaDAO.findAllConsultasOfMedico(readUsuarioDAO.getIdOfCpf(cpfmedico));
     }
 
 
