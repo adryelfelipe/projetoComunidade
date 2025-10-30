@@ -30,12 +30,12 @@ public class MenuUpdatePaciente {
                 System.out.println("       -----------------             |CPF: " + paciente.getCpf());
                 System.out.println("                                     |EMAIL: " + paciente.getEmail());
                 System.out.println("Digite para alterar:                 |Telefone: " + paciente.getTelefone());
-                System.out.println("1-Email                              |Contato Emergência: " + paciente.getContatoEmergencia());
-                System.out.println("2-Telefone                           |Senha: " + paciente.getSenha());
-                System.out.println("3-Senha                              |Data nascimento: " + paciente.getDataNascimento());
-                System.out.println("4-Contato Emergência                 |Numero carteirinha: " + paciente.getNumeroCadastro());
-                System.out.println("5-Sair                               |Status: " + paciente.getStatusPaciente());
-                System.out.println("                                     ------------------------");
+                System.out.println("                                     |Contato Emergência: " + paciente.getContatoEmergencia());
+                System.out.println("[1] - Email                          |Senha: " + paciente.getSenha());
+                System.out.println("[2] - Telefone                       |Data nascimento: " + paciente.getDataNascimento());
+                System.out.println("[3] - Senha                          |Numero carteirinha: " + paciente.getNumeroCadastro());
+                System.out.println("[4] - Contato Emergência             |Status: " + paciente.getStatusPaciente());
+                System.out.println("[5] - Sair                           ------------------------");
                 try {
                     op = Ferramentas.lInteiro();
                     verifica = true;

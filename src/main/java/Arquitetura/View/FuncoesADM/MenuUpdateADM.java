@@ -227,8 +227,8 @@ public class MenuUpdateADM {
                 System.out.println(" [5] - Telefone                         |Data de Nascimento: " + administrador.getDataNascimento());
                 System.out.println(" [6] - Sexo                             |Departamento: " + administrador.getDepartamento().name());
                 System.out.println(" [7] - Data de Nascimento               ------------------------       ");
-                System.out.println(" [8] - Departamento                  ");
-                System.out.println(" [9] - Sair                    ");
+                System.out.println(" [8] - Departamento                     ");
+                System.out.println(" [9] - Sair                             ");
 
                 // -- Leitura da opção -- //
                 try {
