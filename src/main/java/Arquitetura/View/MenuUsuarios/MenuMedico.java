@@ -5,6 +5,7 @@ import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.FuncoesMedico.MenuMinhaAgenda;
 import Arquitetura.View.FuncoesMedico.MenuPrescricoesLaudos;
 import Arquitetura.View.FuncoesMedico.MenuProntuario;
+import Arquitetura.View.FuncoesMedico.MenuUpdateMedico;
 import Arquitetura.View.MenuDefault;
 import Arquitetura.View.MenuInicial;
 
@@ -26,10 +27,11 @@ public class MenuMedico
                 System.out.println("           ---------------                         Usuário: " + medico.getId());
                 System.out.println("           |     MENU    |" );
                 System.out.println("           ---------------\n\n");
-                System.out.println("\n\n1-Minha Agenda");
-                System.out.println("2-Prontuário Clínico");
-                System.out.println("3-Prescrições");
-                System.out.println("4-Sair");
+                System.out.println("1 - Minha Agenda");
+                System.out.println("2 - Prontuário Clínico");
+                System.out.println("3 - Editar conta");
+                System.out.println("4 - Prescrições");
+                System.out.println("5 - Sair");
                 try {
                     op = Ferramentas.lInteiro();
                     verifica = true;
@@ -44,9 +46,10 @@ public class MenuMedico
             switch (op) {
                 case 1 ->  MenuMinhaAgenda.MinhaAgenda(medico);
                 case 2 -> MenuProntuario.Prontuario(medico);
-                case 3 -> MenuPrescricoesLaudos.Prescricao(medico);
+                case 3 -> MenuUpdateMedico.EditarMedico(medico);
+                case 4 -> MenuPrescricoesLaudos.Prescricao(medico);
 
-                case 4 -> {
+                case 5 -> {
                     return;
                 }
 

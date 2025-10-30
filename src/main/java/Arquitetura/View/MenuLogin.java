@@ -83,7 +83,7 @@ public class MenuLogin {
 
                 Medico medico = (Medico) usuario;
 
-               // MenuMedico.Menu(medico);
+                MenuMedico.Menu(medico);
             }
             else
             {
