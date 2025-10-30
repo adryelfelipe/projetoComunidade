@@ -23,12 +23,9 @@ public class MenuLogin {
     static UsuarioValidator usuarioValidator = new UsuarioValidator();
 
     public static void Menu() {
-
-        boolean continuar = false;
-
         String cpf = "1";
-        String senha = "1";
-        Usuario usuario = null;
+        String senha;
+        Usuario usuario;
         boolean verifica = false;
 
 
@@ -40,8 +37,7 @@ public class MenuLogin {
 
             System.out.println("-------------------------");
 
-            do{
-
+            while(!verifica) {
                 System.out.print("- Digite seu CPF: " );
                 try{
                     cpf = Ferramentas.lString();
@@ -51,8 +47,7 @@ public class MenuLogin {
                 }catch(DadosInvalidosException e){
                     Ferramentas.mensagemErro(e.getMessage());
                 }
-
-            }while(!verifica);
+            }
 
             System.out.println("-------------------------");
 
