@@ -16,6 +16,7 @@ import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.MenuUsuarios.MenuAdministrador;
 import Arquitetura.View.MenuUsuarios.MenuMedico;
 import Arquitetura.View.MenuUsuarios.MenuPaciente;
+import Arquitetura.View.MenuUsuarios.MenuSetUsuario;
 
 public class MenuLogin {
 
@@ -26,8 +27,6 @@ public class MenuLogin {
         String cpf = "1";
         String senha;
         Usuario usuario;
-        boolean verifica = false;
-
 
             Ferramentas.limpaTerminal();
 
@@ -35,28 +34,8 @@ public class MenuLogin {
             System.out.println("                |    LOGIN    |");
             System.out.println("                ===============");
 
-            System.out.println("-------------------------");
-
-            while(!verifica) {
-                System.out.print("- Digite seu CPF: " );
-                try{
-                    cpf = Ferramentas.lString();
-                    UsuarioValidator.verificaIntegridadeCpf(cpf);
-                    usuarioValidator.verificarRegrasCpf(cpf);
-                    verifica = true;
-                }catch(DadosInvalidosException e){
-                    Ferramentas.mensagemErro(e.getMessage());
-                }
-            }
-
-            System.out.println("-------------------------");
-
-            System.out.println("\n-------------------------");
-            System.out.print("- Digite sua senha: ");
-
-            senha = Ferramentas.lString();
-
-            System.out.println("-------------------------");
+            cpf = MenuSetUsuario.SetCpf();
+            senha = MenuSetUsuario.SetSenha();
 
             try{
                 usuario = usuarioService.loginUsuario(cpf, senha);
