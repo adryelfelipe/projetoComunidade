@@ -1,83 +1,81 @@
 package Arquitetura.Model;
 
+import Arquitetura.Exception.DadosInvalidosException;
+import Arquitetura.Model.Enums.Especialidade;
+import Arquitetura.Model.Enums.Genero;
+import Arquitetura.Model.Enums.Plantao;
+import Arquitetura.Model.Enums.TipoUsuario;
+import Arquitetura.Service.Validator.MedicoValidator;
+
 import java.sql.Date;
 
 public class Medico extends Funcionario{
 
     // -- Atributos -- //
-    private String plantao;
-    private String especialidade;
+    private Plantao plantao;
+    private Especialidade especialidade;
     private String subEspecialidade;
     private String formacao;
-    private static final String tipoUsuario = "Medico";
 
     // -- Construtores -- //
 
-    // Não possui subEspecialidade nem id
-    public Medico(String nome, String cpf, String senha, String sexo, String telefone, String email,Date dataNascimento,int cargaHorariaSemanal,double salario,  String plantao, String especialidade, String formacao ) {
-        super(nome,cpf,senha,sexo,telefone,email,dataNascimento, salario, cargaHorariaSemanal);
+    // Possui subEspecialidade e possui ID
+    public Medico(long id, String nome, String cpf, String senha,Genero sexo,String telefone,  String email,  Date dataNascimento , int cargaHorariaSemanal,double salario, Plantao plantao, Especialidade especialidade, String formacao,String subEspecialidade) {
+        super(TipoUsuario.MEDICO, nome, cpf, senha, sexo, telefone, email, dataNascimento, salario, cargaHorariaSemanal);
         this.plantao = plantao;
         this.especialidade = especialidade;
-        this.formacao = formacao;
-        this.subEspecialidade = "N/A";
+        setFormacao(formacao);
+        setSubEspecialidade(subEspecialidade);
+        this.setId(id);
+    }
+
+    // Não possui subEspecialidade nem id
+    public Medico(String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento, int cargaHorariaSemanal, double salario, Plantao plantao, Especialidade especialidade, String formacao ) {
+        this(0, nome, cpf, senha ,sexo, telefone, email, dataNascimento, cargaHorariaSemanal, salario, plantao, especialidade, formacao, "N/A" );
     }
 
     // Não possui subEspecialidade e possui ID
-    public Medico(long id, String nome, String cpf, String senha,String sexo,String telefone,  String email,  Date dataNascimento , int cargaHorariaSemanal,double salario, String plantao, String especialidade, String formacao) {
-        this(nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal,   salario,plantao, especialidade, formacao );
-        this.subEspecialidade = "N/A";
-        this.setId(id);
-    }
-
-    // Possui subEspecialidade e possui ID
-    public Medico(long id, String nome, String cpf, String senha,String sexo,String telefone,  String email,  Date dataNascimento , int cargaHorariaSemanal,double salario, String plantao, String especialidade, String formacao,String subEspecialidade) {
-        this(nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal,   salario,plantao, especialidade, formacao );
-        this.subEspecialidade = subEspecialidade;
-        this.setId(id);
+    public Medico(long id, String nome, String cpf, String senha,Genero sexo,String telefone,  String email,  Date dataNascimento , int cargaHorariaSemanal,double salario, Plantao plantao, Especialidade especialidade, String formacao) {
+        this(id, nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal, salario,plantao, especialidade, formacao, "N/A" );
     }
 
     // Possui subEspecialidade e não possui ID
-    public Medico( String nome, String cpf, String senha,String sexo,String telefone,  String email,  Date dataNascimento , int cargaHorariaSemanal,double salario, String plantao, String especialidade, String formacao, String subEspecialidade) {
-        this(nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal,   salario,plantao, especialidade, formacao );
-        this.subEspecialidade = subEspecialidade;
+    public Medico( String nome, String cpf, String senha,Genero sexo,String telefone,  String email,  Date dataNascimento , int cargaHorariaSemanal,double salario, Plantao plantao, Especialidade especialidade, String formacao, String subEspecialidade) {
+        this(0, nome, cpf, senha,sexo,telefone,email, dataNascimento, cargaHorariaSemanal, salario,plantao, especialidade, formacao, subEspecialidade);
     }
 
 
     // -- Getters & Setters -- //
-    public void setEspecialidade(String especialidade) {
-        if(!especialidade.isEmpty()) {
-            this.especialidade = especialidade;
-        }
+    public void setEspecialidade(Especialidade especialidade) {
+        this.especialidade = especialidade;
     }
 
-    public String getEspecialidade() {
+    public Especialidade getEspecialidade() {
         return especialidade;
     }
 
     public void setFormacao(String formacao) {
-        if(!formacao.isEmpty()) {
-            this.formacao = formacao;
-        }
+        MedicoValidator.verificaIntegridadeFormacao(formacao);
+
+        this.formacao = formacao;
     }
 
     public String getFormacao() {
         return formacao;
     }
 
-    public void setPlantao(String plantao) {
-        if(!plantao.isEmpty()) {
-            this.plantao = plantao;
-        }
+    public void setPlantao(Plantao plantao) {
+        this.plantao = plantao;
     }
 
-    public String getPlantao() {
+    public Plantao getPlantao() {
         return plantao;
     }
 
     public void setSubEspecialidade(String subEspecialidade) {
-        if(!subEspecialidade.isEmpty()) {
-            this.subEspecialidade = subEspecialidade;
-        }
+        MedicoValidator.verificaIntegridadeSubespecialidade(subEspecialidade);
+
+        this.subEspecialidade = subEspecialidade;
     }
 
     public String getSubEspecialidade() {
@@ -85,7 +83,15 @@ public class Medico extends Funcionario{
     }
 
     @Override
-    public String getTipoUsuario() {
-        return Medico.tipoUsuario;
+    public void dadosPessoais() {
+        super.dadosPessoais();
+        System.out.println("PLANTÃO: " + plantao.name());
+        System.out.println("ESPECIALIDADE: " + especialidade);
+
+        if(!subEspecialidade.isEmpty() && !(subEspecialidade == null)) {
+            System.out.println("SUBESPECIALIDADE: " + subEspecialidade);
+        }
+
+        System.out.println("FORMAÇÃO: " + formacao);
     }
 }

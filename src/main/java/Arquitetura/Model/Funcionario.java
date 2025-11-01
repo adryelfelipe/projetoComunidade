@@ -1,5 +1,10 @@
 package Arquitetura.Model;
 
+import Arquitetura.Exception.DadosInvalidosException;
+import Arquitetura.Model.Enums.Genero;
+import Arquitetura.Model.Enums.TipoUsuario;
+import Arquitetura.Service.Validator.FuncionarioValidator;
+
 import java.sql.Date;
 
 public abstract class Funcionario extends Usuario{
@@ -9,17 +14,17 @@ public abstract class Funcionario extends Usuario{
     private int cargaHorariaSemanal;
 
     // -- Construtor -- //
-    public Funcionario(String nome, String cpf, String senha, String sexo, String telefone, String email, Date dataNascimento, double salario, int cargaHorariaSemanal) {
-        super(nome, cpf, senha, sexo, telefone, email, dataNascimento);
-        this.salario = salario;
-        this.cargaHorariaSemanal = cargaHorariaSemanal;
+    public Funcionario(TipoUsuario tipoUsuario, String nome, String cpf, String senha, Genero sexo, String telefone, String email, Date dataNascimento, double salario, int cargaHorariaSemanal) {
+        super(tipoUsuario, nome, cpf, senha, sexo, telefone, email, dataNascimento);
+        setSalario(salario);
+        setCargaHorariaSemanal(cargaHorariaSemanal);
     }
 
     // -- Setters e Getters -- //
     public void setCargaHorariaSemanal(int cargaHorariaSemanal) {
-        if(cargaHorariaSemanal > 0) {
-            this.cargaHorariaSemanal = cargaHorariaSemanal;
-        }
+        FuncionarioValidator.verificaIntegridadeCargaHoraria(cargaHorariaSemanal);
+
+        this.cargaHorariaSemanal = cargaHorariaSemanal;
     }
 
     public int getCargaHorariaSemanal() {
@@ -27,12 +32,19 @@ public abstract class Funcionario extends Usuario{
     }
 
     public void setSalario(double salario) {
-        if(salario > 0.0) {
-            this.salario = salario;
-        }
+        FuncionarioValidator.verificaIntegridadeSalario(salario);
+
+        this.salario = salario;
     }
 
     public double getSalario() {
         return salario;
+    }
+
+    @Override
+    public void dadosPessoais() {
+        super.dadosPessoais();
+        System.out.println("SALÁRIO: " + salario);
+        System.out.println("CARGA HORÁRIA: " + cargaHorariaSemanal);
     }
 }

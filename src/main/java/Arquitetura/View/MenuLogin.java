@@ -1,10 +1,17 @@
 package Arquitetura.View;
 
+import java.util.zip.DataFormatException;
+
+import Arquitetura.Exception.CpfInvalidoException;
+import Arquitetura.Exception.DadosInvalidosException;
+import Arquitetura.Exception.SenhaInvalidaException;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Medico;
+import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.AdministradorService;
 import Arquitetura.Service.UsuarioService;
+import Arquitetura.Service.Validator.UsuarioValidator;
 import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.MenuUsuarios.MenuAdministrador;
 import Arquitetura.View.MenuUsuarios.MenuMedico;
@@ -12,13 +19,14 @@ import Arquitetura.View.MenuUsuarios.MenuPaciente;
 
 public class MenuLogin {
 
-    private static UsuarioService usuarioService = new UsuarioService();
+    private static final UsuarioService usuarioService = new UsuarioService();
+    static UsuarioValidator usuarioValidator = new UsuarioValidator();
 
     public static void Menu() {
-
-        boolean continuar = true;
-
-        while (continuar) {
+        String cpf = "1";
+        String senha;
+        Usuario usuario;
+        boolean verifica = false;
 
 
             Ferramentas.limpaTerminal();
@@ -28,59 +36,57 @@ public class MenuLogin {
             System.out.println("                ===============");
 
             System.out.println("-------------------------");
-            System.out.print("- Digite seu CPF: " );
-            String cpf = Ferramentas.lString();
+
+            while(!verifica) {
+                System.out.print("- Digite seu CPF: " );
+                try{
+                    cpf = Ferramentas.lString();
+                    UsuarioValidator.verificaIntegridadeCpf(cpf);
+                    usuarioValidator.verificarRegrasCpf(cpf);
+                    verifica = true;
+                }catch(DadosInvalidosException e){
+                    Ferramentas.mensagemErro(e.getMessage());
+                }
+            }
+
             System.out.println("-------------------------");
 
-            boolean cpfexiste = usuarioService.isCpfExistente(cpf);
+            System.out.println("\n-------------------------");
+            System.out.print("- Digite sua senha: ");
 
-            if(!cpfexiste) {
+            senha = Ferramentas.lString();
 
-                System.out.println("\n\nCPF incorreto/invalido");
+            System.out.println("-------------------------");
 
-                Ferramentas.Delay(1500);
+            try{
+                usuario = usuarioService.loginUsuario(cpf, senha);
+            } catch(SenhaInvalidaException | CpfInvalidoException e) {
+                Ferramentas.mensagemErro("ERRO! SENHA OU CPF INVÁLIDOS");
+                return;
+            }
 
-                continuar = false;
+            if(usuario instanceof Administrador)
+            {
+
+                Administrador adm = (Administrador) usuario;
+
+                MenuAdministrador.Menu(adm);
 
             }
-            else {
+            else if(usuario instanceof Medico)
+            {
 
-                System.out.println("-------------------------");
-                System.out.print("- Digite sua senha: ");
-                String senha = Ferramentas.lString();
-                System.out.println("-------------------------");
+                Medico medico = (Medico) usuario;
 
-                Usuario usuario = usuarioService.loginUsuario(cpf, senha);
-
-                if (usuario == null) {
-
-                    System.out.println("Senha incorreta!");
-
-                    Ferramentas.Delay(1500);
-
-                    continuar = false;
-
-                }
-                else {
-
-                    if(usuario instanceof Administrador)
-                    {
-
-                        Administrador adm = (Administrador) usuario;
-
-                        MenuAdministrador.Menu(adm);
-
-                    }
-                    else if(usuario instanceof Medico)
-                    {
-                        MenuMedico.Menu();
-                    }
-                    else
-                    {
-                        MenuPaciente.Menu();
-                    }
-                }
+                MenuMedico.Menu(medico);
             }
-        }
+            else
+            {
+
+                Paciente paciente = (Paciente) usuario;
+
+                MenuPaciente.Menu(paciente);
+            }
+
     }
 }

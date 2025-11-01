@@ -1,46 +1,66 @@
 package Arquitetura.Service;
 
+import Arquitetura.Dao.AdministradorDAO.ReadAdministradorDAO;
+import Arquitetura.Dao.AdministradorDAO.UpdateAdministradorDAO;
 import Arquitetura.Dao.FuncionarioDAO;
+import Arquitetura.Dao.MedicoDAO;
+import Arquitetura.Exception.CpfInvalidoException;
+import Arquitetura.Exception.IdInvalidoException;
 import Arquitetura.Model.Administrador;
-import Arquitetura.Model.Funcionario;
+import Arquitetura.Model.Usuario;
+import Arquitetura.Service.Validator.FuncionarioValidator;
+import Arquitetura.Service.Validator.TipoUsuarioValidator;
+import Arquitetura.Service.Validator.UsuarioValidator;
 
 public class FuncionarioService {
 
     // -- Atributos -- //
-    private final UsuarioService usuarioService = new UsuarioService();
     private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-
-    // -- Construtor -- //
-    public FuncionarioService() {
-
-    }
+    private final MedicoDAO medicoDAO = new MedicoDAO();
+    private final ReadAdministradorDAO readAdministradorDAO = new ReadAdministradorDAO();
+    private final UsuarioService usuarioService = new UsuarioService();
+    private final FuncionarioValidator funcionarioValidator = new FuncionarioValidator();
+    private final UsuarioValidator usuarioValidator = new UsuarioValidator();
+    private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
 
     // -- Métodos -- //
-
-    // Verifica os dados gerais de funcionários
-    private boolean verificarDadosFunc(Funcionario funcionario) {
-
-        return (funcionario.getCargaHorariaSemanal() >= 40 && funcionario.getSalario() > 0);
+    public void cpfFuncionarioValidator (String cpf) {
+        if(!medicoDAO.isCpfMedico(cpf) && !readAdministradorDAO.isCpfAdministrador(cpf)) {
+            throw new CpfInvalidoException("ERRO ! CPF NÃO PERTENCE A UM FUNCIONÁRIO");
+        }
     }
 
-    // Insere os atributos gerais de Funcionario na tabela Funcionario do banco de dados
-    public boolean inserirFuncionario(Administrador administrador, Funcionario funcionario) {
-        if (verificarDadosFunc(funcionario)) { // Verifica os dados de Funcionario
-            if (usuarioService.inserirUsuario(administrador, funcionario)) { // Verifica os dados de Usuario
-                funcionarioDAO.inserirFuncionario(funcionario);
+    public void idFuncionarioValidator(long id) {
+        if(!medicoDAO.isIdMedico(id) && !readAdministradorDAO.isIdAdministrador(id)) {
+            throw new IdInvalidoException("ERRO! O ID INFORMADO NÃO É DE UM FUNCIONÁRIO");
+        }
+    }
 
-                return true;
-            }
+    public void updateSalario(Usuario usuario, long id, double salario) {
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        FuncionarioValidator.verificaIntegridadeSalario(salario);
+        funcionarioValidator.verificaRegrasSalario(salario);
+        usuarioService.idExistenteValidator(id);
+        idFuncionarioValidator(id);;
+
+        if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
+            ((Administrador) usuario).setSalario(salario);
         }
 
-        return false;
+        funcionarioDAO.updateSalario(id, salario);
     }
 
-    // Cojunto de regras de negócio gerais para deletar qualquer tipo de funcionario
-    boolean deletarFuncionario(long id) {
+    public void updateCargaHoraria(Usuario usuario, long id, int cargaHoraria) {
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        FuncionarioValidator.verificaIntegridadeCargaHoraria(cargaHoraria);
+        funcionarioValidator.verificaRegrasCargaHoraria(cargaHoraria);
+        usuarioService.idExistenteValidator(id);
+        idFuncionarioValidator(id);;
 
-        return usuarioService.deletarUsuario(id);
+        if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
+            ((Administrador) usuario).setCargaHorariaSemanal(cargaHoraria);
+        }
 
-        // Somente verificações gerais por enquanto
+        funcionarioDAO.updateCargaHorariaSemanal(id, cargaHoraria);
     }
 }

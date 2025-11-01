@@ -6,9 +6,11 @@ public class MenuDefault {
 
     // -- MÉTODOS ESTÁTICOS -- //
     public static void menuDefault() {
-        System.out.println("-------------------------\n");
-        System.out.println("Valor digitado incorreto!");
-        System.out.println("-------------------------\n");
+        Ferramentas.limpaTerminal();
+        System.err.println("-------------------------\n");
+        System.err.println("Valor digitado incorreto!");
+        System.err.println("-------------------------\n");
         Ferramentas.Delay(1500);
+        Ferramentas.limpaTerminal();
     }
 }

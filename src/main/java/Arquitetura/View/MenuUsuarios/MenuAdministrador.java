@@ -7,7 +7,9 @@ import Arquitetura.Service.PacienteService;
 import Arquitetura.Service.UsuarioService;
 import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.*;
-import Arquitetura.View.MenusAdm.*;
+import Arquitetura.View.FuncoesADM.*;
+
+import java.util.InputMismatchException;
 
 public class MenuAdministrador
 {
@@ -19,99 +21,53 @@ public class MenuAdministrador
 
     public static void Menu(Administrador adm)
     {
+        boolean verifica = false;
+        int op = 0;
 
-        boolean continuar = true;
-
-        while (continuar) {
-
-            Ferramentas.limpaTerminal();
-            System.out.println("           ---------------");
-            System.out.println("           |     MENU    |" );
-            System.out.println("           ---------------\n\n");
-            System.out.println("----------------------");
-            System.out.println("|  Digite:           |");
-            System.out.println("|--------------------|");
-            System.out.println("| 1-Listar Usuários  |");
-            System.out.println("| 2-Editar Usuários  |");
-            System.out.println("| 3-Excluir Usuários |");
-            System.out.println("| 4-Gerar Relatórios |");
-            System.out.println("| 5-Disponibilidade  |");
-            System.out.println("| 6-Cadastro adm     |");
-            System.out.println("| 7-Cadastro Medico  |");
-            System.out.println("| 8-Cadastro Paciente|");
-            System.out.println("| 9-Sair             |");
-            System.out.println("----------------------");
-
-            int op = Ferramentas.lInteiro();
-
-            switch (op) {
-                case 1: {
-
-                    MenuListar.ListarUsuarios(adm);
-
-                    break;
-                }
-                case 2: {
-
-                    MenuEditar.Editar(adm);
-
-                    break;
-                }
-                case 3: {
-
-                    MenuExcluir.ExcluirUsuario(adm);
-
-                    break;
-                }
-                case 4: {
-
-                    MenuRelatorio.GerarRelatorios(adm);
-
-                    break;
-                }
-                case 5:
-                {
-
-                    MenuDisponibilidade.Disponibilidade(adm);
-
-                    break;
-                }
-                case 6:
-                {
-
-                    MenuCadastro.CriarADM(adm);
-
-                    break;
-                }
-                case 7:
-                {
-
-                    MenuCadastro.CriarMedico(adm);
-
-                    break;
-                }
-                case 8:
-                {
-
-                    MenuCadastro.CriarPaciente(adm);
-
-                    break;
-                }
-                case 9: {
-
-                    continuar = false;
-
-                    break;
-                }
-                default: {
-
+        while (true) {
+            while(!verifica) {
+                Ferramentas.limpaTerminal();
+                System.out.println("           ---------------                         Usuário: " + adm.getId());
+                System.out.println("           |     MENU    |                                      " );
+                System.out.println("           ---------------                                      \n\n");
+                System.out.println("----------------------");
+                System.out.println("|  Digite:           |");
+                System.out.println("|--------------------|");
+                System.out.println("| 1-Listar Usuários  |");
+                System.out.println("| 2-Editar Usuários  |");
+                System.out.println("| 3-Excluir Usuários |");
+                System.out.println("| 4-Gerar Relatórios |");
+                System.out.println("| 5-Disponibilidade  |");
+                System.out.println("| 6-Cadastro ADM     |");
+                System.out.println("| 7-Cadastro Medico  |");
+                System.out.println("| 8-Cadastro Paciente|");
+                System.out.println("| 9-Sair             |");
+                System.out.println("----------------------");
+                try {
+                    op = Ferramentas.lInteiro();
+                    verifica = true;
+                } catch (InputMismatchException e){
                     MenuDefault.menuDefault();
-
-                    break;
                 }
             }
-        }
 
-        MenuInicial.Menu();
+            // Reinicia a variável
+            verifica = false;
+
+            switch (op) {
+                case 1 -> MenuListar.ListarUsuarios(adm);
+                case 2 -> MenuUpdateADM.menuUpdateInicial(adm);
+                case 3 -> MenuExcluir.ExcluirUsuario(adm);
+                case 4 -> MenuRelatorio.GerarRelatorios(adm);
+                case 5 -> MenuDisponibilidade.Disponibilidade(adm);
+                case 6 -> MenuCadastro.CriarADM(adm);
+                case 7 -> MenuCadastro.CriarMedico(adm);
+                case 8 -> MenuCadastro.CriarPaciente(adm);
+                case 9 -> {
+                    return;
+                }
+                default -> MenuDefault.menuDefault();
+            }
+        }
     }
 }

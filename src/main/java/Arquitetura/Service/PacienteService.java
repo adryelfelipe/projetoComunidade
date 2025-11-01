@@ -1,52 +1,133 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.PacienteDAO;
-import Arquitetura.Dao.UsuarioDAO;
-import Arquitetura.Model.Administrador;
+import Arquitetura.Dao.UsuarioDAO.CreateUsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.DeleteUsuarioDAO;
+import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
+import Arquitetura.Exception.CpfInvalidoException;
+import Arquitetura.Exception.IdInvalidoException;
+import Arquitetura.Model.Enums.StatusPaciente;
 import Arquitetura.Model.Paciente;
+import Arquitetura.Model.Usuario;
+import Arquitetura.Service.Validator.PacienteValidator;
+import Arquitetura.Service.Validator.TipoUsuarioValidator;
+import Arquitetura.Service.Validator.UsuarioValidator;
+import Arquitetura.Exception.TipoUsuarioException;
+import Arquitetura.Exception.DadosInvalidosException;
 
 public class PacienteService {
 
     // -- Atributos -- //
+    private final CreateUsuarioDAO createUsuarioDAO = new CreateUsuarioDAO();
+    private final DeleteUsuarioDAO deleteUsuarioDAO = new DeleteUsuarioDAO();
     private final PacienteDAO pacienteDAO = new PacienteDAO();
     private final UsuarioService usuarioService = new UsuarioService();
-    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
+    private final UsuarioValidator usuarioValidator = new UsuarioValidator();
+    private final PacienteValidator pacienteValidator = new PacienteValidator();
 
-    // -- Construtor -- //
-    public PacienteService() {
-
-    }
 
     // -- Métodos -- //
-
-    // Verifica a veracidade dos atributos específicos de Paciente
-    private boolean verificarDadosPac(Paciente paciente) {
-        return (paciente.getStatusPaciente() != null && paciente.getContatoEmergencia() != null && paciente.getNumeroCarterinha() != null);
+    public void cpfPacienteValidator (String cpf)
+    {
+        if(!pacienteDAO.isCpfPaciente(cpf)) {
+            throw new CpfInvalidoException("ERRO ! CPF NÃO PERTENCE A UM PACIENTE");
+        }
     }
 
-    // Insere o objeto do tipo Paciente no banco de dados
-    public boolean inserirPaciente(Administrador administrador, Paciente paciente) { // Verifica as regras para inserir um Paciente
-        if(verificarDadosPac(paciente)) {
-            if(usuarioService.inserirUsuario(administrador, paciente)) {
-                pacienteDAO.inserirPaciente(paciente);
-                
-                return true;
-            }
+    public void idPacienteValidator(long id) {
+        if(!pacienteDAO.isIdPaciente(id)) {
+            throw new IdInvalidoException("ERRO! O ID INFORMADO NÃO É DE UM PACIENTE");
         }
-
-        return false;
     }
 
-    // Deleta paciente do banco de dados
-    public boolean deletarPaciente(Administrador administrador, Paciente paciente) {
+    public void validaUpdatePaciente(Usuario usuarioInsersor, long id) {
+        usuarioService.validaUpdateUsuario(usuarioInsersor, id);
+        idPacienteValidator(id);
+    }
 
-        if(usuarioService.deletarUsuario(paciente.getId())) {
-            pacienteDAO.deletarPaciente(paciente.getId());
-            usuarioDAO.deletarUsuario(paciente.getId());
+    /**<p>Este método realiza as seguintes ações: </p>
+     * <ol>
+     *     <li>Verifica se o usuario possui acesso total</li>
+     *     <li>Verifica os dados do paciente a ser inserido</li>
+     *     <li>Insere o médico nas tabelas Usuario e Paciente respectivamente</li>
+     * </ol>
+     *
+     * @param usuario Quem está inserindo
+     * @param pacienteInserido Quem será inserido
+     * @throws TipoUsuarioException Se o usuário não possuir acesso total (necessário para inserir)
+     * @throws DadosInvalidosException Se os dados do paciente não seguirem as regras de negócio
+     */
+    public void inserirPaciente(Usuario usuario, Paciente pacienteInserido) {
+        // Verificações de dados
+        pacienteValidator.verificaRegrasInsercaoPaciente(usuario, pacienteInserido);
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        usuarioService.validaUsuarioInserido(pacienteInserido);
 
-            return true;
+        // Insere nessa ordem para respeitar as chaves estrangeiras
+        createUsuarioDAO.inserirUsuario(pacienteInserido);
+        pacienteDAO.inserirPaciente(pacienteInserido);
+    }
+
+    /**
+     * <p>Este método realiza as seguintes ações: </p>
+     *
+     * <ol>
+     *     <li>Verifica se o usuario possui acesso total </li>
+     *     <li>Verifica se o cpf recebido existe </li>
+     *     <li>Verifica se o cpf recebido é de um Paciente</li>
+     *     <li>Deleta o paciente das tabelas Paciente e Usuario respectivamente </li>
+     * </ol>
+     * @param usuario Quem está deletando
+     * @param cpfPacienteDeletado cpf de quem será deletado
+     * @throws TipoUsuarioException Se o usuario não possuir acesso total (necessário para deletar)
+     * @throws CpfInvalidoException Se o cpf do Paciente não existir no banco de dados ou se não for um Paciente
+     */
+
+    public void deletarPaciente(Usuario usuario, String cpfPacienteDeletado) {
+       // Verificações de dados
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        usuarioService.cpfExistenteValidator(cpfPacienteDeletado);
+        cpfPacienteValidator(cpfPacienteDeletado);
+
+        // Deleta nessa ordem para respeitar as chaves estrangeiras
+        pacienteDAO.deletarPaciente(cpfPacienteDeletado);
+        deleteUsuarioDAO.deletarUsuario(cpfPacienteDeletado);
+    }
+
+
+    public void updateContatoEmergencia(Usuario usuario, long id, String contatoEmergencia) {
+        // Verificações de dados
+        validaUpdatePaciente(usuario, id);
+        tipoUsuarioValidator.temAcessoBaixo(usuario);
+        PacienteValidator.verificaIntegridadeContatoEmerg(contatoEmergencia);
+        pacienteValidator.verificaRegrasContatoEmergencia(contatoEmergencia);
+
+        // Updates
+        pacienteDAO.updateContatoEmergencia(id, contatoEmergencia);
+        if(usuarioValidator.isAutoUpdate(usuario.getId(), id)) {
+            ((Paciente) usuario).setContatoEmergencia(contatoEmergencia);
         }
+    }
 
-        return false;
+    public void updateStatusPaciente(Usuario usuario, long id, StatusPaciente statusPaciente) {
+        // Verificações de dados
+        validaUpdatePaciente(usuario, id);
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        pacienteValidator.verificaRegrasStatusPaciente(statusPaciente);
+
+        // Updates
+        pacienteDAO.updateStatusPaciente(id, statusPaciente);
+    }
+
+    public void updateNumeroCadastro (Usuario usuario, long id, String numeroCadastro) {
+        // Verificações de dados
+        validaUpdatePaciente(usuario, id);
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        PacienteValidator.verificaIntegridadeNumeroCadastro(numeroCadastro);
+        pacienteValidator.verificaRegrasNumeroCarterinha(numeroCadastro);
+
+        // Updates
+        pacienteDAO.updateNumeroCadastro(id, numeroCadastro);
     }
 }
