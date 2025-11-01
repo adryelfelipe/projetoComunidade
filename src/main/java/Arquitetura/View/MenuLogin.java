@@ -27,6 +27,7 @@ public class MenuLogin {
         String cpf = "1";
         String senha;
         Usuario usuario;
+        boolean verifica = false;
 
             Ferramentas.limpaTerminal();
 
@@ -34,7 +35,21 @@ public class MenuLogin {
             System.out.println("                |    LOGIN    |");
             System.out.println("                ===============");
 
-            cpf = MenuSetUsuario.SetCpf();
+
+            while(!verifica) {
+              System.out.print("Digite o CPF: ");
+              cpf = Ferramentas.lString();
+
+              try{
+                  UsuarioValidator.verificaIntegridadeCpf(cpf);
+                  usuarioValidator.verificarRegrasCpf(cpf);
+                  verifica = true;
+              } catch(DadosInvalidosException | CpfInvalidoException e) {
+                 Ferramentas.mensagemErro(e.getMessage());
+              }
+            }
+
+            verifica = false;
             senha = MenuSetUsuario.SetSenha();
 
             try{
@@ -44,28 +59,17 @@ public class MenuLogin {
                 return;
             }
 
-            if(usuario instanceof Administrador)
-            {
-
+            if(usuario instanceof Administrador) {
                 Administrador adm = (Administrador) usuario;
-
                 MenuAdministrador.Menu(adm);
-
             }
-            else if(usuario instanceof Medico)
-            {
-
+            else if(usuario instanceof Medico) {
                 Medico medico = (Medico) usuario;
-
                 MenuMedico.Menu(medico);
             }
-            else
-            {
-
-                Paciente paciente = (Paciente) usuario;
-
-                MenuPaciente.Menu(paciente);
+            else {
+            Paciente paciente = (Paciente) usuario;
+            MenuPaciente.Menu(paciente);
             }
-
     }
 }
