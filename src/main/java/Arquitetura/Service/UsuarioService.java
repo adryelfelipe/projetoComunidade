@@ -30,6 +30,12 @@ public class UsuarioService {
     }
 
     // -- Métodos -- //
+    public void usuarioExistenteValidator() {
+        if(readUsuarioDAO.findAllUsuarios() == null) {
+            throw new UsuarioInvalidoException("ERRO! NÃO HÁ NENHUM USUÁRIO CADASTRADO NO SISTEMA");
+        }
+    }
+
     public void validaUpdateUsuario(Usuario usuarioInsersor, long idUsuario) {
         usuarioValidator.verificaRegrasUsuarioInsersor(usuarioInsersor);
         idExistenteValidator(idUsuario);
@@ -95,11 +101,10 @@ public class UsuarioService {
 
     // Retorna uma ArrayList contendo todos os usuários do banco de dados
     public ArrayList<Usuario> findAllUsers(Usuario usuario) {
-        if(usuario.getTipoUsuario().getNivelAcesso().temAcessoTotal()) {
-            return readUsuarioDAO.findAllUsuarios();
-        }
-
-        return null;
+        usuarioValidator.verificarRegrasObjeto(usuario);
+        tipoUsuarioValidator.temAcessoTotal(usuario);
+        usuarioExistenteValidator();
+        return readUsuarioDAO.findAllUsuarios();
     }
 
     public Usuario loginUsuario(String cpf, String senha) {

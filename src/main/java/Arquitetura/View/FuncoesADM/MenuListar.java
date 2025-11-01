@@ -1,5 +1,6 @@
 package Arquitetura.View.FuncoesADM;
 
+import Arquitetura.Exception.UsuarioInvalidoException;
 import Arquitetura.Model.Administrador;
 import Arquitetura.Model.Medico;
 import Arquitetura.Model.Paciente;
@@ -7,31 +8,41 @@ import Arquitetura.Model.Usuario;
 import Arquitetura.Service.UsuarioService;
 import Arquitetura.Utilidades.Ferramentas;
 
+import java.util.ArrayList;
+
 public class MenuListar
 {
 
-    private static UsuarioService usuarioService = new UsuarioService();
+    private static final UsuarioService usuarioService = new UsuarioService();
 
-    public static void ListarUsuarios(Administrador adm)
-    {
+    public static void ListarUsuarios(Administrador adm) {
+        // Inicialização de variáveis
+        ArrayList<Usuario> listaUsuarios = new ArrayList<>();
 
+        // Tenta atribuir a lista de usuários em uma ArrayList
+        try{
+            listaUsuarios = usuarioService.findAllUsers(adm);
+        } catch (UsuarioInvalidoException e) {
+            Ferramentas.mensagemErro(e.getMessage());
+        }
+
+        // Menu de Usuários
         Ferramentas.limpaTerminal();
 
-        Ferramentas.limpaTerminal();
         System.out.println("          --------------");
         System.out.println("          |  USUÁRIOS  |");
         System.out.println("          --------------");
 
-        MenuListar.ListarPaciente(adm);
+        for(Usuario usuario : listaUsuarios) {
+            System.out.printf("ID: %d%nNome: %s%n", usuario.getId(), usuario.getNome());
+            System.out.println(); // pula linha
+        }
 
-        MenuListar.ListarMedico(adm);
-
-        System.out.println("\n\n\n---------------------");
-        System.out.println("Digite para continuar");
-        System.out.println("---------------------");
+        System.out.println("----------------------------");
+        System.out.println("Aperte enter para continuar");
+        System.out.println("----------------------------");
 
         String tempo = Ferramentas.lString();
-
     }
 
     public static void ListarPaciente(Administrador adm)
