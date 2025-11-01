@@ -226,4 +226,24 @@ public class PacienteDAO {
             System.err.println("Erro ao atualizar o status do paciente com o ID: "+id + e);
         }
     }
+
+    public boolean verificarNumeroCadastro(String numeroCadastro) {
+        String querySql = "SELECT 1 FROM Paciente WHERE numeroCadastro = ? LIMIT 1";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(querySql))
+        {
+            stmt.setString(1, numeroCadastro);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+
+                //Retorna a resposta caso o numero do cadastro exista ou não
+                return rs.next();
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar o número do Cadastro do Paciente . ");
+            return false;
+        }
+    }
 }
