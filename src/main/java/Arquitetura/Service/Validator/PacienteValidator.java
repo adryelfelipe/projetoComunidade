@@ -13,7 +13,7 @@ public class PacienteValidator {
     // -- Métodos verificadores de regras de negócio -- //
     public void verificaRegrasInsercaoPaciente(Usuario usuarioInsersor, Paciente paciente) {
         usuarioValidator.verificaRegrasInsercaoUsuario(usuarioInsersor, paciente);
-        verificaRegrasNumeroCarterinha(paciente.getNumeroCadastro());
+        verificaRegrasNumeroCadastro(paciente.getNumeroCadastro());
         verificaRegrasContatoEmergencia(paciente.getContatoEmergencia());
         verificaRegrasStatusPaciente(paciente.getStatusPaciente());
     }
@@ -24,9 +24,13 @@ public class PacienteValidator {
         }
     }
 
-    public void verificaRegrasNumeroCarterinha(String numeroCarterinha) {
-        if(numeroCarterinha == null) {
-            throw new DadosInvalidosException("ERRO! O NÚMERO DA CARTERINHA NÃO PODE SER NULA");
+    public void verificaRegrasNumeroCadastro(String numeroCadastro) {
+        if(numeroCadastro == null) {
+            throw new DadosInvalidosException("ERRO! O NÚMERO DO CADASTRO NÃO PODE SER NULO");
+        }
+
+        if(numeroCadastro.length() != 5) {
+            throw new DadosInvalidosException("ERRO! O NÚMERO DO CADASTRO DEVE CONTER 5 DÍGITOS");
         }
     }
 

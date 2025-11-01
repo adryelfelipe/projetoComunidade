@@ -128,7 +128,7 @@ public class PacienteService {
         validaUpdatePaciente(usuario, id);
         tipoUsuarioValidator.temAcessoTotal(usuario);
         PacienteValidator.verificaIntegridadeNumeroCadastro(numeroCadastro);
-        pacienteValidator.verificaRegrasNumeroCarterinha(numeroCadastro);
+        pacienteValidator.verificaRegrasNumeroCadastro(numeroCadastro);
         cadastroPacienteValidator(numeroCadastro);
 
         // Updates

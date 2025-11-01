@@ -1,5 +1,6 @@
 package Arquitetura.View.FuncoesPACIENTE;
 import Arquitetura.Exception.DadosInvalidosException;
+import Arquitetura.Exception.NumCadastroInvalidoException;
 import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.StatusPaciente;
 import Arquitetura.Service.PacienteService;
@@ -37,10 +38,10 @@ public class MenuSetPaciente {
             try{
                 numeroCar = Ferramentas.lString();
                 PacienteValidator.verificaIntegridadeNumeroCadastro(numeroCar);
-                pacienteValidator.verificaRegrasNumeroCarterinha(numeroCar);
+                pacienteValidator.verificaRegrasNumeroCadastro(numeroCar);
                 pacienteService.cadastroPacienteValidator(numeroCar);
                 return numeroCar;
-            }catch(DadosInvalidosException e){
+            }catch(DadosInvalidosException | NumCadastroInvalidoException e){
                 Ferramentas.mensagemErro(e.getMessage());
             }
         }
