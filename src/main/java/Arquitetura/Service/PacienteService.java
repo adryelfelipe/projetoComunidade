@@ -4,16 +4,13 @@ import Arquitetura.Dao.PacienteDAO;
 import Arquitetura.Dao.UsuarioDAO.CreateUsuarioDAO;
 import Arquitetura.Dao.UsuarioDAO.DeleteUsuarioDAO;
 import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
-import Arquitetura.Exception.CpfInvalidoException;
-import Arquitetura.Exception.IdInvalidoException;
+import Arquitetura.Exception.*;
 import Arquitetura.Model.Enums.StatusPaciente;
 import Arquitetura.Model.Paciente;
 import Arquitetura.Model.Usuario;
 import Arquitetura.Service.Validator.PacienteValidator;
 import Arquitetura.Service.Validator.TipoUsuarioValidator;
 import Arquitetura.Service.Validator.UsuarioValidator;
-import Arquitetura.Exception.TipoUsuarioException;
-import Arquitetura.Exception.DadosInvalidosException;
 
 public class PacienteService {
 
@@ -38,6 +35,12 @@ public class PacienteService {
     public void idPacienteValidator(long id) {
         if(!pacienteDAO.isIdPaciente(id)) {
             throw new IdInvalidoException("ERRO! O ID INFORMADO NÃO É DE UM PACIENTE");
+        }
+    }
+
+    public void cadastroPacienteValidator(String numCadastro) {
+        if(pacienteDAO.isNumeroCadastroExistente(numCadastro)) {
+            throw new NumCadastroInvalidoException("ERRO! O NÚMERO DO CADASTRO JÁ FOI UTILIZADO");
         }
     }
 
@@ -126,6 +129,7 @@ public class PacienteService {
         tipoUsuarioValidator.temAcessoTotal(usuario);
         PacienteValidator.verificaIntegridadeNumeroCadastro(numeroCadastro);
         pacienteValidator.verificaRegrasNumeroCarterinha(numeroCadastro);
+        cadastroPacienteValidator(numeroCadastro);
 
         // Updates
         pacienteDAO.updateNumeroCadastro(id, numeroCadastro);

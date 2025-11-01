@@ -211,7 +211,7 @@ public class MenuCadastro
             pacienteService.inserirPaciente(adm, paciente);
             System.out.println("Paciente criado");
             Ferramentas.Delay(1500);
-        } catch (DadosInvalidosException | TipoUsuarioException | CpfInvalidoException | EmailInvalidoException e) {
+        } catch (DadosInvalidosException | NumCadastroInvalidoException | TipoUsuarioException | CpfInvalidoException | EmailInvalidoException e) {
             System.err.println("FALHA NO CADASTRO!");
             Ferramentas.Delay(1000);
             Ferramentas.mensagemErro(e.getMessage());

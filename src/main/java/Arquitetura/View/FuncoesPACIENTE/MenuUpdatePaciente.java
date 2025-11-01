@@ -88,7 +88,7 @@ public class MenuUpdatePaciente {
                     }
                 }
             }catch(TipoUsuarioException | DadosInvalidosException | IdInvalidoException
-                   | EmailInvalidoException | TelefoneInvalidoException e) {
+                   | EmailInvalidoException | TelefoneInvalidoException | NumCadastroInvalidoException e) {
                 Ferramentas.mensagemErro(e.getMessage());
             }
         }

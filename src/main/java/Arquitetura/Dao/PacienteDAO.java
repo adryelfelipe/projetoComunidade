@@ -227,7 +227,7 @@ public class PacienteDAO {
         }
     }
 
-    public boolean verificarNumeroCadastro(String numeroCadastro) {
+    public boolean isNumeroCadastroExistente(String numeroCadastro) {
         String querySql = "SELECT 1 FROM Paciente WHERE numeroCadastro = ? LIMIT 1";
 
         try (Connection conn = ConnectionFactory.getConnection();

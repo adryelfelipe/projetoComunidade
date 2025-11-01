@@ -2,6 +2,7 @@ package Arquitetura.View.FuncoesPACIENTE;
 import Arquitetura.Exception.DadosInvalidosException;
 import Arquitetura.Model.Enums.Genero;
 import Arquitetura.Model.Enums.StatusPaciente;
+import Arquitetura.Service.PacienteService;
 import Arquitetura.Service.Validator.PacienteValidator;
 import Arquitetura.Utilidades.Ferramentas;
 import Arquitetura.View.MenuDefault;
@@ -11,6 +12,7 @@ import java.util.InputMismatchException;
 public class MenuSetPaciente {
 
     private static final PacienteValidator pacienteValidator = new PacienteValidator();
+    private static final PacienteService pacienteService = new PacienteService();
     public static String SetContatoEmergencia() {
 
         String contatoEmer;
@@ -36,6 +38,7 @@ public class MenuSetPaciente {
                 numeroCar = Ferramentas.lString();
                 PacienteValidator.verificaIntegridadeNumeroCadastro(numeroCar);
                 pacienteValidator.verificaRegrasNumeroCarterinha(numeroCar);
+                pacienteService.cadastroPacienteValidator(numeroCar);
                 return numeroCar;
             }catch(DadosInvalidosException e){
                 Ferramentas.mensagemErro(e.getMessage());
