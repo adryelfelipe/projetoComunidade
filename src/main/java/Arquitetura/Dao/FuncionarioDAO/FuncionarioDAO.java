@@ -13,23 +13,7 @@ public class FuncionarioDAO {
 
 
 
-    // Remoção
-    public void deletarFuncionario(String cpf) {
-        String querySql = "DELETE f " +
-                "FROM Funcionario f " +
-                "JOIN Usuario u ON u.idUsuario = f.idFuncionario " +
-                "WHERE u.cpf = ?";
 
-        try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(querySql))
-        {
-            stmt.setString(1, cpf);
-            stmt.executeUpdate();
-
-        } catch (SQLException e) {
-            System.err.println("Erro ao deletar Funcionário com o CPF: " + cpf);
-        }
-    }
 
     public void updateSalario(long id, double salario)
     {
