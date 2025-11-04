@@ -1,7 +1,6 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.AdministradorDAO.ReadAdministradorDAO;
-import Arquitetura.Dao.FuncionarioDAO.FuncionarioDAO;
 import Arquitetura.Dao.MedicoDAO;
 import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Exception.IdInvalidoException;

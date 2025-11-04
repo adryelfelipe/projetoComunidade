@@ -4,7 +4,6 @@ import Arquitetura.Dao.AdministradorDAO.CreateAdministradorDAO;
 import Arquitetura.Dao.AdministradorDAO.DeleteAdministradorDAO;
 import Arquitetura.Dao.AdministradorDAO.ReadAdministradorDAO;
 import Arquitetura.Dao.AdministradorDAO.UpdateAdministradorDAO;
-import Arquitetura.Dao.FuncionarioDAO.FuncionarioDAO;
 import Arquitetura.Dao.UsuarioDAO.CreateUsuarioDAO;
 import Arquitetura.Dao.UsuarioDAO.DeleteUsuarioDAO;
 import Arquitetura.Exception.*;

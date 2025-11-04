@@ -1,7 +1,6 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.ConsultaDAO;
-import Arquitetura.Dao.FuncionarioDAO.FuncionarioDAO;
 import Arquitetura.Dao.MedicoDAO;
 import Arquitetura.Dao.UsuarioDAO.CreateUsuarioDAO;
 import Arquitetura.Dao.UsuarioDAO.DeleteUsuarioDAO;
