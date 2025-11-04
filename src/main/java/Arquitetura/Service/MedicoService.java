@@ -1,12 +1,11 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.ConsultaDAO;
-import Arquitetura.Dao.FuncionarioDAO;
+import Arquitetura.Dao.FuncionarioDAO.FuncionarioDAO;
 import Arquitetura.Dao.MedicoDAO;
 import Arquitetura.Dao.UsuarioDAO.CreateUsuarioDAO;
 import Arquitetura.Dao.UsuarioDAO.DeleteUsuarioDAO;
 import Arquitetura.Dao.UsuarioDAO.ReadUsuarioDAO;
-import Arquitetura.Dao.UsuarioDAO.UpdateUsuarioDAO;
 import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Exception.IdInvalidoException;
 import Arquitetura.Model.Consulta;
