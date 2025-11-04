@@ -1,6 +1,7 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.AdministradorDAO.ReadAdministradorDAO;
+import Arquitetura.Dao.FuncionarioDAO.UpdateFuncionarioDAO;
 import Arquitetura.Dao.MedicoDAO;
 import Arquitetura.Exception.CpfInvalidoException;
 import Arquitetura.Exception.IdInvalidoException;
@@ -13,7 +14,7 @@ import Arquitetura.Service.Validator.UsuarioValidator;
 public class FuncionarioService {
 
     // -- Atributos -- //
-    private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+    private final UpdateFuncionarioDAO updateFuncionarioDAO = new UpdateFuncionarioDAO();
     private final MedicoDAO medicoDAO = new MedicoDAO();
     private final ReadAdministradorDAO readAdministradorDAO = new ReadAdministradorDAO();
     private final UsuarioService usuarioService = new UsuarioService();
@@ -45,7 +46,7 @@ public class FuncionarioService {
             ((Administrador) usuario).setSalario(salario);
         }
 
-        funcionarioDAO.updateSalario(id, salario);
+        updateFuncionarioDAO.updateSalario(id, salario);
     }
 
     public void updateCargaHoraria(Usuario usuario, long id, int cargaHoraria) {
@@ -59,6 +60,6 @@ public class FuncionarioService {
             ((Administrador) usuario).setCargaHorariaSemanal(cargaHoraria);
         }
 
-        funcionarioDAO.updateCargaHorariaSemanal(id, cargaHoraria);
+        updateFuncionarioDAO.updateCargaHorariaSemanal(id, cargaHoraria);
     }
 }
