@@ -4,6 +4,8 @@ import Arquitetura.Dao.AdministradorDAO.CreateAdministradorDAO;
 import Arquitetura.Dao.AdministradorDAO.DeleteAdministradorDAO;
 import Arquitetura.Dao.AdministradorDAO.ReadAdministradorDAO;
 import Arquitetura.Dao.AdministradorDAO.UpdateAdministradorDAO;
+import Arquitetura.Dao.FuncionarioDAO.CreateFuncionarioDAO;
+import Arquitetura.Dao.FuncionarioDAO.DeleteFuncionarioDAO;
 import Arquitetura.Dao.UsuarioDAO.CreateUsuarioDAO;
 import Arquitetura.Dao.UsuarioDAO.DeleteUsuarioDAO;
 import Arquitetura.Exception.*;
@@ -19,7 +21,8 @@ public class AdministradorService {
     // -- Atributos -- //
     private final CreateUsuarioDAO createUsuarioDAO = new CreateUsuarioDAO();
     private final DeleteUsuarioDAO deleteUsuarioDAO = new DeleteUsuarioDAO();
-    private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+    private final CreateFuncionarioDAO createFuncionarioDAO = new CreateFuncionarioDAO();
+    private final DeleteFuncionarioDAO deleteFuncionarioDAO = new DeleteFuncionarioDAO();
     private final DeleteAdministradorDAO deleteAdministradorDAO = new DeleteAdministradorDAO();
     private final UpdateAdministradorDAO updateAdministradorDAO = new UpdateAdministradorDAO();
     private final CreateAdministradorDAO createAdministradorDAO = new CreateAdministradorDAO();
@@ -76,7 +79,7 @@ public class AdministradorService {
 
         // Insere nessa ordem para respeitar as chaves estrangeiras
         createUsuarioDAO.inserirUsuario(administradorCriado);
-        funcionarioDAO.inserirFuncionario(administradorCriado);
+        createFuncionarioDAO.inserirFuncionario(administradorCriado);
         createAdministradorDAO.inserirAdmin(administradorCriado);
     }
 
@@ -110,7 +113,7 @@ public class AdministradorService {
 
         // Deleta nessa ordem para respeitar as chaves estrangeiras
         deleteAdministradorDAO.deletarAdministrador(cpfAdministradorDeletado);
-        funcionarioDAO.deletarFuncionario(cpfAdministradorDeletado);
+        deleteFuncionarioDAO.deletarFuncionario(cpfAdministradorDeletado);
         deleteUsuarioDAO.deletarUsuario(cpfAdministradorDeletado);
     }
 
