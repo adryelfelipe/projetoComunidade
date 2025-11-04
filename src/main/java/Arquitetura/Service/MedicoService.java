@@ -1,6 +1,8 @@
 package Arquitetura.Service;
 
 import Arquitetura.Dao.ConsultaDAO;
+import Arquitetura.Dao.FuncionarioDAO.CreateFuncionarioDAO;
+import Arquitetura.Dao.FuncionarioDAO.DeleteFuncionarioDAO;
 import Arquitetura.Dao.MedicoDAO;
 import Arquitetura.Dao.UsuarioDAO.CreateUsuarioDAO;
 import Arquitetura.Dao.UsuarioDAO.DeleteUsuarioDAO;
@@ -27,7 +29,8 @@ public class MedicoService {
     private final ReadUsuarioDAO readUsuarioDAO = new ReadUsuarioDAO();
     private final DeleteUsuarioDAO deleteUsuarioDAO = new DeleteUsuarioDAO();
     private final ConsultaDAO consultaDAO = new ConsultaDAO();
-    private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+    private final CreateFuncionarioDAO createFuncionarioDAO = new CreateFuncionarioDAO();
+    private final DeleteFuncionarioDAO deleteFuncionarioDAO = new DeleteFuncionarioDAO();
     private final UsuarioService usuarioService = new UsuarioService();
     private final TipoUsuarioValidator tipoUsuarioValidator = new TipoUsuarioValidator();
     private final MedicoValidator medicoValidator = new MedicoValidator();
@@ -73,7 +76,7 @@ public class MedicoService {
 
         // Insere nessa ordem para respeitar as chaves estrangeiras
         createUsuarioDAO.inserirUsuario(medicoInserido);
-        funcionarioDAO.inserirFuncionario(medicoInserido);
+        createFuncionarioDAO.inserirFuncionario(medicoInserido);
         medicoDAO.inserirMedico(medicoInserido);
     }
 
@@ -101,7 +104,7 @@ public class MedicoService {
 
         // Deleta nessa ordem para respeitar as chaves estrangeiras
         medicoDAO.deletarMedico(cpfMedicoDeletado);
-        funcionarioDAO.deletarFuncionario(cpfMedicoDeletado);
+        deleteFuncionarioDAO.deletarFuncionario(cpfMedicoDeletado);
         deleteUsuarioDAO.deletarUsuario(cpfMedicoDeletado);
     }
 
